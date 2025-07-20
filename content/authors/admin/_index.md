@@ -52,8 +52,8 @@ interests:
 education:
   - area: MEng, Information Production and Systems
     institution: Waseda University
-    date_start: 2023-09
-    date_end: 2025-09
+    date_start: 2023-09-15
+    date_end: 2025-09-20
     summary: |
       GPA: 3.8/4.0
 
@@ -63,8 +63,8 @@ education:
       - lorem ipsum dolor sit amet, consectetur adipiscing elit
   - area: BEng Computer Science and Technology
     institution: University of Electronic Science and Technology of China
-    date_start: 2020-09
-    date_end: 2024-06
+    date_start: 2020-09-01
+    date_end: 2024-06-23
     summary: |
       GPA: 3.4/4.0
       
