@@ -24,7 +24,7 @@ role: M.Eng. Student at Waseda University | Ph.D. Applicant 2026
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
-  - name: Waseda University (Graduate School of IPS)
+  - name: Waseda University
     url: https://www.waseda.jp/inst/ips/en/
   - name: University of Electronic Science and Technology of China
     url: https://en.uestc.edu.cn/
@@ -40,7 +40,7 @@ profiles:
   - icon: brands/linkedin
     url: https://www.linkedin.com/in/veckun/
   - icon: brands/weixin
-    url: vectorkun
+    url: https://www.wechat.com/vectorkun
   - icon: academicons/google-scholar
     url: https://scholar.google.com/citations?user=z0AZmR4AAAAJ&hl=en
 
