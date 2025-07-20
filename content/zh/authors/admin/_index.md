@@ -165,4 +165,4 @@ awards:
 
 ## About Me
 
-Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Likun Wang is a Master's student at the Graduate School of Information, Production and Systems, Waseda University. His research focuses on biomechanical topology optimization and deep learning, particularly the prediction of loading forces applied to fish vertebrae structures. He combines finite element analysis, voxel-based modeling, and neural networks to explore lightweight and high-strength bio-inspired designs. He is currently applying for fully funded Ph.D. programs starting Fall 2026, aiming to continue interdisciplinary research at the intersection of structural mechanics and artificial intelligence.
