@@ -80,7 +80,7 @@ work:
     company_logo: ''
     date_start: 2024-08-15
     date_end: 2024-09-15
-    summary: |
+    summary: |-2
       Responsibilities include:
       - 主导实现输入法助手核心功能测试与优化，包括语音输入和剪贴板管理，实现用户驱动的反馈，提升游戏键盘使用体验。
       - 通过竞品分析发现市场机会，推荐界面与功能增强，分析了快捷语库的扩展并且优化了浮动条功能。
@@ -143,11 +143,11 @@ skills:
         icon: camera
 
 languages:
-  - name: Chinese
+  - name: 中文
     percent: 100
-  - name: English
+  - name: 英语
     percent: 85
-  - name: Japanese
+  - name: 日语
     percent: 25
 
 # Awards.
