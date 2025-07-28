@@ -17,24 +17,24 @@ zh:
    description: 王立坤的主页
  menu:
    main:
-  - name: 首页
-    url: /
-    weight: 10
-  - name: 论文
-    url: /#papers
-    weight: 11
-  - name: 演讲
-    url: /#talks
-    weight: 12
-  - name: 动态
-    url: /#news
-    weight: 13
-  - name: 经历
-    url: experience/
-    weight: 20
-  - name: 项目
-    url: projects/
-    weight: 30
-  - name: 教学
-    url: teaching/
-    weight: 40
+    - name: 首页
+      url: /
+      weight: 10
+    - name: 论文
+      url: /#papers
+      weight: 11
+    - name: 演讲
+      url: /#talks
+      weight: 12
+    - name: 动态
+      url: /#news
+      weight: 13
+    - name: 经历
+      url: experience/
+      weight: 20
+    - name: 项目
+      url: projects/
+      weight: 30
+    - name: 教学
+      url: teaching/
+      weight: 40
