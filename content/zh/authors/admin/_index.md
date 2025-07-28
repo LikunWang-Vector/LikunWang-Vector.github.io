@@ -111,7 +111,7 @@ work:
 # Skills
 # Add your own SVG icons to `assets/media/icons/`
 skills:
-  - name: Technical Skills
+  - name: 技术栈
     items:
       - name: Python
         description: ''
@@ -125,19 +125,19 @@ skills:
         description: ''
         percent: 40
         icon: circle-stack
-  - name: Hobbies
+  - name: 爱好
     color: '#eeac02'
     color_border: '#f0bf23'
     items:
-      - name: Hiking
+      - name: 远足
         description: ''
         percent: 60
         icon: person-simple-walk
-      - name: Cats
+      - name: 猫咪
         description: ''
         percent: 100
         icon: cat
-      - name: Photography
+      - name: 摄影
         description: ''
         percent: 80
         icon: camera
@@ -155,16 +155,11 @@ languages:
 #   Only `title`, `awarder`, and `date` are required.
 #   Begin multi-line `summary` with YAML's `|` or `|2-` multi-line prefix and indent 2 spaces below.
 awards:
-  - title: Blockchain Fundamentals
+  - title: 电子科技大学新生骨干训练营优秀营员
     url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
-    date: '2023-07-01'
-    awarder: edX
-    icon: 'custom/uestc.svg'
-    summary: |
-      Learned:
-      - Synthesize your own blockchain solutions
-      - Gain an in-depth understanding of the specific mechanics of Bitcoin
-      - Understand Bitcoin’s real-life applications and learn how to attack and destroy Bitcoin, Ethereum, smart contracts and Dapps, and alternatives to Bitcoin’s Proof-of-Work consensus algorithm
+    date: '2020-10-01'
+    awarder: 电子科技大学
+    icon: custom/uestc.svg
   - title: 'Object-Oriented Programming in R'
     url: https://www.datacamp.com/courses/object-oriented-programming-with-s3-and-r6-in-r
     certificate_url: https://www.datacamp.com
