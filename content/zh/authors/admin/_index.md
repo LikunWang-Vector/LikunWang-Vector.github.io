@@ -159,7 +159,7 @@ awards:
     url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
     date: '2020-10-01'
     awarder: 电子科技大学
-    icon: uestc.svg
+    icon: "custom/uestc"
   - title: 'Object-Oriented Programming in R'
     url: https://www.datacamp.com/courses/object-oriented-programming-with-s3-and-r6-in-r
     certificate_url: https://www.datacamp.com
