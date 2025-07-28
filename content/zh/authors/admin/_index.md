@@ -143,10 +143,10 @@ skills:
         icon: camera
 
 languages:
-  - name: English
-    percent: 85
   - name: Chinese
     percent: 100
+  - name: English
+    percent: 85
   - name: Japanese
     percent: 25
 
