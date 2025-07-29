@@ -156,7 +156,7 @@ languages:
 #   Begin multi-line `summary` with YAML's `|` or `|2-` multi-line prefix and indent 2 spaces below.
 awards:
   - title: 电子科技大学新生骨干训练营优秀营员
-    url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
+    url: https://postimg.cc/dL0G4vH9
     date: '2020-10-01'
     awarder: 电子科技大学
     icon: uestc.svg
@@ -166,9 +166,7 @@ awards:
     date: '2023-01-21'
     awarder: datacamp
     icon: datacamp
-    summary: |
-      Object-oriented programming (OOP) lets you specify relationships between functions and the objects that they can act on, helping you manage complexity in your code. This is an intermediate level course, providing an introduction to OOP, using the S3 and R6 systems. S3 is a great day-to-day R programming tool that simplifies some of the functions that you write. R6 is especially useful for industry-specific analyses, working with web APIs, and building GUIs.
----
+    ---
 
 ## About Me
 
