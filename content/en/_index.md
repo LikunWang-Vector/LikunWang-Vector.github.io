@@ -32,14 +32,20 @@ sections:
           parallax: false
   - block: markdown
     content:
-      title: '📚 My Research'
+      title: '🔬 My Research & Projects'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        I'm an Algorithm Engineer specializing in TPU operator development and deep learning applications. My research focuses on the intersection of biomechanical optimization and artificial intelligence.
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+        **Current Focus:**
+        - TPU operator development and toolchain optimization
+        - Biomechanical topology optimization using deep learning
+        - Computer vision applications with YOLO networks
+        - Scientific computing and finite element analysis
+
+        **Key Research:** Fish vertebrae loading force prediction using topology optimization and deep neural networks, combining COMSOL finite element analysis with advanced ML techniques.
         
-        Please reach out to collaborate 😃
+        Feel free to reach out for collaboration opportunities! 🚀
     design:
       columns: '1'
   - block: collection

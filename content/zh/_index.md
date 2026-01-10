@@ -32,20 +32,26 @@ sections:
           parallax: false
   - block: markdown
     content:
-      title: '📚 My Research'
+      title: '🔬 我的研究与项目'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        我是一名专注于TPU算子开发和深度学习应用的算法工程师。我的研究重点是生物力学优化与人工智能的交叉领域。
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
-        
-        Please reach out to collaborate 😃
+        **当前专注方向:**
+        - TPU算子开发与工具链优化
+        - 基于深度学习的生物力学拓扑优化
+        - YOLO网络的计算机视觉应用
+        - 科学计算与有限元分析
+
+        **核心研究:** 使用拓扑优化和深度神经网络预测鱼椎骨负载力，结合COMSOL有限元分析与先进机器学习技术。
+
+        欢迎联系我进行合作交流！🚀
     design:
       columns: '1'
   - block: collection
     id: papers
     content:
-      title: Featured Publications
+      title: 精选论文
       filters:
         folders:
           - publication
@@ -55,7 +61,7 @@ sections:
       columns: 2
   - block: collection
     content:
-      title: Recent Publications
+      title: 近期发表
       text: ""
       filters:
         folders:
@@ -66,7 +72,7 @@ sections:
   - block: collection
     id: talks
     content:
-      title: Recent & Upcoming Talks
+      title: 近期演讲
       filters:
         folders:
           - event
@@ -76,7 +82,7 @@ sections:
   - block: collection
     id: news
     content:
-      title: Recent News
+      title: 最新动态
       subtitle: ''
       text: ''
       # Page type to display. E.g. post, talk, publication...
