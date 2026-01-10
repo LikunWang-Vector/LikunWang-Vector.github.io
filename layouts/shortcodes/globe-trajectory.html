@@ -1,0 +1,101 @@
+<!-- 3D Globe with Life Trajectory Animation -->
+<div id="globe-container" style="width: 100%; height: 600px; position: relative; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; overflow: hidden;">
+  <div id="globeViz"></div>
+  <div id="trajectory-info" style="position: absolute; bottom: 20px; left: 20px; color: white; font-size: 14px; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 8px; max-width: 300px;">
+    <div id="current-location">Loading trajectory...</div>
+  </div>
+  <div id="legend" style="position: absolute; top: 20px; right: 20px; color: white; font-size: 12px; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 8px;">
+    <div style="margin-bottom: 5px;"><span style="color: #ff6b6b;">●</span> Origin</div>
+    <div style="margin-bottom: 5px;"><span style="color: #4ecdc4;">●</span> Visited</div>
+    <div><span style="color: #ffe66d;">→</span> Journey Path</div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/globe.gl@2.27.0/dist/globe.gl.min.js"></script>
+<script>
+(function() {
+  // Life trajectory data
+  const trajectory = [
+    { name: "Jiexiu, Shanxi", nameCN: "山西介休", lat: 37.0244, lng: 111.9127, type: "origin", year: "Birth" },
+    { name: "Chengdu, Sichuan", nameCN: "四川成都", lat: 30.5728, lng: 104.0668, type: "education", year: "2020-2024" },
+    { name: "Jiexiu, Shanxi", nameCN: "山西介休", lat: 37.0244, lng: 111.9127, type: "home", year: "Vacation" },
+    { name: "Taiyuan, Shanxi", nameCN: "山西太原", lat: 37.8706, lng: 112.5489, type: "visited", year: "Transit" },
+    { name: "Dalian, Liaoning", nameCN: "辽宁大连", lat: 38.9140, lng: 121.6147, type: "visited", year: "Transit" },
+    { name: "Fukuoka, Japan", nameCN: "日本福冈", lat: 33.5904, lng: 130.4017, type: "education", year: "2023-2025" },
+    { name: "Qingdao, Shandong", nameCN: "山东青岛", lat: 36.0671, lng: 120.3826, type: "visited", year: "2024" }
+  ];
+
+  // Create arcs for trajectory
+  const arcsData = [];
+  for (let i = 0; i < trajectory.length - 1; i++) {
+    arcsData.push({
+      startLat: trajectory[i].lat,
+      startLng: trajectory[i].lng,
+      endLat: trajectory[i + 1].lat,
+      endLng: trajectory[i + 1].lng,
+      color: ['#ffe66d', '#ff6b6b'],
+      order: i
+    });
+  }
+
+  // Initialize globe
+  const container = document.getElementById('globeViz');
+  const globe = Globe()
+    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+    .pointsData(trajectory)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointColor(d => d.type === 'origin' ? '#ff6b6b' : '#4ecdc4')
+    .pointAltitude(0.06)
+    .pointRadius(0.5)
+    .pointLabel(d => `<div style="background: rgba(0,0,0,0.8); color: white; padding: 8px 12px; border-radius: 6px; font-size: 13px;">
+      <strong>${d.name}</strong><br/>
+      ${d.nameCN}<br/>
+      <span style="color: #ffe66d;">${d.year}</span>
+    </div>`)
+    .arcsData(arcsData)
+    .arcColor('color')
+    .arcDashLength(0.4)
+    .arcDashGap(0.2)
+    .arcDashAnimateTime(2000)
+    .arcStroke(0.5)
+    .width(container.clientWidth)
+    .height(600)
+    (container);
+
+  // Auto-rotate
+  globe.controls().autoRotate = true;
+  globe.controls().autoRotateSpeed = 0.5;
+
+  // Focus on China initially
+  globe.pointOfView({ lat: 35, lng: 110, altitude: 2.5 }, 1000);
+
+  // Animate through trajectory
+  let currentIndex = 0;
+  const infoDiv = document.getElementById('current-location');
+  
+  function showLocation() {
+    const loc = trajectory[currentIndex];
+    infoDiv.innerHTML = `
+      <strong>${loc.name}</strong><br/>
+      ${loc.nameCN}<br/>
+      <span style="color: #ffe66d;">${loc.year}</span>
+    `;
+    globe.pointOfView({ lat: loc.lat, lng: loc.lng, altitude: 1.8 }, 2000);
+    currentIndex = (currentIndex + 1) % trajectory.length;
+  }
+
+  // Start animation after initial load
+  setTimeout(() => {
+    showLocation();
+    setInterval(showLocation, 5000);
+  }, 2000);
+
+  // Responsive resize
+  window.addEventListener('resize', () => {
+    globe.width(container.clientWidth);
+  });
+})();
+</script>

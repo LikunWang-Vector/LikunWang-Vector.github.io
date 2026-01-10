@@ -6,15 +6,15 @@
 # Appearance
 appearance:
   mode: system
-  color: emerald
+  color: cyan
 
 # SEO
 marketing:
   seo:
     site_type: Person
     local_business_type: ''
-    org_name: ''
-    description: 'Personal academic website of Wang Likun, Algorithm Engineer at Shenzhen Suanhai Technology, specializing in TPU operator development, deep learning, and biomechanical topology optimization.'
+    org_name: 'Wang Likun'
+    description: 'Personal website of Wang Likun, Algorithm Engineer specializing in TPU operator development, deep learning, and biomechanical topology optimization. M.Eng. from Waseda University.'
     twitter: ''
   analytics:
     google_analytics: ''
@@ -35,14 +35,14 @@ header:
     show_search: true
     show_theme_chooser: true
     logo:
-      text: "Wang Likun"
+      text: "🚀 Wang Likun"
 
 # Site footer
 footer:
   copyright:
-    notice: '© {year} Wang Likun. This work is licensed under {license}'
+    notice: '© {year} Wang Likun | Algorithm Engineer'
     license:
-      enable: true
+      enable: false
       allow_derivatives: false
       share_alike: true
       allow_commercial: false
@@ -55,6 +55,8 @@ locale:
 # Site features
 features:
   math:
-    enable: false
+    enable: true
   privacy_pack:
     enable: false
+  comment:
+    provider: ''

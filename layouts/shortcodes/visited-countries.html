@@ -1,0 +1,106 @@
+<!-- Interactive 3D Globe showing visited countries -->
+<div id="visited-globe-container" style="width: 100%; height: 500px; position: relative; background: linear-gradient(135deg, #0c0c1e 0%, #1a1a3e 100%); border-radius: 12px; overflow: hidden;">
+  <div id="visitedGlobeViz"></div>
+  <div id="country-info" style="position: absolute; bottom: 20px; left: 20px; color: white; background: rgba(0,0,0,0.7); padding: 15px 20px; border-radius: 10px; display: none; max-width: 350px;">
+    <h3 id="country-name" style="margin: 0 0 10px 0; color: #4ecdc4;"></h3>
+    <p id="country-details" style="margin: 0; font-size: 14px; line-height: 1.6;"></p>
+  </div>
+  <div style="position: absolute; top: 20px; left: 20px; color: white; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 8px;">
+    <strong>🌍 Countries Visited: <span style="color: #4ecdc4;">3</span></strong>
+  </div>
+</div>
+
+<script src="https://unpkg.com/globe.gl@2.27.0/dist/globe.gl.min.js"></script>
+<script>
+(function() {
+  // Visited countries data with details
+  const visitedCountries = {
+    'China': {
+      color: '#ff6b6b',
+      details: '🏠 Hometown: Jiexiu, Shanxi<br/>🎓 University: UESTC, Chengdu<br/>📍 Cities: Taiyuan, Dalian, Qingdao, Beijing',
+      cities: [
+        { name: 'Jiexiu', lat: 37.0244, lng: 111.9127 },
+        { name: 'Chengdu', lat: 30.5728, lng: 104.0668 },
+        { name: 'Taiyuan', lat: 37.8706, lng: 112.5489 },
+        { name: 'Dalian', lat: 38.9140, lng: 121.6147 },
+        { name: 'Qingdao', lat: 36.0671, lng: 120.3826 }
+      ]
+    },
+    'Japan': {
+      color: '#4ecdc4',
+      details: '🎓 Master\'s: Waseda University, Fukuoka<br/>📅 2023-2025<br/>🏆 MEXT Scholarship Recipient',
+      cities: [
+        { name: 'Fukuoka', lat: 33.5904, lng: 130.4017 }
+      ]
+    },
+    'Croatia': {
+      color: '#ffe66d',
+      details: '🎤 WCSMO-16 Conference<br/>📍 Dubrovnik<br/>📅 May 2025',
+      cities: [
+        { name: 'Dubrovnik', lat: 42.6507, lng: 18.0944 }
+      ]
+    }
+  };
+
+  // Flatten cities for points
+  const allCities = [];
+  Object.entries(visitedCountries).forEach(([country, data]) => {
+    data.cities.forEach(city => {
+      allCities.push({
+        ...city,
+        country: country,
+        color: data.color,
+        details: data.details
+      });
+    });
+  });
+
+  const container = document.getElementById('visitedGlobeViz');
+  const infoPanel = document.getElementById('country-info');
+  const countryName = document.getElementById('country-name');
+  const countryDetails = document.getElementById('country-details');
+
+  const globe = Globe()
+    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+    .pointsData(allCities)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointColor('color')
+    .pointAltitude(0.1)
+    .pointRadius(0.6)
+    .pointLabel(d => `<div style="background: rgba(0,0,0,0.85); color: white; padding: 10px 15px; border-radius: 8px;">
+      <strong style="color: ${d.color};">${d.name}</strong><br/>
+      ${d.country}
+    </div>`)
+    .onPointClick(d => {
+      countryName.textContent = `${d.country} - ${d.name}`;
+      countryName.style.color = d.color;
+      countryDetails.innerHTML = d.details;
+      infoPanel.style.display = 'block';
+      globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 1000);
+    })
+    .width(container.clientWidth)
+    .height(500)
+    (container);
+
+  // Auto-rotate
+  globe.controls().autoRotate = true;
+  globe.controls().autoRotateSpeed = 0.3;
+
+  // Initial view
+  globe.pointOfView({ lat: 30, lng: 110, altitude: 2.2 }, 1000);
+
+  // Responsive
+  window.addEventListener('resize', () => {
+    globe.width(container.clientWidth);
+  });
+
+  // Click outside to hide info
+  container.addEventListener('click', (e) => {
+    if (e.target === container) {
+      infoPanel.style.display = 'none';
+    }
+  });
+})();
+</script>
