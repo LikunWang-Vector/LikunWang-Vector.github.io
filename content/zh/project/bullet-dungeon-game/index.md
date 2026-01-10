@@ -1,5 +1,5 @@
 ---
-title: "子弹地牢" - Roguelike横版游戏
+title: 子弹地牢 - Roguelike横版游戏
 summary: 担任获奖Roguelike游戏的主策划，在腾讯游戏策划公开课中获得银奖。
 tags:
   - 游戏设计
@@ -9,7 +9,6 @@ tags:
   - 用户测试
 date: '2022-07-01T00:00:00Z'
 
-# Optional external URL for project (replaces project detail page).
 external_link: ''
 
 image:
@@ -26,7 +25,7 @@ url_pdf: ''
 url_slides: ''
 url_video: ''
 
-slides: ""
+slides: ''
 ---
 
 ## 项目概述

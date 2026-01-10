@@ -9,7 +9,6 @@ tags:
   - 深度学习
 date: '2024-01-01T00:00:00Z'
 
-# Optional external URL for project (replaces project detail page).
 external_link: ''
 
 image:
@@ -26,7 +25,7 @@ url_pdf: ''
 url_slides: ''
 url_video: ''
 
-slides: ""
+slides: ''
 ---
 
 ## 项目概述

@@ -1,5 +1,5 @@
 ---
-title: "Bullet Dungeon" - Roguelike Side-scrolling Game
+title: Bullet Dungeon - Roguelike Side-scrolling Game
 summary: Lead Game Designer for an award-winning roguelike game that earned Silver Award at Tencent Game Design Workshop.
 tags:
   - Game Design
@@ -9,7 +9,6 @@ tags:
   - User Testing
 date: '2022-07-01T00:00:00Z'
 
-# Optional external URL for project (replaces project detail page).
 external_link: ''
 
 image:
@@ -26,7 +25,7 @@ url_pdf: ''
 url_slides: ''
 url_video: ''
 
-slides: ""
+slides: ''
 ---
 
 ## Project Overview
