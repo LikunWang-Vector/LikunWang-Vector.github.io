@@ -1,23 +1,47 @@
 ---
-title: Teaching
-summary: My courses
+title: 教学与指导
 type: landing
 
-cascade:
-  - _target:
-      kind: page
-    params:
-      show_breadcrumb: true
-
 sections:
-  - block: collection
-    id: teaching
+  - block: markdown
     content:
-      title: Teaching
-      filters:
-        folders:
-          - teaching
-    design:
-      view: article-grid
-      columns: 2
+      title: 教学与指导经历
+      text: |-
+        ## 学生事务管理员
+        **早稻田大学，最优化实验室** | 2023 - 2025
+
+        作为最优化实验室的学生事务管理员，我协助协调实验室活动，支持同学们的研究工作。
+
+        ---
+
+        ## 班长 & 副团支书
+        **电子科技大学，计算机学院** | 2020 - 2023
+
+        带领计算机科学专业的班级，组织学术活动，营造协作学习环境。
+
+        ### 主要职责：
+        - 协调班级活动和学术讨论
+        - 指导低年级学生的课程学习和职业规划
+        - 组织难点课程的学习小组
+        - 促进学生与教师之间的沟通
+
+        ---
+
+        ## 我可以分享的技术技能
+
+        ### 编程与开发
+        - Python用于AI/ML应用
+        - PyTorch/TensorFlow深度学习
+        - YOLO网络计算机视觉
+        - Pandas/NumPy数据分析
+
+        ### 研究方法
+        - COMSOL有限元分析
+        - 拓扑优化技术
+        - 科学论文写作
+        - 研究报告技巧
+
+        ---
+
+        *如果你对这些主题感兴趣，欢迎联系我！*
 ---
