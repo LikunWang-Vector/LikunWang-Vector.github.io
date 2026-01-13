@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Generated files
+public/
+db.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+.env

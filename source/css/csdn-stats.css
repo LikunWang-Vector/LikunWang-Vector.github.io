@@ -1,0 +1,69 @@
+/* CSDN Stats Display Styles */
+.csdn-stats-notice {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  border-left: 4px solid #fc5531;
+  border-radius: 4px;
+  padding: 15px 20px;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.csdn-stats-notice a {
+  color: #fc5531;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.csdn-stats-notice a:hover {
+  text-decoration: underline;
+}
+
+.csdn-stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.csdn-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.csdn-stat-item .stat-icon {
+  font-size: 14px;
+}
+
+.csdn-stat-item .stat-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.csdn-stat-item .stat-label {
+  color: #888;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .csdn-stats-notice {
+  background: linear-gradient(135deg, #2d3436 0%, #1e272e 100%);
+  color: #ccc;
+}
+
+[data-theme="dark"] .csdn-stat-item {
+  background: #3d4450;
+}
+
+[data-theme="dark"] .csdn-stat-item .stat-value {
+  color: #fff;
+}
+
+[data-theme="dark"] .csdn-stat-item .stat-label {
+  color: #aaa;
+}
