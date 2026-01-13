@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Tag: 正则表达式 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="算法工程师 | AI工程师 | 早稻田大学硕士 | 专注于深度学习、计算机视觉与优化算法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Likun Wang | 王立坤">
+<meta property="og:url" content="https://your-domain.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="算法工程师 | AI工程师 | 早稻田大学硕士 | 专注于深度学习、计算机视觉与优化算法">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/img/avatar.png">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="AI, Algorithm, Deep Learning, Computer Vision, TPU, PyTorch, YOLO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/img/avatar.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Tag: 正则表达式',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'tag'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">正则表达式</h1></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/12/29/zh-CN/07.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%BD%91%E7%AB%992022%E5%BF%85%E7%9C%8B%E7%89%87%E8%BF%85%E9%9B%B7%E7%A7%8D%E5%AD%90/" title="07. 实战：Python正则法抓取某网站2022必看片迅雷种子"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/07.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%BD%91%E7%AB%992022%E5%BF%85%E7%9C%8B%E7%89%87%E8%BF%85%E9%9B%B7/f09781cf5d77.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="07. 实战：Python正则法抓取某网站2022必看片迅雷种子"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/29/zh-CN/07.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%BD%91%E7%AB%992022%E5%BF%85%E7%9C%8B%E7%89%87%E8%BF%85%E9%9B%B7%E7%A7%8D%E5%AD%90/" title="07. 实战：Python正则法抓取某网站2022必看片迅雷种子">07. 实战：Python正则法抓取某网站2022必看片迅雷种子</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-29T15:00:00.000Z" title="Created 2022-12-30 00:00:00">2022-12-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：07. 实战：Python正则法抓取某网站2022必看片迅雷种子📊 1251 阅读 | 👍 3 点赞 | 💬 2 评论 | ⭐ 8 收藏  目录 前言 URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** 目的 URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** 思路 URL（在评论区）URL（在评论区）URL（在评论区） 代码实现 第一步，先导包 第二步，请求源代码 第三步，debug第二步 第四步，正则法定位信息 第五步，访问提取子页面内容 完整代码 运行结果 总结  前言上一节我们讲到了Python正则法抓取某电影网Top250信息， 这一节再进行一个简单的正则法抓取例子：抓取某网站的迅雷种子资源！   目的获取某网站中2022必看片榜单中所有电影的片名与对应迅雷种子  思路1. 定位到2022必看片 2. 从2022必看片中提取子页面的链接地址 3. 请求子页面的链接地址，拿到我们想要的下载地址  代码实现第一步，先导包python import re import re...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/12/29/zh-CN/08.-bs4%E8%A7%A3%E6%9E%90%E7%9A%84%E5%87%86%E5%A4%87%E2%80%94%E2%80%94%E4%BA%86%E8%A7%A3HTML%E5%9F%BA%E7%A1%80/" title="08. bs4解析的准备——了解HTML基础"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="08. bs4解析的准备——了解HTML基础"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/29/zh-CN/08.-bs4%E8%A7%A3%E6%9E%90%E7%9A%84%E5%87%86%E5%A4%87%E2%80%94%E2%80%94%E4%BA%86%E8%A7%A3HTML%E5%9F%BA%E7%A1%80/" title="08. bs4解析的准备——了解HTML基础">08. bs4解析的准备——了解HTML基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-29T15:00:00.000Z" title="Created 2022-12-30 00:00:00">2022-12-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：08. bs4解析的准备——了解HTML基础📊 154 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 前言 目的 HTML基础 1. 系统地学习HTML基础 2. 我要先简单了解一下  前言本专栏将会介绍三种解析方法：re正则法、bs4、xpath。我们之前已经学习了re正则法解析网页数据，并且进行了两个实例项目的搭建，基本掌握了此种解析方法。 之前学习正则解析法的时候我们也学习了一些必备的基础知识——正则表达式等。那么我们学习其余的解析方式之前，不得不面对一个现实的问题，那就是要认识一下HTML源代码。  目的为什么要学习HTML？古人云，知己知彼，百战不殆。我们如果想从网页上更好更容易更高效地爬取数据，则必须要知道HTML文件的基本语法，这样就能更快的定位数据所在，而非盲目的在一大片看不懂的代码里找文字。  HTML基础1. 系统地学习HTML基础如果想要系统的学习HTML基础，我的专栏详细的讲述了关于HTML的基础知识，还有相关的实例与实操网页供大家学习使用。传送门：HTML教程 2. 我要先简单了解一下HTML...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/12/28/zh-CN/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/" title="05. 数据解析、正则表达式与re模块"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="05. 数据解析、正则表达式与re模块"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/28/zh-CN/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/" title="05. 数据解析、正则表达式与re模块">05. 数据解析、正则表达式与re模块</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-28T15:00:00.000Z" title="Created 2022-12-29 00:00:00">2022-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：05. 数据解析、正则表达式与re模块📊 401 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 5 收藏  目录 数据解析概述 正则表达式 正则的概念： 正则表达式的优缺点： 正则的语法： 常用元字符： 量词： 贪婪匹配和惰性匹配 典型案例 re模块 re模块中常用的几个函数 总结 本节用到的全部代码（测试时请注释不看的部分，这样便于观察结果）  数据解析概述在前几节中，我们基本掌握了抓取整个网页的基本技能，但是大多数情况下，我们并不需要整个网页的内容，譬如网页框架、广告、网页通知等。我们想要只抓取我们需要的目标数据，该怎么去处理呢？这就涉及到了数据解析！ 我们将一共学习三种解析方式： 1. re解析 2. bs4解析 3. xpath解析 这三种方式并不局限于单独使用，可以根据需求混合进行使用，我们写爬虫是完全以结果作为导向的，正所谓不管黑猫白猫，能抓得到耗子就是好猫嘛！只要能拿得到我们想要的数据，用什么方案并不重要。当我们能够掌握这些方法以后，再去考虑性能的问题。  正则表达式说到数据解析，最先离不开的就是正则表达式了。 正则的概念...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/12/28/zh-CN/06.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%94%B5%E5%BD%B1%E7%BD%91Top250%E4%BF%A1%E6%81%AF/" title="06. 实战：Python正则法抓取某电影网Top250信息"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/06.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%94%B5%E5%BD%B1%E7%BD%91Top250%E4%BF%A1%E6%81%AF/9546f4c712a0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="06. 实战：Python正则法抓取某电影网Top250信息"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/12/28/zh-CN/06.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%94%B5%E5%BD%B1%E7%BD%91Top250%E4%BF%A1%E6%81%AF/" title="06. 实战：Python正则法抓取某电影网Top250信息">06. 实战：Python正则法抓取某电影网Top250信息</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-28T15:00:00.000Z" title="Created 2022-12-29 00:00:00">2022-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：06. 实战：Python正则法抓取某电影网Top250信息📊 913 阅读 | 👍 6 点赞 | 💬 1 评论 | ⭐ 16 收藏  目录 前言 需求 思路 代码实现 完整代码 运行结果 总结   前言经过前面几节的学习，我们现在终于具有做小项目的能力了。我们的目标就是我们之前涉及过的某电影排行榜，利用爬虫工具抓取Top250，用来练手。  需求抓取某电影Top250的“电影名称”，“上映年份”，“评分”，“评分人数”四项内容，并另存为文件。   思路查看页面源代码，看数据是否包含在源代码中，如果不在源代码中则考虑js动态加载数据，需要观察找到加载数据的源头，从而抓取数据，否则直接用正则解析源代码即可  可以看到，我们所需要的数据都在源代码中，所以我们直接用刚学习到的re正则表达式方法解析出我们想要的数据即可！  代码实现第一步，老熟人了，先拿到页面源码： python url = &#39;https://movie.douban.com/top250&#39; headers = { &quot;User-Agent&quot;: &...</div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            <a class="card-more-btn" href="/categories/" title="View More">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CSS-Beginner-to-Advanced/"><span class="card-category-list-name">CSS Beginner to Advanced</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CSS%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/"><span class="card-category-list-name">CSS入门、进阶与实战</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Data-Analysis/"><span class="card-category-list-name">Data Analysis</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Debug-Notes/"><span class="card-category-list-name">Debug Notes</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Debug-Tips/"><span class="card-category-list-name">Debug Tips</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Environment-Setup/"><span class="card-category-list-name">Environment Setup</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/General/"><span class="card-category-list-name">General</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/HTML-Beginner-to-Advanced/"><span class="card-category-list-name">HTML Beginner to Advanced</span><span class="card-category-list-count">27</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/crawler/" style="font-size: 1.21em; color: rgb(50, 91, 50);">crawler</a><a href="/tags/python/" style="font-size: 1.43em; color: rgb(180, 50, 50);">python</a><a href="/tags/programming/" style="font-size: 1.33em; color: rgb(65, 50, 152);">programming</a><a href="/tags/html5/" style="font-size: 1.41em; color: rgb(59, 127, 50);">html5</a><a href="/tags/http/" style="font-size: 1.17em; color: rgb(50, 83, 79);">http</a><a href="/tags/network/" style="font-size: 1.19em; color: rgb(134, 74, 50);">network</a><a href="/tags/protocol/" style="font-size: 1.15em; color: rgb(62, 192, 159);">protocol</a><a href="/tags/frontend/" style="font-size: 1.35em; color: rgb(50, 173, 50);">frontend</a><a href="/tags/html/" style="font-size: 1.45em; color: rgb(133, 116, 72);">html</a><a href="/tags/server/" style="font-size: 1.19em; color: rgb(63, 161, 156);">server</a><a href="/tags/xhtml/" style="font-size: 1.23em; color: rgb(159, 51, 50);">xhtml</a><a href="/tags/baidu/" style="font-size: 1.15em; color: rgb(115, 76, 50);">baidu</a><a href="/tags/regex/" style="font-size: 1.15em; color: rgb(50, 103, 68);">regex</a><a href="/tags/pip/" style="font-size: 1.21em; color: rgb(198, 66, 50);">pip</a><a href="/tags/web-scraping/" style="font-size: 1.31em; color: rgb(72, 115, 134);">web scraping</a><a href="/tags/pycharm/" style="font-size: 1.25em; color: rgb(192, 114, 147);">pycharm</a><a href="/tags/regular-expressions/" style="font-size: 1.19em; color: rgb(59, 178, 90);">regular expressions</a><a href="/tags/network-protocols/" style="font-size: 1.15em; color: rgb(50, 152, 82);">network protocols</a><a href="/tags/data-analysis/" style="font-size: 1.27em; color: rgb(95, 132, 190);">data analysis</a><a href="/tags/servlet/" style="font-size: 1.17em; color: rgb(146, 167, 108);">servlet</a><a href="/tags/web-crawler/" style="font-size: 1.17em; color: rgb(50, 180, 101);">web crawler</a><a href="/tags/audio-video/" style="font-size: 1.17em; color: rgb(181, 182, 163);">audio video</a><a href="/tags/javascript/" style="font-size: 1.37em; color: rgb(50, 138, 79);">javascript</a><a href="/tags/proxy-pattern/" style="font-size: 1.15em; color: rgb(170, 117, 117);">proxy pattern</a><a href="/tags/encryption/" style="font-size: 1.15em; color: rgb(50, 189, 145);">encryption</a><a href="/tags/algorithms/" style="font-size: 1.21em; color: rgb(59, 195, 191);">algorithms</a><a href="/tags/mathematical-modeling/" style="font-size: 1.17em; color: rgb(50, 178, 187);">mathematical-modeling</a><a href="/tags/async/" style="font-size: 1.15em; color: rgb(183, 51, 50);">async</a><a href="/tags/coroutines/" style="font-size: 1.15em; color: rgb(143, 70, 147);">coroutines</a><a href="/tags/async-HTTP-requests/" style="font-size: 1.15em; color: rgb(113, 168, 177);">async HTTP requests</a><a href="/tags/aiohttp/" style="font-size: 1.21em; color: rgb(50, 50, 161);">aiohttp</a><a href="/tags/asyncio/" style="font-size: 1.21em; color: rgb(54, 78, 50);">asyncio</a><a href="/tags/thread-pool/" style="font-size: 1.15em; color: rgb(72, 62, 186);">thread pool</a><a href="/tags/xpath/" style="font-size: 1.19em; color: rgb(165, 149, 155);">xpath</a><a href="/tags/async-scraping/" style="font-size: 1.15em; color: rgb(91, 84, 130);">async scraping</a><a href="/tags/aiofiles/" style="font-size: 1.17em; color: rgb(50, 190, 147);">aiofiles</a><a href="/tags/selenium/" style="font-size: 1.29em; color: rgb(50, 50, 148);">selenium</a><a href="/tags/testing-tools/" style="font-size: 1.19em; color: rgb(50, 109, 50);">testing tools</a><a href="/tags/chrome/" style="font-size: 1.17em; color: rgb(153, 131, 86);">chrome</a><a href="/tags/css/" style="font-size: 1.39em; color: rgb(104, 50, 178);">css</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      <a class="card-more-btn" href="/archives/"
+            title="View More">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              2026年01月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              2025年10月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              2025年09月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              2025年01月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/04/">
+            <span class="card-archive-list-date">
+              2024年04月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/01/">
+            <span class="card-archive-list-date">
+              2024年01月
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/11/">
+            <span class="card-archive-list-date">
+              2023年11月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/09/">
+            <span class="card-archive-list-date">
+              2023年09月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">302</div></div><div class="webinfo-item"><div class="item-name">Total Word Count :</div><div class="item-count">403.4k</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-13T09:21:48.221Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

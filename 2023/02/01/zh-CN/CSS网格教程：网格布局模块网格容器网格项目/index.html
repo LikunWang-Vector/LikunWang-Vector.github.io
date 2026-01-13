@@ -1,0 +1,706 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS网格教程：网格布局模块/网格容器/网格项目 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：CSS网格教程：网格布局模块&#x2F;网格容器&#x2F;网格项目📊 1087 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 CSS 网格布局模块 网格布局 浏览器支持 网格元素 实例 Display 属性 实例 实例 网格列（Grid Columns） 网格行（Grid Rows） 网格间隙（Grid Gaps） 实例 实例 实例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS网格教程：网格布局模块&#x2F;网格容器&#x2F;网格项目">
+<meta property="og:url" content="https://your-domain.com/2023/02/01/zh-CN/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：CSS网格教程：网格布局模块&#x2F;网格容器&#x2F;网格项目📊 1087 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 CSS 网格布局模块 网格布局 浏览器支持 网格元素 实例 Display 属性 实例 实例 网格列（Grid Columns） 网格行（Grid Rows） 网格间隙（Grid Gaps） 实例 实例 实例">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png">
+<meta property="article:published_time" content="2023-02-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-01T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="网格容器">
+<meta property="article:tag" content="网格布局">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS网格教程：网格布局模块/网格容器/网格项目",
+  "url": "https://your-domain.com/2023/02/01/zh-CN/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/",
+  "image": "https://your-domain.com/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png",
+  "datePublished": "2023-02-01T15:00:00.000Z",
+  "dateModified": "2023-02-01T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/01/zh-CN/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS网格教程：网格布局模块/网格容器/网格项目',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS网格教程：网格布局模块/网格容器/网格项目</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS网格教程：网格布局模块/网格容器/网格项目</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-01T15:00:00.000Z" title="Created 2023-02-02 00:00:00">2023-02-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-01T15:00:00.000Z" title="Updated 2023-02-02 00:00:00">2023-02-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">CSS入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>9mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-02 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128855127">CSS网格教程：网格布局模块&#x2F;网格容器&#x2F;网格项目</a><br>📊 1087 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 4 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>CSS 网格布局模块</p>
+<p>网格布局</p>
+<p>浏览器支持</p>
+<p>网格元素</p>
+<p>实例</p>
+<p>Display 属性</p>
+<p>实例</p>
+<p>实例</p>
+<p>网格列（Grid Columns）</p>
+<p>网格行（Grid Rows）</p>
+<p>网格间隙（Grid Gaps）</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>网格行（Grid Lines）</p>
+<p>实例</p>
+<p>实例</p>
+<p>CSS 网格容器</p>
+<p>网格容器</p>
+<p>grid-template-columns 属性</p>
+<p>实例</p>
+<p>实例</p>
+<p>grid-template-rows 属性</p>
+<p>实例</p>
+<p>justify-content 属性</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>align-content 属性</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>CSS 网格项目</p>
+<p>子元素（项目）</p>
+<p>grid-column 属性：</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>grid-row 属性：</p>
+<p>实例</p>
+<p>实例</p>
+<p>grid-area 属性</p>
+<p>实例</p>
+<p>实例</p>
+<p>命名网格项</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>项目的顺序</p>
+<p>实例</p>
+<p>实例</p>
+<hr>
+<h2 id="CSS-网格布局模块"><a href="#CSS-网格布局模块" class="headerlink" title="CSS 网格布局模块"></a>CSS 网格布局模块</h2><hr>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_layout_named" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="网格布局"><a href="#网格布局" class="headerlink" title="网格布局"></a>网格布局</h3><p>CSS 网格布局模块（CSS Grid Layout Module）提供了带有行和列的基于网格的布局系统，它使网页设计变得更加容易，而无需使用浮动和定位。</p>
+<hr>
+<h3 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h3><p>所有现代浏览器均支持网格属性。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/92294b528570.png">| | | |<br>—|—|—|—|—<br>| | | |   </p>
+<hr>
+<h3 id="网格元素"><a href="#网格元素" class="headerlink" title="网格元素"></a>网格元素</h3><p>网格布局由一个父元素以及一个或多个子元素组成。</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p><code>html &lt;div class=&quot;grid-container&quot;&gt; &lt;div class=&quot;grid-item&quot;&gt;1&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;2&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;3&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;4&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;5&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;6&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;7&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;8&lt;/div&gt; &lt;div class=&quot;grid-item&quot;&gt;9&lt;/div&gt; &lt;/div&gt; </code> </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/d47660cb9e00.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="Display-属性"><a href="#Display-属性" class="headerlink" title="Display 属性"></a>Display 属性</h3><p>当 HTML 元素的 <code>display</code> 属性设置为 <code>grid</code> 或 <code>inline-grid</code> 时，它就会成为网格容器。</p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_display_grid" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: inline-grid; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_display_inline-grid" title="亲自试一试">亲自试一试</a></p>
+<p><em>网格容器的所有直接子元素将自动成为网格项目。</em></p>
+<hr>
+<h3 id="网格列（Grid-Columns）"><a href="#网格列（Grid-Columns）" class="headerlink" title="网格列（Grid Columns）"></a>网格列（Grid Columns）</h3><p>网格项的垂直线被称为列。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/db84a2e8285b.png"></p>
+<hr>
+<h3 id="网格行（Grid-Rows）"><a href="#网格行（Grid-Rows）" class="headerlink" title="网格行（Grid Rows）"></a>网格行（Grid Rows）</h3><p>网格项的水平线被称为行。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/e2b4c4908b46.png"></p>
+<hr>
+<h3 id="网格间隙（Grid-Gaps）"><a href="#网格间隙（Grid-Gaps）" class="headerlink" title="网格间隙（Grid Gaps）"></a>网格间隙（Grid Gaps）</h3><p>每列&#x2F;行之间的间隔称为间隙。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/d9bc4b61cd20.png"></p>
+<p>可以通过使用以下属性之一来调整间隙大小：</p>
+<ul>
+<li><code>grid-column-gap</code></li>
+<li><code>grid-row-gap</code></li>
+<li><code>grid-gap</code></li>
+</ul>
+<h4 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h4><p><code>grid-column-gap</code> 属性设置列之间的间隙：</p>
+<p><code>css .grid-container { display: grid; grid-column-gap: 50px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-column-gap" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-4"><a href="#实例-4" class="headerlink" title="实例"></a>实例</h4><p><code>grid-row-gap</code> 属性设置行之间的间隙：</p>
+<p><code>css .grid-container { display: grid; grid-row-gap: 50px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-row-gap" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h4><p><code>grid-gap</code> 属性是 grid-row-gap 和 grid-column-gap 属性的简写属性：</p>
+<p><code>css .grid-container { display: grid; grid-gap: 50px 100px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-gap_1" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h4><p><code>grid-gap</code> 属性还可用于将行间隙和列间隙设置为一个值：</p>
+<p><code>css .grid-container { display: grid; grid-gap: 50px 100px; } </code> <code>css .grid-container { display: grid; grid-gap: 50px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-gap_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="网格行（Grid-Lines）"><a href="#网格行（Grid-Lines）" class="headerlink" title="网格行（Grid Lines）"></a>网格行（Grid Lines）</h3><p>列之间的线称为列线（column lines）。</p>
+<p>行之间的线称为行线（row lines）。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/878db570d841.png"></p>
+<p>当把网格项目放在网格容器中时，要引用行号：</p>
+<h4 id="实例-7"><a href="#实例-7" class="headerlink" title="实例"></a>实例</h4><p>把网格项目放在列线 1，并在列线 3 结束它：</p>
+<p><code>css .item1 { grid-column-start: 1; grid-column-end: 3; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_lines_1" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h4><p>把网格项目放在行线 1，并在行线 3 结束它：</p>
+<p><code>css .item1 { grid-row-start: 1; grid-row-end: 3; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_lines_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h2 id="CSS-网格容器"><a href="#CSS-网格容器" class="headerlink" title="CSS 网格容器"></a>CSS 网格容器</h2><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/7495a7434a93.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_container" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="网格容器"><a href="#网格容器" class="headerlink" title="网格容器"></a>网格容器</h3><p>如需使 HTML 元素充当网格容器，必须把 <code>display</code> 属性设置为 grid 或 inline-grid。</p>
+<p>网格容器由放置在列和行内的网格项目组成。</p>
+<hr>
+<h3 id="grid-template-columns-属性"><a href="#grid-template-columns-属性" class="headerlink" title="grid-template-columns 属性"></a>grid-template-columns 属性</h3><p><code>grid-template-columns</code> 属性定义网格布局中的列数，并可定义每列的宽度。</p>
+<p>该值是以空格分隔的列表，其中每个值定义相应列的长度。</p>
+<p>如果我们希望网格布局包含 4 列，可以指定这 4 列的宽度；如果所有列都应当有相同的宽度，则设置为 “auto”。</p>
+<h4 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h4><p>生成包含四列的网格：</p>
+<p><code>css .grid-container { display: grid; grid-template-columns: auto auto auto auto; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-template-columns_1" title="亲自试一试">亲自试一试</a></p>
+<p>注意：如果在 4 列网格中有 4 个以上的项目，则网格会自动添加新行并将这些项目放入其中。</p>
+<p><code>grid-template-columns</code> 属性还可以用于指定列的尺寸（宽度）。</p>
+<h4 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h4><p>设置这 4 列的尺寸：</p>
+<p><code>css .grid-container { display: grid; grid-template-columns: 80px 200px auto 40px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-template-columns_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="grid-template-rows-属性"><a href="#grid-template-rows-属性" class="headerlink" title="grid-template-rows 属性"></a>grid-template-rows 属性</h3><p><code>grid-template-rows</code> 属性定义每列的高度。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/88e0834aee33.png"></p>
+<p>它的值是以空格分隔的列表，其中每个值定义相应行的高度：</p>
+<h4 id="实例-11"><a href="#实例-11" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; grid-template-rows: 80px 200px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-template-rows" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="justify-content-属性"><a href="#justify-content-属性" class="headerlink" title="justify-content 属性"></a>justify-content 属性</h3><p><code>justify-content</code> 属性用于在容器内对齐整个网格。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/a1d77497f39f.png"></p>
+<p>注意：网格的总宽度必须小于容器的宽度，这样 justify-content 属性才能生效。</p>
+<h4 id="实例-12"><a href="#实例-12" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; justify-content: space-evenly; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_justify-content_space-evenly" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-13"><a href="#实例-13" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; justify-content: space-around; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_justify-content_space-around" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-14"><a href="#实例-14" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; justify-content: space-between; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_justify-content_space-between" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-15"><a href="#实例-15" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; justify-content: center; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_justify-content_center" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-16"><a href="#实例-16" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; justify-content: start; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_justify-content_start" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-17"><a href="#实例-17" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; justify-content: end; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_justify-content_end" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="align-content-属性"><a href="#align-content-属性" class="headerlink" title="align-content 属性"></a>align-content 属性</h3><p><code>align-content</code> 属性用于垂直对齐容器内的整个网格。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/07d133015a4b.png"></p>
+<p>注意：网格的总高度必须小于容器的高度，这样 align-content 属性才能生效。</p>
+<h4 id="实例-18"><a href="#实例-18" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; height: 400px; align-content: center; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_align-content_center" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-19"><a href="#实例-19" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; height: 400px; align-content: space-evenly; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_align-content_space-evenly" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-20"><a href="#实例-20" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; height: 400px; align-content: space-around; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_align-content_space-around" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-21"><a href="#实例-21" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; height: 400px; align-content: space-between; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_align-content_space-between" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-22"><a href="#实例-22" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; height: 400px; align-content: start; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_align-content_start" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-23"><a href="#实例-23" class="headerlink" title="实例"></a>实例</h4><p><code>css .grid-container { display: grid; height: 400px; align-content: end; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_align-content_end" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h2 id="CSS-网格项目"><a href="#CSS-网格项目" class="headerlink" title="CSS 网格项目"></a>CSS 网格项目</h2><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/2f5b6b30c1bb.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_item" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="子元素（项目）"><a href="#子元素（项目）" class="headerlink" title="子元素（项目）"></a>子元素（项目）</h3><p>网格容器包含网格项目。</p>
+<p>默认情况下，容器在每一行的每一列都有一个网格项目，但是可以设置网格项目的样式，让它们跨越多个列和&#x2F;或行。</p>
+<hr>
+<h3 id="grid-column-属性："><a href="#grid-column-属性：" class="headerlink" title="grid-column 属性："></a>grid-column 属性：</h3><p><code>grid-column</code> 属性定义将项目放置在哪一列上。</p>
+<p>可以定义项目的开始位置以及结束位置。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/8ec3f97a0aed.png"></p>
+<p>注释：<code>grid-column</code> 属性是 grid-column-start 和 grid-column-end 属性的简写属性。</p>
+<p>如需放置某个项目，可以引用行号（line numbers），或使用关键字 “span” 来定义该项目将跨越多少列。</p>
+<h4 id="实例-24"><a href="#实例-24" class="headerlink" title="实例"></a>实例</h4><p>使 “item1” 从第 1 列开始并在第 5 列之前结束：</p>
+<p><code>css .item1 { grid-column: 1 / 5; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-column_line" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-25"><a href="#实例-25" class="headerlink" title="实例"></a>实例</h4><p>使 “item1” 从第 1 列开始，并跨越 3 列：</p>
+<p><code>css .item1 { grid-column: 1 / span 3; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-column_1" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-26"><a href="#实例-26" class="headerlink" title="实例"></a>实例</h4><p>使 “item2” 从第 2 列开始，并跨越 3 列：</p>
+<p><code>css .item2 { grid-column: 2 / span 3; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-column_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="grid-row-属性："><a href="#grid-row-属性：" class="headerlink" title="grid-row 属性："></a>grid-row 属性：</h3><p><code>grid-row</code> 属性定义了将项目放置在哪一行。</p>
+<p>可以定义项目的开始位置以及结束位置。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/dadf6e11b072.png"></p>
+<p>注释：<code>grid-row</code> 属性是 grid-row-start 和 grid-row-end 属性的简写属性。</p>
+<p>如需放置项目，可以引用行号，或使用关键字 “span” 定义该项目将跨越多少行：</p>
+<h4 id="实例-27"><a href="#实例-27" class="headerlink" title="实例"></a>实例</h4><p>使 “item1” 在 row-line 1 开始，在 row-line 4 结束：</p>
+<p><code>css .item1 { grid-row: 1 / 4; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-row_1" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-28"><a href="#实例-28" class="headerlink" title="实例"></a>实例</h4><p>使 “item1” 从第 1 行开始并跨越 2 行：</p>
+<p><code>css .item1 { grid-row: 1 / span 2; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-row_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="grid-area-属性"><a href="#grid-area-属性" class="headerlink" title="grid-area 属性"></a>grid-area 属性</h3><p><code>grid-area</code> 属性可以用作 grid-row-start、grid-column-start、grid-row-end 和 grid-column-end 属性的简写属性。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/7b8a0651f2a2.png"></p>
+<h4 id="实例-29"><a href="#实例-29" class="headerlink" title="实例"></a>实例</h4><p>使 “item8” 从 row-line 1 和 column-line 2 开始，在 row-line 5 和 column line 6 结束：</p>
+<p><code>css .item8 { grid-area: 1 / 2 / 5 / 6; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-area_1" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-30"><a href="#实例-30" class="headerlink" title="实例"></a>实例</h4><p>使 “item8” 从 row-line 2 和 column-line 开始，并跨越 2 行和 3 列：</p>
+<p><code>css .item8 { grid-area: 2 / 1 / span 2 / span 3; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-area_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="命名网格项"><a href="#命名网格项" class="headerlink" title="命名网格项"></a>命名网格项</h3><p><code>grid-area</code> 属性也可以用于为网格项目分配名称。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/8db8e54b8700.png"></p>
+<p>可以通过网格容器的 <code>grid-template-areas</code> 属性来引用命名的网格项目。</p>
+<h4 id="实例-31"><a href="#实例-31" class="headerlink" title="实例"></a>实例</h4><p>item1 的名称是 “myArea”，并跨越五列网格布局中的所有五列：</p>
+<p><code>css .item1 { grid-area: myArea; } .grid-container { grid-template-areas: &#39;myArea myArea myArea myArea myArea&#39;; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-area_named_1" title="亲自试一试">亲自试一试</a></p>
+<p>每行由撇号（’ ‘）定义。</p>
+<p>每行中的列都在撇号内定义，并以空格分隔。</p>
+<p>注释：句号表示没有名称的网格项目。</p>
+<h4 id="实例-32"><a href="#实例-32" class="headerlink" title="实例"></a>实例</h4><p>让 “myArea” 跨越五列网格布局中的两列（句号代表没有名称的项目）：</p>
+<p><code>css .item1 { grid-area: myArea; } .grid-container { grid-template-areas: &#39;myArea myArea . . .&#39;; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-area_named_2" title="亲自试一试">亲自试一试</a></p>
+<p>如需定义两行，可以在另一组撇号内定义第二行的列：</p>
+<h4 id="实例-33"><a href="#实例-33" class="headerlink" title="实例"></a>实例</h4><p>使 “item1” 跨越两列和两行：</p>
+<p><code>css .grid-container { grid-template-areas: &#39;myArea myArea . . .&#39; &#39;myArea myArea . . .&#39;; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-area_named_3" title="亲自试一试">亲自试一试</a></p>
+<h4 id="实例-34"><a href="#实例-34" class="headerlink" title="实例"></a>实例</h4><p>命名所有项目，并制作一张随时可用的网页模板：</p>
+<p><code>css .item1 { grid-area: header; } .item2 { grid-area: menu; } .item3 { grid-area: main; } .item4 { grid-area: right; } .item5 { grid-area: footer; } .grid-container { grid-template-areas: &#39;header header header header header header&#39; &#39;menu main main main right right&#39; &#39;menu footer footer footer footer footer&#39;; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_grid-area_named_4" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="项目的顺序"><a href="#项目的顺序" class="headerlink" title="项目的顺序"></a>项目的顺序</h3><p>网格布局允许我们将项目放置在我们喜欢的任意位置。</p>
+<p>HTML 代码中的第一项不必显示为网格中的第一项。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/71aa01275eb6.png"></p>
+<h4 id="实例-35"><a href="#实例-35" class="headerlink" title="实例"></a>实例</h4><p><code>css .item1 { grid-area: 1 / 3 / 2 / 4; } .item2 { grid-area: 2 / 3 / 3 / 4; } .item3 { grid-area: 1 / 1 / 2 / 2; } .item4 { grid-area: 1 / 2 / 2 / 3; } .item5 { grid-area: 2 / 1 / 3 / 2; } .item6 { grid-area: 2 / 2 / 3 / 3; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_flexible_order_1" title="亲自试一试">亲自试一试</a></p>
+<p>可以通过使用媒体查询来重新排列某些屏幕尺寸的顺序：</p>
+<h4 id="实例-36"><a href="#实例-36" class="headerlink" title="实例"></a>实例</h4><p><code>css @media only screen and (max-width: 500px) { .item1 { grid-area: 1 / span 3 / 2 / 4; } .item2 { grid-area: 3 / 3 / 4 / 4; } .item3 { grid-area: 2 / 1 / 3 / 2; } .item4 { grid-area: 2 / 2 / span 2 / 3; } .item5 { grid-area: 3 / 1 / 4 / 2; } .item6 { grid-area: 2 / 3 / 3 / 4; } } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_grid_flexible_order_2" title="亲自试一试">亲自试一试</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/01/zh-CN/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/">https://your-domain.com/2023/02/01/zh-CN/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/javascript/">javascript</a><a class="post-meta__tags" href="/tags/css/">css</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80/">网格布局</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8/">网格容器</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/01/zh-CN/%E5%AE%8C%E7%BE%8E%E8%A7%A3%E5%86%B3UnicodeEncodeError-%E2%80%98gbk%E2%80%98-codec-can%E2%80%98t-encode-character-%E2%80%98xa0%E2%80%98-in-position-XX-i/" title="完美解决UnicodeEncodeError: ‘gbk‘ codec can‘t encode character ‘ ‘ in position XX: illegal multiby..."><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">完美解决UnicodeEncodeError: ‘gbk‘ codec can‘t encode character ‘ ‘ in position XX: illegal multiby...</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：完美解决UnicodeEncodeError: ‘gbk‘ codec can‘t encode character ‘\xa0‘ in position XX: illegal multiby…📊 6671 阅读 | 👍 8 点赞 | 💬 0 评论 | ⭐ 19 收藏  目录 项目场景： 问题描述 原因分析： 解决方案： replace函数 其他解决方法（来源网络） 使用re.sub 使用translate方法 利用split方法 使用unicodedata模块  项目场景：从网上抓了一些小说的数据，但实际上网页是gbk编码的，写入txt文件的时候报了这个错误： XML UnicodeEncodeError: &#39;gbk&#39; codec can&#39;t encode character &#39;\xa0&#39; in position XX: illegal multibyte sequence   观察发现’\xa0’其实是属于latin1 （ ISO&#x2F;IEC_8859-1 ）中的扩展字符集字符 ，代表空白...</div></div></div></a><a class="pagination-related" href="/2023/02/01/zh-CN/CSS%E5%9B%BE%E6%A0%87%E4%B8%8E%E9%93%BE%E6%8E%A5/" title="CSS图标与链接"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%9B%BE%E6%A0%87%E4%B8%8E%E9%93%BE%E6%8E%A5/614f6e307c4c.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">CSS图标与链接</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS图标与链接📊 607 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录   如何添加图标 Font Awesome 图标 实例 Bootstrap 图标 实例 Google 图标 实例 为图标添加样式或颜色 设置链接样式 实例 实例 文本装饰 实例 背景色 实例 链接按钮 实例 更多实例    如何添加图标向 HTML 页面添加图标的最简单方法是使用图标库，比如 Font Awesome。 将指定的图标类的名称添加到任何行内 HTML 元素（如  或 ）。 下面的图标库中的所有图标都是可缩放矢量，可以使用 CSS进行自定义（大小、颜色、阴影等）。  Font Awesome 图标如需使用 Font Awesome 图标，可以访问 fontawesome.com，登录并获取代码添加到 HTML 页面的  部分： &lt;script src=&quot;https://kit.fontawesome.com/yourcode.js&quot;&gt;&lt;/script&gt;  提示：无需下载或安装！ 实例html...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E5%B8%83%E5%B1%80/" title="HTML布局"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML布局</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML布局📊 148 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 使用元素的 HTML 布局 实例 CSS： 使用 HTML5 的网站布局 HTML5 语义元素 实例 CSS 使用表格的 HTML 布局 实例 CSS 一个完整的实例  网站常常以多列显示内容（就像杂志和报纸）。  使用  元素的 HTML 布局注释： 元素常用作布局工具，因为能够轻松地通过 CSS 对其进行定位。 这个例子使用了四个  元素来创建多列布局： 实例&lt;body&gt; &lt;div id=&quot;header&quot;&gt; &lt;h1&gt;City Gallery&lt;/h1&gt; &lt;/div&gt; &lt;div id=&quot;nav&quot;&gt; London&lt;br&gt; Paris&lt;br&gt; Tokyo&lt;br&gt; &lt;/div&gt; &lt;div id=&quot;section&quot;&gt; &lt;h1&gt;London&lt;/h1&gt...</div></div></div></a><a class="pagination-related" href="/2022/12/30/zh-CN/HTML%E5%BF%AB%E9%80%9F%E5%8F%82%E8%80%83%E6%8C%87%E5%8D%97/" title="HTML快速参考指南"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">HTML快速参考指南</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML快速参考指南📊 185 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 基础文档 文本元素 逻辑样式 物理样式 链接、锚、图像元素 无序列表 有序列表 定义列表 表格 框架 表单 实体 其他元素  HTML 基础文档html &lt;html&gt; &lt;head&gt; &lt;title&gt;Document name goes here&lt;/title&gt; &lt;/head&gt; &lt;body&gt; Visible text goes here &lt;/body&gt; &lt;/html&gt;    文本元素html &lt;p&gt;This is a paragraph&lt;/p&gt; &lt;br&gt; (line break) &lt;hr&gt; (horizontal rule) &lt;pre&gt;This text is preformatted&lt;/pre&gt;    逻辑样式html &lt;em&gt;This text is em...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E9%A2%84%E7%95%99%E5%AD%97%E7%AC%A6%E7%9A%84%E5%A4%84%E7%90%86/" title="HTML预留字符的处理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML预留字符的处理</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML预留字符的处理📊 286 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 HTML 实体 不间断空格（non-breaking space） HTML 实例示例 HTML 中有用的字符实体  HTML 中的预留字符必须被替换为字符实体。  HTML 实体在 HTML 中，某些字符是预留的。 在 HTML 中不能使用小于号（&lt;）和大于号（&gt;），这是因为浏览器会误认为它们是标签。 如果希望正确地显示预留字符，我们必须在 HTML 源代码中使用字符实体（character entities）。 字符实体类似这样： &amp;entity_name;  或者  &amp;#entity_number;  如需显示小于号，我们必须这样写：&lt; 或 &#60; 提示：使用实体名而不是数字的好处是，名称易于记忆。不过坏处是，浏览器也许并不支持所有实体名称（对实体数字的支持却很好）。  不间断空格（non-breaking space）HTML 中的常用字符实体是不间断空格(&nbsp;)。 浏览器总是会截短 H...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E5%9D%97%E5%85%83%E7%B4%A0/" title="HTML块元素"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML块元素</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML块元素📊 203 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 块元素 HTML 内联元素 HTML  元素 HTML 元素 HTML 分组标签 一个完整的实例  可以通过  和  将 HTML 元素组合起来。  HTML 块元素大多数 HTML 元素被定义为块级元素或内联元素。 注：“块级元素”译为 block level element，“内联元素”译为 inline element。 块级元素在浏览器显示时，通常会以新行来开始（和结束）。 例子：, , ,   HTML 内联元素内联元素在显示时通常不会以新行开始。 例子：, , ,   HTML  元素HTML  元素是块级元素，它是可用于组合其他 HTML 元素的容器。  元素没有特定的含义。除此之外，由于它属于块级元素，浏览器会在其前后显示折行。  如果与 CSS 一同使用， 元素可用于对大的内容块设置样式属性。  元素的另一个常见的用途是文档布局。它取代了使用表格定义布局的老式方法。使用  元素进行文档布局不是表格的正确用法。 元素的作用...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/" title="HTML5语义元素"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/c95d3aea07da.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML5语义元素</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML5语义元素📊 328 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 什么是语义元素？ 浏览器支持 HTML5 中新的语义元素 HTML5 语义元素 HTML5元素 实例 HTML5元素 实例 嵌套语义元素 HTML5元素 实例 HTML5元素 实例 HTML5元素 实例 HTML5元素 实例 HTML5和元素 实例 为何使用 HTML5 元素？ HTML5 中的语义元素 一个完整的实例  语义学（源自古希腊）可定义为对语言意义的研究。 语义元素是拥有语义的元素。  什么是语义元素？语义元素清楚地向浏览器和开发者描述其意义。 非语义 元素的例子： 和  - 无法提供关于其内容的信息。 语义 元素的例子：、 以及  - 清晰地定义其内容。  浏览器支持所有现代浏览器均支持 HTML5 语义元素。 此外，我们还可以“帮助”老式浏览器处理“未知元素”。  HTML5 中新的语义元素许多网站包含了指示导航、页眉以及页脚的 HTML 代码，例如这些：  。 HTML5 提供了定义页面不同部分的新语义元素：         ...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E5%A4%B4%E9%83%A8/" title="HTML头部"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML头部</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML头部📊 156 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 实例 HTML  元素 HTML  元素 HTML  元素 HTML  元素 HTML  元素 HTML  元素 HTML  元素 一个完整的实例  实例文档的标题  标题定义文档的标题。  所有链接一个目标 如何使用 base 标签使页面中的所有标签在新窗口中打开。 文档描述 使用  元素来描述文档。 文档关键词 使用  元素来定义文档的关键词。 重定向用户 如何把用户重定向到新的网址。  HTML  元素 元素是所有头部元素的容器。 内的元素可包含脚本，指示浏览器在何处可以找到样式表，提供元信息，等等。  以下标签都可以添加到 head 部分：、、、、 以及 。  HTML  元素 标签定义文档的标题。  title 元素在所有 HTML/XHTML 文档中都是必需的。 title 元素能够：  定义浏览器工具栏中的标题 提供页面被添加到收藏夹时显示的标题 显示在搜索引擎结果中的页面标题  一个简化的 HTML 文档： &lt;!DOCTYPE ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">CSS 网格布局模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80"><span class="toc-number">1.1.</span> <span class="toc-text">网格布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81"><span class="toc-number">1.2.</span> <span class="toc-text">浏览器支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.</span> <span class="toc-text">网格元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Display-%E5%B1%9E%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text">Display 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-2"><span class="toc-number">1.4.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E5%88%97%EF%BC%88Grid-Columns%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">网格列（Grid Columns）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E8%A1%8C%EF%BC%88Grid-Rows%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">网格行（Grid Rows）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E9%97%B4%E9%9A%99%EF%BC%88Grid-Gaps%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">网格间隙（Grid Gaps）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-3"><span class="toc-number">1.7.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-4"><span class="toc-number">1.7.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-5"><span class="toc-number">1.7.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-6"><span class="toc-number">1.7.4.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E8%A1%8C%EF%BC%88Grid-Lines%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">网格行（Grid Lines）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-7"><span class="toc-number">1.8.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-8"><span class="toc-number">1.8.2.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">CSS 网格容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text">网格容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid-template-columns-%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">grid-template-columns 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-9"><span class="toc-number">2.2.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-10"><span class="toc-number">2.2.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid-template-rows-%E5%B1%9E%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text">grid-template-rows 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-11"><span class="toc-number">2.3.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#justify-content-%E5%B1%9E%E6%80%A7"><span class="toc-number">2.4.</span> <span class="toc-text">justify-content 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-12"><span class="toc-number">2.4.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-13"><span class="toc-number">2.4.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-14"><span class="toc-number">2.4.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-15"><span class="toc-number">2.4.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-16"><span class="toc-number">2.4.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-17"><span class="toc-number">2.4.6.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-content-%E5%B1%9E%E6%80%A7"><span class="toc-number">2.5.</span> <span class="toc-text">align-content 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-18"><span class="toc-number">2.5.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-19"><span class="toc-number">2.5.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-20"><span class="toc-number">2.5.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-21"><span class="toc-number">2.5.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-22"><span class="toc-number">2.5.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-23"><span class="toc-number">2.5.6.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.</span> <span class="toc-text">CSS 网格项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%EF%BC%88%E9%A1%B9%E7%9B%AE%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">子元素（项目）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid-column-%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">grid-column 属性：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-24"><span class="toc-number">3.2.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-25"><span class="toc-number">3.2.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-26"><span class="toc-number">3.2.3.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid-row-%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="toc-number">3.3.</span> <span class="toc-text">grid-row 属性：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-27"><span class="toc-number">3.3.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-28"><span class="toc-number">3.3.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid-area-%E5%B1%9E%E6%80%A7"><span class="toc-number">3.4.</span> <span class="toc-text">grid-area 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-29"><span class="toc-number">3.4.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-30"><span class="toc-number">3.4.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E7%BD%91%E6%A0%BC%E9%A1%B9"><span class="toc-number">3.5.</span> <span class="toc-text">命名网格项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-31"><span class="toc-number">3.5.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-32"><span class="toc-number">3.5.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-33"><span class="toc-number">3.5.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-34"><span class="toc-number">3.5.4.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.6.</span> <span class="toc-text">项目的顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-35"><span class="toc-number">3.6.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-36"><span class="toc-number">3.6.2.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

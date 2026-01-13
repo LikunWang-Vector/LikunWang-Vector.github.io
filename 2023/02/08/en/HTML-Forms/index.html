@@ -1,0 +1,884 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML Forms - Complete Guide (Attributes, Elements, Input Types) | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents HTML FormsThe &lt;form&gt; ElementThe &lt;input&gt; ElementText InputRadio Button InputSubmit ButtonAction AttributeMethod AttributeName AttributeGrouping Form Data with &lt;fieldset">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML Forms - Complete Guide (Attributes, Elements, Input Types)">
+<meta property="og:url" content="https://your-domain.com/2023/02/08/en/HTML-Forms/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents HTML FormsThe &lt;form&gt; ElementThe &lt;input&gt; ElementText InputRadio Button InputSubmit ButtonAction AttributeMethod AttributeName AttributeGrouping Form Data with &lt;fieldset">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/HTML%E8%A1%A8%E5%8D%95%EF%BC%88%E5%B1%9E%E6%80%A7%E5%85%83%E7%B4%A0%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E8%BE%93%E5%85%A5%E5%B1%9E%E6%80%A7%EF%BC%89%EF%BC%9A%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/dd1281408989.png">
+<meta property="article:published_time" content="2023-02-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-08T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/HTML%E8%A1%A8%E5%8D%95%EF%BC%88%E5%B1%9E%E6%80%A7%E5%85%83%E7%B4%A0%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E8%BE%93%E5%85%A5%E5%B1%9E%E6%80%A7%EF%BC%89%EF%BC%9A%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/dd1281408989.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML Forms - Complete Guide (Attributes, Elements, Input Types)",
+  "url": "https://your-domain.com/2023/02/08/en/HTML-Forms/",
+  "image": "https://your-domain.com/images/posts/HTML%E8%A1%A8%E5%8D%95%EF%BC%88%E5%B1%9E%E6%80%A7%E5%85%83%E7%B4%A0%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E8%BE%93%E5%85%A5%E5%B1%9E%E6%80%A7%EF%BC%89%EF%BC%9A%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/dd1281408989.png",
+  "datePublished": "2023-02-08T15:00:00.000Z",
+  "dateModified": "2023-02-08T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/08/en/HTML-Forms/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML Forms - Complete Guide (Attributes, Elements, Input Types)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/HTML%E8%A1%A8%E5%8D%95%EF%BC%88%E5%B1%9E%E6%80%A7%E5%85%83%E7%B4%A0%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E8%BE%93%E5%85%A5%E5%B1%9E%E6%80%A7%EF%BC%89%EF%BC%9A%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/dd1281408989.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML Forms - Complete Guide (Attributes, Elements, Input Types)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML Forms - Complete Guide (Attributes, Elements, Input Types)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-08T15:00:00.000Z" title="Created 2023-02-09 00:00:00">2023-02-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-08T15:00:00.000Z" title="Updated 2023-02-09 00:00:00">2023-02-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML-Beginner-to-Advanced/">HTML Beginner to Advanced</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>20mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-09 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>HTML Forms<br>The <code>&lt;form&gt;</code> Element<br>The <code>&lt;input&gt;</code> Element<br>Text Input<br>Radio Button Input<br>Submit Button<br>Action Attribute<br>Method Attribute<br>Name Attribute<br>Grouping Form Data with <code>&lt;fieldset&gt;</code><br>Form Attributes<br>Form Elements<br>Input Types<br>Input Attributes</p>
+<hr>
+<h2 id="HTML-Forms"><a href="#HTML-Forms" class="headerlink" title="HTML Forms"></a>HTML Forms</h2><p>HTML forms are used to collect different types of user input.</p>
+<hr>
+<h3 id="The-Element"><a href="#The-Element" class="headerlink" title="The &lt;form&gt; Element"></a>The <code>&lt;form&gt;</code> Element</h3><p>HTML forms are used to collect user input.</p>
+<p>The <code>&lt;form&gt;</code> element defines an HTML form:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  form elements</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML-forms-contain-form-elements"><a href="#HTML-forms-contain-form-elements" class="headerlink" title="HTML forms contain form elements."></a>HTML forms contain form elements.</h3><p>Form elements are different types of input elements, checkboxes, radio buttons, submit buttons, and more.</p>
+<hr>
+<h3 id="The-Element-1"><a href="#The-Element-1" class="headerlink" title="The &lt;input&gt; Element"></a>The <code>&lt;input&gt;</code> Element</h3><p>The <code>&lt;input&gt;</code> element is the most important form element.</p>
+<p>The <code>&lt;input&gt;</code> element can be displayed in several ways, depending on the <code>type</code> attribute.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text</td>
+<td>Defines a single-line text input field</td>
+</tr>
+<tr>
+<td>radio</td>
+<td>Defines a radio button (for selecting one of many choices)</td>
+</tr>
+<tr>
+<td>submit</td>
+<td>Defines a submit button (for submitting the form)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Text-Input"><a href="#Text-Input" class="headerlink" title="Text Input"></a>Text Input</h3><p><code>&lt;input type=&quot;text&quot;&gt;</code> defines a single-line input field for text input:</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Last name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong> The form itself is not visible. Also note that the default width of a text input field is 20 characters.</p>
+<hr>
+<h3 id="Radio-Button-Input"><a href="#Radio-Button-Input" class="headerlink" title="Radio Button Input"></a>Radio Button Input</h3><p><code>&lt;input type=&quot;radio&quot;&gt;</code> defines a radio button.</p>
+<p>Radio buttons let a user select ONE of a limited number of choices:</p>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span> <span class="attr">checked</span>&gt;</span>Male</span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span>Female</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Submit-Button"><a href="#Submit-Button" class="headerlink" title="Submit Button"></a>Submit Button</h3><p><code>&lt;input type=&quot;submit&quot;&gt;</code> defines a button for submitting the form data to a form-handler.</p>
+<p>The form-handler is typically a server page with a script for processing input data.</p>
+<p>The form-handler is specified in the form’s <code>action</code> attribute:</p>
+<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mickey&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Last name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mouse&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Action-Attribute"><a href="#Action-Attribute" class="headerlink" title="Action Attribute"></a>Action Attribute</h3><p>The <code>action</code> attribute defines the action to be performed when the form is submitted.</p>
+<p>Normally, the form data is sent to a web page on the server when the user clicks on the submit button.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>If the action attribute is omitted, the action is set to the current page.</p>
+<hr>
+<h3 id="Method-Attribute"><a href="#Method-Attribute" class="headerlink" title="Method Attribute"></a>Method Attribute</h3><p>The <code>method</code> attribute specifies the HTTP method (GET or POST) to be used when submitting the form data:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span> <span class="attr">method</span>=<span class="string">&quot;GET&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>or:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="When-to-Use-GET"><a href="#When-to-Use-GET" class="headerlink" title="When to Use GET?"></a>When to Use GET?</h4><p>You can use GET (the default method):</p>
+<p>If the form submission is passive (like a search engine query), and without sensitive information.</p>
+<p>When you use GET, the form data will be visible in the page address:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">action_page.php?firstname=Mickey&amp;lastname=Mouse</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong> GET is best suited for short amounts of data. Browsers set size limitations.</p>
+<h4 id="When-to-Use-POST"><a href="#When-to-Use-POST" class="headerlink" title="When to Use POST?"></a>When to Use POST?</h4><p>You should use POST:</p>
+<p>If the form is updating data, or includes sensitive information (like passwords).</p>
+<p>POST offers better security because the submitted data is not visible in the page address.</p>
+<hr>
+<h3 id="Name-Attribute"><a href="#Name-Attribute" class="headerlink" title="Name Attribute"></a>Name Attribute</h3><p>Each input field must have a <code>name</code> attribute to be submitted correctly.</p>
+<p>This example will only submit the “Last name” input field:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mickey&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Last name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mouse&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Grouping-Form-Data-with"><a href="#Grouping-Form-Data-with" class="headerlink" title="Grouping Form Data with &lt;fieldset&gt;"></a>Grouping Form Data with <code>&lt;fieldset&gt;</code></h3><p>The <code>&lt;fieldset&gt;</code> element groups related data in a form.</p>
+<p>The <code>&lt;legend&gt;</code> element defines a caption for the <code>&lt;fieldset&gt;</code> element.</p>
+<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Personal information:<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">    First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mickey&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    Last name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mouse&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML-Form-Attributes"><a href="#HTML-Form-Attributes" class="headerlink" title="HTML Form Attributes"></a>HTML Form Attributes</h3><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>accept-charset</td>
+<td>Specifies the charset used in the submitted form (default: page charset)</td>
+</tr>
+<tr>
+<td>action</td>
+<td>Specifies the address (URL) where to submit the form</td>
+</tr>
+<tr>
+<td>autocomplete</td>
+<td>Specifies if the browser should autocomplete the form (default: on)</td>
+</tr>
+<tr>
+<td>enctype</td>
+<td>Specifies the encoding of the submitted data (default: url-encoded)</td>
+</tr>
+<tr>
+<td>method</td>
+<td>Specifies the HTTP method used when submitting the form (default: GET)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Specifies a name used to identify the form (for DOM usage: document.forms.name)</td>
+</tr>
+<tr>
+<td>novalidate</td>
+<td>Specifies that the browser should not validate the form</td>
+</tr>
+<tr>
+<td>target</td>
+<td>Specifies the target of the address in the action attribute (default: _self)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Form-Attributes"><a href="#Form-Attributes" class="headerlink" title="Form Attributes"></a>Form Attributes</h2><h3 id="Target-Attribute"><a href="#Target-Attribute" class="headerlink" title="Target Attribute"></a>Target Attribute</h3><p>The <code>target</code> attribute specifies where to display the response after submitting the form.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_blank</td>
+<td>The response is displayed in a new window or tab</td>
+</tr>
+<tr>
+<td>_self</td>
+<td>The response is displayed in the current window</td>
+</tr>
+<tr>
+<td>_parent</td>
+<td>The response is displayed in the parent frame</td>
+</tr>
+<tr>
+<td>_top</td>
+<td>The response is displayed in the full body of the window</td>
+</tr>
+<tr>
+<td>framename</td>
+<td>The response is displayed in a named iframe</td>
+</tr>
+</tbody></table>
+<h4 id="Example-4"><a href="#Example-4" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/action_page.php&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Autocomplete-Attribute"><a href="#Autocomplete-Attribute" class="headerlink" title="Autocomplete Attribute"></a>Autocomplete Attribute</h3><p>The <code>autocomplete</code> attribute specifies whether a form should have autocomplete on or off.</p>
+<p>When autocomplete is on, the browser automatically fills in values based on values the user has entered before.</p>
+<h4 id="Example-5"><a href="#Example-5" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/action_page.php&quot;</span> <span class="attr">autocomplete</span>=<span class="string">&quot;on&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Novalidate-Attribute"><a href="#Novalidate-Attribute" class="headerlink" title="Novalidate Attribute"></a>Novalidate Attribute</h3><p>The <code>novalidate</code> attribute is a boolean attribute.</p>
+<p>When present, it specifies that the form-data should not be validated on submission.</p>
+<h4 id="Example-6"><a href="#Example-6" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/action_page.php&quot;</span> <span class="attr">novalidate</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HTML-Form-Elements"><a href="#HTML-Form-Elements" class="headerlink" title="HTML Form Elements"></a>HTML Form Elements</h2><h3 id="The-Element-Drop-Down-List"><a href="#The-Element-Drop-Down-List" class="headerlink" title="The &lt;select&gt; Element (Drop-Down List)"></a>The <code>&lt;select&gt;</code> Element (Drop-Down List)</h3><p>The <code>&lt;select&gt;</code> element defines a drop-down list:</p>
+<h4 id="Example-7"><a href="#Example-7" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;cars&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;volvo&quot;</span>&gt;</span>Volvo<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;saab&quot;</span>&gt;</span>Saab<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;fiat&quot;</span>&gt;</span>Fiat<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;audi&quot;</span>&gt;</span>Audi<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The <code>&lt;option&gt;</code> element defines an option that can be selected.</p>
+<p>By default, the first item in the drop-down list is selected.</p>
+<p>To define a pre-selected option, add the <code>selected</code> attribute to the option:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;fiat&quot;</span> <span class="attr">selected</span>&gt;</span>Fiat<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="The-Element-2"><a href="#The-Element-2" class="headerlink" title="The &lt;textarea&gt; Element"></a>The <code>&lt;textarea&gt;</code> Element</h3><p>The <code>&lt;textarea&gt;</code> element defines a multi-line input field (a text area):</p>
+<h4 id="Example-8"><a href="#Example-8" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;message&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span>&gt;</span></span><br><span class="line">The cat was playing in the garden.</span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="The-Element-3"><a href="#The-Element-3" class="headerlink" title="The &lt;button&gt; Element"></a>The <code>&lt;button&gt;</code> Element</h3><p>The <code>&lt;button&gt;</code> element defines a clickable button:</p>
+<h4 id="Example-9"><a href="#Example-9" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;Hello World!&#x27;)&quot;</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML5-Element"><a href="#HTML5-Element" class="headerlink" title="HTML5 &lt;datalist&gt; Element"></a>HTML5 <code>&lt;datalist&gt;</code> Element</h3><p>The <code>&lt;datalist&gt;</code> element specifies a list of pre-defined options for an <code>&lt;input&gt;</code> element.</p>
+<p>Users will see a drop-down list of pre-defined options as they input data.</p>
+<p>The <code>list</code> attribute of the <code>&lt;input&gt;</code> element must refer to the <code>id</code> attribute of the <code>&lt;datalist&gt;</code> element.</p>
+<h4 id="Example-10"><a href="#Example-10" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">list</span>=<span class="string">&quot;browsers&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;browsers&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Internet Explorer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Firefox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Chrome&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Opera&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Safari&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HTML-Input-Types"><a href="#HTML-Input-Types" class="headerlink" title="HTML Input Types"></a>HTML Input Types</h2><h3 id="Input-Type-text"><a href="#Input-Type-text" class="headerlink" title="Input Type: text"></a>Input Type: text</h3><p><code>&lt;input type=&quot;text&quot;&gt;</code> defines a single-line text input field:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Last name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-password"><a href="#Input-Type-password" class="headerlink" title="Input Type: password"></a>Input Type: password</h3><p><code>&lt;input type=&quot;password&quot;&gt;</code> defines a password field:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  User name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  User password:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;psw&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong> Characters in a password field are masked (shown as asterisks or circles).</p>
+<hr>
+<h3 id="Input-Type-submit"><a href="#Input-Type-submit" class="headerlink" title="Input Type: submit"></a>Input Type: submit</h3><p><code>&lt;input type=&quot;submit&quot;&gt;</code> defines a button for submitting form data to a form-handler.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;action_page.php&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mickey&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Last name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mouse&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-radio"><a href="#Input-Type-radio" class="headerlink" title="Input Type: radio"></a>Input Type: radio</h3><p><code>&lt;input type=&quot;radio&quot;&gt;</code> defines a radio button.</p>
+<p>Radio buttons let a user select ONLY ONE of a limited number of choices:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span> <span class="attr">checked</span>&gt;</span>Male</span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span>Female</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-checkbox"><a href="#Input-Type-checkbox" class="headerlink" title="Input Type: checkbox"></a>Input Type: checkbox</h3><p><code>&lt;input type=&quot;checkbox&quot;&gt;</code> defines a checkbox.</p>
+<p>Checkboxes let a user select ZERO or MORE options of a limited number of choices:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;vehicle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bike&quot;</span>&gt;</span>I have a bike</span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;vehicle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Car&quot;</span>&gt;</span>I have a car</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-button"><a href="#Input-Type-button" class="headerlink" title="Input Type: button"></a>Input Type: button</h3><p><code>&lt;input type=&quot;button&quot;&gt;</code> defines a button:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;Hello World!&#x27;)&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Click Me!&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML5-Input-Types"><a href="#HTML5-Input-Types" class="headerlink" title="HTML5 Input Types"></a>HTML5 Input Types</h3><p>HTML5 added several new input types:</p>
+<ul>
+<li>color</li>
+<li>date</li>
+<li>datetime</li>
+<li>datetime-local</li>
+<li>email</li>
+<li>month</li>
+<li>number</li>
+<li>range</li>
+<li>search</li>
+<li>tel</li>
+<li>time</li>
+<li>url</li>
+<li>week</li>
+</ul>
+<p><strong>Note:</strong> Input types not supported by old web browsers will behave as input type text.</p>
+<hr>
+<h3 id="Input-Type-number"><a href="#Input-Type-number" class="headerlink" title="Input Type: number"></a>Input Type: number</h3><p><code>&lt;input type=&quot;number&quot;&gt;</code> is used for input fields that should contain a numeric value.</p>
+<p>You can set restrictions on the numbers.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Quantity (between 1 and 5):</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;quantity&quot;</span> <span class="attr">min</span>=<span class="string">&quot;1&quot;</span> <span class="attr">max</span>=<span class="string">&quot;5&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Restrictions"><a href="#Input-Restrictions" class="headerlink" title="Input Restrictions"></a>Input Restrictions</h3><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>disabled</td>
+<td>Specifies that an input field should be disabled</td>
+</tr>
+<tr>
+<td>max</td>
+<td>Specifies the maximum value for an input field</td>
+</tr>
+<tr>
+<td>maxlength</td>
+<td>Specifies the maximum number of characters for an input field</td>
+</tr>
+<tr>
+<td>min</td>
+<td>Specifies the minimum value for an input field</td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>Specifies a regular expression to check the input value against</td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>Specifies that an input field is read only (cannot be changed)</td>
+</tr>
+<tr>
+<td>required</td>
+<td>Specifies that an input field is required (must be filled out)</td>
+</tr>
+<tr>
+<td>size</td>
+<td>Specifies the width (in characters) of an input field</td>
+</tr>
+<tr>
+<td>step</td>
+<td>Specifies the legal number intervals for an input field</td>
+</tr>
+<tr>
+<td>value</td>
+<td>Specifies the default value for an input field</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Input-Type-date"><a href="#Input-Type-date" class="headerlink" title="Input Type: date"></a>Input Type: date</h3><p><code>&lt;input type=&quot;date&quot;&gt;</code> is used for input fields that should contain a date.</p>
+<p>Depending on browser support, a date picker can show up in the input field.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Birthday:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bday&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>You can also add restrictions:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Enter a date before 1980-01-01:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bday&quot;</span> <span class="attr">max</span>=<span class="string">&quot;1979-12-31&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  Enter a date after 2000-01-01:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bday&quot;</span> <span class="attr">min</span>=<span class="string">&quot;2000-01-02&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-color"><a href="#Input-Type-color" class="headerlink" title="Input Type: color"></a>Input Type: color</h3><p><code>&lt;input type=&quot;color&quot;&gt;</code> is used for input fields that should contain a color.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Select your favorite color:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;color&quot;</span> <span class="attr">name</span>=<span class="string">&quot;favcolor&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-range"><a href="#Input-Type-range" class="headerlink" title="Input Type: range"></a>Input Type: range</h3><p><code>&lt;input type=&quot;range&quot;&gt;</code> is used for input fields that should contain a value within a range.</p>
+<p>Depending on browser support, the input field can be displayed as a slider control.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;range&quot;</span> <span class="attr">name</span>=<span class="string">&quot;points&quot;</span> <span class="attr">min</span>=<span class="string">&quot;0&quot;</span> <span class="attr">max</span>=<span class="string">&quot;10&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-month"><a href="#Input-Type-month" class="headerlink" title="Input Type: month"></a>Input Type: month</h3><p><code>&lt;input type=&quot;month&quot;&gt;</code> allows the user to select a month and year.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Birthday (month and year):</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;month&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bdaymonth&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-week"><a href="#Input-Type-week" class="headerlink" title="Input Type: week"></a>Input Type: week</h3><p><code>&lt;input type=&quot;week&quot;&gt;</code> allows the user to select a week and year.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Select a week:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;week&quot;</span> <span class="attr">name</span>=<span class="string">&quot;week_year&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-time"><a href="#Input-Type-time" class="headerlink" title="Input Type: time"></a>Input Type: time</h3><p><code>&lt;input type=&quot;time&quot;&gt;</code> allows the user to select a time (no time zone).</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Select a time:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">name</span>=<span class="string">&quot;usr_time&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-datetime-local"><a href="#Input-Type-datetime-local" class="headerlink" title="Input Type: datetime-local"></a>Input Type: datetime-local</h3><p><code>&lt;input type=&quot;datetime-local&quot;&gt;</code> allows the user to select a date and time (no time zone).</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Birthday (date and time):</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;datetime-local&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bdaytime&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-email"><a href="#Input-Type-email" class="headerlink" title="Input Type: email"></a>Input Type: email</h3><p><code>&lt;input type=&quot;email&quot;&gt;</code> is used for input fields that should contain an e-mail address.</p>
+<p>Depending on browser support, the e-mail address can be automatically validated when submitted.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  E-mail:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-search"><a href="#Input-Type-search" class="headerlink" title="Input Type: search"></a>Input Type: search</h3><p><code>&lt;input type=&quot;search&quot;&gt;</code> is used for search fields (a search field behaves like a regular text field).</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Search Google:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span> <span class="attr">name</span>=<span class="string">&quot;googlesearch&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-tel"><a href="#Input-Type-tel" class="headerlink" title="Input Type: tel"></a>Input Type: tel</h3><p><code>&lt;input type=&quot;tel&quot;&gt;</code> is used for input fields that should contain a telephone number.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Telephone:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;tel&quot;</span> <span class="attr">name</span>=<span class="string">&quot;usrtel&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Input-Type-url"><a href="#Input-Type-url" class="headerlink" title="Input Type: url"></a>Input Type: url</h3><p><code>&lt;input type=&quot;url&quot;&gt;</code> is used for input fields that should contain a URL address.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  Add your homepage:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;url&quot;</span> <span class="attr">name</span>=<span class="string">&quot;homepage&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HTML-Input-Attributes"><a href="#HTML-Input-Attributes" class="headerlink" title="HTML Input Attributes"></a>HTML Input Attributes</h2><h3 id="value-Attribute"><a href="#value-Attribute" class="headerlink" title="value Attribute"></a>value Attribute</h3><p>The <code>value</code> attribute specifies the initial value for an input field:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bill&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="readonly-Attribute"><a href="#readonly-Attribute" class="headerlink" title="readonly Attribute"></a>readonly Attribute</h3><p>The <code>readonly</code> attribute specifies that the input field is read only (cannot be changed):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bill&quot;</span> <span class="attr">readonly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="disabled-Attribute"><a href="#disabled-Attribute" class="headerlink" title="disabled Attribute"></a>disabled Attribute</h3><p>The <code>disabled</code> attribute specifies that the input field is disabled.</p>
+<p>A disabled element is unusable and un-clickable.</p>
+<p>Disabled elements will not be submitted.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bill&quot;</span> <span class="attr">disabled</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="size-Attribute"><a href="#size-Attribute" class="headerlink" title="size Attribute"></a>size Attribute</h3><p>The <code>size</code> attribute specifies the size (in characters) for the input field:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bill&quot;</span> <span class="attr">size</span>=<span class="string">&quot;40&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="maxlength-Attribute"><a href="#maxlength-Attribute" class="headerlink" title="maxlength Attribute"></a>maxlength Attribute</h3><p>The <code>maxlength</code> attribute specifies the maximum allowed length for the input field:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  First name:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">maxlength</span>=<span class="string">&quot;10&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML5-Attributes"><a href="#HTML5-Attributes" class="headerlink" title="HTML5 Attributes"></a>HTML5 Attributes</h3><p>HTML5 added the following attributes for <code>&lt;input&gt;</code>:</p>
+<ul>
+<li>autocomplete</li>
+<li>autofocus</li>
+<li>form</li>
+<li>formaction</li>
+<li>formenctype</li>
+<li>formmethod</li>
+<li>formnovalidate</li>
+<li>formtarget</li>
+<li>height and width</li>
+<li>list</li>
+<li>min and max</li>
+<li>multiple</li>
+<li>pattern (regexp)</li>
+<li>placeholder</li>
+<li>required</li>
+<li>step</li>
+</ul>
+<hr>
+<h3 id="autofocus-Attribute"><a href="#autofocus-Attribute" class="headerlink" title="autofocus Attribute"></a>autofocus Attribute</h3><p>The <code>autofocus</code> attribute is a boolean attribute.</p>
+<p>When present, it specifies that an <code>&lt;input&gt;</code> element should automatically get focus when the page loads.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">First name:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fname&quot;</span> <span class="attr">autofocus</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="placeholder-Attribute"><a href="#placeholder-Attribute" class="headerlink" title="placeholder Attribute"></a>placeholder Attribute</h3><p>The <code>placeholder</code> attribute specifies a hint that describes the expected value of an input field.</p>
+<p>The hint is displayed in the input field before the user enters a value.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fname&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;First name&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="required-Attribute"><a href="#required-Attribute" class="headerlink" title="required Attribute"></a>required Attribute</h3><p>The <code>required</code> attribute is a boolean attribute.</p>
+<p>When present, it specifies that an input field must be filled out before submitting the form.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;usrname&quot;</span> <span class="attr">required</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="pattern-Attribute"><a href="#pattern-Attribute" class="headerlink" title="pattern Attribute"></a>pattern Attribute</h3><p>The <code>pattern</code> attribute specifies a regular expression that the <code>&lt;input&gt;</code> element’s value is checked against.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Country code:</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;country_code&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;[A-Za-z]&#123;3&#125;&quot;</span> <span class="attr">title</span>=<span class="string">&quot;Three letter country code&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="multiple-Attribute"><a href="#multiple-Attribute" class="headerlink" title="multiple Attribute"></a>multiple Attribute</h3><p>The <code>multiple</code> attribute is a boolean attribute.</p>
+<p>When present, it specifies that the user is allowed to enter more than one value in the <code>&lt;input&gt;</code> element.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select images: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;img&quot;</span> <span class="attr">multiple</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="min-and-max-Attributes"><a href="#min-and-max-Attributes" class="headerlink" title="min and max Attributes"></a>min and max Attributes</h3><p>The <code>min</code> and <code>max</code> attributes specify the minimum and maximum values for an <code>&lt;input&gt;</code> element.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Enter a date before 1980-01-01:</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bday&quot;</span> <span class="attr">max</span>=<span class="string">&quot;1979-12-31&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">Enter a date after 2000-01-01:</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;bday&quot;</span> <span class="attr">min</span>=<span class="string">&quot;2000-01-02&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">Quantity (between 1 and 5):</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;quantity&quot;</span> <span class="attr">min</span>=<span class="string">&quot;1&quot;</span> <span class="attr">max</span>=<span class="string">&quot;5&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="step-Attribute"><a href="#step-Attribute" class="headerlink" title="step Attribute"></a>step Attribute</h3><p>The <code>step</code> attribute specifies the legal number intervals for an <code>&lt;input&gt;</code> element.</p>
+<p>Example: if step&#x3D;”3”, legal numbers could be -3, 0, 3, 6, etc.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;points&quot;</span> <span class="attr">step</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML-Form-and-Input-Elements"><a href="#HTML-Form-and-Input-Elements" class="headerlink" title="HTML Form and Input Elements"></a>HTML Form and Input Elements</h3><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;form&gt;</code></td>
+<td>Defines an HTML form for user input</td>
+</tr>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>Defines an input control</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/08/en/HTML-Forms/">https://your-domain.com/2023/02/08/en/HTML-Forms/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/java/">java</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/HTML%E8%A1%A8%E5%8D%95%EF%BC%88%E5%B1%9E%E6%80%A7%E5%85%83%E7%B4%A0%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E8%BE%93%E5%85%A5%E5%B1%9E%E6%80%A7%EF%BC%89%EF%BC%9A%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/dd1281408989.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/08/en/UESTC-AI-Notes-4-Probability-and-Bayesian-Networks/" title="UESTC Artificial Intelligence Review Notes (4): Probability and Bayesian Networks"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C/25f8d94da6ec.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">UESTC Artificial Intelligence Review Notes (4): Probability and Bayesian Networks</div></div><div class="info-2"><div class="info-item-1">Table of Contents Probability FormulasBayes’ TheoremChain RuleBayesian NetworksIndependence DeterminationActive&#x2F;Inactive PathsConditional Probability in Bayesian NetworksBayesian Network Sampling  Probability FormulasBayes’ TheoremP(A|B) &#x3D; P(B|A) × P(A) &#x2F; P(B) Or equivalently:P(A|B) &#x3D; P(A,B) &#x2F; P(B) Chain Rule for Conditional ProbabilityP(X₁, X₂, …, Xₙ) &#x3D; P(X₁) × P(X₂|X₁) × P(X₃|X₁,X₂) × … × P(Xₙ|X₁,…,Xₙ₋₁)  Example Problems1. Joint&#x2F;Marginal&#x2F;Conditional ...</div></div></div></a><a class="pagination-related" href="/2023/02/08/en/HTML-Canvas-and-SVG/" title="HTML Canvas and SVG (Canvas vs. SVG)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E7%94%BB%E5%B8%83%E4%B8%8ESVG%EF%BC%88Canvas-vs.-SVG%EF%BC%89/8cc8330f872a.gif" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">HTML Canvas and SVG (Canvas vs. SVG)</div></div><div class="info-2"><div class="info-item-1">Table of Contents CanvasWhat is Canvas?Creating a Canvas ElementDrawing with JavaScriptUnderstanding CoordinatesMore Canvas ExamplesSVG (Scalable Vector Graphics)What is SVG?Advantages of SVGEmbedding SVG in HTMLCanvas vs. SVG  CanvasThe canvas element is used to draw graphics on a web page. What is Canvas?The HTML5 &lt;canvas&gt; element is used to draw graphics, on the fly, via JavaScript. The &lt;canvas&gt; element is only a container for graphics. You must use JavaScript to actually draw ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/26/en/HTML-Emoji/" title="HTML and Emoji"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML and Emoji</div></div><div class="info-2"><div class="info-item-1">Table of Contents What is Emoji? HTML charset Attribute UTF-8 Characters Emoji Characters Some Emoji Symbols in UTF-8  Emojis are characters from the UTF-8 character set: 😄 😍 💗  What is Emoji?Emojis look like images or icons, but they are not. They are letters (characters) from the UTF-8 (Unicode) character set. Tip: UTF-8 covers almost all characters and symbols in the world.  HTML charset AttributeTo display an HTML page correctly, a web browser must know the character set used in the pa...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Quotations/" title="HTML Quotations"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Quotations</div></div><div class="info-2"><div class="info-item-1">Table of Contents Quotation HTML &lt;q&gt; for Short Quotations HTML &lt;blockquote&gt; for Long Quotations HTML &lt;abbr&gt; for Abbreviations HTML &lt;dfn&gt; for Definitions HTML &lt;address&gt; for Contact Information HTML &lt;cite&gt; for Work Titles HTML &lt;bdo&gt; for Bi-Directional Override HTML Citation, Quotation, and Definition Elements A Complete Example  QuotationHere is a quote from the WWF website:  For 50 years, WWF has been protecting the future of nature. The world’s leadin...</div></div></div></a><a class="pagination-related" href="/2023/02/09/en/HTML-Multimedia/" title="HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-10</div><div class="info-item-2">HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML MediaHTML PluginsHTML AudioHTML VideoHTML YouTube  HTML MediaMultimedia on the web is sound, music, videos, movies, and animations. Modern web browsers have built-in support for many multimedia formats. What is Multimedia?Multimedia comes in many different formats. It can be almost anything you can hear or see, like images, music, sound, videos, records, films, animations, and more. Web pages often contain multimedia elements of different types and formats. Multimedia F...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Colors/" title="HTML Colors"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E9%A2%9C%E8%89%B2/80a4a0eea8eb.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Colors</div></div><div class="info-2"><div class="info-item-1">Table of Contents Color Values Color Names Web Safe Colors 216 Cross-Platform Colors  Colors are created by mixing red, green, and blue.  Color ValuesA color is defined by a hexadecimal notation, which consists of red, green, and blue values (RGB). The minimum value for each color is 0 (hexadecimal: #00). The maximum value is 255 (hexadecimal: #FF).  Color NamesMost browsers support a set of color names. Tip: Only 16 color names are supported by the W3C HTML 4.0 standard. They are: aqua, blac...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML-Entities/" title="HTML Entities and Reserved Characters"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML Entities and Reserved Characters</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Entities Non-breaking Space HTML Example Useful Character Entities in HTML  Reserved characters in HTML must be replaced with character entities.  HTML EntitiesSome characters are reserved in HTML. In HTML, you cannot use the less than sign (&lt;) and greater than sign (&gt;) because the browser will mistake them for tags. If we want to correctly display reserved characters, we must use character entities in the HTML source code. A character entity looks like this: 1&am...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML-Layout/" title="HTML Layout"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML Layout</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Layout Using &lt;div&gt; Elements Website Layout Using HTML5 HTML Layout Using Tables A Complete Example  Websites often display content in multiple columns (like a magazine or newspaper).  HTML Layout Using &lt;div&gt; ElementsNote: The &lt;div&gt; element is often used as a layout tool, because it can easily be positioned with CSS. This example uses four &lt;div&gt; elements to create a multi-column layout: Example1234567891011121314151617181920212223242526272829&lt;b...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Forms"><span class="toc-number">1.</span> <span class="toc-text">HTML Forms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element"><span class="toc-number">1.1.</span> <span class="toc-text">The &lt;form&gt; Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-forms-contain-form-elements"><span class="toc-number">1.2.</span> <span class="toc-text">HTML forms contain form elements.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element-1"><span class="toc-number">1.3.</span> <span class="toc-text">The &lt;input&gt; Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Text-Input"><span class="toc-number">1.4.</span> <span class="toc-text">Text Input</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.4.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Radio-Button-Input"><span class="toc-number">1.5.</span> <span class="toc-text">Radio Button Input</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">1.5.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Submit-Button"><span class="toc-number">1.6.</span> <span class="toc-text">Submit Button</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2"><span class="toc-number">1.6.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Action-Attribute"><span class="toc-number">1.7.</span> <span class="toc-text">Action Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Attribute"><span class="toc-number">1.8.</span> <span class="toc-text">Method Attribute</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#When-to-Use-GET"><span class="toc-number">1.8.1.</span> <span class="toc-text">When to Use GET?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#When-to-Use-POST"><span class="toc-number">1.8.2.</span> <span class="toc-text">When to Use POST?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Name-Attribute"><span class="toc-number">1.9.</span> <span class="toc-text">Name Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Grouping-Form-Data-with"><span class="toc-number">1.10.</span> <span class="toc-text">Grouping Form Data with &lt;fieldset&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-3"><span class="toc-number">1.10.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-Form-Attributes"><span class="toc-number">1.11.</span> <span class="toc-text">HTML Form Attributes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Form-Attributes"><span class="toc-number">2.</span> <span class="toc-text">Form Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Target-Attribute"><span class="toc-number">2.1.</span> <span class="toc-text">Target Attribute</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-4"><span class="toc-number">2.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Autocomplete-Attribute"><span class="toc-number">2.2.</span> <span class="toc-text">Autocomplete Attribute</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-5"><span class="toc-number">2.2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Novalidate-Attribute"><span class="toc-number">2.3.</span> <span class="toc-text">Novalidate Attribute</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-6"><span class="toc-number">2.3.1.</span> <span class="toc-text">Example</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Form-Elements"><span class="toc-number">3.</span> <span class="toc-text">HTML Form Elements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element-Drop-Down-List"><span class="toc-number">3.1.</span> <span class="toc-text">The &lt;select&gt; Element (Drop-Down List)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-7"><span class="toc-number">3.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element-2"><span class="toc-number">3.2.</span> <span class="toc-text">The &lt;textarea&gt; Element</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-8"><span class="toc-number">3.2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element-3"><span class="toc-number">3.3.</span> <span class="toc-text">The &lt;button&gt; Element</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-9"><span class="toc-number">3.3.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5-Element"><span class="toc-number">3.4.</span> <span class="toc-text">HTML5 &lt;datalist&gt; Element</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-10"><span class="toc-number">3.4.1.</span> <span class="toc-text">Example</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Input-Types"><span class="toc-number">4.</span> <span class="toc-text">HTML Input Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-text"><span class="toc-number">4.1.</span> <span class="toc-text">Input Type: text</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-password"><span class="toc-number">4.2.</span> <span class="toc-text">Input Type: password</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-submit"><span class="toc-number">4.3.</span> <span class="toc-text">Input Type: submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-radio"><span class="toc-number">4.4.</span> <span class="toc-text">Input Type: radio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-checkbox"><span class="toc-number">4.5.</span> <span class="toc-text">Input Type: checkbox</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-button"><span class="toc-number">4.6.</span> <span class="toc-text">Input Type: button</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5-Input-Types"><span class="toc-number">4.7.</span> <span class="toc-text">HTML5 Input Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-number"><span class="toc-number">4.8.</span> <span class="toc-text">Input Type: number</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Restrictions"><span class="toc-number">4.9.</span> <span class="toc-text">Input Restrictions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-date"><span class="toc-number">4.10.</span> <span class="toc-text">Input Type: date</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-color"><span class="toc-number">4.11.</span> <span class="toc-text">Input Type: color</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-range"><span class="toc-number">4.12.</span> <span class="toc-text">Input Type: range</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-month"><span class="toc-number">4.13.</span> <span class="toc-text">Input Type: month</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-week"><span class="toc-number">4.14.</span> <span class="toc-text">Input Type: week</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-time"><span class="toc-number">4.15.</span> <span class="toc-text">Input Type: time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-datetime-local"><span class="toc-number">4.16.</span> <span class="toc-text">Input Type: datetime-local</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-email"><span class="toc-number">4.17.</span> <span class="toc-text">Input Type: email</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-search"><span class="toc-number">4.18.</span> <span class="toc-text">Input Type: search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-tel"><span class="toc-number">4.19.</span> <span class="toc-text">Input Type: tel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-Type-url"><span class="toc-number">4.20.</span> <span class="toc-text">Input Type: url</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Input-Attributes"><span class="toc-number">5.</span> <span class="toc-text">HTML Input Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#value-Attribute"><span class="toc-number">5.1.</span> <span class="toc-text">value Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readonly-Attribute"><span class="toc-number">5.2.</span> <span class="toc-text">readonly Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disabled-Attribute"><span class="toc-number">5.3.</span> <span class="toc-text">disabled Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#size-Attribute"><span class="toc-number">5.4.</span> <span class="toc-text">size Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maxlength-Attribute"><span class="toc-number">5.5.</span> <span class="toc-text">maxlength Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5-Attributes"><span class="toc-number">5.6.</span> <span class="toc-text">HTML5 Attributes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#autofocus-Attribute"><span class="toc-number">5.7.</span> <span class="toc-text">autofocus Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#placeholder-Attribute"><span class="toc-number">5.8.</span> <span class="toc-text">placeholder Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#required-Attribute"><span class="toc-number">5.9.</span> <span class="toc-text">required Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pattern-Attribute"><span class="toc-number">5.10.</span> <span class="toc-text">pattern Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiple-Attribute"><span class="toc-number">5.11.</span> <span class="toc-text">multiple Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#min-and-max-Attributes"><span class="toc-number">5.12.</span> <span class="toc-text">min and max Attributes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-Attribute"><span class="toc-number">5.13.</span> <span class="toc-text">step Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-Form-and-Input-Elements"><span class="toc-number">5.14.</span> <span class="toc-text">HTML Form and Input Elements</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

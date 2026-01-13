@@ -1,0 +1,569 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>12. XPath Parsing Introduction | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This article was migrated from CSDN blogOriginal link: 12. XPath Parsing Introduction📊 611 views | 👍 2 likes | 💬 1 comment | ⭐ 6 favorites  Table of Contents Introduction Module Installation Basic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12. XPath Parsing Introduction">
+<meta property="og:url" content="https://your-domain.com/2023/01/01/en/12-XPath-Parsing-Introduction/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="This article was migrated from CSDN blogOriginal link: 12. XPath Parsing Introduction📊 611 views | 👍 2 likes | 💬 1 comment | ⭐ 6 favorites  Table of Contents Introduction Module Installation Basic">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png">
+<meta property="article:published_time" content="2023-01-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-01T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="data analysis">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="web scraping">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "12. XPath Parsing Introduction",
+  "url": "https://your-domain.com/2023/01/01/en/12-XPath-Parsing-Introduction/",
+  "image": "https://your-domain.com/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png",
+  "datePublished": "2023-01-01T15:00:00.000Z",
+  "dateModified": "2023-01-01T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/01/en/12-XPath-Parsing-Introduction/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '12. XPath Parsing Introduction',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">12. XPath Parsing Introduction</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">12. XPath Parsing Introduction</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-01T15:00:00.000Z" title="Created 2023-01-02 00:00:00">2023-01-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-01T15:00:00.000Z" title="Updated 2023-01-02 00:00:00">2023-01-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python-Web-Scraping-Tutorial/">Python Web Scraping Tutorial</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>12mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-02 00:00:00&quot;}" hidden></div><blockquote>
+<p>This article was migrated from CSDN blog<br>Original link: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128519694">12. XPath Parsing Introduction</a><br>📊 611 views | 👍 2 likes | 💬 1 comment | ⭐ 6 favorites</p>
+</blockquote>
+<p><strong>Table of Contents</strong></p>
+<p>Introduction</p>
+<p>Module Installation</p>
+<p>Basic XPath Concepts</p>
+<p>XPath Basic Syntax</p>
+<p>Complete Test Code</p>
+<p>XPath Advanced Usage</p>
+<p>Task 1: Process a resource file with xpath</p>
+<p>Task 2: Find tag location, like html tag</p>
+<p>Task 3: Find text content in each list item (li) of unordered list (ul)</p>
+<p>Task 4: Find text content in first list item (li) of unordered list (ul)</p>
+<p>Task 5: Find link (a) content in each list item (li) of unordered list (ul)</p>
+<p>Task 6: Get text wrapped by href&#x3D;’dapao’ (attribute filtering)</p>
+<p>Task 7: Get list items, then recursively extract text and href attribute values</p>
+<p>Task 8: Exercise: Print text info of first div</p>
+<p>XPath Advanced Usage Complete Code</p>
+<hr>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>XPath is a language for finding information in XML documents. XPath can traverse elements and attributes in XML documents. HTML happens to be a subset of XML, so XPath can be used to find content in HTML.</p>
+<hr>
+<h3 id="Module-Installation"><a href="#Module-Installation" class="headerlink" title="Module Installation"></a>Module Installation</h3><p>As usual, just <code>pip install lxml</code></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png"></p>
+<hr>
+<h3 id="Basic-XPath-Concepts"><a href="#Basic-XPath-Concepts" class="headerlink" title="Basic XPath Concepts"></a>Basic XPath Concepts</h3><p>Here’s an XML document:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>1<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>Wild Flowers<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">price</span>&gt;</span>1.23<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span>&gt;</span>John Doe<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span>&gt;</span>Jane Doe<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>First, understand these concepts:</p>
+<ol>
+<li>book, id, name, price… are all called nodes</li>
+<li>id, name, price, author are called child nodes of book</li>
+<li>book is called the parent node of id, name, price, author</li>
+<li>id, name, price, author are called sibling nodes</li>
+</ol>
+<p>With this foundation, we can start learning XPath basic syntax.</p>
+<hr>
+<h3 id="XPath-Basic-Syntax"><a href="#XPath-Basic-Syntax" class="headerlink" title="XPath Basic Syntax"></a>XPath Basic Syntax</h3><p>Using another XML example:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>1<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>Wild Flowers<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">price</span>&gt;</span>1.23<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nick</span>&gt;</span>Tofu<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span> <span class="attr">id</span>=<span class="string">&quot;10086&quot;</span>&gt;</span>John Strong<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span> <span class="attr">id</span>=<span class="string">&quot;10010&quot;</span>&gt;</span>Jane Smith<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span> <span class="attr">class</span>=<span class="string">&quot;jay&quot;</span>&gt;</span>Jay Chou<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span> <span class="attr">class</span>=<span class="string">&quot;jolin&quot;</span>&gt;</span>Jolin Tsai<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">nick</span>&gt;</span>Hot1<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">nick</span>&gt;</span>Hot2<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">nick</span>&gt;</span>Hot3<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">partner</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span> <span class="attr">id</span>=<span class="string">&quot;ppc&quot;</span>&gt;</span>Partner1<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nick</span> <span class="attr">id</span>=<span class="string">&quot;ppbc&quot;</span>&gt;</span>Partner2<span class="tag">&lt;/<span class="name">nick</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">partner</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>To use XPath parsing in Python, first learn how to import:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br></pre></td></tr></table></figure>
+
+<p>Import the etree module from the lxml library we just installed for XPath parsing.</p>
+<p>Write the XML example to a file and process it with <code>etree.XML()</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xml = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&lt;book&gt;</span></span><br><span class="line"><span class="string">    &lt;id&gt;1&lt;/id&gt;</span></span><br><span class="line"><span class="string">    &lt;name&gt;Wild Flowers&lt;/name&gt;</span></span><br><span class="line"><span class="string">    ...</span></span><br><span class="line"><span class="string">&lt;/book&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">tree = etree.XML(xml)</span><br></pre></td></tr></table></figure>
+
+<p>Besides processing XML, etree also has <code>etree.HTML()</code> for HTML files and <code>etree.parse()</code> for resource files, which we’ll use later.</p>
+<p>XPath parsing is based on file-path-like syntax. Tags are nested, so this algorithm follows file path conventions.</p>
+<p>To request the name tag, its XPath path is: <code>/book/name</code>. In code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book/name&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>‘&#x2F;‘ represents hierarchy. Linux&#x2F;Mac users know the first ‘&#x2F;‘ is the root node. Windows file systems start with drive letters (C:&#x2F;, etc.), but they also have a root node - it’s just omitted for readability.</p>
+<p>To request <strong>all nick tags wrapped by author tag</strong>, use XPath: <code>/book/author/nick</code> to get all nick tags on this path.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book/author/nick&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Printing result shows an iterator-like result with tag locations. But we want <strong>the text content or attribute values</strong>. Using <code>/text</code> gets the text tag location. So we use <code>text()</code> to get the text content wrapped by the found tag.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book/name/text()&quot;</span>)  <span class="comment"># text() gets text</span></span><br><span class="line"><span class="comment"># Result: [&#x27;Wild Flowers&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Similarly, get all names under <code>/book/author/nick</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book/author/nick/text()&quot;</span>)</span><br><span class="line"><span class="comment"># Result: [&#x27;John Strong&#x27;, &#x27;Jane Smith&#x27;, &#x27;Jay Chou&#x27;, &#x27;Jolin Tsai&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>But what if we want <strong>all text from all nick tags inside author</strong>, including Hot1, Hot2, Hot3?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book/author//nick/text()&quot;</span>)  <span class="comment"># // means descendants</span></span><br><span class="line"><span class="comment"># Result: [&#x27;John Strong&#x27;, &#x27;Jane Smith&#x27;, &#x27;Jay Chou&#x27;, &#x27;Jolin Tsai&#x27;, &#x27;Hot1&#x27;, &#x27;Hot2&#x27;, &#x27;Hot3&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>The double slash ‘&#x2F;&#x2F;‘ after author means get all descendant nick tags - there can be 0, 1, 2, 3, …, n levels between them. All nick tags under author are captured.</p>
+<p>For <strong>only one level of results</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book/author/*/nick/text()&quot;</span>)  <span class="comment"># * is any node, wildcard</span></span><br><span class="line"><span class="comment"># Result: [&#x27;Hot1&#x27;, &#x27;Hot2&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>The asterisk * between author and nick represents any tag name (wildcard), but <strong>only replaces one level</strong>, so it doesn’t get Hot3 from <code>/book/author/span/div/nick</code>.</p>
+<p>Practice: get <strong>all text wrapped by nick</strong> in this XML:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/book//nick/text()&quot;</span>)</span><br><span class="line"><span class="comment"># Result: [&#x27;Tofu&#x27;, &#x27;John Strong&#x27;, &#x27;Jane Smith&#x27;, &#x27;Jay Chou&#x27;, &#x27;Jolin Tsai&#x27;, &#x27;Hot1&#x27;, &#x27;Hot2&#x27;, &#x27;Hot3&#x27;, &#x27;Partner1&#x27;, &#x27;Partner2&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Simple - just add double slash after book.</p>
+<hr>
+<h3 id="Complete-Test-Code"><a href="#Complete-Test-Code" class="headerlink" title="Complete Test Code"></a>Complete Test Code</h3><p>When testing, comment out unnecessary code to easily view results, or use debug mode.</p>
+<p>Quick tip: In PyCharm, use Ctrl+&#x2F; to comment selected lines.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># xpath is a language for searching content in XML documents</span></span><br><span class="line"><span class="comment"># html is a subset of xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install lxml module</span></span><br><span class="line"><span class="comment"># pip install lxml -i mirror_url</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># xpath parsing</span></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">xml = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&lt;book&gt;</span></span><br><span class="line"><span class="string">    &lt;id&gt;1&lt;/id&gt;</span></span><br><span class="line"><span class="string">    &lt;name&gt;Wild Flowers&lt;/name&gt;</span></span><br><span class="line"><span class="string">    &lt;price&gt;1.23&lt;/price&gt;</span></span><br><span class="line"><span class="string">    &lt;nick&gt;Tofu&lt;/nick&gt;</span></span><br><span class="line"><span class="string">    &lt;author&gt;</span></span><br><span class="line"><span class="string">        &lt;nick id=&quot;10086&quot;&gt;John Strong&lt;/nick&gt;</span></span><br><span class="line"><span class="string">        &lt;nick id=&quot;10010&quot;&gt;Jane Smith&lt;/nick&gt;</span></span><br><span class="line"><span class="string">        &lt;nick class=&quot;jay&quot;&gt;Jay Chou&lt;/nick&gt;</span></span><br><span class="line"><span class="string">        &lt;nick class=&quot;jolin&quot;&gt;Jolin Tsai&lt;/nick&gt;</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;nick&gt;Hot1&lt;/nick&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;</span></span><br><span class="line"><span class="string">            &lt;nick&gt;Hot2&lt;/nick&gt;</span></span><br><span class="line"><span class="string">            &lt;div&gt;</span></span><br><span class="line"><span class="string">                &lt;nick&gt;Hot3&lt;/nick&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/span&gt;</span></span><br><span class="line"><span class="string">    &lt;/author&gt;</span></span><br><span class="line"><span class="string">    &lt;partner&gt;</span></span><br><span class="line"><span class="string">        &lt;nick id=&quot;ppc&quot;&gt;Partner1&lt;/nick&gt;</span></span><br><span class="line"><span class="string">        &lt;nick id=&quot;ppbc&quot;&gt;Partner2&lt;/nick&gt;</span></span><br><span class="line"><span class="string">    &lt;/partner&gt;</span></span><br><span class="line"><span class="string">&lt;/book&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">tree = etree.XML(xml)</span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/book&quot;)  # / represents hierarchy. First / is root node</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/book/name&quot;)</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/book/name/text()&quot;)  # text() gets text</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/book/author//nick/text()&quot;)  # // descendants</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/book/author/*/nick/text()&quot;)  # * is any node, wildcard</span></span><br><span class="line">result = tree.xpath(<span class="string">&quot;/book//nick/text()&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="XPath-Advanced-Usage"><a href="#XPath-Advanced-Usage" class="headerlink" title="XPath Advanced Usage"></a>XPath Advanced Usage</h3><p>Using a simple HTML file to show more XPath capabilities:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.baidu.com&quot;</span>&gt;</span>Baidu<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.google.com&quot;</span>&gt;</span>Google<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.sogou.com&quot;</span>&gt;</span>Sogou<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;plane&quot;</span>&gt;</span>Plane<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;cannon&quot;</span>&gt;</span>Cannon<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;train&quot;</span>&gt;</span>Train<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;job&quot;</span>&gt;</span>Li Ka-shing<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;common&quot;</span>&gt;</span>Hot Soup<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Save as <code>7_xpath_eg.html</code> in the same folder as your py file.</p>
+<h4 id="Task-1-Process-a-resource-file-with-xpath"><a href="#Task-1-Process-a-resource-file-with-xpath" class="headerlink" title="Task 1: Process a resource file with xpath"></a>Task 1: Process a resource file with xpath</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">tree = etree.parse(<span class="string">&quot;7_xpath_eg.html&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Here we use the parse function to process local resource files.</p>
+<h4 id="Task-2-Find-tag-location-like-html-tag"><a href="#Task-2-Find-tag-location-like-html-tag" class="headerlink" title="Task 2: Find tag location, like html tag"></a>Task 2: Find tag location, like html tag</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&#x27;/html&#x27;</span>)</span><br><span class="line"><span class="comment"># Result: [&lt;Element html at 0x15d667f6580&gt;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Found the tag location and its address.</p>
+<h4 id="Task-3-Find-text-content-in-each-list-item-li-of-unordered-list-ul"><a href="#Task-3-Find-text-content-in-each-list-item-li-of-unordered-list-ul" class="headerlink" title="Task 3: Find text content in each list item (li) of unordered list (ul)"></a>Task 3: Find text content in each list item (li) of unordered list (ul)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/html/body/ul/li/a/text()&quot;</span>)</span><br><span class="line"><span class="comment"># Result: [&#x27;Baidu&#x27;, &#x27;Google&#x27;, &#x27;Sogou&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Task-4-Find-text-content-in-first-list-item-li-of-unordered-list-ul"><a href="#Task-4-Find-text-content-in-first-list-item-li-of-unordered-list-ul" class="headerlink" title="Task 4: Find text content in first list item (li) of unordered list (ul)"></a>Task 4: Find text content in first list item (li) of unordered list (ul)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/html/body/ul/li[1]/a/text()&quot;</span>)</span><br><span class="line"><span class="comment"># xpath indexing starts from 1, [] indicates index</span></span><br><span class="line"><span class="comment"># Result: [&#x27;Baidu&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Note: XPath doesn’t start from 0 - index 1 is the first item.</p>
+<h4 id="Task-5-Find-link-a-content-in-each-list-item-li-of-unordered-list-ul"><a href="#Task-5-Find-link-a-content-in-each-list-item-li-of-unordered-list-ul" class="headerlink" title="Task 5: Find link (a) content in each list item (li) of unordered list (ul)"></a>Task 5: Find link (a) content in each list item (li) of unordered list (ul)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/html/body/ul/li/a/@href&quot;</span>)</span><br><span class="line"><span class="comment"># Result: [&#x27;http://www.baidu.com&#x27;, &#x27;http://www.google.com&#x27;, &#x27;http://www.sogou.com&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Use “@attribute” to get attribute values.</p>
+<h4 id="Task-6-Get-text-wrapped-by-href-’cannon’-attribute-filtering"><a href="#Task-6-Get-text-wrapped-by-href-’cannon’-attribute-filtering" class="headerlink" title="Task 6: Get text wrapped by href&#x3D;’cannon’ (attribute filtering)"></a>Task 6: Get text wrapped by href&#x3D;’cannon’ (attribute filtering)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = tree.xpath(<span class="string">&quot;/html/body/ol/li/a[@href=&#x27;cannon&#x27;]/text()&quot;</span>)</span><br><span class="line"><span class="comment"># [@xxx=xxx] attribute filtering</span></span><br><span class="line"><span class="comment"># Result: [&#x27;Cannon&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Filter attributes by adding <code>[@attribute=value]</code> after the tag - similar to bs4’s approach.</p>
+<h4 id="Task-7-Get-list-items-then-recursively-extract-text-and-href-attribute-values"><a href="#Task-7-Get-list-items-then-recursively-extract-text-and-href-attribute-values" class="headerlink" title="Task 7: Get list items, then recursively extract text and href attribute values"></a>Task 7: Get list items, then recursively extract text and href attribute values</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ol_li_list = tree.xpath(<span class="string">&quot;/html/body/ol/li&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> li <span class="keyword">in</span> ol_li_list:</span><br><span class="line">    <span class="comment"># Extract text info from each li</span></span><br><span class="line">    result = li.xpath(<span class="string">&quot;./a/text()&quot;</span>)  <span class="comment"># Continue searching within li. Relative search</span></span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line">    result2 = li.xpath(<span class="string">&quot;./a/@href&quot;</span>)  <span class="comment"># Get attribute value: @attribute</span></span><br><span class="line">    <span class="built_in">print</span>(result2)</span><br></pre></td></tr></table></figure>
+
+<p><code>./</code> means relative search from current path - ‘.’ represents <code>/html/body/ol/li</code>.</p>
+<h4 id="Task-8-Exercise-Print-text-info-of-first-div"><a href="#Task-8-Exercise-Print-text-info-of-first-div" class="headerlink" title="Task 8: Exercise: Print text info of first div"></a>Task 8: Exercise: Print text info of first div</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(tree.xpath(<span class="string">&#x27;/html/body/div[1]/text()&#x27;</span>))</span><br><span class="line"><span class="comment"># Result: [&#x27;Li Ka-shing&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="XPath-Advanced-Usage-Complete-Code"><a href="#XPath-Advanced-Usage-Complete-Code" class="headerlink" title="XPath Advanced Usage Complete Code"></a>XPath Advanced Usage Complete Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">tree = etree.parse(<span class="string">&quot;7_xpath_eg.html&quot;</span>)</span><br><span class="line"><span class="comment"># result = tree.xpath(&#x27;/html&#x27;)</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/html/body/ul/li/a/text()&quot;)</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/html/body/ul/li/a/@href&quot;)</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/html/body/ul/li[1]/a/text()&quot;)  # xpath indexing starts from 1</span></span><br><span class="line"><span class="comment"># result = tree.xpath(&quot;/html/body/ol/li/a[@href=&#x27;cannon&#x27;]/text()&quot;)  # [@xxx=xxx] attribute filtering</span></span><br><span class="line"><span class="comment"># print(result)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ol_li_list = tree.xpath(&quot;/html/body/ol/li&quot;)</span></span><br><span class="line"><span class="comment"># for li in ol_li_list:</span></span><br><span class="line"><span class="comment">#     result = li.xpath(&quot;./a/text()&quot;)  # Relative search within li</span></span><br><span class="line"><span class="comment">#     print(result)</span></span><br><span class="line"><span class="comment">#     result2 = li.xpath(&quot;./a/@href&quot;)  # Get attribute value: @attribute</span></span><br><span class="line"><span class="comment">#     print(result2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(tree.xpath(&quot;/html/body/ul/li/a/@href&quot;))</span></span><br><span class="line"><span class="comment"># print(tree.xpath(&#x27;/html/body/div[1]/text()&#x27;))</span></span><br><span class="line"><span class="comment"># print(tree.xpath(&#x27;/html/body/ol/li/a/text()&#x27;))</span></span><br></pre></td></tr></table></figure>
+
+<p>Please comment&#x2F;uncomment code sections for testing.</p>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>This chapter introduced XPath basics - processing XML and HTML files, and various XPath usage scenarios. Next chapter will be hands-on practice.</p>
+<p>We’ve now learned three parsing methods. You can freely combine them to efficiently get the information you need.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/01/en/12-XPath-Parsing-Introduction/">https://your-domain.com/2023/01/01/en/12-XPath-Parsing-Introduction/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/programming/">programming</a><a class="post-meta__tags" href="/tags/web-scraping/">web scraping</a><a class="post-meta__tags" href="/tags/data-analysis/">data analysis</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/01/en/11-Practical-Scraping-Web-Images-with-bs4-and-Saving-Locally/" title="11. Practical: Scraping Web Images with bs4 and Saving Locally"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/11.-%E5%AE%9E%E6%88%98%EF%BC%9Abs4%E6%B3%95%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E5%9B%BE%E7%89%87%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%A4%B9/26e45b7be41e.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">11. Practical: Scraping Web Images with bs4 and Saving Locally</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 11. Practical: Scraping Web Images with bs4 and Saving Locally📊 1654 views | 👍 8 likes | 💬 6 comments | ⭐ 17 favorites  IntroductionThrough previous chapters, we’ve learned how convenient the bs4 module is for web scraping, and practiced with an example of scraping vegetable prices. In this chapter, we’ll use an image website as an example to scrape wallpaper content and save it to a local folder.   Approach Get all sub-page link addr...</div></div></div></a><a class="pagination-related" href="/2022/12/31/zh-CN/HTML%E4%B8%8EXHTML/" title="HTML与XHTML"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">HTML与XHTML</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML与XHTML📊 792 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 5 收藏  目录 XHTML简介 什么是 XHTML？ 为什么使用 XHTML？ 文档结构 元素语法 属性语法 是强制性的 如何从 HTML 转换到 XHTML XHTML元素 XHTML 元素 - 语法规则 XHTML 元素必须正确嵌套 XHTML 元素必须始终关闭 空元素也必须关闭 XHTML 元素必须小写 XHTML属性 XHTML 属性 - 语法规则 XHTML 属性必须使用小写 XHTML 属性值必须用引号包围 禁止属性简写 总结  2023兔年来临，首先在这里恭祝大家新年快乐，心想事成，前程似锦！  XHTML简介 XHTML 是以 XML 格式编写的 HTML。  什么是 XHTML？ XHTML 指的是可扩展超文本标记语言 XHTML 与 HTML 4.01 几乎是相同的 XHTML 是更严格更纯净的 HTML 版本 XHTML 是以 XML 应用的方式定义的 HTML XHTML 是 2001 年 1 月发布的 W3C 推荐标准 XHTML ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/30/en/10-Supplementary-Example-Scraping-Dynamic-JS-Vegetable-Price-Pages/" title="10. Supplementary Example: Scraping Dynamic JS Vegetable Price Pages"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/6346d93934d9.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">10. Supplementary Example: Scraping Dynamic JS Vegetable Price Pages</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 10. Supplementary Example: Scraping Dynamic JS Vegetable Price Pages📊 301 views | 👍 4 likes | 💬 2 comments | ⭐ 5 favorites  Table of Contents Introduction Approach Code Implementation Complete Code Summary  IntroductionA typical case for scraping vegetable prices is a Beijing wholesale market website, but its page has been redesigned and can’t be scraped using bs4 parsing. Through analysis, we found it uses dynamic JS requests for the...</div></div></div></a><a class="pagination-related" href="/2023/01/05/en/20-Thread-Pools-and-Process-Pools/" title="20. Thread Pools and Process Pools"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/20.-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%8E%E8%BF%9B%E7%A8%8B%E6%B1%A0/b7139937380e.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-06</div><div class="info-item-2">20. Thread Pools and Process Pools</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 20. Thread Pools and Process Pools📊 256 views | 👍 3 likes | 💬 1 comment | ⭐ 4 favorites  Table of Contents Introduction Concepts Implementation Thread Pool Process Pool Results Summary  IntroductionWe’ve learned about processes and threads, and understand the efficiency benefits of multiprocessing and multithreading. But how do we apply them practically? If we need to create a hundred threads, we can’t write t0&#x3D;Thread through t99...</div></div></div></a><a class="pagination-related" href="/2023/01/04/en/18-Overview-How-to-Speed-Up-Web-Scraping/" title="18. Overview: How to Speed Up Web Scraping"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/63a82f71b089.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="info-item-2">18. Overview: How to Speed Up Web Scraping</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 18. Overview: How to Speed Up Web Scraping📊 281 views | 👍 3 likes | 💬 1 comment | ⭐ 4 favorites  Table of Contents Introduction Overview Illustration  IntroductionOur previous scraping projects were small-scale and completed quickly. But we’ll face a practical question: what if we need to scrape thousands of data items? Looping through thousands of pages executing code sequentially is clearly inefficient. How can we improve efficiency...</div></div></div></a><a class="pagination-related" href="/2023/01/04/en/19-Multithreading-and-Multiprocessing/" title="19. Multithreading and Multiprocessing"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="info-item-2">19. Multithreading and Multiprocessing</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 19. Multithreading and Multiprocessing📊 184 views | 👍 2 likes | 💬 1 comment | ⭐ 4 favorites  Table of Contents Introduction Single Thread vs Multithreading Single Thread Example Multithreading Example with Thread Class Subclass Inheritance Approach Multiprocessing Summary  IntroductionFirst, let’s introduce basic concepts:  A process is a resource unit, while a thread is an execution unit. A process contains at least one thread. Every...</div></div></div></a><a class="pagination-related" href="/2023/01/02/en/14-Requests-Advanced-Handling-Login-and-Cookies/" title="14. Requests Advanced: Handling Login and Cookies"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/14.-Requests%E8%BF%9B%E9%98%B6%EF%BC%9A%E5%A4%84%E7%90%86%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF%E4%B8%8ECookie/2b7d39717143.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="info-item-2">14. Requests Advanced: Handling Login and Cookies</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 14. Requests Advanced: Handling Login and Cookies📊 964 views | 👍 3 likes | 💬 1 comment | ⭐ 6 favorites  Table of Contents Introduction Objective Approach Code Implementation  Session Method  Requests Method   Complete Code Session Method Requests Method Summary  IntroductionWe’ve already used headers in our previous scraping lessons. Headers are part of the HTTP protocol’s request headers, generally storing data unrelated to request c...</div></div></div></a><a class="pagination-related" href="/2022/12/30/en/09-bs4-Parsing-Basics-and-Examples/" title="09. bs4 Parsing Basics and Examples"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">09. bs4 Parsing Basics and Examples</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 09. bs4 Parsing Basics and Examples📊 802 views | 👍 4 likes | 💬 4 comments | ⭐ 6 favorites  Table of Contents Introduction Installing bs4 bs4 Usage Basics bs4 Example: Scraping Vegetable Prices Code Implementation Complete Code Important Reminder Summary  IntroductionWe now have basic HTML knowledge and can identify various elements in HTML source code. In this chapter, we’ll formally learn bs4 usage and demonstrate its convenience wit...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Module-Installation"><span class="toc-number">2.</span> <span class="toc-text">Module Installation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-XPath-Concepts"><span class="toc-number">3.</span> <span class="toc-text">Basic XPath Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XPath-Basic-Syntax"><span class="toc-number">4.</span> <span class="toc-text">XPath Basic Syntax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complete-Test-Code"><span class="toc-number">5.</span> <span class="toc-text">Complete Test Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XPath-Advanced-Usage"><span class="toc-number">6.</span> <span class="toc-text">XPath Advanced Usage</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-1-Process-a-resource-file-with-xpath"><span class="toc-number">6.1.</span> <span class="toc-text">Task 1: Process a resource file with xpath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-2-Find-tag-location-like-html-tag"><span class="toc-number">6.2.</span> <span class="toc-text">Task 2: Find tag location, like html tag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-3-Find-text-content-in-each-list-item-li-of-unordered-list-ul"><span class="toc-number">6.3.</span> <span class="toc-text">Task 3: Find text content in each list item (li) of unordered list (ul)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-4-Find-text-content-in-first-list-item-li-of-unordered-list-ul"><span class="toc-number">6.4.</span> <span class="toc-text">Task 4: Find text content in first list item (li) of unordered list (ul)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-5-Find-link-a-content-in-each-list-item-li-of-unordered-list-ul"><span class="toc-number">6.5.</span> <span class="toc-text">Task 5: Find link (a) content in each list item (li) of unordered list (ul)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-6-Get-text-wrapped-by-href-%E2%80%99cannon%E2%80%99-attribute-filtering"><span class="toc-number">6.6.</span> <span class="toc-text">Task 6: Get text wrapped by href&#x3D;’cannon’ (attribute filtering)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-7-Get-list-items-then-recursively-extract-text-and-href-attribute-values"><span class="toc-number">6.7.</span> <span class="toc-text">Task 7: Get list items, then recursively extract text and href attribute values</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Task-8-Exercise-Print-text-info-of-first-div"><span class="toc-number">6.8.</span> <span class="toc-text">Task 8: Exercise: Print text info of first div</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XPath-Advanced-Usage-Complete-Code"><span class="toc-number">7.</span> <span class="toc-text">XPath Advanced Usage Complete Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">8.</span> <span class="toc-text">Summary</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

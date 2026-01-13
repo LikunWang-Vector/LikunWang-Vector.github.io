@@ -1,0 +1,1358 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS边框、边距、轮廓（边框宽度/颜色/各边/简写属性/圆角边框/内外边距/高度宽度/框模型/轮廓宽度/颜色/属性/偏移）——万字长文|一文搞懂 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：CSS边框、边距、轮廓（边框宽度&#x2F;颜色&#x2F;各边&#x2F;简写属性&#x2F;圆角边框&#x2F;内外边距&#x2F;高度宽度&#x2F;框模型&#x2F;轮廓宽度&#x2F;颜色&#x2F;属性&#x2F;偏移）——万字长文|一文搞懂📊 4449 阅读 | 👍 8 点赞 | 💬 1 评论 | ⭐ 35 收藏  目录   CSS边框 CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS边框、边距、轮廓（边框宽度&#x2F;颜色&#x2F;各边&#x2F;简写属性&#x2F;圆角边框&#x2F;内外边距&#x2F;高度宽度&#x2F;框模型&#x2F;轮廓宽度&#x2F;颜色&#x2F;属性&#x2F;偏移）——万字长文|一文搞懂">
+<meta property="og:url" content="https://your-domain.com/2023/01/23/zh-CN/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D%E9%AB%98%E5%BA%A6%E5%AE%BD%E5%BA%A6%E6%A1%86%E6%A8%A1%E5%9E%8B%E8%BD%AE%E5%BB%93%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%B1%9E%E6%80%A7%E5%81%8F%E7%A7%BB%EF%BC%89%E2%80%94%E2%80%94%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：CSS边框、边距、轮廓（边框宽度&#x2F;颜色&#x2F;各边&#x2F;简写属性&#x2F;圆角边框&#x2F;内外边距&#x2F;高度宽度&#x2F;框模型&#x2F;轮廓宽度&#x2F;颜色&#x2F;属性&#x2F;偏移）——万字长文|一文搞懂📊 4449 阅读 | 👍 8 点赞 | 💬 1 评论 | ⭐ 35 收藏  目录   CSS边框 CSS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png">
+<meta property="article:published_time" content="2023-01-23T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-23T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS边框、边距、轮廓（边框宽度/颜色/各边/简写属性/圆角边框/内外边距/高度宽度/框模型/轮廓宽度/颜色/属性/偏移）——万字长文|一文搞懂",
+  "url": "https://your-domain.com/2023/01/23/zh-CN/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D%E9%AB%98%E5%BA%A6%E5%AE%BD%E5%BA%A6%E6%A1%86%E6%A8%A1%E5%9E%8B%E8%BD%AE%E5%BB%93%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%B1%9E%E6%80%A7%E5%81%8F%E7%A7%BB%EF%BC%89%E2%80%94%E2%80%94%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82/",
+  "image": "https://your-domain.com/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png",
+  "datePublished": "2023-01-23T15:00:00.000Z",
+  "dateModified": "2023-01-23T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/23/zh-CN/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D%E9%AB%98%E5%BA%A6%E5%AE%BD%E5%BA%A6%E6%A1%86%E6%A8%A1%E5%9E%8B%E8%BD%AE%E5%BB%93%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%B1%9E%E6%80%A7%E5%81%8F%E7%A7%BB%EF%BC%89%E2%80%94%E2%80%94%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS边框、边距、轮廓（边框宽度/颜色/各边/简写属性/圆角边框/内外边距/高度宽度/框模型/轮廓宽度/颜色/属性/偏移）——万字长文|一文搞懂',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS边框、边距、轮廓（边框宽度/颜色/各边/简写属性/圆角边框/内外边距/高度宽度/框模型/轮廓宽度/颜色/属性/偏移）——万字长文|一文搞懂</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS边框、边距、轮廓（边框宽度/颜色/各边/简写属性/圆角边框/内外边距/高度宽度/框模型/轮廓宽度/颜色/属性/偏移）——万字长文|一文搞懂</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-23T15:00:00.000Z" title="Created 2023-01-24 00:00:00">2023-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-23T15:00:00.000Z" title="Updated 2023-01-24 00:00:00">2023-01-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">CSS入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">7.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>25mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-24 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128749990">CSS边框、边距、轮廓（边框宽度&#x2F;颜色&#x2F;各边&#x2F;简写属性&#x2F;圆角边框&#x2F;内外边距&#x2F;高度宽度&#x2F;框模型&#x2F;轮廓宽度&#x2F;颜色&#x2F;属性&#x2F;偏移）——万字长文|一文搞懂</a><br>📊 4449 阅读 | 👍 8 点赞 | 💬 1 评论 | ⭐ 35 收藏</p>
+</blockquote>
+<p><strong>目录</strong>  </p>
+<p>CSS边框</p>
+<p>CSS 边框属性</p>
+<p>CSS 边框样式</p>
+<p>实例</p>
+<p>CSS 边框宽度</p>
+<p>实例</p>
+<p>特定边的宽度</p>
+<p>实例</p>
+<p>CSS 边框颜色</p>
+<p>实例</p>
+<p>特定边框的颜色</p>
+<p>实例</p>
+<p>HEX 值</p>
+<p>实例</p>
+<p>RGB 值</p>
+<p>实例</p>
+<p>HSL 值</p>
+<p>实例</p>
+<p>CSS 边框 - 单独的边</p>
+<p>实例</p>
+<p>不同的边框样式</p>
+<p>实例</p>
+<p>它的工作原理是这样的：</p>
+<p>border-style: dotted solid double dashed;</p>
+<p>border-style: dotted solid double;</p>
+<p>border-style: dotted solid;</p>
+<p>border-style: dotted;</p>
+<p>实例</p>
+<p>CSS Border - 简写属性</p>
+<p>实例</p>
+<p>左边框</p>
+<p>下边框</p>
+<p>CSS 圆角边框</p>
+<p>实例</p>
+<p>更多实例</p>
+<p>所有 CSS 边框属性</p>
+<p>CSS 外边距</p>
+<p>Margin - 单独的边</p>
+<p>实例</p>
+<p>Margin - 简写属性</p>
+<p>工作原理是这样的：</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>auto 值</p>
+<p>实例</p>
+<p>inherit 值</p>
+<p>实例</p>
+<p>延伸阅读</p>
+<p>外边距合并</p>
+<p>所有 CSS 外边距属性</p>
+<p>CSS 内边距</p>
+<p>Padding - 单独的边</p>
+<p>实例</p>
+<p>Padding - 简写属性</p>
+<p>工作原理是这样的：</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>内边距和元素宽度</p>
+<p>实例</p>
+<p>实例</p>
+<p>更多实例</p>
+<p>所有 CSS 内边距属性</p>
+<p>延伸阅读</p>
+<p>CSS 设置高度和宽度</p>
+<p>CSS 高度和宽度值</p>
+<p>CSS 高度和宽度实例</p>
+<p>实例</p>
+<p>实例</p>
+<p>设置 max-width</p>
+<p>实例</p>
+<p>亲自试一试 - 实例</p>
+<p>设置 CSS 尺寸属性</p>
+<p>CSS 框模型</p>
+<p>实例</p>
+<p>元素的宽度和高度</p>
+<p>实例</p>
+<p>​编辑</p>
+<p>CSS 轮廓</p>
+<p>CSS 轮廓样式</p>
+<p>实例</p>
+<p>CSS 轮廓宽度</p>
+<p>实例</p>
+<p>CSS 轮廓颜色</p>
+<p>实例</p>
+<p>HEX 值</p>
+<p>实例</p>
+<p>RGB 值</p>
+<p>实例</p>
+<p>HSL 值</p>
+<p>实例</p>
+<p>反转颜色</p>
+<p>实例</p>
+<p>CSS Outline - 简写属性</p>
+<p>实例</p>
+<p>CSS 轮廓偏移</p>
+<p>实例</p>
+<p>实例</p>
+<p>所有 CSS 轮廓属性</p>
+<p>总结</p>
+<hr>
+<h2 id="CSS边框"><a href="#CSS边框" class="headerlink" title="CSS边框"></a>CSS边框</h2><hr>
+<h3 id="CSS-边框属性"><a href="#CSS-边框属性" class="headerlink" title="CSS 边框属性"></a>CSS 边框属性</h3><p>CSS <code>border</code> 属性允许指定元素边框的样式、宽度和颜色。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png"></p>
+<hr>
+<h3 id="CSS-边框样式"><a href="#CSS-边框样式" class="headerlink" title="CSS 边框样式"></a>CSS 边框样式</h3><p><code>border-style</code> 属性指定要显示的边框类型。</p>
+<p>允许以下值：</p>
+<blockquote>
+<ul>
+<li><code>dotted</code> - 定义点线边框</li>
+<li><code>dashed</code> - 定义虚线边框</li>
+<li><code>solid</code> - 定义实线边框</li>
+<li><code>double</code> - 定义双边框</li>
+<li><code>groove</code> - 定义 3D 坡口边框。效果取决于 border-color 值</li>
+<li><code>ridge</code> - 定义 3D 脊线边框。效果取决于 border-color 值</li>
+<li><code>inset</code> - 定义 3D inset 边框。效果取决于 border-color 值</li>
+<li><code>outset</code> - 定义 3D outset 边框。效果取决于 border-color 值</li>
+<li><code>none</code> - 定义无边框</li>
+<li><code>hidden</code> - 定义隐藏边框</li>
+</ul>
+</blockquote>
+<p><code>border-style</code> 属性可以设置一到四个值（用于上边框、右边框、下边框和左边框）。</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>演示不同的边框样式：</p>
+<p><code>css p.dotted {border-style: dotted;} p.dashed {border-style: dashed;} p.solid {border-style: solid;} p.double {border-style: double;} p.groove {border-style: groove;} p.ridge {border-style: ridge;} p.inset {border-style: inset;} p.outset {border-style: outset;} p.none {border-style: none;} p.hidden {border-style: hidden;} p.mix {border-style: dotted dashed solid double;} </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/4877148d697b.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-style" title="亲自试一试">亲自试一试</a></p>
+<p>注意：除非设置了 <code>border-style</code> 属性，否则其他 CSS 边框属性都不会有任何作用！</p>
+<hr>
+<h3 id="CSS-边框宽度"><a href="#CSS-边框宽度" class="headerlink" title="CSS 边框宽度"></a>CSS 边框宽度</h3><p><code>border-width</code> 属性指定四个边框的宽度。</p>
+<p>可以将宽度设置为特定大小（以 px、pt、cm、em 计），也可以使用以下三个预定义值之一：thin、medium 或 thick：</p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><p>演示不同的边框宽度：</p>
+<p><code>css p.one { border-style: solid; border-width: 5px; } p.two { border-style: solid; border-width: medium; } p.three { border-style: dotted; border-width: 2px; } p.four { border-style: dotted; border-width: thick; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/b086110b8568.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-width_1" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="特定边的宽度"><a href="#特定边的宽度" class="headerlink" title="特定边的宽度"></a>特定边的宽度</h3><p><code>border-width</code> 属性可以设置一到四个值（用于上边框、右边框、下边框和左边框）：</p>
+<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h4><p><code>css p.one { border-style: solid; border-width: 5px 20px; /* 上边框和下边框为 5px，其他边为 20px */ } p.two { border-style: solid; border-width: 20px 5px; /* 上边框和下边框为 20px，其他边为 5px */ } p.three { border-style: solid; border-width: 25px 10px 4px 35px; /* 上边框 25px，右边框 10px，下边框 4px，左边框 35px */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-width_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="CSS-边框颜色"><a href="#CSS-边框颜色" class="headerlink" title="CSS 边框颜色"></a>CSS 边框颜色</h3><p><code>border-color</code> 属性用于设置四个边框的颜色。</p>
+<p>可以通过以下方式设置颜色：</p>
+<blockquote>
+<ul>
+<li>name - 指定颜色名，比如 “red”</li>
+<li>HEX - 指定十六进制值，比如 “#ff0000”</li>
+<li>RGB - 指定 RGB 值，比如 “rgb(255,0,0)”</li>
+<li>HSL - 指定 HSL 值，比如 “hsl(0, 100%, 50%)”</li>
+<li>transparent</li>
+</ul>
+</blockquote>
+<p>注释：如果未设置 <code>border-color</code>，则它将继承元素的颜色。</p>
+<h4 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h4><p>演示不同的边框颜色：</p>
+<p><code>css p.one { border-style: solid; border-color: red; } p.two { border-style: solid; border-color: green; } p.three { border-style: dotted; border-color: blue; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/e0255c0fa3b1.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-color_1" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="特定边框的颜色"><a href="#特定边框的颜色" class="headerlink" title="特定边框的颜色"></a>特定边框的颜色</h3><p><code>border-color</code> 属性可以设置一到四个值（用于上边框、右边框、下边框和左边框）。</p>
+<h4 id="实例-4"><a href="#实例-4" class="headerlink" title="实例"></a>实例</h4><p><code>css p.one { border-style: solid; border-color: red green blue yellow; /* 上红、右绿、下蓝、左黄 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-color_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="HEX-值"><a href="#HEX-值" class="headerlink" title="HEX 值"></a>HEX 值</h3><p>边框的颜色也可以使用十六进制值（HEX）来指定：</p>
+<h4 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h4><p><code>css p.one { border-style: solid; border-color: #ff0000; /* 红色 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-color-hex" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="RGB-值"><a href="#RGB-值" class="headerlink" title="RGB 值"></a>RGB 值</h3><p>或者使用 RGB 值：</p>
+<h4 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h4><p><code>css p.one { border-style: solid; border-color: rgb(255, 0, 0); /* 红色 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-color-rgb" title="亲自试一试">亲自试一试</a></p>
+<h3 id="HSL-值"><a href="#HSL-值" class="headerlink" title="HSL 值"></a>HSL 值</h3><p>也可以使用 HSL 值：</p>
+<h4 id="实例-7"><a href="#实例-7" class="headerlink" title="实例"></a>实例</h4><p><code>css p.one { border-style: solid; border-color: hsl(0, 100%, 50%); /* 红色 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-color-hsl" title="亲自试一试">亲自试一试</a></p>
+<blockquote>
+<p>可以在 <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_colors.asp" title="CSS 颜色">CSS 颜色</a> 章节中学到有关 HEX、RGB 和 HSL 值的更多知识。</p>
+</blockquote>
+<hr>
+<h3 id="CSS-边框-单独的边"><a href="#CSS-边框-单独的边" class="headerlink" title="CSS 边框 - 单独的边"></a>CSS 边框 - 单独的边</h3><p>从上面的例子中，我们已经发现可以为每一侧指定不同的边框。</p>
+<p>在 CSS 中，还有一些属性可用于指定每个边框（顶部、右侧、底部和左侧）：</p>
+<h4 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h4><p><code>css p { border-top-style: dotted; border-right-style: solid; border-bottom-style: dotted; border-left-style: solid; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/fba18183b437.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-side_1" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="不同的边框样式"><a href="#不同的边框样式" class="headerlink" title="不同的边框样式"></a>不同的边框样式</h3><p>上例的结果与此相同：</p>
+<h4 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h4><p><code>css p { border-style: dotted solid; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-side_2" title="亲自试一试">亲自试一试</a></p>
+<h4 id="它的工作原理是这样的："><a href="#它的工作原理是这样的：" class="headerlink" title="它的工作原理是这样的："></a>它的工作原理是这样的：</h4><p>如果 <code>border-style</code> 属性设置四个值：</p>
+<h4 id="border-style-dotted-solid-double-dashed"><a href="#border-style-dotted-solid-double-dashed" class="headerlink" title="border-style: dotted solid double dashed;"></a>border-style: dotted solid double dashed;</h4><ul>
+<li>上边框是虚线</li>
+<li>右边框是实线</li>
+<li>下边框是双线</li>
+<li>左边框是虚线</li>
+</ul>
+<p>如果 <code>border-style</code> 属性设置三个值：</p>
+<h4 id="border-style-dotted-solid-double"><a href="#border-style-dotted-solid-double" class="headerlink" title="border-style: dotted solid double;"></a>border-style: dotted solid double;</h4><ul>
+<li>上边框是虚线</li>
+<li>右和左边框是实线</li>
+<li>下边框是双线</li>
+</ul>
+<p>如果 <code>border-style</code> 属性设置两个值：</p>
+<h4 id="border-style-dotted-solid"><a href="#border-style-dotted-solid" class="headerlink" title="border-style: dotted solid;"></a>border-style: dotted solid;</h4><ul>
+<li>上和下边框是虚线</li>
+<li>右和左边框是实线</li>
+</ul>
+<p>如果 <code>border-style</code> 属性设置一个值：</p>
+<h4 id="border-style-dotted"><a href="#border-style-dotted" class="headerlink" title="border-style: dotted;"></a>border-style: dotted;</h4><ul>
+<li>四条边均为虚线</li>
+</ul>
+<h4 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h4><p><code>css /* 四个值 */ p { border-style: dotted solid double dashed; } /* 三个值 */ p { border-style: dotted solid double; } /* 两个值 */ p { border-style: dotted solid; } /* 一个值 */ p { border-style: dotted; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-side_3" title="亲自试一试">亲自试一试</a></p>
+<p>上例中使用的是 <code>border-style</code> 属性。但 <code>border-width</code> 和 <code>border-color</code> 也同样适用。</p>
+<hr>
+<h3 id="CSS-Border-简写属性"><a href="#CSS-Border-简写属性" class="headerlink" title="CSS Border - 简写属性"></a>CSS Border - 简写属性</h3><p>就像我们如上所见，处理边框时要考虑许多属性。</p>
+<p>为了缩减代码，也可以在一个属性中指定所有单独的边框属性。</p>
+<p><code>border</code> 属性是以下各个边框属性的简写属性：</p>
+<blockquote>
+<ul>
+<li><code>border-width</code></li>
+<li><code>border-style</code>（必需）</li>
+<li><code>border-color</code></li>
+</ul>
+</blockquote>
+<h4 id="实例-11"><a href="#实例-11" class="headerlink" title="实例"></a>实例</h4><p><code>css p { border: 5px solid red; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/ba367d2155a4.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border" title="亲自试一试">亲自试一试</a></p>
+<p>我们还可以只为一个边指定所有单个边框属性：</p>
+<h4 id="左边框"><a href="#左边框" class="headerlink" title="左边框"></a>左边框</h4><p><code>css p { border-left: 6px solid red; background-color: lightgrey; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/6c777e498e65.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border_left" title="亲自试一试">亲自试一试</a></p>
+<h4 id="下边框"><a href="#下边框" class="headerlink" title="下边框"></a>下边框</h4><p><code>css p { border-bottom: 6px solid red; background-color: lightgrey; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/3943115f6043.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border_bottom" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="CSS-圆角边框"><a href="#CSS-圆角边框" class="headerlink" title="CSS 圆角边框"></a>CSS 圆角边框</h3><p><code>border-radius</code> 属性用于向元素添加圆角边框：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/0fb27d8e88ee.png"></p>
+<h4 id="实例-12"><a href="#实例-12" class="headerlink" title="实例"></a>实例</h4><p><code>css p { border: 2px solid red; border-radius: 5px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border_round" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="更多实例"><a href="#更多实例" class="headerlink" title="更多实例"></a>更多实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-top" title="一个声明中的所有上边框属性">一个声明中的所有上边框属性</a></p>
+<p>本例演示简写属性，用于在一条声明中设置上边框的所有属性。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-bottom-style" title="设置下边框的样式">设置下边框的样式</a></p>
+<p>本例演示如何设置下边框的样式。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-left-width" title="设置左边框的宽度">设置左边框的宽度</a></p>
+<p>本例演示如何设置左边框的宽度。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-color" title="设置四条边框的颜色">设置四条边框的颜色</a></p>
+<p>本例演示如何设置四条边框的颜色。它可以拥有一到四种颜色。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_border-right-color" title="设置右边框的颜色">设置右边框的颜色</a></p>
+<p>本例演示如何设置右边框的颜色。</p>
+<hr>
+<h3 id="所有-CSS-边框属性"><a href="#所有-CSS-边框属性" class="headerlink" title="所有 CSS 边框属性"></a>所有 CSS 边框属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border.asp" title="border">border</a></td>
+<td>简写属性，在一条声明中设置所有边框属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-color.asp" title="border-color">border-color</a></td>
+<td>简写属性，设置四条边框的颜色。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-radius.asp" title="border-radius">border-radius</a></td>
+<td>简写属性，可设置圆角的所有四个 border-*-radius 属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-style.asp" title="border-style">border-style</a></td>
+<td>简写属性，设置四条边框的样式。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-width.asp" title="border-width">border-width</a></td>
+<td>简写属性，设置四条边框的宽度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-bottom.asp" title="border-bottom">border-bottom</a></td>
+<td>简写属性，在一条声明中设置所有下边框属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-bottom-color.asp" title="border-bottom-color">border-bottom-color</a></td>
+<td>设置下边框的颜色。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-bottom-style.asp" title="border-bottom-style">border-bottom-style</a></td>
+<td>设置下边框的样式。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-bottom-width.asp" title="border-bottom-width">border-bottom-width</a></td>
+<td>设置下边框的宽度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-left.asp" title="border-left">border-left</a></td>
+<td>简写属性，在一条声明中设置所有左边框属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-left-color.asp" title="border-left-color">border-left-color</a></td>
+<td>设置左边框的颜色。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-left-style.asp" title="border-left-style">border-left-style</a></td>
+<td>设置左边框的样式。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-left-width.asp" title="border-left-width">border-left-width</a></td>
+<td>设置左边框的宽度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-right.asp" title="border-right">border-right</a></td>
+<td>简写属性，在一条声明中设置所有右边框属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-right-color.asp" title="border-right-color">border-right-color</a></td>
+<td>设置右边框的颜色。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-right-style.asp" title="border-right-style">border-right-style</a></td>
+<td>设置右边框的样式。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-right-width.asp" title="border-right-width">border-right-width</a></td>
+<td>设置右边框的宽度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-top.asp" title="border-top">border-top</a></td>
+<td>简写属性，在一条声明中设置所有上边框属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-top-color.asp" title="border-top-color">border-top-color</a></td>
+<td>设置上边框的颜色。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-top-style.asp" title="border-top-style">border-top-style</a></td>
+<td>设置上边框的样式。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-top-width.asp" title="border-top-width">border-top-width</a></td>
+<td>设置上边框的宽度。</td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_border_rounded.asp" title="CSS 圆角边框">CSS 圆角边框</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_margin_collapse.asp" title="CSS 外边距合并">CSS 外边距合并</a></li>
+</ul>
+<hr>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/3e818e30dc45.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_intro" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="CSS-外边距"><a href="#CSS-外边距" class="headerlink" title="CSS 外边距"></a>CSS 外边距</h3><p>CSS <code>margin</code> 属性用于在任何定义的边框之外，为元素周围创建空间。</p>
+<p>通过 CSS，可以完全控制外边距。有些属性可用于设置元素每侧（上、右、下和左）的外边距。</p>
+<hr>
+<h3 id="Margin-单独的边"><a href="#Margin-单独的边" class="headerlink" title="Margin - 单独的边"></a>Margin - 单独的边</h3><p>CSS 拥有用于为元素的每一侧指定外边距的属性：</p>
+<blockquote>
+<ul>
+<li><code>margin-top</code></li>
+<li><code>margin-right</code></li>
+<li><code>margin-bottom</code></li>
+<li><code>margin-left</code></li>
+</ul>
+</blockquote>
+<p>所有外边距属性都可以设置以下值：</p>
+<blockquote>
+<ul>
+<li>auto - 浏览器来计算外边距</li>
+<li><em>length</em> - 以 px、pt、cm 等单位指定外边距</li>
+<li>% - 指定以包含元素宽度的百分比计的外边距</li>
+<li>inherit - 指定应从父元素继承外边距</li>
+</ul>
+</blockquote>
+<p>提示：允许负值。</p>
+<h4 id="实例-13"><a href="#实例-13" class="headerlink" title="实例"></a>实例</h4><p>为 <p> 元素的所有四个边设置不同的外边距：</p>
+<p><code>css p { margin-top: 100px; margin-bottom: 100px; margin-right: 150px; margin-left: 80px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_sides" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="Margin-简写属性"><a href="#Margin-简写属性" class="headerlink" title="Margin - 简写属性"></a>Margin - 简写属性</h3><p>为了缩减代码，可以在一个属性中指定所有外边距属性。</p>
+<p><code>margin</code> 属性是以下各外边距属性的简写属性：</p>
+<blockquote>
+<ul>
+<li><code>margin-top</code></li>
+<li><code>margin-right</code></li>
+<li><code>margin-bottom</code></li>
+<li><code>margin-left</code></li>
+</ul>
+</blockquote>
+<h4 id="工作原理是这样的："><a href="#工作原理是这样的：" class="headerlink" title="工作原理是这样的："></a>工作原理是这样的：</h4><p>如果 <code>margin</code> 属性有四个值：</p>
+<ul>
+<li>margin: 25px 50px 75px 100px; <ul>
+<li>上外边距是 25px</li>
+<li>右外边距是 50px</li>
+<li>下外边距是 75px</li>
+<li>左外边距是 100px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-14"><a href="#实例-14" class="headerlink" title="实例"></a>实例</h4><p>margin 简写属性设置四个值：</p>
+<p><code>css p { margin: 25px 50px 75px 100px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_shorthand_4value" title="亲自试一试">亲自试一试</a></p>
+<p>如果 <code>margin</code> 属性设置三个值：</p>
+<ul>
+<li>margin: 25px 50px 75px; <ul>
+<li>上外边距是 25px</li>
+<li>右和左外边距是 50px</li>
+<li>下外边距是 75px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-15"><a href="#实例-15" class="headerlink" title="实例"></a>实例</h4><p>使用已设置三个值的  <code>margin</code> 简写属性：</p>
+<p><code>css p { margin: 25px 50px 75px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_shorthand_3value" title="亲自试一试">亲自试一试</a></p>
+<p>如果 <code>margin</code>属性设置两个值：</p>
+<ul>
+<li>margin: 25px 50px; <ul>
+<li>上和下外边距是 25px</li>
+<li>右和左外边距是 50px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-16"><a href="#实例-16" class="headerlink" title="实例"></a>实例</h4><p>使用设置了两个值的 margin 简写属性：</p>
+<p><code>css p { margin: 25px 50px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_shorthand_2value" title="亲自试一试">亲自试一试</a></p>
+<p>如果 <code>margin</code> 属性设置了一个值：</p>
+<ul>
+<li>margin: 25px; <ul>
+<li>所有四个外边距都是 25px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-17"><a href="#实例-17" class="headerlink" title="实例"></a>实例</h4><p>使用设置一个值的 margin 简写属性：</p>
+<p><code>css p { margin: 25px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_shorthand_1value" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="auto-值"><a href="#auto-值" class="headerlink" title="auto 值"></a>auto 值</h3><p>我们可以将 margin 属性设置为 <code>auto</code>，以使元素在其容器中水平居中。</p>
+<p>然后，该元素将占据指定的宽度，并且剩余空间将在左右边界之间平均分配。</p>
+<h4 id="实例-18"><a href="#实例-18" class="headerlink" title="实例"></a>实例</h4><p>使用 <code>margin: auto</code>：</p>
+<p><code>css div { width: 300px; margin: auto; border: 1px solid red; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin_auto" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="inherit-值"><a href="#inherit-值" class="headerlink" title="inherit 值"></a>inherit 值</h3><p>本例使 <p class="ex1"> 元素的左外边距继承自父元素（<div>）：</p>
+<h4 id="实例-19"><a href="#实例-19" class="headerlink" title="实例"></a>实例</h4><p>使用 inherit 值：</p>
+<p><code>css div { border: 1px solid red; margin-left: 100px; } p.ex1 { margin-left: inherit; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_margin-left_inherit" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/pro_css_margin.asp" title="框模型：CSS 外边距">框模型：CSS 外边距</a></p>
+<hr>
+<p><strong>外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。</strong></p>
+<p><strong>合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。</strong></p>
+<hr>
+<h3 id="外边距合并"><a href="#外边距合并" class="headerlink" title="外边距合并"></a>外边距合并</h3><p>外边距合并（叠加）是一个相当简单的概念。但是，在实践中对网页进行布局时，它会造成许多混淆。</p>
+<p>简单地说，外边距合并指的是：当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。</p>
+<p>当一个元素出现在另一个元素上面时，第一个元素的下外边距与第二个元素的上外边距会发生合并。请看下图：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/1bfc183ce442.gif"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_csse_margin_collapsing1" title="亲自试一试">亲自试一试</a></p>
+<p>当一个元素包含在另一个元素中时（假设没有内边距或边框把外边距分隔开），它们的上和&#x2F;或下外边距也会发生合并。请看下图：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/5d91330e700e.gif"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_csse_margin_collapsing2" title="亲自试一试">亲自试一试</a></p>
+<p>尽管看上去有些奇怪，但是外边距甚至可以与自身发生合并。</p>
+<p>假设有一个<strong>空元素</strong> ，它有外边距，但是没有边框或填充。在这种情况下，上外边距与下外边距就碰到了一起，它们会发生合并：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/ba47f66e7051.gif"></p>
+<p>如果这个外边距遇到另一个元素的外边距，它还会发生合并：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/2c8026428c43.gif"></p>
+<p>这就是一系列的段落元素占用空间非常小的原因，因为它们的所有外边距都合并到一起，形成了一个小的外边距。</p>
+<p>外边距合并初看上去可能有点奇怪，但是实际上，它是有意义的。</p>
+<p>以由几个段落组成的典型文本页面为例。第一个段落上面的空间等于段落的上外边距。如果没有外边距合并，后续所有段落之间的外边距都将是相邻上外边距和下外边距的和。这意味着段落之间的空间是页面顶部的两倍。如果发生<strong>外边距合并</strong> ，段落之间的上外边距和下外边距就合并在一起，这样<strong>各处的距离就一致了</strong> 。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/f522dc9301f6.gif"></p>
+<p>注释：只有普通文档流中块框的垂直外边距才会发生外边距合并。行内框、浮动框或绝对定位之间的外边距不会合并。</p>
+<hr>
+<h3 id="所有-CSS-外边距属性"><a href="#所有-CSS-外边距属性" class="headerlink" title="所有 CSS 外边距属性"></a>所有 CSS 外边距属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_margin.asp" title="margin">margin</a></td>
+<td>用于在一条声明中设置外边距属性的简写属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_margin-bottom.asp" title="margin-bottom">margin-bottom</a></td>
+<td>设置元素的下外边距。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_margin-left.asp" title="margin-left">margin-left</a></td>
+<td>设置元素的左外边距。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_margin-right.asp" title="margin-right">margin-right</a></td>
+<td>设置元素的右外边距。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_margin-top.asp" title="margin-top">margin-top</a></td>
+<td>设置元素的上外边距。</td>
+</tr>
+</tbody></table>
+<hr>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/ff65aa8439d3.png"></p>
+<hr>
+<h3 id="CSS-内边距"><a href="#CSS-内边距" class="headerlink" title="CSS 内边距"></a>CSS 内边距</h3><p>CSS <code>padding</code> 属性用于在任何定义的边界内的元素内容周围生成空间。</p>
+<p>通过 CSS，我们可以完全控制内边距（填充）。有一些属性可以为元素的每一侧（上、右、下和左侧）设置内边距。</p>
+<hr>
+<h3 id="Padding-单独的边"><a href="#Padding-单独的边" class="headerlink" title="Padding - 单独的边"></a>Padding - 单独的边</h3><p>CSS 拥有用于为元素的每一侧指定内边距的属性：</p>
+<blockquote>
+<ul>
+<li><code>padding-top</code></li>
+<li><code>padding-right</code></li>
+<li><code>padding-bottom</code></li>
+<li><code>padding-left</code></li>
+</ul>
+</blockquote>
+<p>所有内边距属性都可以设置以下值：</p>
+<ul>
+<li><em>length</em> - 以 px、pt、cm 等单位指定内边距</li>
+<li>% - 指定以包含元素宽度的百分比计的内边距</li>
+<li>inherit - 指定应从父元素继承内边距</li>
+</ul>
+<p>提示：<strong>不允许</strong> 负值。</p>
+<h4 id="实例-20"><a href="#实例-20" class="headerlink" title="实例"></a>实例</h4><p>为 <div> 元素的所有四个边设置不同的内边距：</p>
+<p><code>css div { padding-top: 50px; padding-right: 30px; padding-bottom: 50px; padding-left: 80px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_sides" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="Padding-简写属性"><a href="#Padding-简写属性" class="headerlink" title="Padding - 简写属性"></a>Padding - 简写属性</h3><p>为了缩减代码，可以在一个属性中指定所有内边距属性。</p>
+<p><code>padding</code> 属性是以下各内边距属性的简写属性：</p>
+<blockquote>
+<ul>
+<li><code>padding-top</code></li>
+<li><code>padding-right</code></li>
+<li><code>padding-bottom</code></li>
+<li><code>padding-left</code></li>
+</ul>
+</blockquote>
+<h4 id="工作原理是这样的：-1"><a href="#工作原理是这样的：-1" class="headerlink" title="工作原理是这样的："></a>工作原理是这样的：</h4><p>如果 <code>padding</code> 属性有四个值：</p>
+<ul>
+<li>padding: 25px 50px 75px 100px; <ul>
+<li>上内边距是 25px</li>
+<li>右内边距是 50px</li>
+<li>下内边距是 75px</li>
+<li>左内边距是 100px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-21"><a href="#实例-21" class="headerlink" title="实例"></a>实例</h4><p>使用设置了四个值的 padding 简写属性：</p>
+<p><code>css div { padding: 25px 50px 75px 100px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_shorthand_4value" title="亲自试一试">亲自试一试</a></p>
+<p>如果 <code>padding</code> 属性设置了三个值：</p>
+<ul>
+<li>padding: 25px 50px 75px; <ul>
+<li>上内边距是 25px</li>
+<li>右和左内边距是 50px</li>
+<li>下内边距是 75px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-22"><a href="#实例-22" class="headerlink" title="实例"></a>实例</h4><p>使用设置了三个值的 padding 简写属性：</p>
+<p><code>css div { padding: 25px 50px 75px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_shorthand_3value" title="亲自试一试">亲自试一试</a></p>
+<p>如果 <code>padding</code> 属性设置了两个值：</p>
+<ul>
+<li>padding: 25px 50px; <ul>
+<li>上和下内边距是 25px</li>
+<li>右和左内边距是 50px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-23"><a href="#实例-23" class="headerlink" title="实例"></a>实例</h4><p>使用设置了两个值的 padding 简写属性：</p>
+<p><code>css div { padding: 25px 50px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_shorthand_2value" title="亲自试一试">亲自试一试</a></p>
+<p>如果 <code>padding</code> 属性设置了一个值：</p>
+<ul>
+<li>padding: 25px; <ul>
+<li>所有四个内边距都是 25px</li>
+</ul>
+</li>
+</ul>
+<h4 id="实例-24"><a href="#实例-24" class="headerlink" title="实例"></a>实例</h4><p>使用设置了一个值的 padding 简写属性：</p>
+<p><code>css div { padding: 25px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_shorthand_1value" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="内边距和元素宽度"><a href="#内边距和元素宽度" class="headerlink" title="内边距和元素宽度"></a>内边距和元素宽度</h3><p>CSS <code>width</code> 属性指定元素内容区域的宽度。内容区域是元素（盒模型）的内边距、边框和外边距内的部分。</p>
+<p>因此，如果元素拥有指定的宽度，则添加到该元素的内边距会添加到元素的总宽度中。这通常是不希望的结果。</p>
+<h4 id="实例-25"><a href="#实例-25" class="headerlink" title="实例"></a>实例</h4><p>在这里，<div> 元素的宽度为 300px。但是，<div> 元素的实际宽度将是 350px（300px + 左内边距 25px + 右内边距 25px）：</p>
+<p><code>css div { width: 300px; padding: 25px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_width_1" title="亲自试一试">亲自试一试</a></p>
+<p>若要将宽度保持为 300px，无论填充量如何，那么我们可以使用 <code>box-sizing</code> 属性。这将导致元素保持其宽度。如果增加内边距，则可用的内容空间会减少。</p>
+<h4 id="实例-26"><a href="#实例-26" class="headerlink" title="实例"></a>实例</h4><p>使用 box-sizing 属性将宽度保持为 300px，无论填充量如何：</p>
+<p><code>css div { width: 300px; padding: 25px; box-sizing: border-box; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_padding_width_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="更多实例-1"><a href="#更多实例-1" class="headerlink" title="更多实例"></a>更多实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_padding.asp" title="设置左内边距">设置左内边距</a></p>
+<p>本例演示如何设置 <p> 元素的左内边距。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_padding.asp" title="设置右内边距">设置右内边距</a></p>
+<p>本例演示如何设置 <p> 元素的右内边距。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_padding.asp" title="设置上内边距">设置上内边距</a></p>
+<p>本例演示如何设置 <p> 元素的上内边距。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_padding.asp" title="设置下内边距">设置下内边距</a></p>
+<p>本例演示如何设置 <p> 元素的下内边距。</p>
+<hr>
+<h3 id="所有-CSS-内边距属性"><a href="#所有-CSS-内边距属性" class="headerlink" title="所有 CSS 内边距属性"></a>所有 CSS 内边距属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_padding.asp" title="padding">padding</a></td>
+<td>用于在一条声明中设置所有内边距属性的简写属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_padding-bottom.asp" title="padding-bottom">padding-bottom</a></td>
+<td>设置元素的下内边距。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_padding-left.asp" title="padding-left">padding-left</a></td>
+<td>设置元素的左内边距。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_padding-right.asp" title="padding-right">padding-right</a></td>
+<td>设置元素的右内边距。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_padding-top.asp" title="padding-top">padding-top</a></td>
+<td>设置元素的上内边距。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="延伸阅读-1"><a href="#延伸阅读-1" class="headerlink" title="延伸阅读"></a>延伸阅读</h3><p>课外书：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/pro_css_padding.asp" title="框模型：CSS 内边距">框模型：CSS 内边距</a></p>
+<hr>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/056ce525f26d.png"></p>
+<hr>
+<h3 id="CSS-设置高度和宽度"><a href="#CSS-设置高度和宽度" class="headerlink" title="CSS 设置高度和宽度"></a>CSS 设置高度和宽度</h3><p><code>height</code> 和 <code>width</code> 属性用于设置元素的高度和宽度。</p>
+<p>height 和 width 属性不包括内边距、边框或外边距。它设置的是元素内边距、边框以及外边距内的区域的高度或宽度。</p>
+<hr>
+<h3 id="CSS-高度和宽度值"><a href="#CSS-高度和宽度值" class="headerlink" title="CSS 高度和宽度值"></a>CSS 高度和宽度值</h3><p><code>height</code> 和 <code>width</code> 属性可设置如下值：</p>
+<blockquote>
+<ul>
+<li><code>auto</code> - 默认。浏览器计算高度和宽度。</li>
+<li><code> _length_</code> - 以 px、cm 等定义高度&#x2F;宽度。</li>
+<li><code>%</code> - 以包含块的百分比定义高度&#x2F;宽度。</li>
+<li><code>initial</code> - 将高度&#x2F;宽度设置为默认值。</li>
+<li><code>inherit</code> - 从其父值继承高度&#x2F;宽度。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="CSS-高度和宽度实例"><a href="#CSS-高度和宽度实例" class="headerlink" title="CSS 高度和宽度实例"></a>CSS 高度和宽度实例</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/10f6d61f1b57.png"></p>
+<h4 id="实例-27"><a href="#实例-27" class="headerlink" title="实例"></a>实例</h4><p>设置 <div> 元素的高度和宽度：</p>
+<p><code>css div { height: 200px; width: 50%; background-color: powderblue; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_height_width_1" title="亲自试一试">亲自试一试</a></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/693e459223bb.png"></p>
+<h4 id="实例-28"><a href="#实例-28" class="headerlink" title="实例"></a>实例</h4><p>设置另一个 <div> 元素的高度和宽度：</p>
+<p><code>css div { height: 100px; width: 500px; background-color: powderblue; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_height_width_2" title="亲自试一试">亲自试一试</a></p>
+<p>注意：请记住，<code>height</code> 和 <code>width</code> 属性不包括内边距、边框或外边距！它们设置的是元素的内边距、边框和外边距内的区域的高度&#x2F;宽度！</p>
+<hr>
+<h3 id="设置-max-width"><a href="#设置-max-width" class="headerlink" title="设置 max-width"></a>设置 max-width</h3><p><code>max-width</code> 属性用于设置元素的最大宽度。</p>
+<p>可以用长度值（例如 px、cm 等）或包含块的百分比（％）来指定 max-width（最大宽度），也可以将其设置为 none（默认值。意味着没有最大宽度）。</p>
+<p>当浏览器窗口小于元素的宽度（500px）时，会发生之前那个 <code>&lt;div&gt;</code> 的问题。然后，浏览器会将水平滚动条添加到页面。</p>
+<p>在这种情况下，使用 <code>max-width</code> 能够改善浏览器对小窗口的处理。</p>
+<p>提示：将浏览器窗口拖动到小于500px的宽度，以查看两个 div 之间的区别！</p>
+<p>此元素的高度为 100 像素，最大宽度为 500 像素。</p>
+<p>此元素的高度为 100 像素，最大宽度为 500 像素。</p>
+<p>注释：<code>max-width</code> 属性的值将覆盖 <code>width</code>（宽度）。</p>
+<h4 id="实例-29"><a href="#实例-29" class="headerlink" title="实例"></a>实例</h4><p>这个 <div> 元素的高度为 100 像素，最大宽度为 500 像素：</p>
+<p><code>css div { max-width: 500px; height: 100px; background-color: powderblue; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_max_width" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="亲自试一试-实例"><a href="#亲自试一试-实例" class="headerlink" title="亲自试一试 - 实例"></a>亲自试一试 - 实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_height" title="设置元素的高度和宽度">设置元素的高度和宽度</a></p>
+<p>本例演示如何设置不同元素的高度和宽度。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_height_percent" title="使用百分比设置图像的高度和宽度">使用百分比设置图像的高度和宽度</a></p>
+<p>本例演示如何使用百分比值设置图像的高度和宽度。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_max-width" title="设置元素的最小宽度和最大宽度">设置元素的最小宽度和最大宽度</a></p>
+<p>本例演示如何使用像素值设置元素的最小宽度和最大宽度。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_dim_max-height" title="设置元素的最小高度和最大高度">设置元素的最小高度和最大高度</a></p>
+<p>本例演示如何使用像素值设置元素的最小高度和最大高度。</p>
+<hr>
+<h3 id="设置-CSS-尺寸属性"><a href="#设置-CSS-尺寸属性" class="headerlink" title="设置 CSS 尺寸属性"></a>设置 CSS 尺寸属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_dim_height.asp" title="height">height</a></td>
+<td>设置元素的高度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_dim_max-height.asp" title="max-height">max-height</a></td>
+<td>设置元素的最大高度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_dim_max-width.asp" title="max-width">max-width</a></td>
+<td>设置元素的最大宽度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_dim_min-height.asp" title="min-height">min-height</a></td>
+<td>设置元素的最小高度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_dim_min-width.asp" title="min-width">min-width</a></td>
+<td>设置元素的最小宽度。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_dim_width.asp" title="width">width</a></td>
+<td>设置元素的宽度。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="CSS-框模型"><a href="#CSS-框模型" class="headerlink" title="CSS 框模型"></a>CSS 框模型</h3><p>所有 HTML 元素都可以视为方框。在 CSS 中，在谈论设计和布局时，会使用术语“盒模型”或“框模型”。</p>
+<p>CSS 框模型实质上是一个包围每个 HTML 元素的框。它包括：外边距、边框、内边距以及实际的内容。下图展示了框模型：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/ea754c059940.gif"></p>
+<p>对不同部分的说明：</p>
+<blockquote>
+<ul>
+<li><em>内容</em> - 框的内容，其中显示文本和图像。</li>
+<li><em>内边距</em> - 清除内容周围的区域。内边距是透明的。</li>
+<li><em>边框</em> - 围绕内边距和内容的边框。</li>
+<li><em>外边距</em> - 清除边界外的区域。外边距是透明的。</li>
+</ul>
+</blockquote>
+<p>框模型允许我们在元素周围添加边框，并定义元素之间的空间。</p>
+<p>元素框的最内部分是实际的内容，直接包围内容的是内边距。内边距呈现了元素的背景。内边距的边缘是边框。边框以外是外边距，外边距默认是透明的，因此不会遮挡其后的任何元素。</p>
+<p>提示：背景应用于由内容和内边距、边框组成的区域。</p>
+<p>内边距、边框和外边距都是可选的，默认值是零。但是，许多元素将由用户代理样式表设置外边距和内边距。可以通过将元素的 margin 和 padding 设置为零来覆盖这些浏览器样式。这可以分别进行，也可以使用通用选择器对所有元素进行设置：</p>
+<p><code>css * { margin: 0; padding: 0; } </code> </p>
+<p>在 CSS 中，width 和 height 指的是内容区域的宽度和高度。增加内边距、边框和外边距不会影响内容区域的尺寸，但是会增加元素框的总尺寸。</p>
+<p>假设框的每个边上有 10 个像素的外边距和 5 个像素的内边距。如果希望这个元素框达到 100 个像素，就需要将内容的宽度设置为 70 像素，请看下图：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/9aa6b88e1a24.gif"></p>
+<p><code>css #box { width: 70px; margin: 10px; padding: 5px; } </code> </p>
+<p>提示：内边距、边框和外边距可以应用于一个元素的所有边，也可以应用于单独的边。</p>
+<p>提示：<strong>外边距可以是负值</strong> ，而且在很多情况下都要使用负值的外边距。</p>
+<h4 id="实例-30"><a href="#实例-30" class="headerlink" title="实例"></a>实例</h4><p>演示框模型：</p>
+<p><code>css div { width: 300px; border: 15px solid green; padding: 50px; margin: 20px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_boxmodel" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="元素的宽度和高度"><a href="#元素的宽度和高度" class="headerlink" title="元素的宽度和高度"></a>元素的宽度和高度</h3><p>为了在所有浏览器中正确设置元素的宽度和高度，我们需要了解框模型如何工作。</p>
+<p>重要提示：使用 CSS 设置元素的 width 和 height 属性时，只需设置内容区域的宽度和高度。要计算元素的完整大小，还必须把内边距、边框和外边距加起来。</p>
+<h4 id="实例-31"><a href="#实例-31" class="headerlink" title="实例"></a>实例</h4><div> 元素的总宽度将是 350px：
+
+<p><code>css div { width: 320px; padding: 10px; border: 5px solid gray; margin: 0; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_boxmodel_width" title="亲自试一试">亲自试一试</a></p>
+<p>计算如下：</p>
+<pre><code>320px(宽度)
++ 20px（左+右内边距）
++ 10px（左+右边框）
++ 0px（左+右外边距）
+= _350px_
+</code></pre>
+<p>元素的总宽度应该这样计算：</p>
+<p>元素总宽度 &#x3D; 宽度 + 左内边距 + 右内边距 + 左边框 + 右边框 + 左外边距 + 右外边距</p>
+<p>元素的总高度应该这样计算：</p>
+<p>元素总高度 &#x3D; 高度 + 上内边距 + 下内边距 + 上边框 + 下边框 + 上外边距 + 下外边距</p>
+<hr>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/acc4cd0ab0ef.png"></h3><h3 id="CSS-轮廓"><a href="#CSS-轮廓" class="headerlink" title="CSS 轮廓"></a>CSS 轮廓</h3><p>轮廓是在元素周围绘制的一条线，在边框之外，以凸显元素。</p>
+<p>CSS 拥有如下轮廓属性：</p>
+<blockquote>
+<ul>
+<li><code>outline-style</code></li>
+<li><code>outline-color</code></li>
+<li><code>outline-width</code></li>
+<li><code>outline-offset</code></li>
+<li><code>outline</code></li>
+</ul>
+</blockquote>
+<p>注意：<strong>轮廓与边框不同</strong> ！不同之处在于：轮廓是在元素边框之外绘制的，并且可能与其他内容重叠。同样，轮廓也不是元素尺寸的一部分；<strong>元素的总宽度和高度不受轮廓线宽度的影响。</strong></p>
+<hr>
+<h3 id="CSS-轮廓样式"><a href="#CSS-轮廓样式" class="headerlink" title="CSS 轮廓样式"></a>CSS 轮廓样式</h3><p>outline-style 属性指定轮廓的样式，并可设置如下值：</p>
+<blockquote>
+<ul>
+<li><code>dotted</code> - 定义点状的轮廓。</li>
+<li><code>dashed</code> - 定义虚线的轮廓。</li>
+<li><code>solid</code> - 定义实线的轮廓。</li>
+<li><code>double</code> - 定义双线的轮廓。</li>
+<li><code>groove</code> - 定义 3D 凹槽轮廓。</li>
+<li><code>ridge</code> - 定义 3D 凸槽轮廓。</li>
+<li><code>inset</code> - 定义 3D 凹边轮廓。</li>
+<li><code>outset</code> - 定义 3D 凸边轮廓。</li>
+<li><code>none</code> - 定义无轮廓。</li>
+<li><code>hidden</code> - 定义隐藏的轮廓。</li>
+</ul>
+</blockquote>
+<p>下例展示了不同的 outline-style 值：</p>
+<h4 id="实例-32"><a href="#实例-32" class="headerlink" title="实例"></a>实例</h4><p>演示不同的轮廓样式：</p>
+<p><code>css p.dotted {outline-style: dotted;} p.dashed {outline-style: dashed;} p.solid {outline-style: solid;} p.double {outline-style: double;} p.groove {outline-style: groove;} p.ridge {outline-style: ridge;} p.inset {outline-style: inset;} p.outset {outline-style: outset;} </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/f643c653ab19.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-style" title="亲自试一试">亲自试一试</a></p>
+<p>注意：除非设置了 <code>outline-style</code> 属性，否则其他轮廓属性都不会有任何作用！</p>
+<hr>
+<h3 id="CSS-轮廓宽度"><a href="#CSS-轮廓宽度" class="headerlink" title="CSS 轮廓宽度"></a>CSS 轮廓宽度</h3><p><code>outline-width</code> 属性指定轮廓的宽度，并可设置如下值之一：</p>
+<blockquote>
+<ul>
+<li>thin（通常为 1px）</li>
+<li>medium（通常为 3px）</li>
+<li>thick （通常为 5px）</li>
+<li>特定尺寸（以 px、pt、cm、em 计）</li>
+</ul>
+</blockquote>
+<p>下例展示了一些不同宽度的轮廓：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/94ed6cda3102.png"></p>
+<h4 id="实例-33"><a href="#实例-33" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 { border: 1px solid black; outline-style: solid; outline-color: red; outline-width: thin; } p.ex2 { border: 1px solid black; outline-style: solid; outline-color: red; outline-width: medium; } p.ex3 { border: 1px solid black; outline-style: solid; outline-color: red; outline-width: thick; } p.ex4 { border: 1px solid black; outline-style: solid; outline-color: red; outline-width: 4px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-width" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="CSS-轮廓颜色"><a href="#CSS-轮廓颜色" class="headerlink" title="CSS 轮廓颜色"></a>CSS 轮廓颜色</h3><p><code>outline-color</code> 属性用于设置轮廓的颜色。</p>
+<p>我们可以通过以下方式设置颜色：</p>
+<blockquote>
+<ul>
+<li><em>name</em> - 指定颜色名，比如 “red”</li>
+<li>HEX - 指定十六进制值，比如 “#ff0000”</li>
+<li>RGB - 指定 RGB 值，比如 “rgb(255,0,0)”</li>
+<li>HSL - 指定 HSL 值，比如 “hsl(0, 100%, 50%)”</li>
+<li>invert - 执行颜色反转（确保轮廓可见，无论是什么颜色背景）</li>
+</ul>
+</blockquote>
+<p>下例展示了一些不同颜色的不同轮廓样式。请注意，这些元素在轮廓内还有黑色细边框：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/0f5289353f87.png"></p>
+<h4 id="实例-34"><a href="#实例-34" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 { border: 2px solid black; outline-style: solid; outline-color: red; } p.ex2 { border: 2px solid black; outline-style: dotted; outline-color: blue; } p.ex3 { border: 2px solid black; outline-style: outset; outline-color: grey; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-color" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="HEX-值-1"><a href="#HEX-值-1" class="headerlink" title="HEX 值"></a>HEX 值</h3><p>我们也可以使用十六进制值（HEX）指定轮廓颜色：</p>
+<h4 id="实例-35"><a href="#实例-35" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 { outline-style: solid; outline-color: #ff0000; /* 红色 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-color-hex" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="RGB-值-1"><a href="#RGB-值-1" class="headerlink" title="RGB 值"></a>RGB 值</h3><p>或者通过使用 RGB 值：</p>
+<h4 id="实例-36"><a href="#实例-36" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 { outline-style: solid; outline-color: rgb(255, 0, 0); /* 红色 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-color-rgb" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="HSL-值-1"><a href="#HSL-值-1" class="headerlink" title="HSL 值"></a>HSL 值</h3><p>当然还可以使用 HSL 值：</p>
+<h4 id="实例-37"><a href="#实例-37" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 { outline-style: solid; outline-color: hsl(0, 100%, 50%); /* 红色 */ } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-color-hsl" title="亲自试一试">亲自试一试</a></p>
+<p>可以在 <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/css/css_colors.asp" title="CSS 颜色">CSS 颜色</a> 章节中学习有关 HEX、RGB 和 HSL 值的更多知识。</p>
+<hr>
+<h3 id="反转颜色"><a href="#反转颜色" class="headerlink" title="反转颜色"></a>反转颜色</h3><p>下例使用 <code>outline-color: invert</code>，执行了颜色反转。这样可以确保无论颜色背景如何，轮廓都是可见的：</p>
+<p>反转颜色的实线轮廓。</p>
+<h4 id="实例-38"><a href="#实例-38" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 { border: 1px solid yellow; outline-style: solid; outline-color: invert; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-color_invert" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="CSS-Outline-简写属性"><a href="#CSS-Outline-简写属性" class="headerlink" title="CSS Outline - 简写属性"></a>CSS Outline - 简写属性</h3><p><code>outline</code> 属性是用于设置以下各个轮廓属性的简写属性：</p>
+<blockquote>
+<ul>
+<li><code>outline-width</code></li>
+<li><code>outline-style</code>（必需）</li>
+<li><code>outline-color</code></li>
+</ul>
+</blockquote>
+<p>从上面的列表中，<code>outline</code> 属性可指定一个、两个或三个值。值的顺序无关紧要。</p>
+<p>下例展示了用简写的 <code>outline</code> 属性指定的一些轮廓：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/2108e93d693d.png"></p>
+<h4 id="实例-39"><a href="#实例-39" class="headerlink" title="实例"></a>实例</h4><p><code>css p.ex1 {outline: dashed;} p.ex2 {outline: dotted red;} p.ex3 {outline: 5px solid yellow;} p.ex4 {outline: thick ridge pink;} </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="CSS-轮廓偏移"><a href="#CSS-轮廓偏移" class="headerlink" title="CSS 轮廓偏移"></a>CSS 轮廓偏移</h3><p><code>outline-offset</code> 属性在元素的轮廓与边框之间添加空间。元素及其轮廓之间的空间是透明的。</p>
+<p>下例指定边框边缘外 25px 的轮廓：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/34f2fc91c280.png"></p>
+<h4 id="实例-40"><a href="#实例-40" class="headerlink" title="实例"></a>实例</h4><p><code>css p { margin: 50px; border: 1px solid black; outline: 1px solid red; outline-offset: 25px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-offset_1" title="亲自试一试">亲自试一试</a></p>
+<p>下例显示元素与其轮廓之间的空间是透明的：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/866b34faf285.png"></p>
+<h4 id="实例-41"><a href="#实例-41" class="headerlink" title="实例"></a>实例</h4><p><code>css p { margin: 30px; background: yellow; border: 1px solid black; outline: 1px solid red; outline-offset: 25px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_outline-offset_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="所有-CSS-轮廓属性"><a href="#所有-CSS-轮廓属性" class="headerlink" title="所有 CSS 轮廓属性"></a>所有 CSS 轮廓属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_outline.asp" title="outline">outline</a></td>
+<td>简写属性，在一条声明中设置 outline-width、outline-style 以及 outline-color。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_outline-color.asp" title="outline-color">outline-color</a></td>
+<td>设置轮廓的颜色。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_outline-offset.asp" title="outline-offset">outline-offset</a></td>
+<td>指定轮廓与元素的边缘或边框之间的空间。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_outline-style.asp" title="outline-style">outline-style</a></td>
+<td>设置轮廓的样式。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_outline-width.asp" title="outline-width">outline-width</a></td>
+<td>设置轮廓的宽度。</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本节我们学习了CSS边框、边距、轮廓的各种知识（边框宽度&#x2F;颜色&#x2F;各边&#x2F;简写属性&#x2F;圆角边框&#x2F;内外边距&#x2F;高度宽度&#x2F;框模型&#x2F;轮廓宽度&#x2F;颜色&#x2F;属性&#x2F;偏移），强化了CSS边框、边距与轮廓的知识点，今后将继续介绍CSS文本等知识点。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/23/zh-CN/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D%E9%AB%98%E5%BA%A6%E5%AE%BD%E5%BA%A6%E6%A1%86%E6%A8%A1%E5%9E%8B%E8%BD%AE%E5%BB%93%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%B1%9E%E6%80%A7%E5%81%8F%E7%A7%BB%EF%BC%89%E2%80%94%E2%80%94%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82/">https://your-domain.com/2023/01/23/zh-CN/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D%E9%AB%98%E5%BA%A6%E5%AE%BD%E5%BA%A6%E6%A1%86%E6%A8%A1%E5%9E%8B%E8%BD%AE%E5%BB%93%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%B1%9E%E6%80%A7%E5%81%8F%E7%A7%BB%EF%BC%89%E2%80%94%E2%80%94%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/css/">css</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/24/en/30-PyQuery-CSS-Selector-Based-on-HTML/" title="30. PyQuery: CSS Selector Based on HTML"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/30.-PyQuery-%E5%9F%BA%E4%BA%8EHTML%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/6f927d62b017.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">30. PyQuery: CSS Selector Based on HTML</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 30. PyQuery: 基于HTML的CSS选择器📊 964 views | 👍 3 likes | 💬 2 comments | ⭐ 5 favorites  Table of Contents Introduction Importing the Module Basic Usage  Select by Tag Chained Tag Operations Shorthand: Descendant Selector Class Selector ID Selector Attribute&#x2F;Text Selector (Key Point) Improved Method for Multiple Tags  Quick Summary PyQuery’s Powerful Feature: Modifying Source Code  Adding Code Blocks Modifying&#x2F;Adding Attributes...</div></div></div></a><a class="pagination-related" href="/2023/01/23/zh-CN/CSS%E6%96%87%E6%9C%AC%E4%B8%8E%E5%AD%97%E4%BD%93(%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AF%B9%E9%BD%90%E8%A3%85%E9%A5%B0%E8%BD%AC%E6%8D%A2%E9%97%B4%E8%B7%9D%E9%98%B4%E5%BD%B1%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F%E5%A4%A7%E5%B0%8F%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7)/" title="CSS文本与字体(文本格式化/对齐/装饰/转换/间距/阴影/字体/样式/大小/简写属性)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E6%96%87%E6%9C%AC%E4%B8%8E%E5%AD%97%E4%BD%93(%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AF%B9%E9%BD%90%E8%A3%85%E9%A5%B0%E8%BD%AC%E6%8D%A2%E9%97%B4%E8%B7%9D%E9%98%B4%E5%BD%B1%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F%E5%A4%A7%E5%B0%8F/cea5aabda2c0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">CSS文本与字体(文本格式化/对齐/装饰/转换/间距/阴影/字体/样式/大小/简写属性)</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS文本与字体(文本格式化&#x2F;对齐&#x2F;装饰&#x2F;转换&#x2F;间距&#x2F;阴影&#x2F;字体&#x2F;样式&#x2F;大小&#x2F;简写属性)📊 1020 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 5 收藏  目录 文本颜色 文本颜色和背景色 文本对齐 文本方向 垂直对齐 文字装饰 文本转换 文字缩进 字母间距 行高 字间距 空白 文本阴影 所有 CSS 文本属性 字体选择很重要 通用字体族 Serif 和 Sans-serif 字体之间的区别 一些字体的例子 CSS font-family 属性 字体样式 字体粗细 字体变体 字体大小 以像素设置字体大小 用 em 设置字体大小 使用百分比和 Em 的组合 响应式字体大小 谷歌字体 字体属性 所有 CSS 字体属性   亲自试一试  文本颜色color 属性用于设置文本的颜色。颜色由以下值指定：   颜色名 - 比如 “red” 十六进制值 - 比如 “#ff0000” RGB 值 - 比如 “rgb(255,0,0)”   查看 CSS 颜色值...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E9%A2%9C%E8%89%B2/" title="HTML颜色"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E9%A2%9C%E8%89%B2/80a4a0eea8eb.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML颜色</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML颜色📊 200 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 颜色值 颜色名 Web安全色 216 跨平台色  颜色由红色、绿色、蓝色混合而成。  颜色值颜色由一个十六进制符号来定义，这个符号由红色、绿色和蓝色的值组成（RGB ）。 每种颜色的最小值是 0（十六进制：#00 ）。最大值是 255（十六进制：#FF ）。 这个表格给出了由三种颜色混合而成的具体效果：   颜色名大多数的浏览器都支持颜色名集合。 提示：仅仅有 16 种颜色名被 W3C 的 HTML4.0 标准所支持。它们是：aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow。 如果需要使用其它的颜色，需要使用十六进制的颜色值。   Web安全色数年以前，当大多数计算机仅支持 256 种颜色的时候，一系列 216 种 Web 安全色作为 Web 标准被建议使用。其中的原因是，微软和 Ma...</div></div></div></a><a class="pagination-related" href="/2023/01/23/zh-CN/CSS%E6%96%87%E6%9C%AC%E4%B8%8E%E5%AD%97%E4%BD%93(%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AF%B9%E9%BD%90%E8%A3%85%E9%A5%B0%E8%BD%AC%E6%8D%A2%E9%97%B4%E8%B7%9D%E9%98%B4%E5%BD%B1%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F%E5%A4%A7%E5%B0%8F%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7)/" title="CSS文本与字体(文本格式化&#x2F;对齐&#x2F;装饰&#x2F;转换&#x2F;间距&#x2F;阴影&#x2F;字体&#x2F;样式&#x2F;大小&#x2F;简写属性)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E6%96%87%E6%9C%AC%E4%B8%8E%E5%AD%97%E4%BD%93(%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AF%B9%E9%BD%90%E8%A3%85%E9%A5%B0%E8%BD%AC%E6%8D%A2%E9%97%B4%E8%B7%9D%E9%98%B4%E5%BD%B1%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F%E5%A4%A7%E5%B0%8F/cea5aabda2c0.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-24</div><div class="info-item-2">CSS文本与字体(文本格式化&#x2F;对齐&#x2F;装饰&#x2F;转换&#x2F;间距&#x2F;阴影&#x2F;字体&#x2F;样式&#x2F;大小&#x2F;简写属性)</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS文本与字体(文本格式化&#x2F;对齐&#x2F;装饰&#x2F;转换&#x2F;间距&#x2F;阴影&#x2F;字体&#x2F;样式&#x2F;大小&#x2F;简写属性)📊 1020 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 5 收藏  目录 文本颜色 文本颜色和背景色 文本对齐 文本方向 垂直对齐 文字装饰 文本转换 文字缩进 字母间距 行高 字间距 空白 文本阴影 所有 CSS 文本属性 字体选择很重要 通用字体族 Serif 和 Sans-serif 字体之间的区别 一些字体的例子 CSS font-family 属性 字体样式 字体粗细 字体变体 字体大小 以像素设置字体大小 用 em 设置字体大小 使用百分比和 Em 的组合 响应式字体大小 谷歌字体 字体属性 所有 CSS 字体属性   亲自试一试  文本颜色color 属性用于设置文本的颜色。颜色由以下值指定：   颜色名 - 比如 “red” 十六进制值 - 比如 “#ff0000” RGB 值 - 比如 “rgb(255,0,0)”   查看 CSS 颜色值...</div></div></div></a><a class="pagination-related" href="/2023/01/21/zh-CN/CSS%E8%83%8C%E6%99%AF%EF%BC%9A%E8%83%8C%E6%99%AF%E8%89%B2%E8%83%8C%E6%99%AF%E5%9B%BE%E5%83%8F%E8%83%8C%E6%99%AF%E9%87%8D%E5%A4%8D%E8%83%8C%E6%99%AF%E9%99%84%E7%9D%80%E7%AE%80%E5%86%99%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7%EF%BC%88%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82%EF%BC%89/" title="CSS背景：背景色&#x2F;背景图像&#x2F;背景重复&#x2F;背景附着&#x2F;简写背景属性（一文搞懂）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%83%8C%E6%99%AF%EF%BC%9A%E8%83%8C%E6%99%AF%E8%89%B2%E8%83%8C%E6%99%AF%E5%9B%BE%E5%83%8F%E8%83%8C%E6%99%AF%E9%87%8D%E5%A4%8D%E8%83%8C%E6%99%AF%E9%99%84%E7%9D%80%E7%AE%80%E5%86%99%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7%EF%BC%88%E4%B8%80%E6%96%87/c40f39ce08a4.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-22</div><div class="info-item-2">CSS背景：背景色&#x2F;背景图像&#x2F;背景重复&#x2F;背景附着&#x2F;简写背景属性（一文搞懂）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS背景：背景色&#x2F;背景图像&#x2F;背景重复&#x2F;背景附着&#x2F;简写背景属性（一文搞懂）📊 1167 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 CSS背景 CSS 背景色 实例 其他元素 实例 不透明度 &#x2F; 透明度 实例 使用 RGBA 的透明度 实例 CSS 背景图像 实例 实例 实例 CSS 背景重复 实例 实例 CSS background-repeat: no-repeat 实例 CSS background-position 实例 CSS 背景附着 实例 实例 CSS 简写背景属性 实例 所有 CSS 背景属性 总结   CSS背景CSS 背景属性用于定义元素的背景效果。 我们将学习如下 CSS 背景属性：  background-color background-image background-repeat background-attachment background-position   CSS 背景色background-color 属性指定元素的背景色。 ...</div></div></div></a><a class="pagination-related" href="/2023/01/20/zh-CN/CSS%E8%AF%AD%E6%B3%95%E4%B8%8ECSS%E9%80%89%E6%8B%A9%E5%99%A8/" title="CSS语法与CSS选择器"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%AF%AD%E6%B3%95%E4%B8%8ECSS%E9%80%89%E6%8B%A9%E5%99%A8/57773b3eff3e.gif" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">CSS语法与CSS选择器</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS语法与CSS选择器📊 869 阅读 | 👍 4 点赞 | 💬 2 评论 | ⭐ 4 收藏  目录 CSS 语法 实例 例子解释 CSS 选择器 CSS 元素选择器 实例 CSS id 选择器 实例 CSS 类选择器 实例 实例 实例 CSS 通用选择器 实例 CSS 分组选择器 实例 所有简单的 CSS 选择器 延伸阅读  CSS 语法CSS 规则集（rule-set）由选择器和声明块组成：  选择器指向您需要设置样式的 HTML 元素。 声明块包含一条或多条用分号分隔的声明。 每条声明都包含一个 CSS 属性名称和一个值，以冒号分隔。 多条 CSS 声明用分号分隔，声明块用花括号括起来。 实例在此例中，所有  元素都将居中对齐，并带有红色文本颜色： p { color: red; text-align: center; }  亲自试一试 例子解释 p 是 CSS 中的 选择器 （它指向要设置样式的 HTML 元素：）。 color 是属性，red 是属性值 text-align 是属性，center 是属性值   CSS 选择器CS...</div></div></div></a><a class="pagination-related" href="/2023/01/20/zh-CN/CSS%E7%AE%80%E4%BB%8B/" title="CSS简介"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">CSS简介</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS简介📊 496 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 什么是 CSS？ CSS 演示 - 一张 HTML 页面 - 多个样式！ 为何使用 CSS？ CSS 实例 CSS 解决了一个大问题 CSS 节省了大量工作！ 通俗的解释  什么是 CSS？ CSS 指的是层叠样式表* (C ascading ** S** tyle ** S** heets) CSS 描述了** 如何在屏幕、纸张或其他媒体上显示 HTML 元素** CSS  节省了大量工作 。它可以同时控制多张网页的布局 外部样式表存储在 ** CSS 文件** 中  注：也称级联样式表。  CSS 演示 - 一张 HTML 页面 - 多个样式！下面是一张提供了四个不同样式表的 HTML 页面。可以查看不同的样式： html &lt;!DOCTYPE html&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;...</div></div></div></a><a class="pagination-related" href="/2023/01/20/zh-CN/29.-CSS%E7%AE%80%E4%BB%8B%EF%BC%9APyQuery%E6%A8%A1%E5%9D%97%E7%9A%84%E9%93%BA%E5%9E%AB/" title="29. CSS简介：PyQuery模块的铺垫"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">29. CSS简介：PyQuery模块的铺垫</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：29. CSS简介：PyQuery模块的铺垫📊 708 阅读 | 👍 4 点赞 | 💬 1 评论 | ⭐ 4 收藏   目录 什么是 CSS？ CSS 演示 - 一张 HTML 页面 - 多个样式！ 为何使用 CSS？ CSS 实例 CSS 解决了一个大问题 CSS 节省了大量工作！ 通俗的解释 CSS 选择器 CSS 元素选择器 实例 CSS id 选择器 实例 CSS 类选择器 实例 实例 实例 CSS 通用选择器 实例 CSS 分组选择器 实例 所有简单的 CSS 选择器 延伸阅读  什么是 CSS？ CSS 指的是层叠样式表* (C ascading ** S** tyle ** S** heets) CSS 描述了** 如何在屏幕、纸张或其他媒体上显示 HTML 元素** CSS  节省了大量工作 。它可以同时控制多张网页的布局 外部样式表存储在 ** CSS 文件** 中  注：也称级联样式表。  CSS 演示 - 一张 HTML 页面 - 多个样式！下面是一张提供了四个不同样式表的 HTML 页面。可以查看不同的样式： htm...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E8%BE%B9%E6%A1%86"><span class="toc-number">1.</span> <span class="toc-text">CSS边框</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BE%B9%E6%A1%86%E5%B1%9E%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">CSS 边框属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">CSS 边框样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.3.</span> <span class="toc-text">CSS 边框宽度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E8%BE%B9%E7%9A%84%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.4.</span> <span class="toc-text">特定边的宽度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-2"><span class="toc-number">1.4.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BE%B9%E6%A1%86%E9%A2%9C%E8%89%B2"><span class="toc-number">1.5.</span> <span class="toc-text">CSS 边框颜色</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-3"><span class="toc-number">1.5.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E8%BE%B9%E6%A1%86%E7%9A%84%E9%A2%9C%E8%89%B2"><span class="toc-number">1.6.</span> <span class="toc-text">特定边框的颜色</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-4"><span class="toc-number">1.6.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEX-%E5%80%BC"><span class="toc-number">1.7.</span> <span class="toc-text">HEX 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-5"><span class="toc-number">1.7.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGB-%E5%80%BC"><span class="toc-number">1.8.</span> <span class="toc-text">RGB 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-6"><span class="toc-number">1.8.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HSL-%E5%80%BC"><span class="toc-number">1.9.</span> <span class="toc-text">HSL 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-7"><span class="toc-number">1.9.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BE%B9%E6%A1%86-%E5%8D%95%E7%8B%AC%E7%9A%84%E8%BE%B9"><span class="toc-number">1.10.</span> <span class="toc-text">CSS 边框 - 单独的边</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-8"><span class="toc-number">1.10.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.11.</span> <span class="toc-text">不同的边框样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-9"><span class="toc-number">1.11.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%83%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E8%BF%99%E6%A0%B7%E7%9A%84%EF%BC%9A"><span class="toc-number">1.11.2.</span> <span class="toc-text">它的工作原理是这样的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#border-style-dotted-solid-double-dashed"><span class="toc-number">1.11.3.</span> <span class="toc-text">border-style: dotted solid double dashed;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#border-style-dotted-solid-double"><span class="toc-number">1.11.4.</span> <span class="toc-text">border-style: dotted solid double;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#border-style-dotted-solid"><span class="toc-number">1.11.5.</span> <span class="toc-text">border-style: dotted solid;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#border-style-dotted"><span class="toc-number">1.11.6.</span> <span class="toc-text">border-style: dotted;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-10"><span class="toc-number">1.11.7.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">1.12.</span> <span class="toc-text">CSS Border - 简写属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-11"><span class="toc-number">1.12.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A6%E8%BE%B9%E6%A1%86"><span class="toc-number">1.12.2.</span> <span class="toc-text">左边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BE%B9%E6%A1%86"><span class="toc-number">1.12.3.</span> <span class="toc-text">下边框</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86"><span class="toc-number">1.13.</span> <span class="toc-text">CSS 圆角边框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-12"><span class="toc-number">1.13.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.14.</span> <span class="toc-text">更多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89-CSS-%E8%BE%B9%E6%A1%86%E5%B1%9E%E6%80%A7"><span class="toc-number">1.15.</span> <span class="toc-text">所有 CSS 边框属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E5%A4%96%E8%BE%B9%E8%B7%9D"><span class="toc-number">1.16.</span> <span class="toc-text">CSS 外边距</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Margin-%E5%8D%95%E7%8B%AC%E7%9A%84%E8%BE%B9"><span class="toc-number">1.17.</span> <span class="toc-text">Margin - 单独的边</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-13"><span class="toc-number">1.17.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Margin-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">1.18.</span> <span class="toc-text">Margin - 简写属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E8%BF%99%E6%A0%B7%E7%9A%84%EF%BC%9A"><span class="toc-number">1.18.1.</span> <span class="toc-text">工作原理是这样的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-14"><span class="toc-number">1.18.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-15"><span class="toc-number">1.18.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-16"><span class="toc-number">1.18.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-17"><span class="toc-number">1.18.5.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#auto-%E5%80%BC"><span class="toc-number">1.19.</span> <span class="toc-text">auto 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-18"><span class="toc-number">1.19.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inherit-%E5%80%BC"><span class="toc-number">1.20.</span> <span class="toc-text">inherit 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-19"><span class="toc-number">1.20.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB"><span class="toc-number">1.21.</span> <span class="toc-text">延伸阅读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E8%BE%B9%E8%B7%9D%E5%90%88%E5%B9%B6"><span class="toc-number">1.22.</span> <span class="toc-text">外边距合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89-CSS-%E5%A4%96%E8%BE%B9%E8%B7%9D%E5%B1%9E%E6%80%A7"><span class="toc-number">1.23.</span> <span class="toc-text">所有 CSS 外边距属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E5%86%85%E8%BE%B9%E8%B7%9D"><span class="toc-number">1.24.</span> <span class="toc-text">CSS 内边距</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Padding-%E5%8D%95%E7%8B%AC%E7%9A%84%E8%BE%B9"><span class="toc-number">1.25.</span> <span class="toc-text">Padding - 单独的边</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-20"><span class="toc-number">1.25.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Padding-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">1.26.</span> <span class="toc-text">Padding - 简写属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E8%BF%99%E6%A0%B7%E7%9A%84%EF%BC%9A-1"><span class="toc-number">1.26.1.</span> <span class="toc-text">工作原理是这样的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-21"><span class="toc-number">1.26.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-22"><span class="toc-number">1.26.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-23"><span class="toc-number">1.26.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-24"><span class="toc-number">1.26.5.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%BE%B9%E8%B7%9D%E5%92%8C%E5%85%83%E7%B4%A0%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.27.</span> <span class="toc-text">内边距和元素宽度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-25"><span class="toc-number">1.27.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-26"><span class="toc-number">1.27.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">1.28.</span> <span class="toc-text">更多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89-CSS-%E5%86%85%E8%BE%B9%E8%B7%9D%E5%B1%9E%E6%80%A7"><span class="toc-number">1.29.</span> <span class="toc-text">所有 CSS 内边距属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB-1"><span class="toc-number">1.30.</span> <span class="toc-text">延伸阅读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%AE%BE%E7%BD%AE%E9%AB%98%E5%BA%A6%E5%92%8C%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.31.</span> <span class="toc-text">CSS 设置高度和宽度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E9%AB%98%E5%BA%A6%E5%92%8C%E5%AE%BD%E5%BA%A6%E5%80%BC"><span class="toc-number">1.32.</span> <span class="toc-text">CSS 高度和宽度值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E9%AB%98%E5%BA%A6%E5%92%8C%E5%AE%BD%E5%BA%A6%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.33.</span> <span class="toc-text">CSS 高度和宽度实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-27"><span class="toc-number">1.33.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-28"><span class="toc-number">1.33.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-max-width"><span class="toc-number">1.34.</span> <span class="toc-text">设置 max-width</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-29"><span class="toc-number">1.34.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%B2%E8%87%AA%E8%AF%95%E4%B8%80%E8%AF%95-%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.35.</span> <span class="toc-text">亲自试一试 - 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-CSS-%E5%B0%BA%E5%AF%B8%E5%B1%9E%E6%80%A7"><span class="toc-number">1.36.</span> <span class="toc-text">设置 CSS 尺寸属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E6%A1%86%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.37.</span> <span class="toc-text">CSS 框模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-30"><span class="toc-number">1.37.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E5%BA%A6%E5%92%8C%E9%AB%98%E5%BA%A6"><span class="toc-number">1.38.</span> <span class="toc-text">元素的宽度和高度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-31"><span class="toc-number">1.38.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.39.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BD%AE%E5%BB%93"><span class="toc-number">1.40.</span> <span class="toc-text">CSS 轮廓</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BD%AE%E5%BB%93%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.41.</span> <span class="toc-text">CSS 轮廓样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-32"><span class="toc-number">1.41.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BD%AE%E5%BB%93%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.42.</span> <span class="toc-text">CSS 轮廓宽度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-33"><span class="toc-number">1.42.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BD%AE%E5%BB%93%E9%A2%9C%E8%89%B2"><span class="toc-number">1.43.</span> <span class="toc-text">CSS 轮廓颜色</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-34"><span class="toc-number">1.43.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEX-%E5%80%BC-1"><span class="toc-number">1.44.</span> <span class="toc-text">HEX 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-35"><span class="toc-number">1.44.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGB-%E5%80%BC-1"><span class="toc-number">1.45.</span> <span class="toc-text">RGB 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-36"><span class="toc-number">1.45.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HSL-%E5%80%BC-1"><span class="toc-number">1.46.</span> <span class="toc-text">HSL 值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-37"><span class="toc-number">1.46.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E8%BD%AC%E9%A2%9C%E8%89%B2"><span class="toc-number">1.47.</span> <span class="toc-text">反转颜色</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-38"><span class="toc-number">1.47.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Outline-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">1.48.</span> <span class="toc-text">CSS Outline - 简写属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-39"><span class="toc-number">1.48.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%BD%AE%E5%BB%93%E5%81%8F%E7%A7%BB"><span class="toc-number">1.49.</span> <span class="toc-text">CSS 轮廓偏移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-40"><span class="toc-number">1.49.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-41"><span class="toc-number">1.49.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89-CSS-%E8%BD%AE%E5%BB%93%E5%B1%9E%E6%80%A7"><span class="toc-number">1.50.</span> <span class="toc-text">所有 CSS 轮廓属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

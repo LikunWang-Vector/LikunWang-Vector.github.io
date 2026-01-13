@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Category: Python爬虫入门、进阶与实战 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="算法工程师 | AI工程师 | 早稻田大学硕士 | 专注于深度学习、计算机视觉与优化算法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Likun Wang | 王立坤">
+<meta property="og:url" content="https://your-domain.com/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/page/2/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="算法工程师 | AI工程师 | 早稻田大学硕士 | 专注于深度学习、计算机视觉与优化算法">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/img/avatar.png">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="AI, Algorithm, Deep Learning, Computer Vision, TPU, PyTorch, YOLO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/img/avatar.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Category: Python爬虫入门、进阶与实战',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'category'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">Python爬虫入门、进阶与实战</h1></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/26/zh-CN/32.-%E5%AE%9E%E6%88%98%EF%BC%9APyQuery%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96TX%E5%9B%BE%E6%96%87%E6%96%B0%E9%97%BB/" title="32. 实战：PyQuery实现抓取TX图文新闻"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/32.-%E5%AE%9E%E6%88%98%EF%BC%9APyQuery%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96TX%E5%9B%BE%E6%96%87%E6%96%B0%E9%97%BB/b52ebe2047c4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="32. 实战：PyQuery实现抓取TX图文新闻"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/26/zh-CN/32.-%E5%AE%9E%E6%88%98%EF%BC%9APyQuery%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96TX%E5%9B%BE%E6%96%87%E6%96%B0%E9%97%BB/" title="32. 实战：PyQuery实现抓取TX图文新闻">32. 实战：PyQuery实现抓取TX图文新闻</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-26T15:00:00.000Z" title="Created 2023-01-27 00:00:00">2023-01-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：32. 实战：PyQuery实现抓取TX图文新闻📊 387 阅读 | 👍 1 点赞 | 💬 2 评论 | ⭐ 1 收藏  目录 前言 （链接在评论区）（链接在评论区）（链接在评论区） 目的 （链接在评论区）（链接在评论区）（链接在评论区） 思路 ​​​​​​​（链接在评论区）（链接在评论区）（链接在评论区） 代码实现 1. 拿到页面源代码 2. 解析html文件 3. 拿到标题和内容 4. 下载图片 5. 保存文件 完整代码 运行效果 ​编辑 总结  前言我们之前提到PyQuery区别于其他几种解析方式的最大优势就是可以“修改源代码”从而便于我们提取信息。今天我们以TX新闻为例，对这个解析的优势作一个简要的介绍。  目的利用Pyquery+Markdown抓取TX新闻的某一篇完整图文内容，并保存到本地md文件。  思路1. 拿到页面源代码 2. 解析html文件 3. 拿到标题和内容 4. 下载图片 5. 保存文件  代码实现1. 拿到页面源代码python # main函数，完成所有操作(url普适) def main(): url = ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/25/zh-CN/31.-%E5%AE%9E%E6%88%98%EF%BC%9APyQuery%E8%8E%B7%E5%8F%96%E5%B0%8F%E7%94%B5%E8%A7%86Top100%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%EF%BC%88%E6%96%87%E6%9C%AB%E6%BA%90%E7%A0%81%EF%BC%89/" title="31. 实战：PyQuery获取小电视Top100详细信息（文末源码）"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/31.-%E5%AE%9E%E6%88%98%EF%BC%9APyQuery%E8%8E%B7%E5%8F%96%E5%B0%8F%E7%94%B5%E8%A7%86Top100%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%EF%BC%88/d2dca9723bc6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="31. 实战：PyQuery获取小电视Top100详细信息（文末源码）"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/25/zh-CN/31.-%E5%AE%9E%E6%88%98%EF%BC%9APyQuery%E8%8E%B7%E5%8F%96%E5%B0%8F%E7%94%B5%E8%A7%86Top100%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%EF%BC%88%E6%96%87%E6%9C%AB%E6%BA%90%E7%A0%81%EF%BC%89/" title="31. 实战：PyQuery获取小电视Top100详细信息（文末源码）">31. 实战：PyQuery获取小电视Top100详细信息（文末源码）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-25T15:00:00.000Z" title="Created 2023-01-26 00:00:00">2023-01-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：31. 实战：PyQuery获取小电视Top100详细信息（文末源码）📊 784 阅读 | 👍 1 点赞 | 💬 2 评论 | ⭐ 1 收藏  目录 前言 （链接放在评论区）（链接放在评论区）（链接放在评论区） 目的 （链接放在评论区）（链接放在评论区）（链接放在评论区） 思路 （链接放在评论区）（链接放在评论区）（链接放在评论区） 代码实现 1. 用 openpyxl 库便捷创建 xlsx 文件用于保存信息 2. 伪装请求头，访问目标 URL 3. 请求文本传入PyQuery进行初始化 4. 遍历 rank-list 的 li 节点，拿取每一条的详细信息 5. 写入文件 完整代码 运行效果 总结  前言上一节我们学习了PyQuery的语法，这节进行实战，抓取某站**（链接放在评论区）** 的热搜排行榜作为练手。  涉及的库：openpyxl requests （logging） PyQuery   目的抓取小电视热搜排行榜的详细信息（包括全站排行榜Top100的排名、视频主题、链接、播放量、弹幕量以及UP主名 ）并另存到文件**（链接放在...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/24/zh-CN/30.-PyQuery-%E5%9F%BA%E4%BA%8EHTML%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/" title="30. PyQuery: 基于HTML的CSS选择器"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/30.-PyQuery-%E5%9F%BA%E4%BA%8EHTML%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/6f927d62b017.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="30. PyQuery: 基于HTML的CSS选择器"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/24/zh-CN/30.-PyQuery-%E5%9F%BA%E4%BA%8EHTML%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/" title="30. PyQuery: 基于HTML的CSS选择器">30. PyQuery: 基于HTML的CSS选择器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-24T15:00:00.000Z" title="Created 2023-01-25 00:00:00">2023-01-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：30. PyQuery: 基于HTML的CSS选择器📊 964 阅读 | 👍 3 点赞 | 💬 2 评论 | ⭐ 5 收藏  目录 前言  导包 基本用法 按标签选择 标签链式操作 简便链式：后代选择器 类选择器  id 选择器  属性&#x2F;文本选择器（重点） 改进多标签拿属性方法 快速总结 PyQuery的强大功能：修改源代码 添加代码块 修改&#x2F;添加属性 删除属性&#x2F;标签等 总结  前言我们在前面的章节认识了CSS与CSS选择器的概念, 本节我们介绍一个Python模块: PyQuery.  可能有些小伙伴认识Java中的JQuery, 其实PyQuery和它是异曲同工的.   导包python from pyquery import PyQuery     基本用法常用的就下列几种：  下面通过实例讲解： python html = &quot;&quot;&quot; &lt;ul&gt; &lt;li class=&quot;aaa&quot;&gt;&lt;a href=&quot;http://www.g...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/20/zh-CN/29.-CSS%E7%AE%80%E4%BB%8B%EF%BC%9APyQuery%E6%A8%A1%E5%9D%97%E7%9A%84%E9%93%BA%E5%9E%AB/" title="29. CSS简介：PyQuery模块的铺垫"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="29. CSS简介：PyQuery模块的铺垫"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/20/zh-CN/29.-CSS%E7%AE%80%E4%BB%8B%EF%BC%9APyQuery%E6%A8%A1%E5%9D%97%E7%9A%84%E9%93%BA%E5%9E%AB/" title="29. CSS简介：PyQuery模块的铺垫">29. CSS简介：PyQuery模块的铺垫</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-20T15:00:00.000Z" title="Created 2023-01-21 00:00:00">2023-01-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：29. CSS简介：PyQuery模块的铺垫📊 708 阅读 | 👍 4 点赞 | 💬 1 评论 | ⭐ 4 收藏   目录 什么是 CSS？ CSS 演示 - 一张 HTML 页面 - 多个样式！ 为何使用 CSS？ CSS 实例 CSS 解决了一个大问题 CSS 节省了大量工作！ 通俗的解释 CSS 选择器 CSS 元素选择器 实例 CSS id 选择器 实例 CSS 类选择器 实例 实例 实例 CSS 通用选择器 实例 CSS 分组选择器 实例 所有简单的 CSS 选择器 延伸阅读  什么是 CSS？ CSS 指的是层叠样式表* (C ascading ** S** tyle ** S** heets) CSS 描述了** 如何在屏幕、纸张或其他媒体上显示 HTML 元素** CSS  节省了大量工作 。它可以同时控制多张网页的布局 外部样式表存储在 ** CSS 文件** 中  注：也称级联样式表。  CSS 演示 - 一张 HTML 页面 - 多个样式！下面是一张提供了四个不同样式表的 HTML 页面。可以查看不同的样式： htm...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/" title="28. 实战：基于selenium实现12306自动购票"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="28. 实战：基于selenium实现12306自动购票"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/" title="28. 实战：基于selenium实现12306自动购票">28. 实战：基于selenium实现12306自动购票</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-18T15:00:00.000Z" title="Created 2023-01-19 00:00:00">2023-01-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：28. 实战：基于selenium实现12306自动购票📊 9810 阅读 | 👍 40 点赞 | 💬 33 评论 | ⭐ 133 收藏  目录 前言 目的 思路 代码实现 1. 进入登录界面，输入账号密码 2. 点击登录按钮，完成滑块验证 3. 在个人中心点击购票，跳转 4. 输入出发地、目的地，从控制台输入得到 5. 文本框输入出发日 6. 若是学生票则切换票型 7. 点击查询 8. 定位预定按钮，点击跳转购票页面 9. 选择学生乘客，并在弹窗中确认购买学生票 10. 提交订单，等待付款 完整代码 运行效果 总结  前言我们已经学会了selenium的基本操作，并且学会了用它处理验证码、跳转网页、处理内联框架等操作，现在可以进行实战：本节选取12306火车购票作为案例，用自动化测试工具selenium实现自动访问网页并下单等待购票。 2023-01-20更新:完善了全部功能并可以完整运行  目的手动在控制台输入乘车人(新增), 出发地、目的地、出发日、是否购买学生票，确认后自动跳转12306网站购票。  思路1. 首先获取登陆页面的UR...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/16/zh-CN/27.-%E5%A4%84%E7%90%86%E7%BD%91%E7%AB%99%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%9A%E5%A4%84%E7%90%86%E7%BD%91%E7%AB%99%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88selenium+%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7%EF%BC%89/" title="27. 处理网站验证码：处理网站登录验证码（selenium+破解工具）"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/27.-%E5%A4%84%E7%90%86%E7%BD%91%E7%AB%99%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%9A%E5%A4%84%E7%90%86%E7%BD%91%E7%AB%99%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88selenium/b6eaaf943a78.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="27. 处理网站验证码：处理网站登录验证码（selenium+破解工具）"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/16/zh-CN/27.-%E5%A4%84%E7%90%86%E7%BD%91%E7%AB%99%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%9A%E5%A4%84%E7%90%86%E7%BD%91%E7%AB%99%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88selenium+%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7%EF%BC%89/" title="27. 处理网站验证码：处理网站登录验证码（selenium+破解工具）">27. 处理网站验证码：处理网站登录验证码（selenium+破解工具）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-16T15:00:00.000Z" title="Created 2023-01-17 00:00:00">2023-01-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：27. 处理网站验证码：处理网站登录验证码（selenium+破解工具）📊 1908 阅读 | 👍 10 点赞 | 💬 2 评论 | ⭐ 10 收藏  目录 前言 目的 思路 代码实现 1. 搭建环境 2. 处理验证码 （关于软件ID的获取） 3. 处理登录信息 4. 获取价格表 完整代码 运行效果 总结  前言当我们请求网页过于频繁 时，或者进行登陆操作 时，网页通常都会抛出人机验证 ，目的就是反爬，常见的有滑块验证、验证码、按顺序点击等形式… 那么遇到这种情况，我们如何通过程序自动验证从而跳过人工操作实现全自动化 呢？这就涉及到了一个新的知识：图像识别。我们可以通过建立数据集、训练数据集、生成模型等机器学习方法来实现识别验证码图片的功能，但它特别耗时耗力，效率还底下，还没有普适性…除非是有大量的请求要求在此域名下，就可以训练一波数据集，否则真的很浪费时间精力，没有必要。 那么第二种方法应运而生：它就是借助已有的成熟验证码破Jie工具 ，本例以某网站**（见评论区）** 为例。  目的在本地配置该网站，利用它的验证码工具实现登录其官网并获...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/15/zh-CN/26.-selenium%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9D%97%E2%80%94%E2%80%94%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E4%B8%94%E8%83%BD%E8%A3%85X%E7%9A%84%E7%88%AC%E8%99%AB%E5%B7%A5%E5%85%B7%EF%BC%88%E9%99%84%E5%A4%9A%E4%B8%AA%E5%AE%9E%E4%BE%8B%EF%BC%89/" title="26. selenium：浏览器自动测试模块——一款方便且能装X的爬虫工具（附多个实例）"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/26.-selenium%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9D%97%E2%80%94%E2%80%94%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E4%B8%94%E8%83%BD/89eaa3af64c6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="26. selenium：浏览器自动测试模块——一款方便且能装X的爬虫工具（附多个实例）"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/15/zh-CN/26.-selenium%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9D%97%E2%80%94%E2%80%94%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E4%B8%94%E8%83%BD%E8%A3%85X%E7%9A%84%E7%88%AC%E8%99%AB%E5%B7%A5%E5%85%B7%EF%BC%88%E9%99%84%E5%A4%9A%E4%B8%AA%E5%AE%9E%E4%BE%8B%EF%BC%89/" title="26. selenium：浏览器自动测试模块——一款方便且能装X的爬虫工具（附多个实例）">26. selenium：浏览器自动测试模块——一款方便且能装X的爬虫工具（附多个实例）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-15T15:00:00.000Z" title="Created 2023-01-16 00:00:00">2023-01-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：26. selenium：浏览器自动测试模块——一款方便且能装X的爬虫工具（附多个实例）📊 2165 阅读 | 👍 10 点赞 | 💬 3 评论 | ⭐ 21 收藏  目录 前言 什么是selenium？ 配置selenium 安装selenium库 安装浏览器驱动（以Chrome为例）  使用selenium库 例1：实现打开网页拿取网页标题 运行效果 例2：实现抓取某招聘网站Python岗位的职位信息 运行效果 例3：实现抓取推荐新闻的标题和正文（涉及子页面的切换） 运行效果 例4：处理iframe内联框架（视频播放器、表格数据等常见） 运行效果 例5：“无头浏览器”，即浏览器在后端运行抓取数据，效果等同低效率的爬虫程序 运行效果 总结  前言爬虫走到今天，我们已经学习过不少方法，来解析网页源代码、抓包、审查元素、加密解密……但是我们有时会不会这样想：可不可以直接拿到浏览器直接显示的信息呢？？？ 因为我们经常看到，数据明明就摆在我们浏览器的页面上，但是苦于源代码的空洞，我们不得不翻箱倒柜的去找json，去找js请求等等。很多时候数据特别...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/14/zh-CN/25.-%E5%AE%9E%E6%88%98%EF%BC%9A%E6%8A%93%E5%8F%96%E3%80%8A%E6%9C%AA%E9%97%BB%E8%8A%B1%E5%90%8D%E3%80%8B%E8%A7%86%E9%A2%91%EF%BC%88xpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%89/" title="25. 实战：抓取《未闻花名》视频（xpath+线程池）"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/25.-%E5%AE%9E%E6%88%98%EF%BC%9A%E6%8A%93%E5%8F%96%E3%80%8A%E6%9C%AA%E9%97%BB%E8%8A%B1%E5%90%8D%E3%80%8B%E8%A7%86%E9%A2%91%EF%BC%88xpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%89/9bdef1a7a700.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="25. 实战：抓取《未闻花名》视频（xpath+线程池）"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/14/zh-CN/25.-%E5%AE%9E%E6%88%98%EF%BC%9A%E6%8A%93%E5%8F%96%E3%80%8A%E6%9C%AA%E9%97%BB%E8%8A%B1%E5%90%8D%E3%80%8B%E8%A7%86%E9%A2%91%EF%BC%88xpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%89/" title="25. 实战：抓取《未闻花名》视频（xpath+线程池）">25. 实战：抓取《未闻花名》视频（xpath+线程池）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-14T15:00:00.000Z" title="Created 2023-01-15 00:00:00">2023-01-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：25. 实战：抓取《未闻花名》视频（xpath+线程池）📊 447 阅读 | 👍 5 点赞 | 💬 3 评论 | ⭐ 9 收藏  目录 前言 （链接在评论区 ）（链接在评论区 ）（链接在评论区 ） 目的 思路 首先，了解一下一般视频网站是如何操作视频资源的 如何实现上述功能？ 核心明确 思路流程 代码实现 完整代码 运行效果 总结  前言我们已经学习了爬虫的许多方法，本节较为综合，实现抓取某网站（链接在评论区 ）的视频。本节以《未闻花名》为例，其他资源可以自行修改URL进行抓取，大同小异。  本节只对一集进行抓取，对于其他剧集可以通过嵌套循环简单地完成，这里就不赘述。  目的抓取某网站（链接在评论区 ）《未闻花名》剧集  思路首先，了解一下一般视频网站是如何操作视频资源的用户上传 -&gt; 转码(把视频做处理, 2K, 1080, 标清) -&gt; 切片处理(把单个的文件进行拆分) -&gt; 用户拉动进度条自动读取附近切片并加载  如何实现上述功能？需要一个文件来记录：M3U8。它实际上记录了每一个切片（ts文件）的地址。  M3U（...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/10/zh-CN/23.-%E5%BC%82%E6%AD%A5HTTP%E8%AF%B7%E6%B1%82%E4%B8%8Eaiohttp%E6%A8%A1%E5%9D%97/" title="23. 异步HTTP请求与aiohttp模块"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/23.-%E5%BC%82%E6%AD%A5HTTP%E8%AF%B7%E6%B1%82%E4%B8%8Eaiohttp%E6%A8%A1%E5%9D%97/c16b2ea9d2e3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="23. 异步HTTP请求与aiohttp模块"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/10/zh-CN/23.-%E5%BC%82%E6%AD%A5HTTP%E8%AF%B7%E6%B1%82%E4%B8%8Eaiohttp%E6%A8%A1%E5%9D%97/" title="23. 异步HTTP请求与aiohttp模块">23. 异步HTTP请求与aiohttp模块</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-10T15:00:00.000Z" title="Created 2023-01-11 00:00:00">2023-01-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：23. 异步HTTP请求与aiohttp模块📊 463 阅读 | 👍 5 点赞 | 💬 2 评论 | ⭐ 7 收藏  目录 前言 aiohttp简介 aiohttp安装 aiohttp应用 先导包 拿到了批量URL 仿照上一节敲出模板 完善下载单个页面的代码 完整代码  运行效果 总结  前言在上一节中，我们发现time.sleep()不是异步的，导致我们的异步函数无法按异步执行。实际上，requests模块的网络请求函数，get()、post()等也都不是异步的。所以我们想用它们做异步爬虫与网络请求时，就必须使用异步的HTTP请求，从而让异步函数正常工作。 那么在Python中如何实现异步HTTP请求呢？这就需要用到我们本节要介绍的新模块——aiohttp  aiohttp简介asyncio 可以实现单线程并发IO操作。如果仅用在客户端，发挥的威力不大。如果把**asyncio** 用在服务器端，例如Web服务器，由于HTTP连接就是IO操作，因此可以用单线程+coroutine（协程） 实现多用户的高并发支持。 asyncio 实现了T...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/10/zh-CN/24.-%E5%AE%9E%E6%88%98%EF%BC%9A%E7%94%A8%E5%BC%82%E6%AD%A5%E6%B3%95%E8%8E%B7%E5%8F%96%E5%AE%8C%E6%95%B4%E7%9A%84%E4%B8%80%E9%83%A8%E5%B0%8F%E8%AF%B4/" title="24. 实战：用异步法获取完整的一部小说"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/24.-%E5%AE%9E%E6%88%98%EF%BC%9A%E7%94%A8%E5%BC%82%E6%AD%A5%E6%B3%95%E8%8E%B7%E5%8F%96%E5%AE%8C%E6%95%B4%E7%9A%84%E4%B8%80%E9%83%A8%E5%B0%8F%E8%AF%B4/013093aa699c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="24. 实战：用异步法获取完整的一部小说"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/10/zh-CN/24.-%E5%AE%9E%E6%88%98%EF%BC%9A%E7%94%A8%E5%BC%82%E6%AD%A5%E6%B3%95%E8%8E%B7%E5%8F%96%E5%AE%8C%E6%95%B4%E7%9A%84%E4%B8%80%E9%83%A8%E5%B0%8F%E8%AF%B4/" title="24. 实战：用异步法获取完整的一部小说">24. 实战：用异步法获取完整的一部小说</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-01-10T15:00:00.000Z" title="Created 2023-01-11 00:00:00">2023-01-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="content"> 本文迁移自CSDN博客原文链接：24. 实战：用异步法获取完整的一部小说📊 793 阅读 | 👍 7 点赞 | 💬 8 评论 | ⭐ 8 收藏  目录 前言 URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** 目的 URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** 思路 URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** URL**（在评论区）** 代码实现 1. 尝试获取小说内容的URL（在评论区） 2. 查看页面源代码 3. 抓包工具登场 4. 开始写代码，先捋清思路 5. 完善getCatalog函数 6. 完善aiodownload函数 完整代码 运行效果 总结  前言我们已经学会了异步爬虫的框架和简单的示例，详见23. 异步HTTP请求与aiohttp模块。 本节我们通过一个实战来巩固异步爬虫的用法：抓取整部小说的内容。  目的利用异步爬虫高效爬取整部小说  思路 获取小说内容的url 获取网页数据 保存到本地...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/page/5/">5</a><a class="extend next" rel="next" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/page/3/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            <a class="card-more-btn" href="/categories/" title="View More">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CSS-Beginner-to-Advanced/"><span class="card-category-list-name">CSS Beginner to Advanced</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CSS%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/"><span class="card-category-list-name">CSS入门、进阶与实战</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Data-Analysis/"><span class="card-category-list-name">Data Analysis</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Debug-Notes/"><span class="card-category-list-name">Debug Notes</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Debug-Tips/"><span class="card-category-list-name">Debug Tips</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Environment-Setup/"><span class="card-category-list-name">Environment Setup</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/General/"><span class="card-category-list-name">General</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/HTML-Beginner-to-Advanced/"><span class="card-category-list-name">HTML Beginner to Advanced</span><span class="card-category-list-count">27</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/crawler/" style="font-size: 1.21em; color: rgb(50, 91, 50);">crawler</a><a href="/tags/python/" style="font-size: 1.43em; color: rgb(180, 50, 50);">python</a><a href="/tags/programming/" style="font-size: 1.33em; color: rgb(65, 50, 152);">programming</a><a href="/tags/html5/" style="font-size: 1.41em; color: rgb(59, 127, 50);">html5</a><a href="/tags/http/" style="font-size: 1.17em; color: rgb(50, 83, 79);">http</a><a href="/tags/network/" style="font-size: 1.19em; color: rgb(134, 74, 50);">network</a><a href="/tags/protocol/" style="font-size: 1.15em; color: rgb(62, 192, 159);">protocol</a><a href="/tags/frontend/" style="font-size: 1.35em; color: rgb(50, 173, 50);">frontend</a><a href="/tags/html/" style="font-size: 1.45em; color: rgb(133, 116, 72);">html</a><a href="/tags/server/" style="font-size: 1.19em; color: rgb(63, 161, 156);">server</a><a href="/tags/xhtml/" style="font-size: 1.23em; color: rgb(159, 51, 50);">xhtml</a><a href="/tags/baidu/" style="font-size: 1.15em; color: rgb(115, 76, 50);">baidu</a><a href="/tags/regex/" style="font-size: 1.15em; color: rgb(50, 103, 68);">regex</a><a href="/tags/pip/" style="font-size: 1.21em; color: rgb(198, 66, 50);">pip</a><a href="/tags/web-scraping/" style="font-size: 1.31em; color: rgb(72, 115, 134);">web scraping</a><a href="/tags/pycharm/" style="font-size: 1.25em; color: rgb(192, 114, 147);">pycharm</a><a href="/tags/regular-expressions/" style="font-size: 1.19em; color: rgb(59, 178, 90);">regular expressions</a><a href="/tags/network-protocols/" style="font-size: 1.15em; color: rgb(50, 152, 82);">network protocols</a><a href="/tags/data-analysis/" style="font-size: 1.27em; color: rgb(95, 132, 190);">data analysis</a><a href="/tags/servlet/" style="font-size: 1.17em; color: rgb(146, 167, 108);">servlet</a><a href="/tags/web-crawler/" style="font-size: 1.17em; color: rgb(50, 180, 101);">web crawler</a><a href="/tags/audio-video/" style="font-size: 1.17em; color: rgb(181, 182, 163);">audio video</a><a href="/tags/javascript/" style="font-size: 1.37em; color: rgb(50, 138, 79);">javascript</a><a href="/tags/proxy-pattern/" style="font-size: 1.15em; color: rgb(170, 117, 117);">proxy pattern</a><a href="/tags/encryption/" style="font-size: 1.15em; color: rgb(50, 189, 145);">encryption</a><a href="/tags/algorithms/" style="font-size: 1.21em; color: rgb(59, 195, 191);">algorithms</a><a href="/tags/mathematical-modeling/" style="font-size: 1.17em; color: rgb(50, 178, 187);">mathematical-modeling</a><a href="/tags/async/" style="font-size: 1.15em; color: rgb(183, 51, 50);">async</a><a href="/tags/coroutines/" style="font-size: 1.15em; color: rgb(143, 70, 147);">coroutines</a><a href="/tags/async-HTTP-requests/" style="font-size: 1.15em; color: rgb(113, 168, 177);">async HTTP requests</a><a href="/tags/aiohttp/" style="font-size: 1.21em; color: rgb(50, 50, 161);">aiohttp</a><a href="/tags/asyncio/" style="font-size: 1.21em; color: rgb(54, 78, 50);">asyncio</a><a href="/tags/thread-pool/" style="font-size: 1.15em; color: rgb(72, 62, 186);">thread pool</a><a href="/tags/xpath/" style="font-size: 1.19em; color: rgb(165, 149, 155);">xpath</a><a href="/tags/async-scraping/" style="font-size: 1.15em; color: rgb(91, 84, 130);">async scraping</a><a href="/tags/aiofiles/" style="font-size: 1.17em; color: rgb(50, 190, 147);">aiofiles</a><a href="/tags/selenium/" style="font-size: 1.29em; color: rgb(50, 50, 148);">selenium</a><a href="/tags/testing-tools/" style="font-size: 1.19em; color: rgb(50, 109, 50);">testing tools</a><a href="/tags/chrome/" style="font-size: 1.17em; color: rgb(153, 131, 86);">chrome</a><a href="/tags/css/" style="font-size: 1.39em; color: rgb(104, 50, 178);">css</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      <a class="card-more-btn" href="/archives/"
+            title="View More">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              2026年01月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              2025年10月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              2025年09月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              2025年01月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/04/">
+            <span class="card-archive-list-date">
+              2024年04月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/01/">
+            <span class="card-archive-list-date">
+              2024年01月
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/11/">
+            <span class="card-archive-list-date">
+              2023年11月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/09/">
+            <span class="card-archive-list-date">
+              2023年09月
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">302</div></div><div class="webinfo-item"><div class="item-name">Total Word Count :</div><div class="item-count">403.4k</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-13T09:21:48.221Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>集成系统封装与组装技术总结 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文为英文原文的中文翻译版本英文原文：Summary for Packaging and Assembly Technologies for Integrated Systems  引言封装与组装层级：   裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片 封装层级：第一层级裸芯片的封装器件 印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板 整体系统层级：包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集成系统封装与组装技术总结">
+<meta property="og:url" content="https://your-domain.com/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文为英文原文的中文翻译版本英文原文：Summary for Packaging and Assembly Technologies for Integrated Systems  引言封装与组装层级：   裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片 封装层级：第一层级裸芯片的封装器件 印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板 整体系统层级：包">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://your-domain.com/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png">
+<meta property="article:published_time" content="2024-01-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="pcb工艺">
+<meta property="article:tag" content="可用性测试">
+<meta property="article:tag" content="复习资料">
+<meta property="article:tag" content="硬件架构">
+<meta property="article:tag" content="集成测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "集成系统封装与组装技术总结",
+  "url": "https://your-domain.com/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/",
+  "image": "https://your-domain.com/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png",
+  "datePublished": "2024-01-18T15:00:00.000Z",
+  "dateModified": "2024-01-18T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '集成系统封装与组装技术总结',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">集成系统封装与组装技术总结</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">集成系统封装与组装技术总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-18T15:00:00.000Z" title="发表于 2024-01-19 00:00:00">2024-01-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-18T15:00:00.000Z" title="更新于 2024-01-19 00:00:00">2024-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">复习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2024-01-19 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文为英文原文的中文翻译版本<br>英文原文：<a href="/2024/01/18/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/">Summary for Packaging and Assembly Technologies for Integrated Systems</a></p>
+</blockquote>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>封装与组装层级：</strong></p>
+<blockquote>
+<ol>
+<li>裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片</li>
+<li>封装层级：第一层级裸芯片的封装器件</li>
+<li>印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板</li>
+<li>整体系统层级：包含多个第三层级印刷电路板及其外壳的完整系统</li>
+</ol>
+</blockquote>
+<p><strong>讨论主题：</strong></p>
+<ul>
+<li>集成器件的封装技术</li>
+<li>电路板技术</li>
+<li>组装技术</li>
+<li>可靠性评估技术</li>
+<li>数值分析评估技术</li>
+</ul>
+<h3 id="封装类型"><a href="#封装类型" class="headerlink" title="封装类型"></a>封装类型</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png"></p>
+<hr>
+<h2 id="集成器件的封装"><a href="#集成器件的封装" class="headerlink" title="集成器件的封装"></a>集成器件的封装</h2><h3 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h3><p>回答关于SIP、ZIP和DIP封装类型的以下问题。</p>
+<p><strong>1. 与ZIP相比，SIP的优缺点是什么？</strong></p>
+<blockquote>
+<p><strong>SIP的优点：</strong><br>结构比ZIP简单，因此制造成本低且更可靠。</p>
+<p><strong>SIP的缺点：</strong><br>安装密度低于ZIP。</p>
+</blockquote>
+<p><strong>2. 与DIP相比，SIP的优缺点是什么？</strong></p>
+<blockquote>
+<p><strong>SIP的优点：</strong><br>结构比DIP简单，因此制造成本低且更可靠。</p>
+<p><strong>SIP的缺点：</strong><br>安装密度低于DIP。</p>
+</blockquote>
+<h3 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：</h3><p>回答关于SOP、SOJ和SON封装类型的以下问题。</p>
+<p><strong>1. 与SOJ相比，SOP的优缺点是什么？</strong></p>
+<blockquote>
+<p><strong>SOP的优点：</strong><br>加工容易，因为引脚不需要向内弯曲。</p>
+<p><strong>SOP的缺点：</strong><br>SOP的引脚比SOJ的J形引脚更容易变形。</p>
+</blockquote>
+<p><strong>2. 与SON相比，SOP的优缺点是什么？</strong></p>
+<blockquote>
+<p><strong>SOP的优点：</strong><br>由于需要较大的安装面积，SOP比SON更容易安装在电路板上。</p>
+<p><strong>SOP的缺点：</strong><br>由于引脚向外突出，安装面积相对较大（导致安装密度低）。</p>
+</blockquote>
+<h3 id="问题3："><a href="#问题3：" class="headerlink" title="问题3："></a>问题3：</h3><p><strong>描述四边表面贴装封装（QFP、QFJ、QFN）与两边表面贴装封装（SOP、SOJ、SON）相比的优缺点。</strong></p>
+<blockquote>
+<p><strong>四边表面贴装封装的优点：</strong><br>由于引脚可以从四边突出，与两边封装相比可以提高安装密度。</p>
+<p><strong>四边表面贴装封装的缺点：</strong><br>虽然可以提高安装密度，但在封装制造过程中加工困难。</p>
+</blockquote>
+<h3 id="问题4："><a href="#问题4：" class="headerlink" title="问题4："></a>问题4：</h3><p><strong>在切割工艺中，使用高速旋转的切割刀片切割硅晶圆。请回答此制造过程中可能出现的至少一个问题及您的解决方案。</strong></p>
+<blockquote>
+<p><strong>问题：</strong></p>
+<ul>
+<li>由于切割刀片高速旋转切割硅晶圆，切割过程中硅晶圆可能出现裂纹。</li>
+<li>切割过程中，硅屑可能飞溅并落在裸芯片上。</li>
+<li>切割刀片与硅晶圆之间的摩擦产生热量，可能热损坏裸芯片。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>解决方案：</strong></p>
+<ul>
+<li>降低切割刀片接近硅晶圆的速度（不要一次切割完成）。</li>
+<li>切割时吹气防止硅屑落在硅晶圆上。</li>
+<li>尽快移动切割刀片，使热量难以在硅晶圆上停留。</li>
+</ul>
+</blockquote>
+<h3 id="前端和后端工艺"><a href="#前端和后端工艺" class="headerlink" title="前端和后端工艺"></a>前端和后端工艺</h3><blockquote>
+<p><strong>前端工艺：</strong><br>在硅晶圆上制造晶体管和集成电路的工艺</p>
+<p><strong>后端工艺：</strong> –&gt; 集成器件的封装工艺<br>从硅晶圆切割裸芯片、放置在引线框架上、在引线和元件之间进行线焊连接、用模塑树脂等封装材料密封裸芯片的工艺。检查产品是否正常工作的检验工艺也包含在后端工艺中。</p>
+</blockquote>
+<h3 id="检验工艺"><a href="#检验工艺" class="headerlink" title="检验工艺"></a>检验工艺</h3><p>检验是防止不良品流入市场所必需的。检验工艺大致可分为：</p>
+<p><strong>电气特性检验：</strong></p>
+<blockquote>
+<p>对封装后的集成器件进行<strong>电气特性</strong>检验</p>
+</blockquote>
+<p><strong>外观检验：</strong></p>
+<blockquote>
+<p>对封装后的集成器件进行<strong>外部缺陷（模塑树脂裂纹）<strong>检验。外观有缺陷的产品很可能从</strong>缺陷点</strong>造成<strong>机械损坏</strong>，因此也必须剔除。</p>
+</blockquote>
+<hr>
+<h2 id="印刷电路板（PCB）"><a href="#印刷电路板（PCB）" class="headerlink" title="印刷电路板（PCB）"></a>印刷电路板（PCB）</h2><h3 id="什么是PCB？"><a href="#什么是PCB？" class="headerlink" title="什么是PCB？"></a>什么是PCB？</h3><blockquote>
+<ul>
+<li><strong>狭义上：</strong><ul>
+<li>仅指<strong>不包含</strong>电子元件的板</li>
+</ul>
+</li>
+<li><strong>广义上：</strong><ul>
+<li>指<strong>包含</strong>已安装电子元件的板</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="问题12："><a href="#问题12：" class="headerlink" title="问题12："></a>问题12：</h3><p><strong>描述您对如果这个世界上不存在PCB，电路将如何组装，以及在这种情况下可能出现什么问题的想法。</strong></p>
+<blockquote>
+<p>如果这个世界上不存在PCB，电路将以过去复杂的不同方式组装。可能出现的一些问题包括：</p>
+<ul>
+<li>没有PCB，电路的<strong>设计、制造和组装会更加复杂</strong>，生产成本更高。</li>
+<li>没有PCB，设计的电路<strong>更容易出错</strong>、故障和干扰。</li>
+<li>没有PCB，电路<strong>适应性和可扩展性较差</strong>，难以满足消费者的各种需求。</li>
+</ul>
+</blockquote>
+<h3 id="问题13："><a href="#问题13：" class="headerlink" title="问题13："></a>问题13：</h3><p><strong>根据刚性板和柔性板的区别，描述每种板的适当用途及其适当的原因。</strong></p>
+<blockquote>
+<p>刚性板作为最基本和最常见的电路板被广泛使用，因为它们可以<strong>稳定地固定电路</strong>。</p>
+<p>相比之下，柔性板的特点是能够<strong>灵活弯曲</strong>。利用这一特性，当由于空间限制需要弯曲板时使用它们。因此，它们经常用于小型薄型电子设备。此外，由于柔性板可以灵活变形，它们用于由固定部分和可动部分组成的机器中，需要电气连接固定部分和可动部分。在这方面，打印机是典型代表。</p>
+</blockquote>
+<h3 id="PCB所需的特性"><a href="#PCB所需的特性" class="headerlink" title="PCB所需的特性"></a>PCB所需的特性</h3><p><strong>电气特性：</strong></p>
+<blockquote>
+<p>当电子元件作为<strong>单一电路</strong>电气连接时，与PCB电气行为相关的特性。</p>
+</blockquote>
+<p><strong>机械特性：</strong></p>
+<blockquote>
+<p>与安装电子元件的PCB对<strong>外部载荷、冲击和热载荷</strong>的强度相关的特性。</p>
+</blockquote>
+<p><strong>化学特性：</strong></p>
+<blockquote>
+<p>与PCB对电子元件安装过程中使用的<strong>化学品造成的腐蚀和损坏</strong>的强度相关的特性。</p>
+</blockquote>
+<hr>
+<h2 id="集成系统的组装"><a href="#集成系统的组装" class="headerlink" title="集成系统的组装"></a>集成系统的组装</h2><h3 id="问题18："><a href="#问题18：" class="headerlink" title="问题18："></a>问题18：</h3><p>无铅焊料的熔点比含铅焊料高约34℃。因此，在焊接工艺中必须将无铅焊料加热到更高的温度。基于此，<strong>描述使用无铅焊料焊接集成器件和PCB时，与使用含铅焊料相比可能出现的尽可能多的缺陷。</strong></p>
+<blockquote>
+<p>使用无铅焊料时，集成器件和PCB暴露在比使用含铅焊料更热的环境中。由此可能产生许多问题。例如：</p>
+<ul>
+<li><strong>更多热量</strong>从集成器件的引脚端子传递。这会对裸芯片造成热损坏，导致<strong>故障</strong>。</li>
+<li><strong>更多热量</strong>从集成器件的引脚端子传递。结果，金线与裸芯片连接处的热应力增加。因此，金线和裸芯片分离，导致<strong>导电不良</strong>。</li>
+<li>PCB的<strong>加热翘曲量</strong>增加。这导致集成器件的引脚端子与PCB电极的错位更大。这使<strong>焊接失败</strong>更容易发生。</li>
+<li>在PCB中，导体与基板之间的<strong>粘合剂熔化</strong>。这导致导体<strong>容易从基板上脱落</strong>。</li>
+</ul>
+</blockquote>
+<h3 id="焊接方法分类"><a href="#焊接方法分类" class="headerlink" title="焊接方法分类"></a>焊接方法分类</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/2c77525a2bec.png"></p>
+<hr>
+<h2 id="集成系统的可靠性评估"><a href="#集成系统的可靠性评估" class="headerlink" title="集成系统的可靠性评估"></a>集成系统的可靠性评估</h2><p>可靠性评估对于确保集成系统在预期使用寿命内正常工作至关重要。这包括：</p>
+<ul>
+<li>集成器件的可靠性</li>
+<li>裸PCB的可靠性</li>
+<li>集成系统的可靠性</li>
+</ul>
+<hr>
+<h2 id="数值分析评估技术"><a href="#数值分析评估技术" class="headerlink" title="数值分析评估技术"></a>数值分析评估技术</h2><h3 id="数值分析的必要性"><a href="#数值分析的必要性" class="headerlink" title="数值分析的必要性"></a>数值分析的必要性</h3><p>数值分析在集成系统设计和评估中起着关键作用，可以：</p>
+<ul>
+<li>预测系统行为</li>
+<li>优化设计参数</li>
+<li>减少物理原型需求</li>
+<li>降低开发成本和时间</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文总结了集成系统封装与组装技术的关键概念，包括：</p>
+<ol>
+<li>不同封装类型的特点和应用</li>
+<li>前端和后端制造工艺</li>
+<li>PCB的设计和特性要求</li>
+<li>焊接和组装技术</li>
+<li>可靠性评估方法</li>
+<li>数值分析在系统评估中的应用</li>
+</ol>
+<p>这些知识对于理解现代电子系统的制造和质量控制至关重要。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://your-domain.com/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">https://your-domain.com/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://your-domain.com" target="_blank">Likun Wang | 王立坤</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pcb%E5%B7%A5%E8%89%BA/">pcb工艺</a><a class="post-meta__tags" href="/tags/%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84/">硬件架构</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E7%94%A8%E6%80%A7%E6%B5%8B%E8%AF%95/">可用性测试</a><a class="post-meta__tags" href="/tags/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95/">集成测试</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">复习资料</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/" title="Summerize for Bioinformatics with ChatGPT"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Summerize for Bioinformatics with ChatGPT</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：Summerize for Bioinformatics with ChatGPT📊 971 阅读 | 👍 22 点赞 | 💬 0 评论 | ⭐ 13 收藏   目录 Basic Introduction Historical Events Bioinformatics vs. Computational Biology Levels of Bioinfo &amp; CompBio Molecular Biology Primer Homework 1 A brief Introduction to DNA &amp; RNA A brief Introduction to Protein Sequencing Technologies Sequence Alignment Pairwise sequence alignment Basic notions Goal of Pairwise Alignment: Algorithms for G&amp;L Alignments Homework 2 Database similarity...</div></div></div></a><a class="pagination-related" href="/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/" title="Summary for Packaging and Assembly Technologies for Integrated Systems"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Summary for Packaging and Assembly Technologies for Integrated Systems</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：Summary for Packaging and Assembly Technologies for Integrated Systems📊 1035 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 25 收藏  目录   Introduction Type of Packages: Packaging of integrated devices Question 1: Question 2: Question 3: Question 4: Question 5: Report 1: Front-end and back-end process Question 6: Question 7: Inspection Process Report 2: Prototyping and mass production Question 8: Question 9: Question 10:  Question 11: Report 3: Printed circuit boards (PCBs) What is PCB? Question ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/" title="Summary for Packaging and Assembly Technologies for Integrated Systems"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-19</div><div class="info-item-2">Summary for Packaging and Assembly Technologies for Integrated Systems</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：Summary for Packaging and Assembly Technologies for Integrated Systems📊 1035 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 25 收藏  目录   Introduction Type of Packages: Packaging of integrated devices Question 1: Question 2: Question 3: Question 4: Question 5: Report 1: Front-end and back-end process Question 6: Question 7: Inspection Process Report 2: Prototyping and mass production Question 8: Question 9: Question 10:  Question 11: Report 3: Printed circuit boards (PCBs) What is PCB? Question ...</div></div></div></a><a class="pagination-related" href="/2024/01/20/zh-CN/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E4%B8%8EChatGPT%E6%80%BB%E7%BB%93/" title="生物信息学与ChatGPT总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="info-item-2">生物信息学与ChatGPT总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summerize for Bioinformatics with ChatGPT  基础介绍历史事件生物信息学 vs. 计算生物学 生物信息学 &#x3D; 创建解决问题的工具（算法、数据库）。目标是构建处理生物数据的有用工具。这是关于工程的。 计算生物学 &#x3D; 使用计算技术研究生物学。目标是学习关于生命系统的新生物学知识。这是关于发现的。  生物信息学和计算生物学的层级 第0级：为建模而建模 第1级（入门）：使用已发布的工具分析数据并为实验人员生成假设 第2级（生物信息学）：为新技术、数据集成和重用开发算法和数据库进行数据分析 第3级（计算生物学）：从公共数据集成和建模中做出生物学发现 第X级：来自大型联盟的综合研究   分子生物学入门 所有生命依赖于3种关键分子  DNA 保存细胞如何工作的信息   RNA 将短片段信息传递到细胞的不同部分 提供合成蛋白质的模板   蛋白质 形成向其他细胞发送信号并调节基因活动的酶 形成身体的主要成分（如头发、皮肤等） 蛋白质在生命系统中的重要作用： 催化作用 载体和运输 调节        ...</div></div></div></a><a class="pagination-related" href="/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/" title="Summerize for Bioinformatics with ChatGPT"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="info-item-2">Summerize for Bioinformatics with ChatGPT</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：Summerize for Bioinformatics with ChatGPT📊 971 阅读 | 👍 22 点赞 | 💬 0 评论 | ⭐ 13 收藏   目录 Basic Introduction Historical Events Bioinformatics vs. Computational Biology Levels of Bioinfo &amp; CompBio Molecular Biology Primer Homework 1 A brief Introduction to DNA &amp; RNA A brief Introduction to Protein Sequencing Technologies Sequence Alignment Pairwise sequence alignment Basic notions Goal of Pairwise Alignment: Algorithms for G&amp;L Alignments Homework 2 Database similarity...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">封装类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%99%A8%E4%BB%B6%E7%9A%84%E5%B0%81%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">集成器件的封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">问题1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">问题2：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%983%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">问题3：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%984%EF%BC%9A"><span class="toc-number">2.4.</span> <span class="toc-text">问题4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E5%92%8C%E5%90%8E%E7%AB%AF%E5%B7%A5%E8%89%BA"><span class="toc-number">2.5.</span> <span class="toc-text">前端和后端工艺</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E9%AA%8C%E5%B7%A5%E8%89%BA"><span class="toc-number">2.6.</span> <span class="toc-text">检验工艺</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B0%E5%88%B7%E7%94%B5%E8%B7%AF%E6%9D%BF%EF%BC%88PCB%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">印刷电路板（PCB）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFPCB%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">什么是PCB？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%9812%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">问题12：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%9813%EF%BC%9A"><span class="toc-number">3.3.</span> <span class="toc-text">问题13：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PCB%E6%89%80%E9%9C%80%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">3.4.</span> <span class="toc-text">PCB所需的特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">集成系统的组装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%9818%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">问题18：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%84%8A%E6%8E%A5%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-number">4.2.</span> <span class="toc-text">焊接方法分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7%E8%AF%84%E4%BC%B0"><span class="toc-number">5.</span> <span class="toc-text">集成系统的可靠性评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E8%AF%84%E4%BC%B0%E6%8A%80%E6%9C%AF"><span class="toc-number">6.</span> <span class="toc-text">数值分析评估技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">6.1.</span> <span class="toc-text">数值分析的必要性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

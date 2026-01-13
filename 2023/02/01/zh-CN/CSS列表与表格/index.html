@@ -1,0 +1,1097 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS列表与表格 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：CSS列表与表格📊 1676 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 ​编辑 HTML 列表和 CSS 列表属性 不同的列表项目标记 实例 图像作为列表项标记 实例 定位列表项标记 实例 删除默认设置 实例 列表 - 简写属性 实例 设置列表的颜色样式 实例 更多实例 所有 CSS 列表属性 表格边框 实例 全宽表格 实例 双边框">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS列表与表格">
+<meta property="og:url" content="https://your-domain.com/2023/02/01/zh-CN/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：CSS列表与表格📊 1676 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 ​编辑 HTML 列表和 CSS 列表属性 不同的列表项目标记 实例 图像作为列表项标记 实例 定位列表项标记 实例 删除默认设置 实例 列表 - 简写属性 实例 设置列表的颜色样式 实例 更多实例 所有 CSS 列表属性 表格边框 实例 全宽表格 实例 双边框">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png">
+<meta property="article:published_time" content="2023-02-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-01T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="dreamweaver">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS列表与表格",
+  "url": "https://your-domain.com/2023/02/01/zh-CN/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/",
+  "image": "https://your-domain.com/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png",
+  "datePublished": "2023-02-01T15:00:00.000Z",
+  "dateModified": "2023-02-01T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/01/zh-CN/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS列表与表格',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS列表与表格</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS列表与表格</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-01T15:00:00.000Z" title="Created 2023-02-02 00:00:00">2023-02-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-01T15:00:00.000Z" title="Updated 2023-02-02 00:00:00">2023-02-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">CSS入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>9mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-02 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128846409">CSS列表与表格</a><br>📊 1676 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>​编辑</p>
+<p>HTML 列表和 CSS 列表属性</p>
+<p>不同的列表项目标记</p>
+<p>实例</p>
+<p>图像作为列表项标记</p>
+<p>实例</p>
+<p>定位列表项标记</p>
+<p>实例</p>
+<p>删除默认设置</p>
+<p>实例</p>
+<p>列表 - 简写属性</p>
+<p>实例</p>
+<p>设置列表的颜色样式</p>
+<p>实例</p>
+<p>更多实例</p>
+<p>所有 CSS 列表属性</p>
+<p>表格边框</p>
+<p>实例</p>
+<p>全宽表格</p>
+<p>实例</p>
+<p>双边框</p>
+<p>合并表格边框</p>
+<p>实例</p>
+<p>实例</p>
+<p>表格宽度和高度</p>
+<p>实例</p>
+<p>实例</p>
+<p>水平对齐</p>
+<p>实例</p>
+<p>实例</p>
+<p>垂直对齐</p>
+<p>实例</p>
+<p>表格内边距</p>
+<p>实例</p>
+<p>水平分隔线</p>
+<p>实例</p>
+<p>可悬停表格</p>
+<p>实例</p>
+<p>条状表格</p>
+<p>实例</p>
+<p>表格颜色</p>
+<p>实例</p>
+<p>响应式表格</p>
+<p>实例</p>
+<p>更多实例</p>
+<p>CSS 表格属性</p>
+<hr>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png"></h3><hr>
+<h3 id="HTML-列表和-CSS-列表属性"><a href="#HTML-列表和-CSS-列表属性" class="headerlink" title="HTML 列表和 CSS 列表属性"></a>HTML 列表和 CSS 列表属性</h3><p>在 HTML 中，列表主要有两种类型：</p>
+<ul>
+<li>无序列表（<ul>）- 列表项用的是项目符号标记</li>
+<li>有序列表（<ol>）- 列表项用的是数字或字母标记</li>
+</ul>
+<p>CSS 列表属性可以：</p>
+<ul>
+<li>为有序列表设置不同的列表项标记</li>
+<li>为无序列表设置不同的列表项标记</li>
+<li>将图像设置为列表项标记</li>
+<li>为列表和列表项添加背景色</li>
+</ul>
+<hr>
+<h3 id="不同的列表项目标记"><a href="#不同的列表项目标记" class="headerlink" title="不同的列表项目标记"></a>不同的列表项目标记</h3><p><code>list-style-type</code> 属性指定列表项标记的类型。</p>
+<p>下例显示了一些可用的列表项标记：</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p><code>css ul.a { list-style-type: circle; } ul.b { list-style-type: square; } ol.c { list-style-type: upper-roman; } ol.d { list-style-type: lower-alpha; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style-type_ex" title="亲自试一试">亲自试一试</a></p>
+<p>注释：有些值用于无序列表，而有些值用于有序列表。</p>
+<hr>
+<h3 id="图像作为列表项标记"><a href="#图像作为列表项标记" class="headerlink" title="图像作为列表项标记"></a>图像作为列表项标记</h3><p><code>list-style-image</code> 属性将图像指定为列表项标记：</p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><p><code>css ul { list-style-image: url(&#39;sqpurple.gif&#39;); } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style-image" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="定位列表项标记"><a href="#定位列表项标记" class="headerlink" title="定位列表项标记"></a>定位列表项标记</h3><p><code>list-style-position</code> 属性指定列表项标记（项目符号）的位置。</p>
+<p>“list-style-position: outside;” 表示项目符号点将在列表项之外。列表项每行的开头将垂直对齐。这是默认的：</p>
+<ul>
+<li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/bd53298d06c7.png"></li>
+</ul>
+<p><code>&quot;list-style-position: inside;&quot;</code> 表示项目符号将在列表项内。由于它是列表项的一部分，因此它将成为文本的一部分，并在开头推开文本：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/0c806e926a44.png"></p>
+<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h4><p><code>css ul.a { list-style-position: outside; } ul.b { list-style-position: inside; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style-position" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="删除默认设置"><a href="#删除默认设置" class="headerlink" title="删除默认设置"></a>删除默认设置</h3><p><code>list-style-type:none</code> 属性也可以用于删除标记&#x2F;项目符号。请注意，列表还拥有默认的外边距和内边距。要删除此内容，请在 <ul> 或 <ol> 中添加 <code>margin:0</code> 和 <code>padding:0</code> ：</p>
+<h4 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h4><p><code>css ul { list-style-type: none; margin: 0; padding: 0; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style_none" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="列表-简写属性"><a href="#列表-简写属性" class="headerlink" title="列表 - 简写属性"></a>列表 - 简写属性</h3><p><code>list-style</code> 属性是一种简写属性。它用于在一条声明中设置所有列表属性：</p>
+<h4 id="实例-4"><a href="#实例-4" class="headerlink" title="实例"></a>实例</h4><p><code>css ul { list-style: square inside url(&quot;sqpurple.gif&quot;); } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style" title="亲自试一试">亲自试一试</a></p>
+<p>在使用简写属性时，属性值的顺序为：</p>
+<ul>
+<li><code>list-style-type</code>（如果指定了 list-style-image，那么在由于某种原因而无法显示图像时，会显示这个属性的值）</li>
+<li><code>list-style-position</code>（指定列表项标记应显示在内容流的内部还是外部）</li>
+<li><code>list-style-image</code>（将图像指定为列表项标记）</li>
+</ul>
+<p>如果缺少上述属性值之一，则将插入缺失属性的默认值（如果有）。</p>
+<hr>
+<h3 id="设置列表的颜色样式"><a href="#设置列表的颜色样式" class="headerlink" title="设置列表的颜色样式"></a>设置列表的颜色样式</h3><p>我们还可以使用颜色设置列表样式，使它们看起来更有趣。</p>
+<p>添加到 <ol> 或 <ul> 标记的任何样式都会影响整个列表，而添加到 <li> 标记的属性将影响各个列表项：</p>
+<h4 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h4><p><code>css ol { background: #ff9999; padding: 20px; } ul { background: #3399ff; padding: 20px; } ol li { background: #ffe5e5; padding: 5px; margin-left: 35px; } ul li { background: #cce5ff; margin: 5px; } </code> </p>
+<p>结果：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/372b56ed2377.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style_colors" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="更多实例"><a href="#更多实例" class="headerlink" title="更多实例"></a>更多实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style-red-border" title="带红色左边框的自定义列表">带红色左边框的自定义列表</a></p>
+<p>本例演示如何创建带有红色左边框的列表。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style-border" title="全屏宽度的边框列表">全屏宽度的边框列表</a></p>
+<p>本例演示如何创建没有项目符号的带边框列表。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_list-style-type_all" title="列表的所有不同列表项标记">列表的所有不同列表项标记</a></p>
+<p>本例演示了 CSS 中所有不同的列表项标记。</p>
+<hr>
+<h3 id="所有-CSS-列表属性"><a href="#所有-CSS-列表属性" class="headerlink" title="所有 CSS 列表属性"></a>所有 CSS 列表属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_list-style.asp" title="list-style">list-style</a></td>
+<td>简写属性。在一条声明中设置列表的所有属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_list-style-image.asp" title="list-style-image">list-style-image</a></td>
+<td>指定图像作为列表项标记。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_list-style-position.asp" title="list-style-position">list-style-position</a></td>
+<td>规定列表项标记（项目符号）的位置。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_list-style-type.asp" title="list-style-type">list-style-type</a></td>
+<td>规定列表项标记的类型。</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>使用 CSS 可以极大地改善 HTML 表格的外观：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>Contact</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alibaba</td>
+<td>Ma Yun</td>
+<td>No. 699, Wangshang Road, Binjiang District</td>
+<td>Hangzhou</td>
+</tr>
+<tr>
+<td>APPLE</td>
+<td>Tim Cook</td>
+<td>1 Infinite Loop Cupertino, CA 95014</td>
+<td>Cupertino</td>
+</tr>
+<tr>
+<td>BAIDU</td>
+<td>Li YanHong</td>
+<td>Lixiang guoji dasha,No 58, beisihuanxilu</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Canon</td>
+<td>Tsuneji Uchida</td>
+<td>One Canon Plaza Lake Success, NY 11042</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>Larry Page</td>
+<td>1600 Amphitheatre Parkway Mountain View, CA 94043</td>
+<td>Mountain View</td>
+</tr>
+<tr>
+<td>HUAWEI</td>
+<td>Ren Zhengfei</td>
+<td>Putian Huawei Base, Longgang District</td>
+<td>Shenzhen</td>
+</tr>
+<tr>
+<td>Microsoft</td>
+<td>Bill Gates</td>
+<td>15700 NE 39th St Redmond, WA 98052</td>
+<td>Redmond</td>
+</tr>
+<tr>
+<td>Nokia</td>
+<td>Olli-Pekka Kallasvuo</td>
+<td>P.O. Box 226, FIN-00045 Nokia Group</td>
+<td>Helsinki</td>
+</tr>
+<tr>
+<td>SONY</td>
+<td>Kazuo Hirai</td>
+<td>Park Ridge, NJ 07656</td>
+<td>Park Ridge</td>
+</tr>
+<tr>
+<td>Tencent</td>
+<td>Ma Huateng</td>
+<td>Tencent Building, High-tech Park, Nanshan District</td>
+<td>Shenzhen</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_fancy" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="表格边框"><a href="#表格边框" class="headerlink" title="表格边框"></a>表格边框</h3><p>如需在 CSS 中设置表格边框，请使用 <code>border</code> 属性。</p>
+<p>下例为 <table>、<th> 和 <td> 元素规定了黑色边框：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+</tr>
+</tbody></table>
+<h4 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h4><p><code>css table, th, td { border: 1px solid black; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=js_ajax_xmlhttp" title="亲自试一试">亲自试一试</a></p>
+<p>注意：上例中的表格拥有双边框。这是因为 table 和 <th> 和 <td> 元素都有单独的边框。</p>
+<hr>
+<h3 id="全宽表格"><a href="#全宽表格" class="headerlink" title="全宽表格"></a>全宽表格</h3><p>在某些情况下，上表似乎很小。如果您需要一个可以覆盖整个屏幕（全宽）的表格，请为 <table> 元素添加 width: 100%：</p>
+<h4 id="实例-7"><a href="#实例-7" class="headerlink" title="实例"></a>实例</h4><p><code>css table { width: 100%; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_fullwidth" title="亲自试一试">亲自试一试</a></p>
+<h4 id="双边框"><a href="#双边框" class="headerlink" title="双边框"></a>双边框</h4><p>请注意上面的表格有双边框。这是因为表格和 th、td 元素都有单独的边框。</p>
+<p>如需删除双边框，请看下面的例子。</p>
+<hr>
+<h3 id="合并表格边框"><a href="#合并表格边框" class="headerlink" title="合并表格边框"></a>合并表格边框</h3><p><code>border-collapse</code> 属性设置是否将表格边框折叠为单一边框：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+</tr>
+</tbody></table>
+<h4 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h4><p><code>css table { border-collapse: collapse; } table, th, td { border: 1px solid black; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_border-collapse" title="亲自试一试">亲自试一试</a></p>
+<p>如果只希望表格周围有边框，则仅需为 <table> 指定 <code>border</code> 属性：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+</tr>
+</tbody></table>
+<h4 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h4><p><code>css table { border: 1px solid black; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_border_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="表格宽度和高度"><a href="#表格宽度和高度" class="headerlink" title="表格宽度和高度"></a>表格宽度和高度</h3><p>表格的宽度和高度由 <code>width</code> 和 <code>height</code> 属性定义。</p>
+<p>下例将表的宽度设置为 100％，将 <th> 元素的高度设置为 50px：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h4><p><code>css table { width: 100%; } th { height: 50px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_width_1" title="亲自试一试">亲自试一试</a></p>
+<p>要创建仅占页面一半的表，请使用 width: 50%：</p>
+<h4 id="实例-11"><a href="#实例-11" class="headerlink" title="实例"></a>实例</h4><p><code>css table { width: 50%; } th { height: 70px; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_width_2" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="水平对齐"><a href="#水平对齐" class="headerlink" title="水平对齐"></a>水平对齐</h3><p><code>text-align</code> 属性设置 <th> 或 <td> 中内容的水平对齐方式（左、右或居中）。</p>
+<p>默认情况下，<th> 元素的内容居中对齐，而 <td> 元素的内容左对齐。</p>
+<p>要使 <td> 元素的内容也居中对齐，请使用 text-align: center：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-12"><a href="#实例-12" class="headerlink" title="实例"></a>实例</h4><p><code>css th { text-align: center; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_align_center" title="亲自试一试">亲自试一试</a></p>
+<p>下例使 <th> 元素中的文本左对齐：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-13"><a href="#实例-13" class="headerlink" title="实例"></a>实例</h4><p><code>css th { text-align: left; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_align" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="垂直对齐"><a href="#垂直对齐" class="headerlink" title="垂直对齐"></a>垂直对齐</h3><p><code>vertical-align</code> 属性设置 <th> 或 <td> 中内容的垂直对齐方式（上、下或居中）。</p>
+<p>默认情况下，表中内容的垂直对齐是居中（<th> 和 <td> 元素都是）。</p>
+<p>下例将 <td> 元素的垂直文本对齐方式设置为下对齐：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-14"><a href="#实例-14" class="headerlink" title="实例"></a>实例</h4><p><code>css td { height: 50px; vertical-align: bottom; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_vertical-align" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="表格内边距"><a href="#表格内边距" class="headerlink" title="表格内边距"></a>表格内边距</h3><p>如需控制边框和表格内容之间的间距，请在 <td> 和 <th> 元素上使用 <code>padding</code> 属性：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-15"><a href="#实例-15" class="headerlink" title="实例"></a>实例</h4><p><code>css th, td { padding: 15px; text-align: left; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_padding" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="水平分隔线"><a href="#水平分隔线" class="headerlink" title="水平分隔线"></a>水平分隔线</h3><table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<p>向 <th> 和 <td> 添加 <code>border-bottom</code> 属性，以实现水平分隔线：</p>
+<h4 id="实例-16"><a href="#实例-16" class="headerlink" title="实例"></a>实例</h4><p><code>css th, td { border-bottom: 1px solid #ddd; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_border_divider" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="可悬停表格"><a href="#可悬停表格" class="headerlink" title="可悬停表格"></a>可悬停表格</h3><p>在 <tr> 元素上使用 <code>:hover</code> 选择器，以突出显示鼠标悬停时的表格行：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-17"><a href="#实例-17" class="headerlink" title="实例"></a>实例</h4><p><code>css tr:hover {background-color: #f5f5f5;} </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_hover" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="条状表格"><a href="#条状表格" class="headerlink" title="条状表格"></a>条状表格</h3><table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<p>为了实现斑马纹表格效果，请使用 <code>nth-child()</code> 选择器，并为所有偶数（或奇数）表行添加 <code>background-color</code>：</p>
+<h4 id="实例-18"><a href="#实例-18" class="headerlink" title="实例"></a>实例</h4><p><code>css tr:nth-child(even) {background-color: #f2f2f2;} </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_striped" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="表格颜色"><a href="#表格颜色" class="headerlink" title="表格颜色"></a>表格颜色</h3><p>下例指定了 <th> 元素的背景颜色和文本颜色：</p>
+<table>
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>$100</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>$150</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>$300</td>
+</tr>
+</tbody></table>
+<h4 id="实例-19"><a href="#实例-19" class="headerlink" title="实例"></a>实例</h4><p><code>css th { background-color: #4CAF50; color: white; } </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_color" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="响应式表格"><a href="#响应式表格" class="headerlink" title="响应式表格"></a>响应式表格</h3><p>如果屏幕太小而无法显示全部内容，则响应式表格会显示水平滚动条：</p>
+<table>
+<thead>
+<tr>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bill</td>
+<td>Gates</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>Jobs</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+<td>94</td>
+</tr>
+<tr>
+<td>Elon</td>
+<td>Musk</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+<td>67</td>
+</tr>
+</tbody></table>
+<p>在 <table> 元素周围添加带有 <code>overflow-x:auto</code> 的容器元素（例如 <div>），以实现响应式效果：</p>
+<h4 id="实例-20"><a href="#实例-20" class="headerlink" title="实例"></a>实例</h4><p><code>html &lt;div style=&quot;overflow-x:auto;&quot;&gt; &lt;table&gt; ... table content ... &lt;/table&gt; &lt;/div&gt; </code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_responsive" title="亲自试一试">亲自试一试</a></p>
+<p>注释：在 OS X Lion（在 Mac 上）中，滚动条默认情况下是隐藏的，并且仅在使用时显示（即使设置了 “overflow:scroll”）。</p>
+<hr>
+<h3 id="更多实例-1"><a href="#更多实例-1" class="headerlink" title="更多实例"></a>更多实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_fancy" title="做一张花式表格">做一张花式表格</a></p>
+<p>本例演示如何创建花式表格。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=css_table_caption-side" title="设置表格标题的位置">设置表格标题的位置</a></p>
+<p>本例演示了如何放置表格标题。</p>
+<h3 id="CSS-表格属性"><a href="#CSS-表格属性" class="headerlink" title="CSS 表格属性"></a>CSS 表格属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border.asp" title="border">border</a></td>
+<td>简写属性。在一条声明中设置所有边框属性。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-collapse.asp" title="border-collapse">border-collapse</a></td>
+<td>规定是否应折叠表格边框。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_border-spacing.asp" title="border-spacing">border-spacing</a></td>
+<td>规定相邻单元格之间的边框的距离。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_tab_caption-side.asp" title="caption-side">caption-side</a></td>
+<td>规定表格标题的位置。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_tab_empty-cells.asp" title="empty-cells">empty-cells</a></td>
+<td>规定是否在表格中的空白单元格上显示边框和背景。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_tab_table-layout.asp" title="table-layout">table-layout</a></td>
+<td>设置用于表格的布局算法。</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/01/zh-CN/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/">https://your-domain.com/2023/02/01/zh-CN/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/html5/">html5</a><a class="post-meta__tags" href="/tags/javascript/">javascript</a><a class="post-meta__tags" href="/tags/css/">css</a><a class="post-meta__tags" href="/tags/dreamweaver/">dreamweaver</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/01/zh-CN/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/" title="CSS响应式设计——（视口/网格视图/媒体查询/图像/视频）看这一篇就够了"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87/94d02e902a70.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">CSS响应式设计——（视口/网格视图/媒体查询/图像/视频）看这一篇就够了</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS响应式设计——（视口&#x2F;网格视图&#x2F;媒体查询&#x2F;图像&#x2F;视频）看这一篇就够了📊 1628 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 11 收藏  目录 响应式网页设计 - 简介 什么是响应式网页设计？ 为所有用户获得最佳体验的设计 响应式网页设计 - 视口 什么是视口？ 设置视口 把内容调整到视口的大小 响应式网页设计 - 网格视图 什么是网格视图？ 构建响应式网格视图 实例 CSS: CSS: HTML: CSS: 实例 响应式网页设计 - 媒体查询 什么是媒体查询？ 实例 添加断点 实例 始终移动优先设计 实例 另一个断点 实例 HTML 实例 典型的设备断点 实例 方向：人像 &#x2F; 风景 实例 用媒体查询隐藏元素 实例 用媒体查询修改字体 实例 CSS @media 参考手册 响应式网页设计 - 图像 使用 width 属性 实例 使用 max-width 属性 实例 向实例网页添加图像 实例 背景图像 实例 实例 实例 为不同设备准备不同图像 实例 实例 HTML5 元素 浏览器...</div></div></div></a><a class="pagination-related" href="/2023/02/01/zh-CN/37.-%E5%AE%9E%E6%88%98%EF%BC%9AXpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96%E4%BB%BB%E6%84%8F%E5%AE%8C%E6%95%B4%E5%B0%8F%E8%AF%B4%E4%B8%80%E5%8D%83%E4%BD%99%E8%8A%82%E5%88%B0%E6%9C%AC%E5%9C%B0txt%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF%E4%BB%BB%E6%84%8F%E5%B0%8F%E8%AF%B4%E7%BD%91%E7%AB%99%E5%8F%AF%E5%A5%97%E7%94%A8%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/" title="37. 实战：Xpath+线程池实现抓取任意完整小说一千余节到本地txt文件/模板任意小说网站可套用（附源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/37.-%E5%AE%9E%E6%88%98%EF%BC%9AXpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96%E4%BB%BB%E6%84%8F%E5%AE%8C%E6%95%B4%E5%B0%8F%E8%AF%B4%E4%B8%80%E5%8D%83%E4%BD%99%E8%8A%82/6ee61c1d85b8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">37. 实战：Xpath+线程池实现抓取任意完整小说一千余节到本地txt文件/模板任意小说网站可套用（附源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：37. 实战：Xpath+线程池实现抓取任意完整小说一千余节到本地txt文件&#x2F;模板任意小说网站可套用（附源码）📊 2274 阅读 | 👍 6 点赞 | 💬 8 评论 | ⭐ 17 收藏  目录 前言 目的 思路 代码实现 1. 从给定的URL中拿到所有章节的标题和子链接 2. 将标题和子链接形成一个字典，便于后续提取信息 3. 实现在单个章节详细页面提取所有文本信息 4. 保存到本地文件，在前面加上数字序号便于顺序保存 5. 在主函数中添加线程池，遍历字典输入标题和子链接开始多线程任务 完整源码 运行效果 总结  前言本来是想实现抓取番茄小说的，但是它虽然免费，当我写完全部代码的时候才发现后面的部分只能下载APP看，真是坑人……还好我把函数都封装了，整体逻辑是不变的，最终选择了另一个免费小说网——笔趣阁作为案例。 老规矩，我还是把链接放在评论区 ，不然审核不过的 同时我也会把番茄小说的放到最后的完整代码部分供大家借鉴。  目的给定小说URL，使用Xpath+线程池实现抓取任意完整小说，并分章节按顺序保存到本地txt文件。  思路思...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E9%A2%84%E7%95%99%E5%AD%97%E7%AC%A6%E7%9A%84%E5%A4%84%E7%90%86/" title="HTML预留字符的处理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML预留字符的处理</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML预留字符的处理📊 286 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 HTML 实体 不间断空格（non-breaking space） HTML 实例示例 HTML 中有用的字符实体  HTML 中的预留字符必须被替换为字符实体。  HTML 实体在 HTML 中，某些字符是预留的。 在 HTML 中不能使用小于号（&lt;）和大于号（&gt;），这是因为浏览器会误认为它们是标签。 如果希望正确地显示预留字符，我们必须在 HTML 源代码中使用字符实体（character entities）。 字符实体类似这样： &amp;entity_name;  或者  &amp;#entity_number;  如需显示小于号，我们必须这样写：&lt; 或 &#60; 提示：使用实体名而不是数字的好处是，名称易于记忆。不过坏处是，浏览器也许并不支持所有实体名称（对实体数字的支持却很好）。  不间断空格（non-breaking space）HTML 中的常用字符实体是不间断空格(&nbsp;)。 浏览器总是会截短 H...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/" title="HTML5语义元素"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/c95d3aea07da.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML5语义元素</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML5语义元素📊 328 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 什么是语义元素？ 浏览器支持 HTML5 中新的语义元素 HTML5 语义元素 HTML5元素 实例 HTML5元素 实例 嵌套语义元素 HTML5元素 实例 HTML5元素 实例 HTML5元素 实例 HTML5元素 实例 HTML5和元素 实例 为何使用 HTML5 元素？ HTML5 中的语义元素 一个完整的实例  语义学（源自古希腊）可定义为对语言意义的研究。 语义元素是拥有语义的元素。  什么是语义元素？语义元素清楚地向浏览器和开发者描述其意义。 非语义 元素的例子： 和  - 无法提供关于其内容的信息。 语义 元素的例子：、 以及  - 清晰地定义其内容。  浏览器支持所有现代浏览器均支持 HTML5 语义元素。 此外，我们还可以“帮助”老式浏览器处理“未知元素”。  HTML5 中新的语义元素许多网站包含了指示导航、页眉以及页脚的 HTML 代码，例如这些：  。 HTML5 提供了定义页面不同部分的新语义元素：         ...</div></div></div></a><a class="pagination-related" href="/2023/02/01/en/CSS-Lists-and-Tables/" title="CSS Lists and Tables"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-02</div><div class="info-item-2">CSS Lists and Tables</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Lists and CSS List PropertiesDifferent List Item MarkersImage as List Item MarkerPosition List Item MarkersRemove Default SettingsList - Shorthand PropertyStyling Lists with ColorsTable BordersFull-Width TableCollapse Table BordersTable Width and HeightHorizontal AlignmentVertical AlignmentTable PaddingHorizontal DividersHoverable TableStriped TablesTable ColorResponsive Table  HTML Lists and CSS List PropertiesIn HTML, there are two main types of lists:  Unordered list...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E5%9D%97%E5%85%83%E7%B4%A0/" title="HTML块元素"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML块元素</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML块元素📊 203 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 块元素 HTML 内联元素 HTML  元素 HTML 元素 HTML 分组标签 一个完整的实例  可以通过  和  将 HTML 元素组合起来。  HTML 块元素大多数 HTML 元素被定义为块级元素或内联元素。 注：“块级元素”译为 block level element，“内联元素”译为 inline element。 块级元素在浏览器显示时，通常会以新行来开始（和结束）。 例子：, , ,   HTML 内联元素内联元素在显示时通常不会以新行开始。 例子：, , ,   HTML  元素HTML  元素是块级元素，它是可用于组合其他 HTML 元素的容器。  元素没有特定的含义。除此之外，由于它属于块级元素，浏览器会在其前后显示折行。  如果与 CSS 一同使用， 元素可用于对大的内容块设置样式属性。  元素的另一个常见的用途是文档布局。它取代了使用表格定义布局的老式方法。使用  元素进行文档布局不是表格的正确用法。 元素的作用...</div></div></div></a><a class="pagination-related" href="/2022/12/30/zh-CN/HTML%E5%BF%AB%E9%80%9F%E5%8F%82%E8%80%83%E6%8C%87%E5%8D%97/" title="HTML快速参考指南"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">HTML快速参考指南</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML快速参考指南📊 185 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 基础文档 文本元素 逻辑样式 物理样式 链接、锚、图像元素 无序列表 有序列表 定义列表 表格 框架 表单 实体 其他元素  HTML 基础文档html &lt;html&gt; &lt;head&gt; &lt;title&gt;Document name goes here&lt;/title&gt; &lt;/head&gt; &lt;body&gt; Visible text goes here &lt;/body&gt; &lt;/html&gt;    文本元素html &lt;p&gt;This is a paragraph&lt;/p&gt; &lt;br&gt; (line break) &lt;hr&gt; (horizontal rule) &lt;pre&gt;This text is preformatted&lt;/pre&gt;    逻辑样式html &lt;em&gt;This text is em...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E7%B1%BB/" title="HTML类"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML类</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML类📊 128 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 分类块级元素 实例 分类行内元素 实例 一个完整的实例  对 HTML 进行分类（设置类），使我们能够为元素的类定义 CSS 样式。 为相同的类设置相同的样式，或者为不同的类设置不同的样式。  实例&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;style&gt; .cities { background-color:black; color:white; margin:20px; padding:20px; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&quot;cities&quot;&gt; &lt;h2&gt;London&lt;/h2&gt; &lt;p&gt; London is the capital city of England. It is the most populous city in the ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E5%88%97%E8%A1%A8%E5%92%8C-CSS-%E5%88%97%E8%A1%A8%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 列表和 CSS 列表属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E5%88%97%E8%A1%A8%E9%A1%B9%E7%9B%AE%E6%A0%87%E8%AE%B0"><span class="toc-number">3.</span> <span class="toc-text">不同的列表项目标记</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E4%BD%9C%E4%B8%BA%E5%88%97%E8%A1%A8%E9%A1%B9%E6%A0%87%E8%AE%B0"><span class="toc-number">4.</span> <span class="toc-text">图像作为列表项标记</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">4.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E5%88%97%E8%A1%A8%E9%A1%B9%E6%A0%87%E8%AE%B0"><span class="toc-number">5.</span> <span class="toc-text">定位列表项标记</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-2"><span class="toc-number">5.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E9%BB%98%E8%AE%A4%E8%AE%BE%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">删除默认设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-3"><span class="toc-number">6.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">7.</span> <span class="toc-text">列表 - 简写属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-4"><span class="toc-number">7.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%88%97%E8%A1%A8%E7%9A%84%E9%A2%9C%E8%89%B2%E6%A0%B7%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">设置列表的颜色样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-5"><span class="toc-number">8.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%9E%E4%BE%8B"><span class="toc-number">9.</span> <span class="toc-text">更多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89-CSS-%E5%88%97%E8%A1%A8%E5%B1%9E%E6%80%A7"><span class="toc-number">10.</span> <span class="toc-text">所有 CSS 列表属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E8%BE%B9%E6%A1%86"><span class="toc-number">11.</span> <span class="toc-text">表格边框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-6"><span class="toc-number">11.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%AE%BD%E8%A1%A8%E6%A0%BC"><span class="toc-number">12.</span> <span class="toc-text">全宽表格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-7"><span class="toc-number">12.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E8%BE%B9%E6%A1%86"><span class="toc-number">12.2.</span> <span class="toc-text">双边框</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E8%A1%A8%E6%A0%BC%E8%BE%B9%E6%A1%86"><span class="toc-number">13.</span> <span class="toc-text">合并表格边框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-8"><span class="toc-number">13.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-9"><span class="toc-number">13.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%AE%BD%E5%BA%A6%E5%92%8C%E9%AB%98%E5%BA%A6"><span class="toc-number">14.</span> <span class="toc-text">表格宽度和高度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-10"><span class="toc-number">14.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-11"><span class="toc-number">14.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3%E5%AF%B9%E9%BD%90"><span class="toc-number">15.</span> <span class="toc-text">水平对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-12"><span class="toc-number">15.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-13"><span class="toc-number">15.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E5%AF%B9%E9%BD%90"><span class="toc-number">16.</span> <span class="toc-text">垂直对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-14"><span class="toc-number">16.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%86%85%E8%BE%B9%E8%B7%9D"><span class="toc-number">17.</span> <span class="toc-text">表格内边距</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-15"><span class="toc-number">17.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-number">18.</span> <span class="toc-text">水平分隔线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-16"><span class="toc-number">18.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%82%AC%E5%81%9C%E8%A1%A8%E6%A0%BC"><span class="toc-number">19.</span> <span class="toc-text">可悬停表格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-17"><span class="toc-number">19.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E7%8A%B6%E8%A1%A8%E6%A0%BC"><span class="toc-number">20.</span> <span class="toc-text">条状表格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-18"><span class="toc-number">20.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E9%A2%9C%E8%89%B2"><span class="toc-number">21.</span> <span class="toc-text">表格颜色</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-19"><span class="toc-number">21.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E6%A0%BC"><span class="toc-number">22.</span> <span class="toc-text">响应式表格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-20"><span class="toc-number">22.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">23.</span> <span class="toc-text">更多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-%E8%A1%A8%E6%A0%BC%E5%B1%9E%E6%80%A7"><span class="toc-number">24.</span> <span class="toc-text">CSS 表格属性</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

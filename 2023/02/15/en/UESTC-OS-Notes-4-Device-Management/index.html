@@ -1,0 +1,731 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UESTC Operating System Review Notes (4): Device Management | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents PrefaceDevice ManagementI&#x2F;O SystemDevice ClassificationDevice ControllersI&#x2F;O ChannelsI&#x2F;O Control MethodsBuffer ManagementI&#x2F;O SoftwareDevice AllocationSPOOLingDisk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UESTC Operating System Review Notes (4): Device Management">
+<meta property="og:url" content="https://your-domain.com/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents PrefaceDevice ManagementI&#x2F;O SystemDevice ClassificationDevice ControllersI&#x2F;O ChannelsI&#x2F;O Control MethodsBuffer ManagementI&#x2F;O SoftwareDevice AllocationSPOOLingDisk">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png">
+<meta property="article:published_time" content="2023-02-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-15T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="disk-management">
+<meta property="article:tag" content="operating-system">
+<meta property="article:tag" content="review-notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "UESTC Operating System Review Notes (4): Device Management",
+  "url": "https://your-domain.com/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png",
+  "datePublished": "2023-02-15T15:00:00.000Z",
+  "dateModified": "2023-02-15T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UESTC Operating System Review Notes (4): Device Management',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">UESTC Operating System Review Notes (4): Device Management</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">UESTC Operating System Review Notes (4): Device Management</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-15T15:00:00.000Z" title="Created 2023-02-16 00:00:00">2023-02-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-15T15:00:00.000Z" title="Updated 2023-02-16 00:00:00">2023-02-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Review-Notes/">Review Notes</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>7mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-16 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>Preface<br>Device Management<br>I&#x2F;O System<br>Device Classification<br>Device Controllers<br>I&#x2F;O Channels<br>I&#x2F;O Control Methods<br>Buffer Management<br>I&#x2F;O Software<br>Device Allocation<br>SPOOLing<br>Disk Storage<br>Disk Structure<br>Disk Access<br>Disk Scheduling Algorithms<br>Disk Management<br>RAID</p>
+<hr>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>This review note focuses on CM4: Device Management - I&#x2F;O system structure, buffer management, disk structure, and disk scheduling algorithms.</p>
+<hr>
+<h2 id="Device-Management"><a href="#Device-Management" class="headerlink" title="Device Management"></a>Device Management</h2><h3 id="I-O-System"><a href="#I-O-System" class="headerlink" title="I&#x2F;O System"></a>I&#x2F;O System</h3><h4 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h4><blockquote>
+<p>From OS perspective, important evaluation and classification criteria:</p>
+<ul>
+<li>Device usage characteristics</li>
+<li>Data transfer rate</li>
+<li>Data transfer unit</li>
+<li>Device sharing attributes</li>
+</ul>
+</blockquote>
+<h4 id="Device-Usage-Characteristics"><a href="#Device-Usage-Characteristics" class="headerlink" title="Device Usage Characteristics"></a>Device Usage Characteristics</h4><blockquote>
+<ul>
+<li><strong>Storage Devices</strong>: External or backup storage, auxiliary storage<ul>
+<li>Access speed slower than memory, but much larger capacity and relatively cheaper</li>
+</ul>
+</li>
+<li><strong>Input&#x2F;Output Devices</strong>:<ul>
+<li>Input devices: Receive external information (keyboard, mouse, scanner, camera, sensors)</li>
+<li>Output devices: Send processed information externally (printer, plotter, display, speakers)</li>
+<li>Interactive devices: Integrate both types (headset with microphone, touchscreen)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Data-Transfer-Rate"><a href="#Data-Transfer-Rate" class="headerlink" title="Data Transfer Rate"></a>Data Transfer Rate</h4><blockquote>
+<ul>
+<li>Low-speed devices: Few bytes&#x2F;s to hundreds of bytes&#x2F;s (keyboard, mouse, voice I&#x2F;O)</li>
+<li>Medium-speed devices: Several KB&#x2F;s to hundreds of KB&#x2F;s (line printers, laser printers)</li>
+<li>High-speed devices: Tens of MB&#x2F;s (tape, disk, optical disk)</li>
+</ul>
+</blockquote>
+<h4 id="Data-Transfer-Unit"><a href="#Data-Transfer-Unit" class="headerlink" title="Data Transfer Unit"></a>Data Transfer Unit</h4><blockquote>
+<ul>
+<li><strong>Block Device</strong>: Information stored&#x2F;retrieved in data blocks<ul>
+<li>Typical: disk, block size 512B~4KB</li>
+<li>Higher transfer rate; addressable, supports random read&#x2F;write</li>
+<li>Often uses DMA</li>
+</ul>
+</li>
+<li><strong>Character Device</strong>: Basic unit is character<ul>
+<li>Many types: interactive terminals, printers</li>
+<li>Lower transfer rate; not addressable</li>
+<li>Often uses interrupt-driven mode</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Device-Sharing-Attributes"><a href="#Device-Sharing-Attributes" class="headerlink" title="Device Sharing Attributes"></a>Device Sharing Attributes</h4><blockquote>
+<ul>
+<li><strong>Exclusive Device</strong>: Strictly exclusive use, sequential sharing (no interleaving)<ul>
+<li>Example: Printer</li>
+</ul>
+</li>
+<li><strong>Shared Device</strong>: Concurrent sharing, only one process accesses at any moment<ul>
+<li>Example: Disk</li>
+</ul>
+</li>
+<li><strong>Virtual Device</strong>: Through virtualization, simulate exclusive device as shared<ul>
+<li>Example: SPOOLing</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Device-Controllers"><a href="#Device-Controllers" class="headerlink" title="Device Controllers"></a>Device Controllers</h4><blockquote>
+<p>Devices don’t communicate directly with CPU, but with device controllers.</p>
+<p>Components:</p>
+<ul>
+<li>Device controller to processor (CPU) interface</li>
+<li>Device controller to device interface</li>
+<li>I&#x2F;O logic</li>
+</ul>
+</blockquote>
+<h4 id="I-O-Channels"><a href="#I-O-Channels" class="headerlink" title="I&#x2F;O Channels"></a>I&#x2F;O Channels</h4><blockquote>
+<ul>
+<li>Relieves CPU from device controller tasks</li>
+<li>Special processor capable of executing I&#x2F;O instructions</li>
+<li>Different from general processors:<ul>
+<li>Single instruction type (I&#x2F;O operations only)</li>
+<li>No own memory (channel programs stored in main memory)</li>
+</ul>
+</li>
+</ul>
+<p>Channel Types:</p>
+<ul>
+<li><strong>Byte Multiplexor Channel</strong>: Works in byte-interleaved mode; many non-allocated subchannels; subchannels share main channel in round-robin</li>
+<li><strong>Selector Channel</strong>: For high-speed devices; one allocated subchannel; one device monopolizes channel until transfer complete</li>
+<li><strong>Block Multiplexor Channel</strong>: Combines advantages of selector (high transfer rate) and byte multiplexor (parallel operation)</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="I-O-Control-Methods"><a href="#I-O-Control-Methods" class="headerlink" title="I&#x2F;O Control Methods"></a>I&#x2F;O Control Methods</h3><h4 id="Programmed-I-O"><a href="#Programmed-I-O" class="headerlink" title="Programmed I&#x2F;O"></a>Programmed I&#x2F;O</h4><blockquote>
+<p>Early computer systems without interrupt mechanism used “busy-wait” mode.<br>CPU continuously polls device status until operation completes.</p>
+</blockquote>
+<h4 id="Interrupt-Driven-I-O"><a href="#Interrupt-Driven-I-O" class="headerlink" title="Interrupt-Driven I&#x2F;O"></a>Interrupt-Driven I&#x2F;O</h4><blockquote>
+<ul>
+<li>Modern computers widely use interrupt-driven mode</li>
+<li>CPU sends I&#x2F;O command to device controller, immediately returns to continue original task</li>
+<li>Device controller controls specified device; CPU and I&#x2F;O device operate in parallel</li>
+<li>When device operation completes, controller sends interrupt signal to CPU</li>
+<li>CPU retrieves data through controller and data lines</li>
+</ul>
+</blockquote>
+<h4 id="Direct-Memory-Access-DMA"><a href="#Direct-Memory-Access-DMA" class="headerlink" title="Direct Memory Access (DMA)"></a>Direct Memory Access (DMA)</h4><blockquote>
+<p>Interrupt mode unsuitable for block devices (e.g., reading 1KB from disk would interrupt CPU 1K times)</p>
+<p>DMA characteristics:</p>
+<ul>
+<li>Basic transfer unit is data block</li>
+<li>Data transferred directly between device and memory</li>
+<li>CPU intervention only at start and end of transfer</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Buffer-Management"><a href="#Buffer-Management" class="headerlink" title="Buffer Management"></a>Buffer Management</h3><blockquote>
+<ul>
+<li>Mitigate speed mismatch between CPU and I&#x2F;O devices</li>
+<li>Reduce CPU interrupt frequency</li>
+<li>Improve parallelism between CPU and I&#x2F;O devices</li>
+</ul>
+</blockquote>
+<h4 id="Buffer-Types"><a href="#Buffer-Types" class="headerlink" title="Buffer Types"></a>Buffer Types</h4><p><strong>Single Buffer</strong></p>
+<blockquote>
+<p>One buffer; time &#x3D; max(T, C) + M</p>
+</blockquote>
+<p><strong>Double Buffer</strong></p>
+<blockquote>
+<p>Buffer swapping; time &#x3D; max(C, T)</p>
+</blockquote>
+<p><strong>Circular Buffer</strong></p>
+<blockquote>
+<p>Multiple buffers; process synchronization</p>
+</blockquote>
+<p><strong>Buffer Pool</strong></p>
+<blockquote>
+<p>Public buffer pool for both input and output</p>
+<ul>
+<li>Empty buffer queue (emq)</li>
+<li>Input queue (inq)</li>
+<li>Output queue (outq)</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="I-O-Software"><a href="#I-O-Software" class="headerlink" title="I&#x2F;O Software"></a>I&#x2F;O Software</h3><h4 id="Interrupt-Handling"><a href="#Interrupt-Handling" class="headerlink" title="Interrupt Handling"></a>Interrupt Handling</h4><blockquote>
+<p>Hardware interrupt → Save context → Interrupt handler → Restore context → Return</p>
+</blockquote>
+<h4 id="Device-Drivers"><a href="#Device-Drivers" class="headerlink" title="Device Drivers"></a>Device Drivers</h4><blockquote>
+<p>Communication programs between I&#x2F;O processes and device controllers</p>
+<ul>
+<li>Check validity of user I&#x2F;O requests</li>
+<li>Understand I&#x2F;O device status, pass parameters, set device working mode</li>
+<li>Convert abstract I&#x2F;O requests to specific instructions</li>
+<li>Pass signals from device controller to upper software</li>
+</ul>
+</blockquote>
+<h4 id="Device-Independence"><a href="#Device-Independence" class="headerlink" title="Device Independence"></a>Device Independence</h4><blockquote>
+<p>Applications independent of specific physical devices used</p>
+<ul>
+<li>Application: Logical device</li>
+<li>System execution: Physical device</li>
+<li>Mapping relationship: Flexible device allocation, I&#x2F;O redirection</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Device-Allocation"><a href="#Device-Allocation" class="headerlink" title="Device Allocation"></a>Device Allocation</h3><h4 id="Allocation-Algorithms"><a href="#Allocation-Algorithms" class="headerlink" title="Allocation Algorithms"></a>Allocation Algorithms</h4><blockquote>
+<ul>
+<li><strong>First Come First Served</strong>: Allocate based on request order</li>
+<li><strong>Priority-Based</strong>: Higher priority processes get priority for I&#x2F;O requests</li>
+</ul>
+</blockquote>
+<h4 id="SPOOLing-Simultaneous-Peripheral-Operating-On-Line"><a href="#SPOOLing-Simultaneous-Peripheral-Operating-On-Line" class="headerlink" title="SPOOLing (Simultaneous Peripheral Operating On-Line)"></a>SPOOLing (Simultaneous Peripheral Operating On-Line)</h4><blockquote>
+<p>Simulates offline input&#x2F;output in online situation</p>
+<p>Components:</p>
+<ul>
+<li><strong>Input&#x2F;Output Wells</strong>: Storage spaces on disk for temporary data</li>
+<li><strong>Input&#x2F;Output Buffers</strong>: Temporary storage in memory</li>
+<li><strong>Input&#x2F;Output Processes</strong>: Simulate peripheral control machines</li>
+</ul>
+<p>Features:</p>
+<ul>
+<li>Improves I&#x2F;O speed</li>
+<li>Transforms exclusive devices into shared devices</li>
+<li>Implements virtual device functionality</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Disk-Storage"><a href="#Disk-Storage" class="headerlink" title="Disk Storage"></a>Disk Storage</h2><h3 id="Basic-Concepts-1"><a href="#Basic-Concepts-1" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h3><blockquote>
+<ul>
+<li>One or more physical platters</li>
+<li>Each disk surface organized into concentric rings called tracks</li>
+<li>Each track logically divided into sectors</li>
+<li>Same tracks on different surfaces form a cylinder</li>
+</ul>
+</blockquote>
+<h3 id="Disk-Structure"><a href="#Disk-Structure" class="headerlink" title="Disk Structure"></a>Disk Structure</h3><blockquote>
+<ul>
+<li>Disk drives use linear logical block addressing</li>
+<li>Logical block is minimum transfer unit (512B)</li>
+<li>Linear logical block numbers map one-to-one to sectors</li>
+<li>Sector 0: First sector of first track on outermost cylinder</li>
+<li>Ordering: Same track → Same cylinder other tracks → Other cylinders</li>
+</ul>
+</blockquote>
+<h3 id="Address-Translation"><a href="#Address-Translation" class="headerlink" title="Address Translation"></a>Address Translation</h3><blockquote>
+<p>OS logical block: b<br>Disk 3D coordinates: (cylinder i, head j, sector k)</p>
+<p>If: s sectors&#x2F;track, t tracks&#x2F;cylinder, then:<br>b &#x3D; (s×t×i) + (s×j) + k &#x3D; s×(t×i+j) + k</p>
+</blockquote>
+<hr>
+<h3 id="Disk-Access"><a href="#Disk-Access" class="headerlink" title="Disk Access"></a>Disk Access</h3><h4 id="Access-Time-Components"><a href="#Access-Time-Components" class="headerlink" title="Access Time Components"></a>Access Time Components</h4><p><strong>Seek Time</strong></p>
+<blockquote>
+<p>Time for head to move to specified cylinder&#x2F;track<br>Ts &#x3D; s + mn (s: arm startup time, m: constant related to drive speed)</p>
+</blockquote>
+<p><strong>Transfer Time</strong></p>
+<blockquote>
+<p>Time for head to read&#x2F;write data<br>Tt &#x3D; b&#x2F;(rN) (r: rotation speed, N: bytes per track, b: bytes to transfer)</p>
+</blockquote>
+<p><strong>Rotational Latency</strong></p>
+<blockquote>
+<p>Time for specified sector to move under head<br>Average: half rotation time</p>
+</blockquote>
+<p><strong>Total Access Time</strong></p>
+<blockquote>
+<p>Seek time and rotational latency are independent of data amount but occupy most access time.<br>Insight: <strong>Contiguous data storage improves transfer efficiency</strong></p>
+</blockquote>
+<hr>
+<h3 id="Disk-Scheduling-Algorithms"><a href="#Disk-Scheduling-Algorithms" class="headerlink" title="Disk Scheduling Algorithms"></a>Disk Scheduling Algorithms</h3><h4 id="First-Come-First-Served-FCFS"><a href="#First-Come-First-Served-FCFS" class="headerlink" title="First Come First Served (FCFS)"></a>First Come First Served (FCFS)</h4><blockquote>
+<p>Schedule based on request arrival order</p>
+<ul>
+<li>Advantages: Fair, simple</li>
+<li>Disadvantages: No seek optimization, potentially long average seek time</li>
+</ul>
+</blockquote>
+<h4 id="Shortest-Seek-Time-First-SSTF"><a href="#Shortest-Seek-Time-First-SSTF" class="headerlink" title="Shortest Seek Time First (SSTF)"></a>Shortest Seek Time First (SSTF)</h4><blockquote>
+<p>Prioritize requests closest to current head position</p>
+<ul>
+<li>Problem: Track sticking (distant requests may starve)</li>
+</ul>
+</blockquote>
+<h4 id="SCAN-Algorithm"><a href="#SCAN-Algorithm" class="headerlink" title="SCAN Algorithm"></a>SCAN Algorithm</h4><blockquote>
+<p>Execute SSTF in same direction until end, then reverse</p>
+<ul>
+<li>Also called Elevator algorithm</li>
+</ul>
+</blockquote>
+<h4 id="C-SCAN-Circular-SCAN"><a href="#C-SCAN-Circular-SCAN" class="headerlink" title="C-SCAN (Circular SCAN)"></a>C-SCAN (Circular SCAN)</h4><blockquote>
+<p>One-way scan, quick return, repeat same direction</p>
+<ul>
+<li>Treats tracks as circular structure</li>
+<li>Request delay: from 2T to T + Smax</li>
+</ul>
+</blockquote>
+<h4 id="LOOK-and-C-LOOK"><a href="#LOOK-and-C-LOOK" class="headerlink" title="LOOK and C-LOOK"></a>LOOK and C-LOOK</h4><blockquote>
+<p>Similar to SCAN and C-SCAN</p>
+<ul>
+<li>Look for requests before moving in given direction</li>
+<li>Head only moves to furthest request, then immediately reverses</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Disk-Management"><a href="#Disk-Management" class="headerlink" title="Disk Management"></a>Disk Management</h3><h4 id="Disk-Cache"><a href="#Disk-Cache" class="headerlink" title="Disk Cache"></a>Disk Cache</h4><blockquote>
+<p>Uses memory space to temporarily store disk block information<br>Logically belongs to disk, physically resides in memory</p>
+</blockquote>
+<h4 id="Disk-Formatting"><a href="#Disk-Formatting" class="headerlink" title="Disk Formatting"></a>Disk Formatting</h4><blockquote>
+<ul>
+<li>Low-level&#x2F;physical formatting: Divide disk into sectors</li>
+<li>Partitioning: Divide by cylinders</li>
+<li>Logical formatting: Create file system</li>
+</ul>
+</blockquote>
+<h4 id="RAID-Redundant-Array-of-Independent-Disks"><a href="#RAID-Redundant-Array-of-Independent-Disks" class="headerlink" title="RAID (Redundant Array of Independent Disks)"></a>RAID (Redundant Array of Independent Disks)</h4><blockquote>
+<p>Different configurations with different numbers<br>Advantages: High reliability, high disk I&#x2F;O speed, good cost-performance ratio</p>
+</blockquote>
+<p><strong>RAID 0</strong>: Striping for parallel access; no redundancy<br><strong>RAID 1</strong>: Mirroring; high reliability but poor write performance<br><strong>RAID 2</strong>: Bit-level striping with Hamming code parity<br><strong>RAID 3</strong>: Byte-level striping with dedicated parity disk<br><strong>RAID 4</strong>: Block-level striping with dedicated parity disk<br><strong>RAID 5</strong>: Block-level striping with distributed parity<br><strong>Nested RAID</strong>: Combinations like RAID 10, RAID 50</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/">https://your-domain.com/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/algorithm/">algorithm</a><a class="post-meta__tags" href="/tags/review-notes/">review-notes</a><a class="post-meta__tags" href="/tags/operating-system/">operating-system</a><a class="post-meta__tags" href="/tags/disk-management/">disk-management</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/15/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/" title="电子科技大学操作系统期末复习笔记（四）：设备管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（四）：设备管理</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（四）：设备管理📊 1395 阅读 | 👍 8 点赞 | 💬 1 评论 | ⭐ 20 收藏  目录 前言 设备管理 I&#x2F;O系统 基本概念 设备使用特性 数据传输速率 数据传输单位 设备共享属性 设备控制器 I&#x2F;O通道 I&#x2F;O控制方式 程序I&#x2F;O控制方式 中断方式 直接存储器访问（DMA）  缓冲管理 单缓冲Single Buffer 双缓冲Double Buffer 循环缓冲Circular Buffer 缓冲池Buffer Pool I&#x2F;O软件 中断的工作方式 设备分配 设备分配算法 SPOOLing：假脱机操作 设备管理：调度与实例  磁盘存储器 基本概念 磁盘结构 地址转换 连接方式 DAS：磁盘挂载 NAS：网络挂载 SAN：存储区域网 磁盘访问 访问模式 访问时间 寻道时间 传输时间 (旋转)延迟时间 总访问时间 磁盘调度 先来先服务（FCFS） 最短寻道时间优先（SSTF） 扫描算法（SCAN, CSCAN） Look &amp; C-Look算法...</div></div></div></a><a class="pagination-related" href="/2023/02/14/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/" title="电子科技大学操作系统期末复习笔记（三）：存储器管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/0751d072f211.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（三）：存储器管理</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（三）：存储器管理📊 3033 阅读 | 👍 14 点赞 | 💬 2 评论 | ⭐ 39 收藏  目录 前言 存储器管理 概述 存储管理 存储系统的结构 程序的诞生 空间分类 地址映射 程序链接的方式 静态链接 装入时动态链接 运行时动态链接 程序装入的方式 程序装入的两类三种方法 绝对装入 静态重定位 动态重定位√ 关键点 存储器管理：连续分配 单一连续分配 分区管理 固定分区分配 [放置算法（分配算法）] 动态分区分配 常用分区分配算法 [最先适配算法]  [循环最先适配算法]  [最佳适配算法]  [最坏适配算法] [伙伴系统] [碎片问题：紧凑&#x2F;动态重定位] 动态分区分配算法总结  覆盖 基本概念 实例 缺点 交换&#x2F;对换 基本概念 交换粒度  优缺点 交换与覆盖的比较 存储器管理：离散分配 页式存储管理 基本概念 [分页逻辑地址结构] [基本页式存储管理] [地址变换机构] 页式存储中的重定位 ⭐重点计算方法： 具有快表的地址变换机构 [快表] 计算页表存储空间 两级和多级页表 [...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/02/18/en/UESTC-OS-Notes-5-File-Management/" title="UESTC Operating System Review Notes (5): File Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-19</div><div class="info-item-2">UESTC Operating System Review Notes (5): File Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceFile Management BasicsBasic ConceptsFile StructureLogical StructurePhysical StructureFile Management: DirectoriesFile Control Block (FCB)Directory OrganizationPath NamesLinksFile Management: Disk ManagementFree Space ManagementFile ConsistencyFile ExecutionVirtual File System (VFS)  PrefaceThis is the final section, focusing on CM5: File Management - file system functions, logical structure, physical structure, directories, file sharing, and file system consistency.  ...</div></div></div></a><a class="pagination-related" href="/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/" title="UESTC Operating System Review Notes (2): Process and Concurrency Control"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-14</div><div class="info-item-2">UESTC Operating System Review Notes (2): Process and Concurrency Control</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceProcess ManagementProcess BasicsPrecedence GraphsConcurrent ExecutionProcess Definition and CharacteristicsProcess StatesOperating System KernelProcess Control Block (PCB)Process CreationProcess Control Functions (fork and exec)Process TerminationProcess SwitchingThreadsProcessor SchedulingSingle Processor Scheduling (Key Topic)Scheduling AlgorithmsReal-Time SchedulingMulti-Processor SchedulingProcess Concurrency Control: Mutual Exclusion and SynchronizationSemaphores...</div></div></div></a><a class="pagination-related" href="/2023/02/07/en/UESTC-AI-Notes-1-Search-Problems/" title="UESTC Artificial Intelligence Review Notes (1): Search Problems"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98/7efdc9ba252b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="info-item-2">UESTC Artificial Intelligence Review Notes (1): Search Problems</div></div><div class="info-2"><div class="info-item-1">Table of Contents IntroductionSearch ProblemsUninformed Search AlgorithmsInformed Search AlgorithmsAdversarial Search  IntroductionThis review note is based on classroom PPT and review outline, for personal exam review and reference.  Search ProblemsWhat is a Search Problem?A search problem consists of:  A state space A successor function (with actions and costs) A start state A goal state  State Space: The set of all possible states the “world” can be in. If the entire state space is a video...</div></div></div></a><a class="pagination-related" href="/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/" title="UESTC Operating System Review Notes (1): Operating System Overview"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-12</div><div class="info-item-2">UESTC Operating System Review Notes (1): Operating System Overview</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceOperating System OverviewGoals and FunctionsDefinitionGoalsFunctionsHistory of Operating SystemsSingle-User SystemsSimple Batch Processing SystemsMultiprogramming Batch SystemsTime-Sharing SystemsPersonal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …Real-Time SystemsBasic CharacteristicsConcurrencySharingVirtualizationNon-determinismSystem ArchitectureUnstructured Operating SystemsModular System StructureLayered System StructureOperating Sy...</div></div></div></a><a class="pagination-related" href="/2023/02/14/en/UESTC-OS-Notes-3-Memory-Management/" title="UESTC Operating System Review Notes (3): Memory Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/0751d072f211.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-15</div><div class="info-item-2">UESTC Operating System Review Notes (3): Memory Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceMemory Management OverviewStorage System StructureProgram Birth ProcessAddress SpacesAddress MappingProgram Linking MethodsProgram Loading MethodsContiguous AllocationSingle Contiguous AllocationPartition ManagementFixed Partition AllocationDynamic Partition AllocationPartition Allocation AlgorithmsOverlay and SwappingDiscrete AllocationPaged Storage ManagementAddress TranslationPage TablesTwo-Level and Multi-Level Page TablesInverted Page TablesSegmented Storage Mana...</div></div></div></a><a class="pagination-related" href="/2023/05/26/en/UESTC-Compiler-Notes-4-Language-Design/" title="UESTC Compiler Principles Review Notes (4): Programming Language Design"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80%E7%9A%84%E8%AE%BE%E8%AE%A1/de6a3e230164.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-27</div><div class="info-item-2">UESTC Compiler Principles Review Notes (4): Programming Language Design</div></div><div class="info-2"><div class="info-item-1">Table of Contents Language DefinitionStrings and String SetsGrammar (Key Topic)Grammar ClassificationPhrases, Direct Phrases, and HandlesSyntax Trees  Key Points Overview This chapter formally enters the key part of compiler principles: Grammar.  Language Definition Language &#x3D; Syntax (rules) + Semantics (rules) Syntax: Collection of rules for constructing programs and their components (syntactic units) Semantics: Collection of rules specifying the meaning of syntactically correct syntact...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Device-Management"><span class="toc-number">2.</span> <span class="toc-text">Device Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O-System"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O System</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Basic-Concepts"><span class="toc-number">2.1.1.</span> <span class="toc-text">Basic Concepts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Device-Usage-Characteristics"><span class="toc-number">2.1.2.</span> <span class="toc-text">Device Usage Characteristics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data-Transfer-Rate"><span class="toc-number">2.1.3.</span> <span class="toc-text">Data Transfer Rate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data-Transfer-Unit"><span class="toc-number">2.1.4.</span> <span class="toc-text">Data Transfer Unit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Device-Sharing-Attributes"><span class="toc-number">2.1.5.</span> <span class="toc-text">Device Sharing Attributes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Device-Controllers"><span class="toc-number">2.1.6.</span> <span class="toc-text">Device Controllers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-O-Channels"><span class="toc-number">2.1.7.</span> <span class="toc-text">I&#x2F;O Channels</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O-Control-Methods"><span class="toc-number">2.2.</span> <span class="toc-text">I&#x2F;O Control Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Programmed-I-O"><span class="toc-number">2.2.1.</span> <span class="toc-text">Programmed I&#x2F;O</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Interrupt-Driven-I-O"><span class="toc-number">2.2.2.</span> <span class="toc-text">Interrupt-Driven I&#x2F;O</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Direct-Memory-Access-DMA"><span class="toc-number">2.2.3.</span> <span class="toc-text">Direct Memory Access (DMA)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer-Management"><span class="toc-number">2.3.</span> <span class="toc-text">Buffer Management</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Buffer-Types"><span class="toc-number">2.3.1.</span> <span class="toc-text">Buffer Types</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O-Software"><span class="toc-number">2.4.</span> <span class="toc-text">I&#x2F;O Software</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Interrupt-Handling"><span class="toc-number">2.4.1.</span> <span class="toc-text">Interrupt Handling</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Device-Drivers"><span class="toc-number">2.4.2.</span> <span class="toc-text">Device Drivers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Device-Independence"><span class="toc-number">2.4.3.</span> <span class="toc-text">Device Independence</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Device-Allocation"><span class="toc-number">2.5.</span> <span class="toc-text">Device Allocation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Allocation-Algorithms"><span class="toc-number">2.5.1.</span> <span class="toc-text">Allocation Algorithms</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SPOOLing-Simultaneous-Peripheral-Operating-On-Line"><span class="toc-number">2.5.2.</span> <span class="toc-text">SPOOLing (Simultaneous Peripheral Operating On-Line)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Disk-Storage"><span class="toc-number">3.</span> <span class="toc-text">Disk Storage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Concepts-1"><span class="toc-number">3.1.</span> <span class="toc-text">Basic Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disk-Structure"><span class="toc-number">3.2.</span> <span class="toc-text">Disk Structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Address-Translation"><span class="toc-number">3.3.</span> <span class="toc-text">Address Translation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disk-Access"><span class="toc-number">3.4.</span> <span class="toc-text">Disk Access</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Access-Time-Components"><span class="toc-number">3.4.1.</span> <span class="toc-text">Access Time Components</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disk-Scheduling-Algorithms"><span class="toc-number">3.5.</span> <span class="toc-text">Disk Scheduling Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#First-Come-First-Served-FCFS"><span class="toc-number">3.5.1.</span> <span class="toc-text">First Come First Served (FCFS)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shortest-Seek-Time-First-SSTF"><span class="toc-number">3.5.2.</span> <span class="toc-text">Shortest Seek Time First (SSTF)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SCAN-Algorithm"><span class="toc-number">3.5.3.</span> <span class="toc-text">SCAN Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-SCAN-Circular-SCAN"><span class="toc-number">3.5.4.</span> <span class="toc-text">C-SCAN (Circular SCAN)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LOOK-and-C-LOOK"><span class="toc-number">3.5.5.</span> <span class="toc-text">LOOK and C-LOOK</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disk-Management"><span class="toc-number">3.6.</span> <span class="toc-text">Disk Management</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Disk-Cache"><span class="toc-number">3.6.1.</span> <span class="toc-text">Disk Cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Disk-Formatting"><span class="toc-number">3.6.2.</span> <span class="toc-text">Disk Formatting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RAID-Redundant-Array-of-Independent-Disks"><span class="toc-number">3.6.3.</span> <span class="toc-text">RAID (Redundant Array of Independent Disks)</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

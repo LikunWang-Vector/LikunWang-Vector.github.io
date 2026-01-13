@@ -1,0 +1,531 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>28. 实战：基于selenium实现12306自动购票 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：28. 实战：基于selenium实现12306自动购票📊 9810 阅读 | 👍 40 点赞 | 💬 33 评论 | ⭐ 133 收藏  目录 前言 目的 思路 代码实现 1. 进入登录界面，输入账号密码 2. 点击登录按钮，完成滑块验证 3. 在个人中心点击购票，跳转 4. 输入出发地、目的地，从控制台输入得到 5. 文本框输入出发日 6. 若是学生票则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="28. 实战：基于selenium实现12306自动购票">
+<meta property="og:url" content="https://your-domain.com/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：28. 实战：基于selenium实现12306自动购票📊 9810 阅读 | 👍 40 点赞 | 💬 33 评论 | ⭐ 133 收藏  目录 前言 目的 思路 代码实现 1. 进入登录界面，输入账号密码 2. 点击登录按钮，完成滑块验证 3. 在个人中心点击购票，跳转 4. 输入出发地、目的地，从控制台输入得到 5. 文本框输入出发日 6. 若是学生票则">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png">
+<meta property="article:published_time" content="2023-01-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-18T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="selenium">
+<meta property="article:tag" content="测试工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "28. 实战：基于selenium实现12306自动购票",
+  "url": "https://your-domain.com/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/",
+  "image": "https://your-domain.com/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png",
+  "datePublished": "2023-01-18T15:00:00.000Z",
+  "dateModified": "2023-01-18T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '28. 实战：基于selenium实现12306自动购票',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">28. 实战：基于selenium实现12306自动购票</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">28. 实战：基于selenium实现12306自动购票</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-18T15:00:00.000Z" title="Created 2023-01-19 00:00:00">2023-01-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-18T15:00:00.000Z" title="Updated 2023-01-19 00:00:00">2023-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>14mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-19 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128735509">28. 实战：基于selenium实现12306自动购票</a><br>📊 9810 阅读 | 👍 40 点赞 | 💬 33 评论 | ⭐ 133 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>前言</p>
+<p>目的</p>
+<p>思路</p>
+<p>代码实现</p>
+<p>1. 进入登录界面，输入账号密码</p>
+<p>2. 点击登录按钮，完成滑块验证</p>
+<p>3. 在个人中心点击购票，跳转</p>
+<p>4. 输入出发地、目的地，从控制台输入得到</p>
+<p>5. 文本框输入出发日</p>
+<p>6. 若是学生票则切换票型</p>
+<p>7. 点击查询</p>
+<p>8. 定位预定按钮，点击跳转购票页面</p>
+<p>9. 选择学生乘客，并在弹窗中确认购买学生票</p>
+<p>10. 提交订单，等待付款</p>
+<p><strong>完整代码</strong></p>
+<p><strong>运行效果</strong></p>
+<p>总结</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我们已经学会了selenium的基本操作，并且学会了用它处理验证码、跳转网页、处理内联框架等操作，现在可以进行实战：本节选取12306火车购票作为案例，用自动化测试工具selenium实现自动访问网页并下单等待购票。</p>
+<p><strong>2023-01-20更新:完善了全部功能并可以完整运行</strong></p>
+<hr>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>手动在控制台输入乘车人(新增), 出发地、目的地、出发日、是否购买学生票，确认后自动跳转12306网站购票。</p>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1. 首先获取登陆页面的URL，随后定位账号密码的输入框，用sendkey接口输入个人信息；</p>
+<p>2. 获取登录控件的XPATH地址，点击发现弹窗出现滑块验证，使用drag_and_drop_by_offset接口实现拖拽滑块到终点的操作；</p>
+<p>3. 登陆以后默认在个人中心，获取购票按钮XPATH地址，点击访问；</p>
+<p>4. 分析购票界面，点击文本框以后可以清空当前文本框，所以动作链应当为：点击 -&gt; 输入 -&gt; 按下回车。因为输入以后会弹出选项，所以我们还得点一下回车，直接切换其他文本框会清空；</p>
+<p>5. 出发日文本框点击的时候不会清空，所以用clear接口清空文本框，然后输入正确的日期格式yyyy-mm-dd形式；</p>
+<p>6. 如果是学生票，切换学生票；</p>
+<p>7. 点击查询，拿到可预定车票列表；</p>
+<p>8. 用<strong>显示等待</strong> 定位预定按钮，点击跳转购票页面；</p>
+<p>9. 用<strong>条件等待</strong> 选择学生乘客，并在弹窗中确认购买学生票 ; 或直接选择一般乘客购票；</p>
+<p>10. 提交订单，等待付款。</p>
+<hr>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="1-进入登录界面，输入账号密码"><a href="#1-进入登录界面，输入账号密码" class="headerlink" title="1. 进入登录界面，输入账号密码"></a>1. 进入登录界面，输入账号密码</h4><p><code>python opt = Options() # option.add_experimental_option(&#39;excludeSwitches&#39;, [&#39;enable-automation&#39;]) opt.add_argument(&#39;--disable-blink-features=AutomationControlled&#39;) opt.add_experimental_option(&#39;detach&#39;, True) opt.add_argument(&#39;--start-maximized&#39;) # 浏览器窗口最大 web = Chrome(options=opt) web.get(&quot;https://kyfw.12306.cn/otn/resources/login.html&quot;) web.find_element(By.XPATH, &#39;//*[@id=&quot;toolbar_Div&quot;]/div[2]/div[2]/ul/li[1]/a&#39;).click() time.sleep(1) # TODO 输入用户名和密码 web.find_element(By.XPATH, &#39;//*[@id=&quot;J-userName&quot;]&#39;).send_keys(&quot;username&quot;) web.find_element(By.XPATH, &#39;//*[@id=&quot;J-password&quot;]&#39;).send_keys(&quot;password&quot;) </code> </p>
+<h4 id="2-点击登录按钮，完成滑块验证"><a href="#2-点击登录按钮，完成滑块验证" class="headerlink" title="2. 点击登录按钮，完成滑块验证"></a>2. 点击登录按钮，完成滑块验证</h4><p><code>python # 点击登录 web.find_element(By.XPATH, &#39;//*[@id=&quot;J-login&quot;]&#39;).click() time.sleep(3) # 拖拽 btn = web.find_element(By.XPATH, &#39;//*[@id=&quot;nc_1_n1z&quot;]&#39;) ActionChains(web).drag_and_drop_by_offset(btn, 300, 0).perform() time.sleep(3) </code> </p>
+<p>ActionChains里面有许多动作序列，可以帮助我们完成许多仿人类动作，<strong>记得在最后加perform</strong> ，不然动作序列是不会执行的。</p>
+<h4 id="3-在个人中心点击购票，跳转"><a href="#3-在个人中心点击购票，跳转" class="headerlink" title="3. 在个人中心点击购票，跳转"></a>3. 在个人中心点击购票，跳转</h4><p><code>python # 车票预定 web.find_element(By.XPATH, &#39;//*[@id=&quot;link_for_ticket&quot;]&#39;).click() </code> </p>
+<h4 id="4-输入出发地、目的地，从控制台输入得到"><a href="#4-输入出发地、目的地，从控制台输入得到" class="headerlink" title="4. 输入出发地、目的地，从控制台输入得到"></a>4. 输入出发地、目的地，从控制台输入得到</h4><p>从控制台获得信息：</p>
+<p><strong>更新 : 增加了乘车人,便于定位后续购票人</strong></p>
+<p><code>python # 初始化购票信息 print(&quot;***欢迎使用自动购票系统***&quot;) print(&quot;请依次输入购票信息...&quot;) print(&quot;=&quot; * 30) fromStationText = input(&quot;请输入出发地（示例：介休东）...\n&quot;) toStationText = input(&quot;请输入目的地（示例：成都东）...\n&quot;) train_date = input(&quot;请输入出发日（示例：2023-01-19）...\n&quot;) is_student = input(&quot;是否购买学生票？（y/n）\n&quot;) print(&quot;=&quot; * 30) print(&quot;处理信息中...\n&quot;, &quot;处理完毕，请检查您输入的信息...\n&quot;, fromStationText, toStationText, train_date) confirm = input(&quot;是否确认上述信息？（y/n）\n&quot;) if confirm == &#39;y&#39;: print(&quot;=&quot; * 30) print(&quot;初始化完毕，开始运行系统...&quot;) if confirm == &#39;n&#39;: print(&quot;=&quot; * 30) print(&quot;请重新运行程序！&quot;) exit(1) </code> </p>
+<p>修改：可以精简sendkeys操作，将它们放入一行：将信息输入文本框：</p>
+<p><code>python # 输入信息（出发地、目的地、出发日） # 出发地 web.find_element(By.XPATH, &#39;//*[@id=&quot;fromStationText&quot;]&#39;).click() web.find_element(By.XPATH, &#39;//*[@id=&quot;fromStationText&quot;]&#39;).send_keys(fromStationText, Keys.ENTER) time.sleep(1) # 目的地 web.find_element(By.XPATH, &#39;//*[@id=&quot;toStationText&quot;]&#39;).click() web.find_element(By.XPATH, &#39;//*[@id=&quot;toStationText&quot;]&#39;).send_keys(toStationText, Keys.ENTER) time.sleep(1) </code> </p>
+<h4 id="5-文本框输入出发日"><a href="#5-文本框输入出发日" class="headerlink" title="5. 文本框输入出发日"></a>5. 文本框输入出发日</h4><p><code>python # 出发日 # date = web.find_element(By.XPATH, &#39;//*[@id=&quot;train_date&quot;]&#39;) # ActionChains(web).drag_and_drop_by_offset(date, 175, 0).perform() web.find_element(By.XPATH, &#39;//*[@id=&quot;train_date&quot;]&#39;).clear() web.find_element(By.XPATH, &#39;//*[@id=&quot;train_date&quot;]&#39;).send_keys(train_date) time.sleep(1) </code> </p>
+<h4 id="6-若是学生票则切换票型"><a href="#6-若是学生票则切换票型" class="headerlink" title="6. 若是学生票则切换票型"></a>6. 若是学生票则切换票型</h4><p><code>python # 点击查询 if is_student == &#39;y&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;sf2_label&quot;]&#39;).click() time.sleep(1) </code> </p>
+<h4 id="7-点击查询"><a href="#7-点击查询" class="headerlink" title="7. 点击查询"></a>7. 点击查询</h4><p><code>python # 点击查询 web.find_element(By.XPATH, &#39;//*[@id=&quot;query_ticket&quot;]&#39;).click() print(&quot;=&quot; * 30) print(&quot;查询完毕...&quot;) time.sleep(1) </code> </p>
+<h4 id="8-定位预定按钮，点击跳转购票页面"><a href="#8-定位预定按钮，点击跳转购票页面" class="headerlink" title="8. 定位预定按钮，点击跳转购票页面"></a>8. 定位预定按钮，点击跳转购票页面</h4><p>定位思路有两种，一个是<strong>直接找到控件</strong> ，另一个是<strong>相对查找</strong> ，这里我选用第二种。由于第一种的控件地址隐藏较深，无法直接在源代码定位，藏在js里面，所以我们直接<strong>用标头的最后一项相对查找</strong> 就行了。</p>
+<p><code>python # 点击预定 # TODO 待办：定位预订控件 get_ticket = web.find_element(By.XPATH, &#39;//*[@id=&quot;float&quot;]/th[16]&#39;) ActionChains(web).move_to_element_with_offset(get_ticket, 55, 70).click().perform() </code> </p>
+<p>但是这样很难精准定位，不能适用所有网页，所以还是实践第一种方法：找到控件：</p>
+<p><strong>最终确认方法： 显示等待</strong></p>
+<p><code>python # 点击预定 WebDriverWait(web, 1000).until(EC.presence_of_element_located((By.XPATH, &#39;//*[@id=&quot;queryLeftTable&quot;]/tr&#39;))) tr_list = web.find_elements(By.XPATH, &#39;//*[@id=&quot;queryLeftTable&quot;]/tr[not(@datatran)]&#39;) # 每一列列车整行信息列表，列车号元素是tr的子元素 if not tr_list: print(&quot;=&quot; * 30) print(f&quot;很抱歉，按您的查询条件，当前未找到从{fromStationText}到{toStationText}的列车。&quot;) exit(1) for tr in tr_list: train_num = tr.find_element(By.XPATH, &#39;./td[1]/div/div[1]/div/a&#39;).text # 取出元素tr里的列车号 # 动车二等座余票信息 text_1 = tr.find_element(By.XPATH, &quot;./td[4]&quot;).text # 火车二等座余票信息 text_2 = tr.find_element(By.XPATH, &quot;./td[8]&quot;).text if (text_1 == &quot;有&quot; or text_1.isdigit()) or (text_2 == &quot;有&quot; or text_2.isdigit()): # 点击预订按钮 order_btn = tr.find_element(By.CLASS_NAME, &quot;btn72&quot;) order_btn.click() # 等待订票页面 WebDriverWait(web, 1000).until(EC.url_to_be(&#39;https://kyfw.12306.cn/otn/confirmPassenger/initDc&#39;)) print(&quot;=&quot; * 30) print(train_num, &quot;二等座有票！&quot;) break else: print(&quot;=&quot; * 30) print(train_num, &quot;二等座无票！&quot;) continue </code> </p>
+<h4 id="9-选择学生乘客，并在弹窗中确认购买学生票"><a href="#9-选择学生乘客，并在弹窗中确认购买学生票" class="headerlink" title="9. 选择学生乘客，并在弹窗中确认购买学生票"></a>9. 选择学生乘客，并在弹窗中确认购买学生票</h4><p>修改：用expected condition（EC）选取处理弹窗事件。</p>
+<p><code>python # 跳转页面提交订单 # 选定乘车人 web.find_element(By.XPATH, f&#39;//*[@id=&quot;normal_passenger_id&quot;]/li/label[contains(text(),&quot;{passenger}&quot;)]&#39;).click() # 如果乘客是学生，对提示点击确定 if EC.presence_of_element_located((By.XPATH, &#39;//div[@id=&quot;dialog_xsertcj&quot;]&#39;)): web.find_element(By.ID, &#39;dialog_xsertcj_ok&#39;).click() # 提交订单 web.find_element(By.ID, &#39;submitOrder_id&#39;).click() time.sleep(2) else: # 提交订单 web.find_element(By.ID, &#39;submitOrder_id&#39;).click() time.sleep(2) </code> </p>
+<h4 id="10-提交订单，等待付款"><a href="#10-提交订单，等待付款" class="headerlink" title="10. 提交订单，等待付款"></a>10. 提交订单，等待付款</h4><p>修改：更新了座位ID无法找到的问题，向上定位XPATH再往后确认</p>
+<p><code>python # 选座 print(&quot;=&quot; * 30) seat = input(&quot;请尽快进行选座操作（[窗]A/B/C/[过道]/D/F[窗]）\n&quot;) if seat == &#39;A&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[1]/li[1]/a&#39;).click() if seat == &#39;B&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[1]/li[2]/a&#39;).click() if seat == &#39;C&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[1]/li[3]/a&#39;).click() if seat == &#39;D&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[2]/li[1]/a&#39;).click() if seat == &#39;F&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[2]/li[2]/a&#39;).click() # 最终确认 web.find_element(By.XPATH, &#39;//*[@id=&quot;qr_submit_id&quot;]&#39;).click() print(&quot;=&quot; * 30) print(&quot;*&quot;*40, &quot;\n---***&lt;|订单创建完成，请于10分钟内付款|&gt;***---&quot;) print(&quot;*&quot;*40) </code> </p>
+<hr>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><p><code>python from selenium.webdriver import Chrome from selenium.webdriver.common.action_chains import ActionChains from selenium.webdriver.chrome.options import Options from selenium.webdriver.common.by import By from selenium.webdriver.common.keys import Keys from selenium.webdriver.support.wait import WebDriverWait from selenium.webdriver.support import expected_conditions as EC import time # 初始化购票信息 print(&quot;***欢迎使用自动购票系统***&quot;) print(&quot;请依次输入购票信息...&quot;) print(&quot;=&quot; * 30) passenger = input(&quot;请输入乘车人（示例：蔡徐坤）...\n&quot;) fromStationText = input(&quot;请输入出发地（示例：介休东）...\n&quot;) toStationText = input(&quot;请输入目的地（示例：成都东）...\n&quot;) train_date = input(&quot;请输入出发日（示例：2023-01-19）...\n&quot;) is_student = input(&quot;是否购买学生票？（y/n）\n&quot;) print(&quot;=&quot; * 30) print(&quot;处理信息中...\n&quot;, &quot;处理完毕，请检查您输入的信息...\n&quot;, fromStationText, toStationText, train_date) confirm = input(&quot;是否确认上述信息？（y/n）\n&quot;) if confirm == &#39;y&#39;: print(&quot;=&quot; * 30) print(&quot;初始化完毕，开始运行系统...&quot;) if confirm == &#39;n&#39;: print(&quot;=&quot; * 30) print(&quot;请重新运行程序！&quot;) exit(1) # 2.chrome的版本大于等于88 opt = Options() # option.add_experimental_option(&#39;excludeSwitches&#39;, [&#39;enable-automation&#39;]) opt.add_argument(&#39;--disable-blink-features=AutomationControlled&#39;) opt.add_experimental_option(&#39;detach&#39;, True) opt.add_argument(&#39;--start-maximized&#39;) # 浏览器窗口最大 web = Chrome(options=opt) web.get(&quot;https://kyfw.12306.cn/otn/resources/login.html&quot;) web.find_element(By.XPATH, &#39;//*[@id=&quot;toolbar_Div&quot;]/div[2]/div[2]/ul/li[1]/a&#39;).click() time.sleep(1) # TODO 输入用户名和密码 web.find_element(By.XPATH, &#39;//*[@id=&quot;J-userName&quot;]&#39;).send_keys(&quot;18306825490&quot;) web.find_element(By.XPATH, &#39;//*[@id=&quot;J-password&quot;]&#39;).send_keys(&quot;lk020511&quot;) # 点击登录 web.find_element(By.XPATH, &#39;//*[@id=&quot;J-login&quot;]&#39;).click() time.sleep(3) # 拖拽 btn = web.find_element(By.XPATH, &#39;//*[@id=&quot;nc_1_n1z&quot;]&#39;) ActionChains(web).drag_and_drop_by_offset(btn, 300, 0).perform() time.sleep(3) # 车票预定 web.find_element(By.XPATH, &#39;//*[@id=&quot;link_for_ticket&quot;]&#39;).click() # 输入信息（出发地、目的地、出发日） # 出发地 web.find_element(By.XPATH, &#39;//*[@id=&quot;fromStationText&quot;]&#39;).click() web.find_element(By.XPATH, &#39;//*[@id=&quot;fromStationText&quot;]&#39;).send_keys(fromStationText, Keys.ENTER) time.sleep(1) # 目的地 web.find_element(By.XPATH, &#39;//*[@id=&quot;toStationText&quot;]&#39;).click() web.find_element(By.XPATH, &#39;//*[@id=&quot;toStationText&quot;]&#39;).send_keys(toStationText, Keys.ENTER) time.sleep(1) # 出发日 web.find_element(By.XPATH, &#39;//*[@id=&quot;train_date&quot;]&#39;).clear() web.find_element(By.XPATH, &#39;//*[@id=&quot;train_date&quot;]&#39;).send_keys(train_date) time.sleep(1) # 点击查询 if is_student == &#39;y&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;sf2_label&quot;]&#39;).click() time.sleep(1) web.find_element(By.XPATH, &#39;//*[@id=&quot;query_ticket&quot;]&#39;).click() print(&quot;=&quot; * 30) print(&quot;查询完毕...&quot;) time.sleep(1) # 点击预定 WebDriverWait(web, 1000).until(EC.presence_of_element_located((By.XPATH, &#39;//*[@id=&quot;queryLeftTable&quot;]/tr&#39;))) tr_list = web.find_elements(By.XPATH, &#39;//*[@id=&quot;queryLeftTable&quot;]/tr[not(@datatran)]&#39;) # 每一列列车整行信息列表，列车号元素是tr的子元素 if not tr_list: print(&quot;=&quot; * 30) print(f&quot;很抱歉，按您的查询条件，当前未找到从{fromStationText}到{toStationText}的列车。&quot;) exit(1) for tr in tr_list: train_num = tr.find_element(By.XPATH, &#39;./td[1]/div/div[1]/div/a&#39;).text # 取出元素tr里的列车号 # 动车二等座余票信息 text_1 = tr.find_element(By.XPATH, &quot;./td[4]&quot;).text # 火车二等座余票信息 text_2 = tr.find_element(By.XPATH, &quot;./td[8]&quot;).text if (text_1 == &quot;有&quot; or text_1.isdigit()) or (text_2 == &quot;有&quot; or text_2.isdigit()): # 点击预订按钮 order_btn = tr.find_element(By.CLASS_NAME, &quot;btn72&quot;) order_btn.click() # 等待订票页面 WebDriverWait(web, 1000).until(EC.url_to_be(&#39;https://kyfw.12306.cn/otn/confirmPassenger/initDc&#39;)) print(&quot;=&quot; * 30) print(train_num, &quot;二等座有票！&quot;) break else: print(&quot;=&quot; * 30) print(train_num, &quot;二等座无票！&quot;) continue # 跳转页面提交订单 # 选定乘车人 web.find_element(By.XPATH, f&#39;//*[@id=&quot;normal_passenger_id&quot;]/li/label[contains(text(),&quot;{passenger}&quot;)]&#39;).click() # 如果乘客是学生，对提示点击确定 if EC.presence_of_element_located((By.XPATH, &#39;//div[@id=&quot;dialog_xsertcj&quot;]&#39;)): web.find_element(By.ID, &#39;dialog_xsertcj_ok&#39;).click() # 提交订单 web.find_element(By.ID, &#39;submitOrder_id&#39;).click() time.sleep(2) else: # 提交订单 web.find_element(By.ID, &#39;submitOrder_id&#39;).click() time.sleep(2) # 选座 print(&quot;=&quot; * 30) seat = input(&quot;请尽快进行选座操作（[窗]A/B/C/[过道]/D/F[窗]）\n&quot;) if seat == &#39;A&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[1]/li[1]/a&#39;).click() if seat == &#39;B&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[1]/li[2]/a&#39;).click() if seat == &#39;C&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[1]/li[3]/a&#39;).click() if seat == &#39;D&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[2]/li[1]/a&#39;).click() if seat == &#39;F&#39;: web.find_element(By.XPATH, &#39;//*[@id=&quot;erdeng1&quot;]/ul[2]/li[2]/a&#39;).click() # 最终确认 web.find_element(By.XPATH, &#39;//*[@id=&quot;qr_submit_id&quot;]&#39;).click() print(&quot;=&quot; * 30) print(&quot;*&quot;*40, &quot;\n---***&lt;|订单创建完成，请于10分钟内付款|&gt;***---&quot;) print(&quot;*&quot;*40) </code> </p>
+<hr>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/66fbdc39aabf.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/027f52eadef8.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/7ec764af76c7.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/80970b419e47.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/ef45ceb120c6.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/2fbb2700ee22.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/4e94076583e6.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/09a787148650.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/417b1681a1a1.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/64bc76e11779.png"></p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本节是基于selenium的浏览器自动化操作的实例，较为综合，涉及的知识点也比较多，仅供小伙伴们参考学习，请勿用于其他用途！</p>
+<p>不太明白的小伙伴可以移步我之前发布过的<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128699574?spm=1001.2014.3001.5501" title="selenium基础">selenium基础</a>和<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128707095?spm=1001.2014.3001.5501" title="简单的验证码实战">简单的验证码实战</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/">https://your-domain.com/2023/01/18/zh-CN/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/selenium/">selenium</a><a class="post-meta__tags" href="/tags/%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/">测试工具</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/20/en/29-CSS-Introduction-Preparation-for-PyQuery/" title="29. CSS Introduction: Preparation for PyQuery Module"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">29. CSS Introduction: Preparation for PyQuery Module</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 29. CSS简介：PyQuery模块的铺垫📊 708 views | 👍 4 likes | 💬 1 comment | ⭐ 4 favorites   Table of Contents What is CSS? CSS Demo - One HTML Page with Multiple Styles! Why Use CSS? CSS Example CSS Solved a Big Problem CSS Saves a Lot of Work! Simple Explanation CSS Selectors CSS Element Selector CSS ID Selector CSS Class Selector CSS Universal Selector CSS Grouping Selector All Simple CSS Selectors Further Reading  What is CSS? CSS stands for...</div></div></div></a><a class="pagination-related" href="/2023/01/18/en/28-Practical-12306-Auto-Ticket-Booking-with-Selenium/" title="28. Practical: Auto Ticket Booking on 12306 with Selenium"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">28. Practical: Auto Ticket Booking on 12306 with Selenium</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 28. Practical: Auto Ticket Booking on 12306 with Selenium📊 9810 views | 👍 40 likes | 💬 33 comments | ⭐ 133 favorites  Table of Contents Introduction Objective Approach Code Implementation Complete Code Results Summary  IntroductionWe’ve learned Selenium basics - handling CAPTCHAs, page navigation, iframes. Now for practice: using Selenium to automate train ticket booking on China’s 12306 website. 2023-01-20 Update: All features comple...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/03/03/zh-CN/38.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E7%9A%84%E6%9F%90%E5%AE%9D%E7%A7%92%E6%9D%80%E6%8A%A2%E8%B4%AD%E7%B3%BB%E7%BB%9F%EF%BC%88%E9%99%84%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%EF%BC%89/" title="38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/38.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E7%9A%84%E6%9F%90%E5%AE%9D%E7%A7%92%E6%9D%80%E6%8A%A2%E8%B4%AD%E7%B3%BB%E7%BB%9F%EF%BC%88%E9%99%84%E5%AE%8C%E6%95%B4/c12a0161b511.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-04</div><div class="info-item-2">38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码）📊 2747 阅读 | 👍 7 点赞 | 💬 9 评论 | ⭐ 11 收藏  目录 前言 目的 思路 代码实现 1. 自动打开浏览器，并配置选项 2. 实现扫码登陆 3. 进入购物车选择秒杀商品（本例勾选全选） 4. 获取当前时间，大于设定时间时下单 5. 下单成功后语音提示用户返回付款  完整源码 运行效果 总结  前言每到购物节，某宝某东等购物平台就会有层出不穷的秒杀活动，但我们总会由于手速、网速等原因抢不到自己需要的低价商品，很是苦恼。这个时候我们的Python自动化脚本工具又可以登场了：利用selenium工具设计自动抢购系统，到点自助下单就可以咯~  本节以某宝为例，给大家做一个简要的演示。  目的编写一个自动抢购程序，要求能设定一个时间和目标商品（提前加入购物车中），使用自动化工具持续监测当前时间，一旦到设定时间，自动下单某宝设定好的商品并提交，抢占商品。  思路1. 实现自动打开浏览器，进入登录界面。 2. 扫码登陆&#x2F;账号密码登录（账号密码登录的方式我...</div></div></div></a><a class="pagination-related" href="/2023/01/31/zh-CN/36.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8E%E4%B8%8A%E4%B8%80%E8%8A%82%E7%9A%84%E5%85%A8%E9%9D%A2%E5%8D%87%E7%BA%A7%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%9F%90%E9%9F%B3%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%8A%9F%E8%83%BD/" title="36. 实战：基于上一节的全面升级——实现某音批量下载功能"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/36.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8E%E4%B8%8A%E4%B8%80%E8%8A%82%E7%9A%84%E5%85%A8%E9%9D%A2%E5%8D%87%E7%BA%A7%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%9F%90%E9%9F%B3%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%8A%9F%E8%83%BD/fd082fdf5276.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-01</div><div class="info-item-2">36. 实战：基于上一节的全面升级——实现某音批量下载功能</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：36. 实战：基于上一节的全面升级——实现某音批量下载功能📊 790 阅读 | 👍 4 点赞 | 💬 6 评论 | ⭐ 6 收藏  目录 前言 目的 思路 代码实现 1. 先将下载单个视频的功能封装成函数 2. 获取下载列表 3. 创建线程池调用下载函数 完整源码 运行效果 总结  前言上一节我们实现了某短视频平台的去水印下载功能，本节我们实现批量抓取：给定某一个用户主页，抓取他的全部视频。  目的基于多线程实现高效批量抓取任意主页的全部视频  思路1. 我们实际上已经实现了单个视频的无水印下载，那么我们只需要从主页获得大量的视频链接即可 2. 访问用户主页，审查元素，找到视频列表，获取大量链接 3. 创建线程池，将视频链接放入单个视频下载的函数批量执行  代码实现1. 先将下载单个视频的功能封装成函数python def grab_single_video(link): url = f&#39;{link}&#39; headers = { &#39;cookie&#39;: &#39;douyin.com; __ac_nonce=063...</div></div></div></a><a class="pagination-related" href="/2023/03/18/zh-CN/41.-%E5%9F%BA%E4%BA%8Eselenium%E7%9A%84%E5%90%84%E5%A4%A7%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%E8%87%AA%E5%8A%A8%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%AE%8C%E6%95%B4%E6%BA%90%E7%A0%81%EF%BC%89/" title="41. 基于selenium的各大购物平台自动秒杀系统（完整源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/41.-%E5%9F%BA%E4%BA%8Eselenium%E7%9A%84%E5%90%84%E5%A4%A7%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%E8%87%AA%E5%8A%A8%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%AE%8C%E6%95%B4/65d0aeeecb62.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="info-item-2">41. 基于selenium的各大购物平台自动秒杀系统（完整源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：41. 基于selenium的各大购物平台自动秒杀系统（完整源码）📊 1454 阅读 | 👍 4 点赞 | 💬 7 评论 | ⭐ 14 收藏  目录 前言 目的 思路 代码实现 1. 将三个平台封装成函数 2. 将判断时间写为一个函数 3. 设计控制台UI 4. 优化逻辑 5. 测试 完整源码 运行效果 总结  前言之前在38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码），我们做了一个简易的淘宝秒杀系统，反响还是不错的，这一期我们对它进行一个升级，加入天猫和京东两大购物平台的秒杀系统，并且实现在控制台选择想要秒杀的平台和自定义秒杀时间的功能，看起来更加的高大上。  目的1. 实现控制台操作 2. 实现三个平台自定义时间秒杀  思路1. 将三个平台封装成函数 2. 将判断时间写为一个函数 3. 设计控制台UI 4. 优化逻辑 5. 测试  代码实现1. 将三个平台封装成函数还是以淘宝为例，把访问网页开始到秒杀结束的逻辑拿出来封装起来，并且引入时间控制函数time_dealer()来判断当前是否到达秒杀时间。 其他两个平台类似，...</div></div></div></a><a class="pagination-related" href="/2023/01/31/en/36-Practical-Batch-Video-Download-with-Threading/" title="36. Practical: Batch Video Download with Thread Pool"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/36.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8E%E4%B8%8A%E4%B8%80%E8%8A%82%E7%9A%84%E5%85%A8%E9%9D%A2%E5%8D%87%E7%BA%A7%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%9F%90%E9%9F%B3%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%8A%9F%E8%83%BD/fd082fdf5276.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-01</div><div class="info-item-2">36. Practical: Batch Video Download with Thread Pool</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 36. 实战：基于上一节的全面升级——实现某音批量下载功能📊 790 views | 👍 4 likes | 💬 6 comments | ⭐ 6 favorites  Table of Contents Introduction Objective Approach Code Implementation  Encapsulate single video download as a function Get download list Create thread pool to call download function  Complete Source Code Results Summary  IntroductionIn the previous section, we implemented watermark-free video downloading. This section implements batch scraping: gi...</div></div></div></a><a class="pagination-related" href="/2023/01/18/en/28-Practical-12306-Auto-Ticket-Booking-with-Selenium/" title="28. Practical: Auto Ticket Booking on 12306 with Selenium"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/28.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E5%AE%9E%E7%8E%B012306%E8%87%AA%E5%8A%A8%E8%B4%AD%E7%A5%A8/6dbf8c615639.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-19</div><div class="info-item-2">28. Practical: Auto Ticket Booking on 12306 with Selenium</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 28. Practical: Auto Ticket Booking on 12306 with Selenium📊 9810 views | 👍 40 likes | 💬 33 comments | ⭐ 133 favorites  Table of Contents Introduction Objective Approach Code Implementation Complete Code Results Summary  IntroductionWe’ve learned Selenium basics - handling CAPTCHAs, page navigation, iframes. Now for practice: using Selenium to automate train ticket booking on China’s 12306 website. 2023-01-20 Update: All features comple...</div></div></div></a><a class="pagination-related" href="/2023/03/18/en/Selenium-Cannot-Find-Element-Common-Pitfalls/" title="Selenium: Can&#39;t Find Web Elements? Common Pitfalls"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-19</div><div class="info-item-2">Selenium: Can&#39;t Find Web Elements? Common Pitfalls</div></div><div class="info-2"><div class="info-item-1">1. Cannot Directly Get Node Attributes with XPathUsually when using XPath, we can use @class to directly get node attributes: 1page.xpath(&#x27;//div/a/@class&#x27;)  But Selenium doesn’t support this usage. You can only use the get_attribute(name) method after finding the node: 1page.xpath(&#x27;//div/a&#x27;).get_attribute(&#x27;class&#x27;)  Similarly, Selenium doesn’t support XPath methods like string() and text(). You can only get element nodes.  2. Still Can’t Find Element After Using W...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%9B%E5%85%A5%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2%EF%BC%8C%E8%BE%93%E5%85%A5%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-number">4.1.</span> <span class="toc-text">1. 进入登录界面，输入账号密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%82%B9%E5%87%BB%E7%99%BB%E5%BD%95%E6%8C%89%E9%92%AE%EF%BC%8C%E5%AE%8C%E6%88%90%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81"><span class="toc-number">4.2.</span> <span class="toc-text">2. 点击登录按钮，完成滑块验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%9C%A8%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83%E7%82%B9%E5%87%BB%E8%B4%AD%E7%A5%A8%EF%BC%8C%E8%B7%B3%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3. 在个人中心点击购票，跳转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%BE%93%E5%85%A5%E5%87%BA%E5%8F%91%E5%9C%B0%E3%80%81%E7%9B%AE%E7%9A%84%E5%9C%B0%EF%BC%8C%E4%BB%8E%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%85%A5%E5%BE%97%E5%88%B0"><span class="toc-number">4.4.</span> <span class="toc-text">4. 输入出发地、目的地，从控制台输入得到</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%96%87%E6%9C%AC%E6%A1%86%E8%BE%93%E5%85%A5%E5%87%BA%E5%8F%91%E6%97%A5"><span class="toc-number">4.5.</span> <span class="toc-text">5. 文本框输入出发日</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%8B%A5%E6%98%AF%E5%AD%A6%E7%94%9F%E7%A5%A8%E5%88%99%E5%88%87%E6%8D%A2%E7%A5%A8%E5%9E%8B"><span class="toc-number">4.6.</span> <span class="toc-text">6. 若是学生票则切换票型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E7%82%B9%E5%87%BB%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.7.</span> <span class="toc-text">7. 点击查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%AE%9A%E4%BD%8D%E9%A2%84%E5%AE%9A%E6%8C%89%E9%92%AE%EF%BC%8C%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BD%AC%E8%B4%AD%E7%A5%A8%E9%A1%B5%E9%9D%A2"><span class="toc-number">4.8.</span> <span class="toc-text">8. 定位预定按钮，点击跳转购票页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E9%80%89%E6%8B%A9%E5%AD%A6%E7%94%9F%E4%B9%98%E5%AE%A2%EF%BC%8C%E5%B9%B6%E5%9C%A8%E5%BC%B9%E7%AA%97%E4%B8%AD%E7%A1%AE%E8%AE%A4%E8%B4%AD%E4%B9%B0%E5%AD%A6%E7%94%9F%E7%A5%A8"><span class="toc-number">4.9.</span> <span class="toc-text">9. 选择学生乘客，并在弹窗中确认购买学生票</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E6%8F%90%E4%BA%A4%E8%AE%A2%E5%8D%95%EF%BC%8C%E7%AD%89%E5%BE%85%E4%BB%98%E6%AC%BE"><span class="toc-number">4.10.</span> <span class="toc-text">10. 提交订单，等待付款</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">完整代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text">运行效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

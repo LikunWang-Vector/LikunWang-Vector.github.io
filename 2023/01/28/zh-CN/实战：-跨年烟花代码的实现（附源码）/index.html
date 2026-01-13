@@ -1,0 +1,489 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>实战： 跨年烟花代码的实现（附源码） | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：实战： 跨年烟花代码的实现（附源码）📊 4549 阅读 | 👍 14 点赞 | 💬 4 评论 | ⭐ 21 收藏   目录 前言 一、pandas是什么？ 二、代码结构 1.介绍主html代码 2. js文件介绍 GameCanvas.js script.js 运行效果   前言本文章将介绍跨年烟花代码的实现以及源代码  提示：以下是本篇文章正文内容 一、p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实战： 跨年烟花代码的实现（附源码）">
+<meta property="og:url" content="https://your-domain.com/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：实战： 跨年烟花代码的实现（附源码）📊 4549 阅读 | 👍 14 点赞 | 💬 4 评论 | ⭐ 21 收藏   目录 前言 一、pandas是什么？ 二、代码结构 1.介绍主html代码 2. js文件介绍 GameCanvas.js script.js 运行效果   前言本文章将介绍跨年烟花代码的实现以及源代码  提示：以下是本篇文章正文内容 一、p">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png">
+<meta property="article:published_time" content="2023-01-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-28T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "实战： 跨年烟花代码的实现（附源码）",
+  "url": "https://your-domain.com/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/",
+  "image": "https://your-domain.com/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png",
+  "datePublished": "2023-01-28T15:00:00.000Z",
+  "dateModified": "2023-01-28T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '实战： 跨年烟花代码的实现（附源码）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">实战： 跨年烟花代码的实现（附源码）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">实战： 跨年烟花代码的实现（附源码）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-28T15:00:00.000Z" title="Created 2023-01-29 00:00:00">2023-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-28T15:00:00.000Z" title="Updated 2023-01-29 00:00:00">2023-01-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">HTML入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>30mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-29 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128790122">实战： 跨年烟花代码的实现（附源码）</a><br>📊 4549 阅读 | 👍 14 点赞 | 💬 4 评论 | ⭐ 21 收藏</p>
+</blockquote>
+<blockquote>
+<p><strong>目录</strong></p>
+<p>前言</p>
+<p>一、pandas是什么？</p>
+<p>二、代码结构</p>
+<p>1.介绍主html代码</p>
+<p>2. js文件介绍</p>
+<p>GameCanvas.js</p>
+<p>script.js</p>
+<p>运行效果</p>
+</blockquote>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文章将介绍跨年烟花代码的实现以及源代码</p>
+<hr>
+<p><code>提示：以下是本篇文章正文内容</code></p>
+<h2 id="一、pandas是什么？"><a href="#一、pandas是什么？" class="headerlink" title="一、pandas是什么？"></a>一、pandas是什么？</h2><p>示例：pandas 是基于NumPy 的一种工具，该工具是为了解决数据分析任务而创建的。</p>
+<h2 id="二、代码结构"><a href="#二、代码结构" class="headerlink" title="二、代码结构"></a>二、代码结构</h2><h3 id="1-介绍主html代码"><a href="#1-介绍主html代码" class="headerlink" title="1.介绍主html代码"></a>1.介绍主html代码</h3><p>代码如下：<code> </code></p>
+<p><code>html &lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot; &gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;2023新年快乐&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script src=&#39;js/gameCanvas-4.0.js&#39;&gt;&lt;/script&gt; &lt;script src=&quot;js/script.js&quot;&gt;&lt;/script&gt; &lt;setTimeout(function() { setInterval(function() { fireworks.push(new Firework(Math.random() * width, height, Math.random() - 0.5, -(Math.random() * 7 + 5))); }, 200); }, 2000); fireworks.push(new Firework(width / 2, height, 0, -9.5, 10, &quot;gold&quot;, true)); setInterval(function() { fireworks.push(new Firework(width / 2, height, 0, -9.5, 10, &quot;gold&quot;, true)); }, 5000); for (var i = 0; i &lt; 250; i++) { circle( Math.random() * width, Math.random() * height, 1, &quot;rgb(200, 200, 200)&quot; ); } var starImage = canvasToImage(); background(&quot;black&quot;); loop(); function loop() { gc.ctx.globalCompositeOperation = &quot;source-over&quot;; background(&quot;rgba(0, 0, 0, 0.1)&quot;); gc.ctx.drawImage(starImage, 0, 0); gc.ctx.globalCompositeOperation = &quot;lighter&quot;; for (var i = 0; i &lt; fireworks.length; i++) { var firework = fireworks[i]; firework.update(); firework.render(); } for (var i = 0; i &lt; particles.length; i++) { var particle = particles[i]; particle.update(); particle.render(); } for (var i = 0; i &lt; titleParticles.length; i++) { var p = titleParticles[i]; p.update(); p.render(); } requestAnimationFrame(loop); } function TitleParticle(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.ay = 0.2; this.radius = 4; this.maxHealth = 200; this.health = 200; this.update = function() { this.x += this.vx; this.y += this.vy; this.vx *= 0.95; this.vy *= 0.95; this.vy += this.ay; this.ay *= 0.95; this.radius = (this.health / this.maxHealth) * 4; this.health--; if (this.health &lt;= 0) { titleParticles.splice(titleParticles.indexOf(this), 1); } } this.render = function() { circle(this.x, this.y, this.radius, &quot;rgba(255, 255, 255, &quot; + (this.health / this.maxHealth) + &quot;)&quot;); } } function Firework(x, y, vx, vy, radius = 5, color = &quot;white&quot;, title = false) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.radius = radius; this.title = title; this.color = color; &lt;/body&gt; &lt;/html&gt; </code> </p>
+<p>可以看到引入了两个js文件，也同样在本地。 </p>
+<h3 id="2-js文件介绍"><a href="#2-js文件介绍" class="headerlink" title="2. js文件介绍"></a>2. js文件介绍</h3><p>代码如下：</p>
+<h4 id="GameCanvas-js"><a href="#GameCanvas-js" class="headerlink" title="GameCanvas.js"></a>GameCanvas.js</h4><p><code>javascript function GameCanvas(settings) { let top = this; this.functions = []; this.keys = []; this.images = []; this.spheres = []; this.font = &quot;Arial&quot;; this.imageData = undefined; this.imageDataData = undefined; this.lastLoop = performance.now(); this.calculateFPS = true; this.fps = -1; this.deltaTime = 1; let mouseLookupTable = [ &quot;left&quot;, &quot;middle&quot;, &quot;right&quot; ]; this.contextMenuDisabled = false; this.disableScrollOnMobile = false; this.eventFunctions = { &quot;mousedown&quot;: typeof OnMouseDown !== &quot;undefined&quot;, &quot;mouseup&quot;: typeof OnMouseUp !== &quot;undefined&quot;, &quot;mousemove&quot;: typeof OnMouseMove !== &quot;undefined&quot;, &quot;contextmenu&quot;: typeof OnContextMenu !== &quot;undefined&quot;, &quot;touchstart&quot;: typeof OnTouchStart !== &quot;undefined&quot;, &quot;touchend&quot;: typeof OnTouchEnd !== &quot;undefined&quot;, &quot;touchmove&quot;: typeof OnTouchMove !== &quot;undefined&quot;, }; this.audioContext = new (window.AudioContext || window.webkitAudioContext)(); this.createCanvas = function() { let canvas = document.createElement(&quot;canvas&quot;); document.body.appendChild(canvas); return canvas; } this.setSize = function(width, height) { if (top.canvas) { top.canvas.width = top.width = width; top.canvas.height = top.height = height; window.width = this.width; window.height = this.height; } else { console.error(&quot;There is no canvas!&quot;); } } this.fillPageWithCanvas = function() { top.canvas.style.position = &quot;fixed&quot;; top.canvas.style.top = &quot;0px&quot;; top.canvas.style.left = &quot;0px&quot;; top.setSize(window.innerWidth, window.innerHeight); top.disableScrollOnMobile = true; top.contextMenuDisabled = true; this.updateSizeOnResize = true; } this.requestFullscreen = function() { if (top.canvas.requestFullscreen) top.canvas.requestFullscreen(); else if (top.canvas.mozRequestFullScreen) top.canvas.mozRequestFullScreen(); else if (top.canvas.webkitRequestFullscreen) top.canvas.webkitRequestFullscreen(); else if (top.canvas.msRequestFullscreen) top.canvas.msRequestFullscreen(); } this.exitFullscreen = function() { if(document.exitFullscreen) document.exitFullscreen(); else if(document.mozCancelFullScreen) document.mozCancelFullScreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen(); else if(document.msExitFullscreen) document.msExitFullscreen(); } this.lockPointer = function() { top.canvas.requestPointerLock = top.canvas.requestPointerLock || top.canvas.mozRequestPointerLock; top.canvas.requestPointerLock(); } this.unlockPointer = function() { document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock; document.exitPointerLock(); } this.disableContextMenu = function() { top.contextMenuDisabled = true; } this.enableContextMenu = function() { top.contextMenuDisabled = false; } this.key = function(key) { return top.keys[key]; } this.update = function() { if (top.calculateFPS) { var thisLoop = performance.now(); top.fps = 1000 / (thisLoop - top.lastLoop); top.deltaTime = 60 / top.fps; top.lastLoop = thisLoop; if (top.globalFunctions) { window.fps = top.fps; window.deltaTime = top.deltaTime; } } top.mouse.movementX = 0; top.mouse.movementY = 0; top.mouse.lastX = top.mouse.x; top.mouse.lastY = top.mouse.y; } /****************** Rendering ******************/ this.clearScreen = function() { top.ctx.clearRect(0, 0, top.width, top.height); } this.background = function(color) { top.ctx.fillStyle = color; top.ctx.fillRect(0, 0, top.width, top.height); } this.circle = function(x, y, radius, color, strokeColor, lineWidth) { top.ctx.beginPath(); top.ctx.arc(x, y, radius, 0, Math.PI * 2); top.ctx.fillStyle = color; if (strokeColor) top.ctx.strokeStyle = strokeColor; if (lineWidth) top.ctx.lineWidth = lineWidth; top.ctx.fill(); if (strokeColor) top.ctx.stroke(); } this.ring = function(x, y, radius, color, lineWidth) { top.ctx.beginPath(); top.ctx.arc(x, y, radius, 0, Math.PI * 2); top.ctx.strokeStyle = color; if (lineWidth) top.ctx.lineWidth = lineWidth; top.ctx.stroke(); } this.ellipse = function(x, y, radiusX, radiusY, color, rotation = 0, strokeColor, lineWidth) { top.ctx.beginPath(); top.ctx.ellipse(x, y, radiusX, radiusY, rotation, 0, Math.PI * 2); top.ctx.fillStyle = color; if (strokeColor) top.ctx.strokeStyle = strokeColor; if (lineWidth) top.ctx.lineWidth = lineWidth; top.ctx.fill(); if (strokeColor) top.ctx.stroke(); } this.rectangle = function(x, y, width, height, color, strokeColor, lineWidth) { top.ctx.fillStyle = color; if (lineWidth) top.ctx.lineWidth = lineWidth; if (strokeColor) { top.ctx.beginPath(); top.ctx.strokeStyle = strokeColor; top.ctx.rect(x, y, width, height); top.ctx.fill(); top.ctx.stroke(); } else top.ctx.fillRect(x, y, width, height); } this.triangle = function(x1, y1, x2, y2, x3, y3, color, strokeColor, lineWidth) { top.ctx.beginPath(); top.ctx.moveTo(x1, y1); top.ctx.lineTo(x2, y2); top.ctx.lineTo(x3, y3); top.ctx.closePath(); top.ctx.fillStyle = color; if (lineWidth) top.ctx.lineWidth = lineWidth; top.ctx.fill(); if (strokeColor) { top.ctx.strokeStyle = strokeColor; top.ctx.stroke(); } } this.setLineCap = function(lineCap) { top.ctx.lineCap = lineCap; } this.resetLineCap = function() { top.ctx.lineCap = &quot;butt&quot;; } this.line = function(x1, y1, x2, y2, strokeWeight, color) { top.ctx.beginPath(); top.ctx.moveTo(x1, y1); top.ctx.lineTo(x2, y2); if (color) top.ctx.strokeStyle = color; if (strokeWeight) top.ctx.lineWidth = strokeWeight; top.ctx.stroke(); } this.picture = function(url, x, y, width, height) { var imageElement = top.images[url]; if (!imageElement) { var img = new Image(); img.src = url; img.onload = function() { top.ctx.drawImage(img, x, y, width, height); } top.images[url] = img; } else if (imageElement.complete) { top.ctx.drawImage(imageElement, x, y, width, height); } } this.setFont = function(font) { top.font = font; } this.setTextAlign = function(align) { top.ctx.textAlign = align; } this.setTextXAlign = function(align) { top.ctx.textAlign = align; } this.setTextYAlign = function(align) { top.ctx.textBaseline = align; } this.resetTextXAlign = function() { top.ctx.textAlign = &quot;left&quot;; } this.resetTextYAlign = function() { top.ctx.textBaseline = &quot;alphabetic&quot;; } this.text = function(textString, x, y, fontSize, color, strokeColor, lineWidth) { top.ctx.beginPath(); top.ctx.font = fontSize + &quot;px &quot; + top.font; top.ctx.fillStyle = color; if (lineWidth) top.ctx.lineWidth = lineWidth; top.ctx.fillText(textString, x, y); if (strokeColor) { top.ctx.strokeStyle = strokeColor; top.ctx.strokeText(textString, x, y); } } this.getPixelData = function() { top.imageData = top.ctx.getImageData(0, 0, top.width, top.height); top.imageDataData = top.imageData.data; } this.updatePixel = function(x, y, r, g, b, a = 255) { let i = (x + y * top.width) * 4; top.imageDataData[i] = r; top.imageDataData[i + 1] = g; top.imageDataData[i + 2] = b; top.imageDataData[i + 3] = a; } this.updatePixelIndex = function(index, r, g, b, a = 255) { var i = index * 4; top.imageDataData[i] = r; top.imageDataData[i + 1] = g; top.imageDataData[i + 2] = b; top.imageDataData[i + 3] = a; } this.getPixel = function(x, y) { let i = (x + y * top.width) * 4; return [ top.imageDataData[i], top.imageDataData[i + 1], top.imageDataData[i + 2], top.imageDataData[i + 3] ]; } this.getPixelIndex = function(index) { let i = index * 4; return [ top.imageDataData[i], top.imageDataData[i + 1], top.imageDataData[i + 2], top.imageDataData[i + 3] ]; } this.renderPixelData = function() { /*createImageBitmap(top.imageData).then(function(imgBitmap) { top.ctx.drawImage(imgBitmap, 0, 0); });*/ top.ctx.putImageData(top.imageData, 0, 0); } this.save = function() { top.ctx.save(); } this.restore = function() { top.ctx.restore(); } this.rotate = function(angle) { top.ctx.rotate(angle); } this.translate = function(x, y) { top.ctx.translate(x, y); } this.beginPath = function() { top.ctx.beginPath(); } this.closePath = function() { top.ctx.closePath(); } this.moveTo = function(x, y) { top.ctx.moveTo(x, y); } this.lineTo = function(x, y) { top.ctx.lineTo(x, y); } this.fill = function() { top.ctx.fill(); } this.stroke = function() { top.ctx.stroke(); } this.fillStyle = function(color) { top.ctx.fillStyle = color; } this.strokeStyle = function(color) { top.ctx.strokeStyle = color; } this.setLineWidth = function(lineWidth) { top.ctx.lineWidth = lineWidth; } /****************** 3D ******************/ this.drawSphere = function(screenX, screenY, radius, color, lightDir = {x: 0, y: 0, z: 1}) { var id = (screenX + screenY) * radius * (color[0] + 1) * (color[1] + 1) * (color[2] + 1) * (lightDir.x + 1) * (lightDir.y + 1) * (lightDir.z + 1); if (top.spheres[id]) { if (top.spheres[id].imageData) top.ctx.putImageData(top.spheres[id].imageData, screenX - radius, screenY - radius); else if (top.spheres[id].image) top.ctx.drawImage(top.spheres[id].image, screenX - radius, screenY - radius); } else { var imageData = top.ctx.createImageData(radius * 2, radius * 2); for (var y = 0; y &lt; radius * 2; y++) { for (var x = 0; x &lt; radius * 2; x++) { var line = { origin: {x: x, y: y, z: 0}, direction: {x: 0, y: 0, z: 1} }; var o = { position: {x: radius, y: radius, z: radius * 2} } var oc = { x: line.origin.x - o.position.x, y: line.origin.y - o.position.y, z: line.origin.z - o.position.z }; var loc = top.dot3D(line.direction, oc); var ocLength = top.getLength(oc.x, oc.y, oc.z); var underSqrt = loc * loc - (ocLength * ocLength - radius * radius); if (underSqrt &gt;= 0) { var d = -loc - Math.sqrt(underSqrt); if (d &gt; 0) { // Circle is not behind player and is closest to player var hitPoint = { x: line.origin.x + line.direction.x * d, y: line.origin.y + line.direction.y * d, z: line.origin.z + line.direction.z * d }; var surfaceNormal = top.normalize3DVector({ x: o.position.x - hitPoint.x, y: o.position.y - hitPoint.y, z: o.position.z - hitPoint.z }); var diffuse = top.dot3D(lightDir, surfaceNormal); var index = (x + y * radius * 2) * 4; imageData.data[index] = color[0] * diffuse; imageData.data[index + 1] = color[1] * diffuse; imageData.data[index + 2] = color[2] * diffuse; imageData.data[index + 3] = 255; } } } } if (window.createImageBitmap) { top.spheres[id] = {imageData: undefined, image: undefined}; createImageBitmap(imageData).then(function(imgBitmap) { top.ctx.drawImage(imgBitmap, screenX - radius, screenY - radius); top.spheres[id] = {imageData: undefined, image: imgBitmap}; }); } else { top.ctx.putImageData(imageData, screenX - radius, screenY - radius); top.spheres[id] = {imageData, image: undefined}; } } } /****************** Audio ******************/ this.createSound = function(url, volume = 1, startTime = 0, looping = false) { var audio = new Audio(url); audio.loop = looping; audio.currentTime = startTime; audio.volume = volume; return { volume, startTime, audio }; } this.playSound = function(sound) { sound.audio.currentTime = sound.startTime; sound.audio.volume = sound.volume; sound.audio.play(); } this.stopSound = function(sound) { sound.audio.stop(); } this.pauseSound = function(sound) { sound.audio.pause(); } this.backgroundMusic = function(url) { var audio = new Audio(url); audio.loop = true; audio.play(); return audio; } this.fadeOutSound = function(sound, time = 1) { var startVolume = sound.volume; var count = 0; var interv = setInterval(() =&gt; { sound.audio.volume = (startVolume / (time * 20)) * (time * 20 - count); count++; if (count &gt; time * 20) { sound.audio.pause(); clearInterval(interv); } }, 50); } this.playTone = function(freq = 440, time = 1, volume = 1, type = &quot;sine&quot;) { var oscillator = top.audioContext.createOscillator(); var gainNode = top.audioContext.createGain() gainNode.gain.value = volume; gainNode.connect(top.audioContext.destination); oscillator.type = type; oscillator.frequency.value = freq; oscillator.connect(gainNode); oscillator.start(); setTimeout(() =&gt; { oscillator.stop(); }, time * 1000); } /****************** Math ******************/ this.DegToRad = Math.PI / 180; this.RadToDeg = 180 / Math.PI; this.PI = Math.PI; this.TWO_PI = Math.PI * 2; this.TAU = this.TWO_PI; this.getDistanceSqr = function(x1, y1, x2, y2) { var a = x1 - x2; var b = y1 - y2; return a * a + b * b; } this.getDistanceSqr3D = function(x1, y1, x2, y2, z1, z2) { var a = x1 - x2; var b = y1 - y2; var c = z1 - z2; return a * a + b * b + c * c; } this.getDistance = function(x1, y1, x2, y2) { return Math.sqrt(top.getDistanceSqr(x1, y1, x2, y2)); } this.getDistance3D = function(x1, y1, x2, y2, z1, z2) { return Math.sqrt(top.getDistanceSqr3D(x1, y1, x2, y2, z1, z2)); } this.getAngle = function(x1, y1, x2, y2) { return Math.atan2(y2 - y1, x2 - x1); } this.normalize = function(x, y) { var len = Math.sqrt(x * x + y * y); return { x: x / len, y: y / len }; } this.normalize3D = function(x, y, z) { var len = Math.sqrt(x * x + y * y + z * z); return { x: x / len, y: y / len, z: z / len }; } this.normalize3DVector = function(x) { var len = Math.sqrt(x.x * x.x + x.y * x.y + x.z * x.z); return { x: x.x / len, y: x.y / len, z: x.z / len }; } this.lengthVector = function(v) { return Math.sqrt(v.x * v.x + v.y * v.y); } this.length3DVector = function(v) { return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z); } this.getLength = function() { var sum = 0; for (var i = 0; i &lt; arguments.length; i++) { var arg = arguments[i]; sum += arg * arg; } return Math.sqrt(sum); } this.dot = function(a, b) { return a.x * b.x + a.y * b.y; } this.dot3D = function(a, b) { return a.x * b.x + a.y * b.y + a.z * b.z; } this.crossProduct3D = function(v1, v2) { return { x: v1.y * v2.z - v1.z * v2.y, y: v1.z * v2.x - v1.x * v2.z, z: v1.x * v2.y - v1.y * v2.x } } //Intersection this.rectanglesIntersect = function(x1, y1, w1, h1, x2, y2, w2, h2) { return x1 + w1 &gt; x2 &amp;&amp; x1 &lt; x2 + w2 &amp;&amp; y1 + h1 &gt; y2 &amp;&amp; y1 &lt; y2 + h2; } this.circlesIntersect = function(x1, y1, r1, x2, y2, r2) { return top.getDistance(x1, y1, x2, y2) &lt; r1 + r2; } this.circleRectangleIntersect = function(x1, y1, r1, x2, y2, w2, h2) { var circleDistanceX = Math.abs(x1 - (x2 + w2 / 2)); var circleDistanceY = Math.abs(y1 - (y2 + h2 / 2)); if (circleDistanceX &gt; (w2 / 2 + r1)) return false; if (circleDistanceY &gt; (h2 / 2 + r1)) return false; if (circleDistanceX &lt;= (w2 / 2)) return true; if (circleDistanceY &lt;= (h2 / 2)) return true; var a = circleDistanceX - w2 / 2; var b = circleDistanceY - h2 / 2; var cornerDistance_sq = a * a + b * b; return cornerDistance_sq &lt;= (r1 * r1); } //Random this.random = function(max) { return Math.random() * max; } this.randomInt = function(max) { return Math.random() * max &gt;&gt; 0; } this.randomArray = function(array) { return array[Math.random() * array.length &gt;&gt; 0]; } this.randomColor = function(colorDepth) { if (colorDepth) { var colorStep = 256 / colorDepth; var r = Math.ceil((Math.random() * 256 &gt;&gt; 0) / colorStep) * colorStep; var g = Math.ceil((Math.random() * 256 &gt;&gt; 0) / colorStep) * colorStep; var b = Math.ceil((Math.random() * 256 &gt;&gt; 0) / colorStep) * colorStep; return &quot;rgb(&quot; + r + &quot;,&quot; + g + &quot;,&quot; + b + &quot;)&quot;; } else { return &quot;rgb(&quot; + (Math.random() * 256 &gt;&gt; 0) + &quot;,&quot; + (Math.random() * 256 &gt;&gt; 0) + &quot;,&quot; + (Math.random() * 256 &gt;&gt; 0) + &quot;)&quot;; } } this.create2DArray = function(w, h, value = () =&gt; 0) { var array = new Array(w); for (var i = 0; i &lt; w; i++) { array[i] = new Array(h); for (var j = 0; j &lt; h; j++) { array[i][j] = value(i, j); } } return array; } /****************** Export ******************/ this.canvasToURL = function() { return top.canvas.toDataURL(); } this.canvasToImage = function() { var img = new Image(); img.src = top.canvas.toDataURL(); return img; } this.saveToFile = function(filename = &quot;canvas.png&quot;) { var a = document.createElement(&quot;a&quot;); a.download = filename; a.href = top.canvas.toDataURL(); a.click(); } /****************** Cookies ******************/ this.setCookie = function(name, value, expireDays = 36500) { let d = new Date(); d.setTime(d.getTime() + (expireDays * 24 * 60 * 60 * 1000)); let expires = &quot;expires=&quot; + d.toUTCString(); document.cookie = name + &quot;=&quot; + value + &quot;;&quot; + expires + &quot;;path=/&quot;; } this.getCookie = function(name) { if (name.length == 0) return false; var cname = name + &quot;=&quot;; var split = document.cookie.split(&quot;;&quot;); for (let i = 0; i &lt; split.length; i++) { let s = split[i]; var index = s.indexOf(cname); if (index &gt; 0) { return s.substr(index + cname.length); } } return false; } this.deleteCookie = function(name) { document.cookie = name + &quot;=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/&quot;; } /****************** Misc. ******************/ //Battery level if (navigator.getBattery) { navigator.getBattery().then(function (battery) { battery.addEventListener(&#39;levelchange&#39;, function() { top.batteryLevel = battery.level * 100; }); top.batteryLevel = battery.level * 100; }); } this.getBatteryLevel = function() { return top.batteryLevel; } /****************** Functions ******************/ this.functions = [ {func: this.createCanvas, name: &quot;createCanvas&quot;}, {func: this.setSize, name: &quot;setSize&quot;}, {func: this.fillPageWithCanvas, name: &quot;fillPageWithCanvas&quot;}, {func: this.requestFullscreen, name: &quot;requestFullscreen&quot;}, {func: this.exitFullscreen, name: &quot;exitFullscreen&quot;}, {func: this.lockPointer, name: &quot;lockPointer&quot;}, {func: this.unlockPointer, name: &quot;unlockPointer&quot;}, {func: this.disableContextMenu, name: &quot;disableContextMenu&quot;}, {func: this.enableContextMenu, name: &quot;enableContextMenu&quot;}, {func: this.key, name: &quot;key&quot;}, {func: this.update, name: &quot;update&quot;}, {func: this.clearScreen, name: &quot;clearScreen&quot;}, {func: this.background, name: &quot;background&quot;}, {func: this.circle, name: &quot;circle&quot;}, {func: this.ring, name: &quot;ring&quot;}, {func: this.ellipse, name: &quot;ellipse&quot;}, {func: this.rectangle, name: &quot;rectangle&quot;}, {func: this.triangle, name: &quot;triangle&quot;}, {func: this.picture, name: &quot;picture&quot;}, {func: this.setLineCap, name: &quot;setLineCap&quot;}, {func: this.resetLineCap, name: &quot;resetLineCap&quot;}, {func: this.line, name: &quot;line&quot;}, {func: this.setFont, name: &quot;setFont&quot;}, {func: this.setTextAlign, name: &quot;setTextAlign&quot;}, {func: this.setTextXAlign, name: &quot;setTextXAlign&quot;}, {func: this.setTextYAlign, name: &quot;setTextYAlign&quot;}, {func: this.resetTextXAlign, name: &quot;resetTextXAlign&quot;}, {func: this.resetTextYAlign, name: &quot;resetTextYAlign&quot;}, {func: this.text, name: &quot;text&quot;}, {func: this.getPixelData, name: &quot;getPixelData&quot;}, {func: this.updatePixel, name: &quot;updatePixel&quot;}, {func: this.updatePixelIndex, name: &quot;updatePixelIndex&quot;}, {func: this.getPixel, name: &quot;getPixel&quot;}, {func: this.getPixelIndex, name: &quot;getPixelIndex&quot;}, {func: this.renderPixelData, name: &quot;renderPixelData&quot;}, {func: this.save, name: &quot;save&quot;}, {func: this.restore, name: &quot;restore&quot;}, {func: this.rotate, name: &quot;rotate&quot;}, {func: this.translate, name: &quot;translate&quot;}, {func: this.beginPath, name: &quot;beginPath&quot;}, {func: this.closePath, name: &quot;closePath&quot;}, {func: this.moveTo, name: &quot;moveTo&quot;}, {func: this.lineTo, name: &quot;lineTo&quot;}, {func: this.fill, name: &quot;fill&quot;}, {func: this.stroke, name: &quot;stroke&quot;}, {func: this.fillStyle, name: &quot;fillStyle&quot;}, {func: this.strokeStyle, name: &quot;strokeStyle&quot;}, {func: this.setLineWidth, name: &quot;setLineWidth&quot;}, {func: this.drawSphere, name: &quot;drawSphere&quot;}, {func: this.createSound, name: &quot;createSound&quot;}, {func: this.playSound, name: &quot;playSound&quot;}, {func: this.stopSound, name: &quot;stopSound&quot;}, {func: this.pauseSound, name: &quot;pauseSound&quot;}, {func: this.fadeOutSound, name: &quot;fadeOutSound&quot;}, {func: this.playTone, name: &quot;playTone&quot;}, {func: this.getDistanceSqr, name: &quot;getDistanceSqr&quot;}, {func: this.getDistance, name: &quot;getDistance&quot;}, {func: this.getDistanceSqr3D, name: &quot;getDistanceSqr3D&quot;}, {func: this.getDistance3D, name: &quot;getDistance3D&quot;}, {func: this.getAngle, name: &quot;getAngle&quot;}, {func: this.normalize, name: &quot;normalize&quot;}, {func: this.normalize3D, name: &quot;normalize3D&quot;}, {func: this.normalize3D, name: &quot;normalize3DVector&quot;}, {func: this.getLength, name: &quot;getLength&quot;}, {func: this.dot, name: &quot;dot&quot;}, {func: this.dot3D, name: &quot;dot3D&quot;}, {func: this.crossProduct3D, name: &quot;crossProduct3D&quot;}, {func: this.lengthVector, name: &quot;lengthVector&quot;}, {func: this.length3DVector, name: &quot;length3DVector&quot;}, {func: this.rectanglesIntersect, name: &quot;rectanglesIntersect&quot;}, {func: this.circlesIntersect, name: &quot;circlesIntersect&quot;}, {func: this.circleRectangleIntersect, name: &quot;circleRectangleIntersect&quot;}, {func: this.random, name: &quot;random&quot;}, {func: this.randomInt, name: &quot;randomInt&quot;}, {func: this.randomArray, name: &quot;randomArray&quot;}, {func: this.randomColor, name: &quot;randomColor&quot;}, {func: this.create2DArray, name: &quot;create2DArray&quot;}, {func: this.canvasToURL, name: &quot;canvasToURL&quot;}, {func: this.canvasToImage, name: &quot;canvasToImage&quot;}, {func: this.saveToFile, name: &quot;saveToFile&quot;}, {func: this.setCookie, name: &quot;setCookie&quot;}, {func: this.getCookie, name: &quot;getCookie&quot;}, {func: this.deleteCookie, name: &quot;deleteCookie&quot;}, {func: this.getBatteryLevel, name: &quot;getBatteryLevel&quot;} ]; this.variables = [ {variable: this.RadToDeg, name: &quot;RadToDeg&quot;}, {variable: this.DegToRad, name: &quot;DegToRad&quot;}, {variable: this.PI, name: &quot;PI&quot;}, {variable: this.TWO_PI, name: &quot;TWO_PI&quot;}, {variable: this.TAU, name: &quot;TAU&quot;} ]; this.makeFunctionsGlobal = function() { this.globalFunctions = true; this.functions.forEach(item =&gt; { window[item.name] = item.func; }); this.variables.forEach(item =&gt; { window[item.name] = item.variable; }); window.fps = this.fps; window.deltaTime = this.deltaTime; } /****************** Init ******************/ this.settings = settings; if (typeof this.settings === &#39;undefined&#39;) { //Create a canvas and make it fullscreen this.canvas = this.createCanvas(); this.fillPageWithCanvas(); this.makeFunctionsGlobal(); } else { if (typeof this.settings.canvas !== &quot;undefined&quot;) this.canvas = this.settings.canvas; else { this.canvas = this.createCanvas(); if (typeof this.settings.width === &quot;undefined&quot; &amp;&amp; typeof this.settings.height === &quot;undefined&quot;) this.fillPageWithCanvas(); if (typeof this.settings.globalFunctions === &quot;undefined&quot; || (typeof this.settings.globalFunctions !== &quot;undefined&quot; &amp;&amp; this.settings.globalFunctions)) this.makeFunctionsGlobal(); } if (typeof this.settings.width !== &quot;undefined&quot;) { this.width = this.settings.width; this.canvas.width = window.width = this.width; } if (typeof this.settings.height !== &quot;undefined&quot;) { this.height = this.settings.height; this.canvas.height = window.height = this.height; } if (typeof this.settings.updateSizeOnResize !== &quot;undefined&quot;) { this.updateSizeOnResize = this.settings.updateSizeOnResize; } } document.addEventListener(&quot;keydown&quot;, event =&gt; { this.keys[event.key] = this.keys[event.keyCode] = true; }); document.addEventListener(&quot;keyup&quot;, event =&gt; { this.keys[event.key] = this.keys[event.keyCode] = false; }); if (this.canvas) { this.ctx = this.canvas.getContext(&quot;2d&quot;); if (this.updateSizeOnResize) { window.addEventListener(&quot;resize&quot;, () =&gt; { this.setSize(window.innerWidth, window.innerHeight); }); } this.mouse = {x: 0, y: 0, lastX: 0, lastY: 0, movementX: 0, movementY: 0, left: false, middle: false, right: false, down: false}; this.touches = []; if (this.globalFunctions) { window.mouse = this.mouse; window.touches = this.touches; } this.canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { let br = this.canvas.getBoundingClientRect(); this.mouse.x = (event.clientX - br.left) / (br.width / this.width); this.mouse.y = (event.clientY - br.top) / (br.height / this.height); this.mouse.movementX = event.movementX; this.mouse.movementY = event.movementY; this.eventFunctions[&quot;mousemove&quot;] &amp;&amp; OnMouseMove(event); }); this.canvas.addEventListener(&quot;mousedown&quot;, event =&gt; { let button = event.button; if (button &lt; 3) this.mouse[mouseLookupTable[button]] = true; if (!this.audioContext) this.audioContext = new (window.AudioContext || window.webkitAudioContext)(); this.eventFunctions[&quot;mousedown&quot;] &amp;&amp; OnMouseDown(event); }); this.canvas.addEventListener(&quot;mouseup&quot;, event =&gt; { let button = event.button; if (button &lt; 3) this.mouse[mouseLookupTable[button]] = false; this.eventFunctions[&quot;mouseup&quot;] &amp;&amp; OnMouseUp(event); }); this.canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; { this.eventFunctions[&quot;contextmenu&quot;] &amp;&amp; OnContextMenu(event); if (this.contextMenuDisabled) { event.preventDefault(); return false; } return true; }); //Touch this.updateTouches = function() { let br = this.canvas.getBoundingClientRect(); this.touches = []; for (let i = 0; i &lt; event.touches.length; i++) { var e = event.touches[i]; var x = (e.pageX - br.left) / (br.width / this.width); var y = (e.pageY - br.top) / (br.height / this.height); this.touches[i] = {x, y, id: e.identifier, force: e.force}; } if (this.globalFunctions) window.touches = this.touches; } this.canvas.addEventListener(&quot;touchmove&quot;, event =&gt; { if (this.disableScrollOnMobile) event.preventDefault(); this.updateTouches(); this.mouse.x = this.touches[0].x; this.mouse.y = this.touches[0].y; this.eventFunctions[&quot;touchmove&quot;] &amp;&amp; OnTouchMove(event); }); this.canvas.addEventListener(&quot;touchend&quot;, event =&gt; { if (this.disableScrollOnMobile) event.preventDefault(); this.touches = []; if (this.globalFunctions) window.touches = this.touches; this.mouse.left = false; this.eventFunctions[&quot;touchend&quot;] &amp;&amp; OnTouchEnd(event); }); this.canvas.addEventListener(&quot;touchstart&quot;, event =&gt; { if (this.disableScrollOnMobile) event.preventDefault(); this.updateTouches(); this.mouse.x = this.touches[0].x; this.mouse.y = this.touches[0].y; this.mouse.left = true; if (!this.audioContext) this.audioContext = new (window.AudioContext || window.webkitAudioContext)(); this.eventFunctions[&quot;touchstart&quot;] &amp;&amp; OnTouchStart(event); }); } } </code> </p>
+<h4 id="script-js"><a href="#script-js" class="headerlink" title="script.js"></a><code>script.js</code></h4><p><code>修改var points中包裹的文本可以改变烟花爆炸时出现的文字</code></p>
+<p><code>javascript var gc = new GameCanvas(); var points = textToPoints(&quot; 2023新年快乐！&quot;, 15, &quot;Anton&quot;); var titleParticles = []; var fireworks = []; var particles = []; var gravity = 0.1; setTimeout(function() { setInterval(function() { fireworks.push(new Firework(Math.random() * width, height, Math.random() - 0.5, -(Math.random() * 7 + 5))); }, 200); }, 2000); fireworks.push(new Firework(width / 2, height, 0, -9.5, 10, &quot;gold&quot;, true)); setInterval(function() { fireworks.push(new Firework(width / 2, height, 0, -9.5, 10, &quot;gold&quot;, true)); }, 5000); for (var i = 0; i &lt; 250; i++) { circle( Math.random() * width, Math.random() * height, 1, &quot;rgb(200, 200, 200)&quot; ); } var starImage = canvasToImage(); background(&quot;black&quot;); loop(); function loop() { gc.ctx.globalCompositeOperation = &quot;source-over&quot;; background(&quot;rgba(0, 0, 0, 0.1)&quot;); gc.ctx.drawImage(starImage, 0, 0); gc.ctx.globalCompositeOperation = &quot;lighter&quot;; for (var i = 0; i &lt; fireworks.length; i++) { var firework = fireworks[i]; firework.update(); firework.render(); } for (var i = 0; i &lt; particles.length; i++) { var particle = particles[i]; particle.update(); particle.render(); } for (var i = 0; i &lt; titleParticles.length; i++) { var p = titleParticles[i]; p.update(); p.render(); } requestAnimationFrame(loop); } function TitleParticle(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.ay = 0.2; this.radius = 4; this.maxHealth = 200; this.health = 200; this.update = function() { this.x += this.vx; this.y += this.vy; this.vx *= 0.95; this.vy *= 0.95; this.vy += this.ay; this.ay *= 0.95; this.radius = (this.health / this.maxHealth) * 4; this.health--; if (this.health &lt;= 0) { titleParticles.splice(titleParticles.indexOf(this), 1); } } this.render = function() { circle(this.x, this.y, this.radius, &quot;rgba(255, 255, 255, &quot; + (this.health / this.maxHealth) + &quot;)&quot;); } } function Firework(x, y, vx, vy, radius = 5, color = &quot;white&quot;, title = false) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.radius = radius; this.title = title; this.color = color; this.update = function() { this.x += this.vx; this.y += this.vy; this.vy += gravity; if (this.vy &gt;= 0) { fireworks.splice(fireworks.indexOf(this), 1); if (this.title) { var scale = 0.3; for (var i = 0; i &lt; points.length; i++) { var p = points[i]; var v = { x: (p.x - 60) * scale + (Math.random() - 0.5) * 0.1, y: (p.y - 20) * scale + (Math.random() - 0.5) * 0.1 } var particle = new TitleParticle(this.x, this.y, v.x, v.y); titleParticles.push(particle); } } else { var color = [Math.random() * 256 &gt;&gt; 0, Math.random() * 256 &gt;&gt; 0, Math.random() * 256 &gt;&gt; 0]; for (var i = 0; i &lt; Math.PI * 2; i += 0.1) { var power = (Math.random() + 0.5) * 4; var vx = Math.cos(i) * power; var vy = Math.sin(i) * power; particles.push(new Particle(this.x, this.y, vx, vy, Math.random() + 3, color)); } } } } this.render = function() { circle(this.x, this.y, this.radius, this.color); } } function Particle(x, y, vx, vy, radius, color) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 100; this.color = color; this.radius = radius; this.update = function() { this.x += this.vx; this.y += this.vy; this.vy += gravity; this.vx *= 0.95; this.vy *= 0.95; this.life--; if (this.life &lt;= 0) { particles.splice(particles.indexOf(this), 1); } } this.render = function() { circle(this.x, this.y, 3 * (this.life / 100), &quot;rgba(&quot; + this.color[0] + &quot;, &quot; + this.color[1] + &quot;, &quot; + this.color[2] + &quot;, &quot; + (this.life / 100) + &quot;)&quot;); } } function textToPoints(text, textSize, font) { var canvas = document.createElement(&quot;canvas&quot;); canvas.width = 1024; canvas.height = textSize * 1.3; var ctx = canvas.getContext(&quot;2d&quot;); ctx.textBaseline = &quot;middle&quot;; ctx.font = textSize + &quot;px &quot; + font; ctx.fillText(text, 0, canvas.height / 2); var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height); var data = imageData.data; var points = []; var index = (x, y) =&gt; (x + canvas.width * y) * 4; var threshold = 50; for (var i = 0; i &lt; data.length; i += 4) { if (data[i + 3] &gt; threshold) { var p = { x: (i / 4) % canvas.width, y: (i / 4) / canvas.width &gt;&gt; 0 }; if (data[index(p.x + 1, p.y) + 3] &lt; threshold || data[index(p.x - 1, p.y) + 3] &lt; threshold || data[index(p.x, p.y + 1) + 3] &lt; threshold || data[index(p.x, p.y - 1) + 3] &lt; threshold) { points.push({ x: (i / 4) % canvas.width, y: (i / 4) / canvas.width &gt;&gt; 0 }); } } } return points; } </code> </p>
+<hr>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>光说不练假把式，看图：</p>
+<p><strong>运行效果如下</strong></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png"></p>
+<hr>
+<p><strong>总结</strong></p>
+<p>以上就是今天要讲的内容，本文介绍了跨年烟花代码使用。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/">https://your-domain.com/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/html5/">html5</a><a class="post-meta__tags" href="/tags/javascript/">javascript</a><a class="post-meta__tags" href="/tags/css/">css</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/30/en/35-Practical-Video-Watermark-Removal-with-Python/" title="35. Practical: Video Watermark Removal with Python"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/35.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E5%8E%BB%E6%B0%B4%E5%8D%B0%EF%BC%88%E6%96%87%E6%9C%AB%E6%BA%90%E7%A0%81%EF%BC%89/c0a97a1158f5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">35. Practical: Video Watermark Removal with Python</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 35. 实战：Python实现视频去水印📊 10706 views | 👍 19 likes | 💬 21 comments | ⭐ 69 favorites  Table of Contents Introduction Objective Approach Code Implementation  Request URL and view source code If not in source, use packet capture tools Get video source link and trace its origin Get data and write binary to local file  Complete Source Code Results Summary  IntroductionWhen browsing short video platforms, sometimes we want to save videos lo...</div></div></div></a><a class="pagination-related" href="/2023/01/28/en/New-Year-Fireworks-Code-Implementation/" title="New Year Fireworks Code Implementation (with Source Code)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">New Year Fireworks Code Implementation (with Source Code)</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: New Year Fireworks Code Implementation📊 4549 views | 👍 14 likes | 💬 4 comments | ⭐ 21 favorites   Table of Contents Introduction Code Structure  Main HTML Code  JavaScript Files   GameCanvas.js script.js Running Effect   IntroductionThis article introduces the implementation of New Year fireworks code along with the complete source code.  Code Structure1. Main HTML CodeThe code is as follows: 1234567891011&lt;!DOCTYPE html&gt;&lt;html...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/01/28/en/New-Year-Fireworks-Code-Implementation/" title="New Year Fireworks Code Implementation (with Source Code)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-29</div><div class="info-item-2">New Year Fireworks Code Implementation (with Source Code)</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: New Year Fireworks Code Implementation📊 4549 views | 👍 14 likes | 💬 4 comments | ⭐ 21 favorites   Table of Contents Introduction Code Structure  Main HTML Code  JavaScript Files   GameCanvas.js script.js Running Effect   IntroductionThis article introduces the implementation of New Year fireworks code along with the complete source code.  Code Structure1. Main HTML CodeThe code is as follows: 1234567891011&lt;!DOCTYPE html&gt;&lt;html...</div></div></div></a><a class="pagination-related" href="/2022/12/25/en/HTML-Head/" title="HTML Head"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML Head</div></div><div class="info-2"><div class="info-item-1">Table of Contents Examples HTML &lt;head&gt; Element HTML &lt;title&gt; Element HTML &lt;base&gt; Element HTML &lt;link&gt; Element HTML &lt;style&gt; Element HTML &lt;meta&gt; Element HTML &lt;script&gt; Element A Complete Example  ExamplesDocument Title - The &lt;title&gt; tag defines the document title. All Links Open in New Window - How to use the base tag to make all links on a page open in a new window. Document Description - Using the &lt;meta&gt; element to describe the document. Docu...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E5%B8%83%E5%B1%80/" title="HTML布局"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML布局</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML布局📊 148 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 使用元素的 HTML 布局 实例 CSS： 使用 HTML5 的网站布局 HTML5 语义元素 实例 CSS 使用表格的 HTML 布局 实例 CSS 一个完整的实例  网站常常以多列显示内容（就像杂志和报纸）。  使用  元素的 HTML 布局注释： 元素常用作布局工具，因为能够轻松地通过 CSS 对其进行定位。 这个例子使用了四个  元素来创建多列布局： 实例&lt;body&gt; &lt;div id=&quot;header&quot;&gt; &lt;h1&gt;City Gallery&lt;/h1&gt; &lt;/div&gt; &lt;div id=&quot;nav&quot;&gt; London&lt;br&gt; Paris&lt;br&gt; Tokyo&lt;br&gt; &lt;/div&gt; &lt;div id=&quot;section&quot;&gt; &lt;h1&gt;London&lt;/h1&gt...</div></div></div></a><a class="pagination-related" href="/2022/12/30/en/HTML-Quick-Reference/" title="HTML Quick Reference Guide"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">HTML Quick Reference Guide</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Basic Document Text Elements Logical Styles Physical Styles Links, Anchors, Image Elements Unordered List Ordered List Definition List Tables Frames Forms Entities Other Elements  HTML Basic Document12345678&lt;html&gt;&lt;head&gt;&lt;title&gt;Document name goes here&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Visible text goes here&lt;/body&gt;&lt;/html&gt;   Text Elements1234&lt;p&gt;This is a paragraph&lt;/p&gt;&lt;br&gt; (line break)&lt;hr&gt; (horizontal rule)&lt;pre&gt;...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML5-Semantic-Elements/" title="HTML5 Semantic Elements"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/c95d3aea07da.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML5 Semantic Elements</div></div><div class="info-2"><div class="info-item-1">Table of Contents What are Semantic Elements? New Semantic Elements in HTML5 HTML5 &lt;section&gt; Element HTML5 &lt;article&gt; Element HTML5 &lt;header&gt; Element HTML5 &lt;footer&gt; Element HTML5 &lt;nav&gt; Element HTML5 &lt;aside&gt; Element HTML5 &lt;figure&gt; and &lt;figcaption&gt; Elements Why Use HTML5 Elements? Semantic Elements in HTML5  Semantics (from ancient Greek) can be defined as the study of the meaning of language. Semantic elements are elements with meaning.  What are S...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E7%B1%BB/" title="HTML类"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML类</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML类📊 128 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 分类块级元素 实例 分类行内元素 实例 一个完整的实例  对 HTML 进行分类（设置类），使我们能够为元素的类定义 CSS 样式。 为相同的类设置相同的样式，或者为不同的类设置不同的样式。  实例&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;style&gt; .cities { background-color:black; color:white; margin:20px; padding:20px; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&quot;cities&quot;&gt; &lt;h2&gt;London&lt;/h2&gt; &lt;p&gt; London is the capital city of England. It is the most populous city in the ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81pandas%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">一、pandas是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">二、代码结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D%E4%B8%BBhtml%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">1.介绍主html代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-js%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.2.</span> <span class="toc-text">2. js文件介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GameCanvas-js"><span class="toc-number">3.2.1.</span> <span class="toc-text">GameCanvas.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#script-js"><span class="toc-number">3.2.2.</span> <span class="toc-text">script.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">3.3.</span> <span class="toc-text">运行效果</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

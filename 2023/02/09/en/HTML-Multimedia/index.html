@@ -1,0 +1,671 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube) | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents HTML MediaHTML PluginsHTML AudioHTML VideoHTML YouTube  HTML MediaMultimedia on the web is sound, music, videos, movies, and animations. Modern web browsers have built-in support for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)">
+<meta property="og:url" content="https://your-domain.com/2023/02/09/en/HTML-Multimedia/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents HTML MediaHTML PluginsHTML AudioHTML VideoHTML YouTube  HTML MediaMultimedia on the web is sound, music, videos, movies, and animations. Modern web browsers have built-in support for">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2023-02-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-09T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="audio-video">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="frontend-framework">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="media">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)",
+  "url": "https://your-domain.com/2023/02/09/en/HTML-Multimedia/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2023-02-09T15:00:00.000Z",
+  "dateModified": "2023-02-09T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/09/en/HTML-Multimedia/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML Multimedia - Complete Guide (Plugins, Audio, Video, YouTube)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-09T15:00:00.000Z" title="Created 2023-02-10 00:00:00">2023-02-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-09T15:00:00.000Z" title="Updated 2023-02-10 00:00:00">2023-02-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML-Beginner-to-Advanced/">HTML Beginner to Advanced</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>9mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-10 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>HTML Media<br>HTML Plugins<br>HTML Audio<br>HTML Video<br>HTML YouTube</p>
+<hr>
+<h2 id="HTML-Media"><a href="#HTML-Media" class="headerlink" title="HTML Media"></a>HTML Media</h2><p>Multimedia on the web is sound, music, videos, movies, and animations.</p>
+<p>Modern web browsers have built-in support for many multimedia formats.</p>
+<h3 id="What-is-Multimedia"><a href="#What-is-Multimedia" class="headerlink" title="What is Multimedia?"></a>What is Multimedia?</h3><p>Multimedia comes in many different formats. It can be almost anything you can hear or see, like images, music, sound, videos, records, films, animations, and more.</p>
+<p>Web pages often contain multimedia elements of different types and formats.</p>
+<h3 id="Multimedia-Formats"><a href="#Multimedia-Formats" class="headerlink" title="Multimedia Formats"></a>Multimedia Formats</h3><p>Multimedia elements (like audio and video) are stored in media files.</p>
+<p>The most common way to discover the type of a file is to look at the file extension.</p>
+<p>Multimedia files have formats and different extensions like: .wav, .mp3, .mp4, .mpg, .wmv, and .avi.</p>
+<h3 id="Video-Formats"><a href="#Video-Formats" class="headerlink" title="Video Formats"></a>Video Formats</h3><table>
+<thead>
+<tr>
+<th>Format</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MPEG</td>
+<td>.mpg, .mpeg</td>
+<td>MPEG. Developed by the Moving Pictures Expert Group. The first popular video format on the web.</td>
+</tr>
+<tr>
+<td>AVI</td>
+<td>.avi</td>
+<td>AVI (Audio Video Interleave). Developed by Microsoft. Commonly used in video cameras and TV hardware.</td>
+</tr>
+<tr>
+<td>WMV</td>
+<td>.wmv</td>
+<td>WMV (Windows Media Video). Developed by Microsoft.</td>
+</tr>
+<tr>
+<td>QuickTime</td>
+<td>.mov</td>
+<td>QuickTime. Developed by Apple.</td>
+</tr>
+<tr>
+<td>RealVideo</td>
+<td>.rm, .ram</td>
+<td>RealVideo. Developed by Real Media. Allows video streaming with low bandwidths.</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>.swf, .flv</td>
+<td>Flash. Developed by Macromedia. Often requires an extra component (plug-in) to play in web browsers.</td>
+</tr>
+<tr>
+<td>MP4</td>
+<td>.mp4</td>
+<td>MP4. Developed by the Moving Pictures Expert Group. Based on QuickTime. Commonly supported in newer browsers.</td>
+</tr>
+</tbody></table>
+<h3 id="Audio-Formats"><a href="#Audio-Formats" class="headerlink" title="Audio Formats"></a>Audio Formats</h3><table>
+<thead>
+<tr>
+<th>Format</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MIDI</td>
+<td>.mid, .midi</td>
+<td>MIDI (Musical Instrument Digital Interface). Main format for all electronic music devices.</td>
+</tr>
+<tr>
+<td>RealAudio</td>
+<td>.rm, .ram</td>
+<td>RealAudio. Developed by Real Media. Allows audio streaming with low bandwidths.</td>
+</tr>
+<tr>
+<td>WMA</td>
+<td>.wma</td>
+<td>WMA (Windows Media Audio). Developed by Microsoft.</td>
+</tr>
+<tr>
+<td>AAC</td>
+<td>.aac</td>
+<td>AAC (Advanced Audio Coding). Developed by Apple as the default format for iTunes.</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td>.wav</td>
+<td>WAV. Developed by IBM and Microsoft.</td>
+</tr>
+<tr>
+<td>Ogg</td>
+<td>.ogg</td>
+<td>Ogg. Developed by the Xiph.Org Foundation.</td>
+</tr>
+<tr>
+<td>MP3</td>
+<td>.mp3</td>
+<td>MP3 files are actually the sound part of MPEG files. MP3 is the most popular format for music players.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="HTML-Plugins"><a href="#HTML-Plugins" class="headerlink" title="HTML Plugins"></a>HTML Plugins</h2><p>Plug-ins are computer programs that extend the standard functionality of the browser.</p>
+<h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><p>Plug-ins were designed to be used for many different purposes:</p>
+<ul>
+<li>To run Java applets</li>
+<li>To run Microsoft ActiveX controls</li>
+<li>To display Flash movies</li>
+<li>To display maps</li>
+<li>To scan for viruses</li>
+<li>To verify a bank id</li>
+</ul>
+<p><strong>Warning!</strong></p>
+<p>Most browsers no longer support Java Applets and Plug-ins.</p>
+<p>ActiveX controls are no longer supported in any browsers.</p>
+<p>The support for Shockwave Flash has also been turned off in modern browsers.</p>
+<h3 id="The-Element"><a href="#The-Element" class="headerlink" title="The &lt;object&gt; Element"></a>The <code>&lt;object&gt;</code> Element</h3><p>The <code>&lt;object&gt;</code> element is supported by all browsers.</p>
+<p>The <code>&lt;object&gt;</code> element defines an embedded object within an HTML document.</p>
+<p>It was designed to embed plug-ins (like Java applets, PDF readers, and Flash Players) in web pages, but can also be used to include HTML in HTML:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;500px&quot;</span> <span class="attr">data</span>=<span class="string">&quot;snippet.html&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Or images:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">data</span>=<span class="string">&quot;audi.jpeg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="The-Element-1"><a href="#The-Element-1" class="headerlink" title="The &lt;embed&gt; Element"></a>The <code>&lt;embed&gt;</code> Element</h3><p>The <code>&lt;embed&gt;</code> element is supported in all major browsers.</p>
+<p>The <code>&lt;embed&gt;</code> element also defines an embedded object within an HTML document.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">&quot;audi.jpeg&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Note that the <code>&lt;embed&gt;</code> element does not have a closing tag. It can not contain alternative text.</p>
+<hr>
+<h2 id="HTML-Audio"><a href="#HTML-Audio" class="headerlink" title="HTML Audio"></a>HTML Audio</h2><p>There are many ways to play audio in HTML.</p>
+<h3 id="Using-The-Element"><a href="#Using-The-Element" class="headerlink" title="Using The &lt;audio&gt; Element"></a>Using The <code>&lt;audio&gt;</code> Element</h3><p>The <code>&lt;audio&gt;</code> element is an HTML5 element.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>=<span class="string">&quot;controls&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;song.mp3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/mp3&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;song.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/ogg&quot;</span> /&gt;</span></span><br><span class="line">  Your browser does not support this audio format.</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The example above uses an mp3 file, which works in Internet Explorer, Chrome, and Safari.</p>
+<p>To make the audio work in Firefox and Opera, an ogg file is added. If it fails, an error message is displayed.</p>
+<h3 id="Best-HTML-Solution"><a href="#Best-HTML-Solution" class="headerlink" title="Best HTML Solution"></a>Best HTML Solution</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>=<span class="string">&quot;controls&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;song.mp3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/mp3&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;song.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/ogg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">embed</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">src</span>=<span class="string">&quot;song.mp3&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The example above uses two different audio formats. The HTML5 <code>&lt;audio&gt;</code> element tries to play the audio in mp3 or ogg format. If it fails, the code falls back to try the <code>&lt;embed&gt;</code> element.</p>
+<h3 id="Using-A-Hyperlink"><a href="#Using-A-Hyperlink" class="headerlink" title="Using A Hyperlink"></a>Using A Hyperlink</h3><p>If a web page contains a hyperlink to a media file, most browsers will use a “helper application” to play the file.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;song.mp3&quot;</span>&gt;</span>Play the sound<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HTML-Video"><a href="#HTML-Video" class="headerlink" title="HTML Video"></a>HTML Video</h2><p>There are many ways to play video in HTML.</p>
+<h3 id="Using-The-Element-1"><a href="#Using-The-Element-1" class="headerlink" title="Using The &lt;video&gt; Element"></a>Using The <code>&lt;video&gt;</code> Element</h3><p>The <code>&lt;video&gt;</code> element is an HTML5 element.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span> <span class="attr">controls</span>=<span class="string">&quot;controls&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/ogg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.webm&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/webm&quot;</span> /&gt;</span></span><br><span class="line">  Your browser does not support the video tag.</span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Best-HTML-Solution-1"><a href="#Best-HTML-Solution-1" class="headerlink" title="Best HTML Solution"></a>Best HTML Solution</h3><p>HTML 5 + <code>&lt;object&gt;</code> + <code>&lt;embed&gt;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span> <span class="attr">controls</span>=<span class="string">&quot;controls&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/ogg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.webm&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/webm&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">object</span> <span class="attr">data</span>=<span class="string">&quot;movie.mp4&quot;</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">&quot;movie.swf&quot;</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The example above uses 4 different video formats. The HTML5 <code>&lt;video&gt;</code> element tries to play the video in mp4, ogg, or webm format. If it fails, the code falls back to try the <code>&lt;embed&gt;</code> element.</p>
+<h3 id="Using-A-Hyperlink-1"><a href="#Using-A-Hyperlink-1" class="headerlink" title="Using A Hyperlink"></a>Using A Hyperlink</h3><p>If a web page contains a hyperlink to a media file, most browsers will use a “helper application” to play the file.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;movie.swf&quot;</span>&gt;</span>Play a video file<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HTML-YouTube"><a href="#HTML-YouTube" class="headerlink" title="HTML YouTube"></a>HTML YouTube</h2><p>The easiest way to play videos in HTML is to use YouTube.</p>
+<h3 id="YouTube-Video-Id"><a href="#YouTube-Video-Id" class="headerlink" title="YouTube Video Id"></a>YouTube Video Id</h3><p>When you save (or play) a video, YouTube will display an id (like ih1l6wb7LhU).</p>
+<p>You can use this id, and refer to your video in the HTML code.</p>
+<h3 id="Playing-a-YouTube-Video-in-HTML"><a href="#Playing-a-YouTube-Video-in-HTML" class="headerlink" title="Playing a YouTube Video in HTML"></a>Playing a YouTube Video in HTML</h3><p>To play your video on a web page, do the following:</p>
+<ul>
+<li>Upload the video to YouTube</li>
+<li>Take a note of the video id</li>
+<li>Define an <code>&lt;iframe&gt;</code> element in your web page</li>
+<li>Let the <code>src</code> attribute point to the video URL</li>
+<li>Use the <code>width</code> and <code>height</code> attributes to specify the dimension of the player</li>
+<li>Add any other parameters to the URL (see below)</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">&quot;420&quot;</span> <span class="attr">height</span>=<span class="string">&quot;315&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">src</span>=<span class="string">&quot;https://www.youtube.com/embed/ih1l6wb7LhU&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="YouTube-Autoplay-Mute"><a href="#YouTube-Autoplay-Mute" class="headerlink" title="YouTube Autoplay + Mute"></a>YouTube Autoplay + Mute</h3><p>You can let your video start playing automatically when a user visits the page, by adding <code>autoplay=1</code> to the YouTube URL. However, automatically starting a video is annoying for your visitors!</p>
+<p>Note: Chromium browsers do not allow autoplay in most cases. However, muted autoplay is always allowed.</p>
+<p>Add <code>mute=1</code> after <code>autoplay=1</code> to let your video start playing automatically (but muted).</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">&quot;420&quot;</span> <span class="attr">height</span>=<span class="string">&quot;315&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">src</span>=<span class="string">&quot;https://www.youtube.com/embed/ih1l6wb7LhU?autoplay=1&amp;mute=1&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="YouTube-Loop"><a href="#YouTube-Loop" class="headerlink" title="YouTube Loop"></a>YouTube Loop</h3><p>Add <code>loop=1</code> to let your video loop forever.</p>
+<p>Value 0 (default): The video will play only once.</p>
+<p>Value 1: The video will loop (forever).</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">&quot;420&quot;</span> <span class="attr">height</span>=<span class="string">&quot;315&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">src</span>=<span class="string">&quot;https://www.youtube.com/embed/ih1l6wb7LhU?playlist=ih1l6wb7LhU&amp;loop=1&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="YouTube-Controls"><a href="#YouTube-Controls" class="headerlink" title="YouTube Controls"></a>YouTube Controls</h3><p>Add <code>controls=0</code> to not display controls in the video player.</p>
+<p>Value 0: Player controls does not display.</p>
+<p>Value 1 (default): Player controls display.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">&quot;420&quot;</span> <span class="attr">height</span>=<span class="string">&quot;315&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">src</span>=<span class="string">&quot;https://www.youtube.com/embed/ih1l6wb7LhU?controls=0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="HTML-Multimedia-Tags"><a href="#HTML-Multimedia-Tags" class="headerlink" title="HTML Multimedia Tags"></a>HTML Multimedia Tags</h3><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;audio&gt;</code></td>
+<td>Defines sound content</td>
+</tr>
+<tr>
+<td><code>&lt;video&gt;</code></td>
+<td>Defines a video or movie</td>
+</tr>
+<tr>
+<td><code>&lt;source&gt;</code></td>
+<td>Defines multiple media resources for media elements</td>
+</tr>
+<tr>
+<td><code>&lt;embed&gt;</code></td>
+<td>Defines a container for an external application</td>
+</tr>
+<tr>
+<td><code>&lt;object&gt;</code></td>
+<td>Defines an embedded object</td>
+</tr>
+<tr>
+<td><code>&lt;param&gt;</code></td>
+<td>Defines a parameter for an object</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/09/en/HTML-Multimedia/">https://your-domain.com/2023/02/09/en/HTML-Multimedia/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/audio-video/">audio-video</a><a class="post-meta__tags" href="/tags/frontend-framework/">frontend-framework</a><a class="post-meta__tags" href="/tags/media/">media</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/09/en/UESTC-AI-Notes-5-Machine-Learning/" title="UESTC Artificial Intelligence Review Notes (5): Machine Learning"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/a270835672e5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">UESTC Artificial Intelligence Review Notes (5): Machine Learning</div></div><div class="info-2"><div class="info-item-1">Table of Contents Supervised vs Unsupervised LearningRegression vs ClassificationTraining&#x2F;Test&#x2F;Validation SetsGeneralization and OverfittingLinear ClassifiersActivation FunctionsLinear RegressionDecision TreesInformation EntropyInformation GainID3 Algorithm  Supervised vs Unsupervised LearningSupervised Learning: Input data samples with known categories  Classification, Regression  Unsupervised Learning: Input data samples with unknown categories  Clustering   Regression vs Classifi...</div></div></div></a><a class="pagination-related" href="/2023/02/08/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C/" title="电子科技大学人工智能期末复习笔记（四）：概率与贝叶斯网络"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C/25f8d94da6ec.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">电子科技大学人工智能期末复习笔记（四）：概率与贝叶斯网络</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学人工智能期末复习笔记（四）：概率与贝叶斯网络📊 8040 阅读 | 👍 42 点赞 | 💬 5 评论 | ⭐ 136 收藏  目录 前言 概率 概率公式 贝叶斯公式 链式条件概率 例题 1. 求联合概率分布&#x2F;边缘概率分布&#x2F;条件概率分布 2. 灵活运用贝叶斯公式  概率总结 贝叶斯网络 判断独立性 两个事件独立的判断 条件独立性的判断 假设条件独立的链式法则 ⚠Active &#x2F; Inactive Paths 判断独立性 贝叶斯网络中的条件概率 ​编辑 多重连接和多重消除 Multiple Joins &amp; Multiple Elimination 贝叶斯网络抽样(Bayes’ Nets Sampling)  采样是什么？——Sampling 先验抽样 ▪ Prior Sampling 拒绝抽样 ▪ Rejection Sampling 似然加权 ▪ Likelihood Weighting 吉布斯抽样 ▪ Gibbs Sampling 总结 ⚠作业题  前言本复习笔记基于李晶晶老师的课堂PPT与...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/27/en/02-Web-Request-Process-Analysis/" title="02. Web Request Process Analysis"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/02.-Web%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/2b2c3b2597b4.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-28</div><div class="info-item-2">02. Web Request Process Analysis</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 02. Web请求过程分析  Table of Contents Complete Web Request Process Analysis Introduction A Simple Example 1. Server-Side Rendering 2. Frontend JS Rendering Conclusion Summary  Complete Web Request Process Analysis IntroductionIn the previous section, we implemented a simple webpage source code scraping task. But fundamentally, how are webpages accessed? How is the source code transmitted to us? This section will explain the web request proces...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Text-Formatting/" title="HTML Text Formatting"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Text Formatting</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: HTML文本格式化📊 545 views | 👍 1 like | 💬 1 comment | ⭐ 3 favorites   HTML defines many elements for formatting output, such as bold and italic text.  Text Formatting Tags   Tag Description    &lt;b&gt; Defines bold text   &lt;big&gt; Defines big text   &lt;em&gt; Defines emphasized text   &lt;i&gt; Defines italic text   &lt;small&gt; Defines small text   &lt;strong&gt; Defines strong text   &lt;sub&gt; Defines subscript text   &lt;sup&...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-CSS/" title="HTML CSS"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML CSS</div></div><div class="info-2"><div class="info-item-1">Table of Contents Examples How to Use Styles External Style Sheet Internal Style Sheet Inline Styles  All formatting code can be moved out of the HTML document and into a separate style sheet.  Examples Styles in HTML - Demonstrates how to format HTML using style information added to the &lt;head&gt; section. Links without underlines - Demonstrates how to use the style attribute to create a link without underlines. Link to an external style sheet - Demonstrates how to use the &lt;link&gt; tag...</div></div></div></a><a class="pagination-related" href="/2022/12/25/en/HTML-Iframes/" title="HTML Frames and Iframes"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML Frames and Iframes</div></div><div class="info-2"><div class="info-item-1">Table of Contents Examples Frames Frame Tag Important Notes - Useful Tips More Examples Adding an iframe Syntax Iframe - Setting Height and Width Iframe - Removing the Border Using iframe as a Link Target HTML iframe Tag A Complete Example  By using frames, you can display more than one page in the same browser window.  ExamplesVertical frames - Demonstrates how to make a vertical frame with three different documents. Horizontal frames - Demonstrates how to make a horizontal frame with three ...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Styles/" title="HTML Styles"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Styles</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: HTML样式📊 114 views | 👍 1 like | 💬 1 comment | ⭐ 2 favorites   The style attribute is used to change the style of HTML elements.  12345678910&lt;html&gt;&lt;body style=&quot;background-color:PowderBlue;&quot;&gt;&lt;h1&gt;Look! Styles and colors&lt;/h1&gt;&lt;p style=&quot;font-family:verdana;color:red&quot;&gt;This text is in Verdana and red&lt;/p&gt;&lt;p style=&quot;font-family:times;color:green&quot;&gt;This text is in Times and...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML-Symbols/" title="HTML Symbols"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML Symbols</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Symbol Entities Some Mathematical Symbols Supported by HTML Some Greek Letters Supported by HTML Some Other Entities Supported by HTML A Complete Example  Characters that do not exist on the keyboard can also be replaced by entities.  HTML Symbol EntitiesHTML entity symbols were explained in the previous chapter. Many mathematical, technical, and currency symbols are not present on a normal keyboard. To add such symbols to an HTML page, you can use the HTML entity name....</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Media"><span class="toc-number">1.</span> <span class="toc-text">HTML Media</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Multimedia"><span class="toc-number">1.1.</span> <span class="toc-text">What is Multimedia?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multimedia-Formats"><span class="toc-number">1.2.</span> <span class="toc-text">Multimedia Formats</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Video-Formats"><span class="toc-number">1.3.</span> <span class="toc-text">Video Formats</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Audio-Formats"><span class="toc-number">1.4.</span> <span class="toc-text">Audio Formats</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Plugins"><span class="toc-number">2.</span> <span class="toc-text">HTML Plugins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Plugins"><span class="toc-number">2.1.</span> <span class="toc-text">Plugins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element"><span class="toc-number">2.2.</span> <span class="toc-text">The &lt;object&gt; Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Element-1"><span class="toc-number">2.3.</span> <span class="toc-text">The &lt;embed&gt; Element</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Audio"><span class="toc-number">3.</span> <span class="toc-text">HTML Audio</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-The-Element"><span class="toc-number">3.1.</span> <span class="toc-text">Using The &lt;audio&gt; Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-HTML-Solution"><span class="toc-number">3.2.</span> <span class="toc-text">Best HTML Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-A-Hyperlink"><span class="toc-number">3.3.</span> <span class="toc-text">Using A Hyperlink</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Video"><span class="toc-number">4.</span> <span class="toc-text">HTML Video</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-The-Element-1"><span class="toc-number">4.1.</span> <span class="toc-text">Using The &lt;video&gt; Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-HTML-Solution-1"><span class="toc-number">4.2.</span> <span class="toc-text">Best HTML Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-A-Hyperlink-1"><span class="toc-number">4.3.</span> <span class="toc-text">Using A Hyperlink</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-YouTube"><span class="toc-number">5.</span> <span class="toc-text">HTML YouTube</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#YouTube-Video-Id"><span class="toc-number">5.1.</span> <span class="toc-text">YouTube Video Id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Playing-a-YouTube-Video-in-HTML"><span class="toc-number">5.2.</span> <span class="toc-text">Playing a YouTube Video in HTML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YouTube-Autoplay-Mute"><span class="toc-number">5.3.</span> <span class="toc-text">YouTube Autoplay + Mute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YouTube-Loop"><span class="toc-number">5.4.</span> <span class="toc-text">YouTube Loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YouTube-Controls"><span class="toc-number">5.5.</span> <span class="toc-text">YouTube Controls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-Multimedia-Tags"><span class="toc-number">5.6.</span> <span class="toc-text">HTML Multimedia Tags</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

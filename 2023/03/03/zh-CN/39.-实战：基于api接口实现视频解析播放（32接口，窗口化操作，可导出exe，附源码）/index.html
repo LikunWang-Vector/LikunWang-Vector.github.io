@@ -1,0 +1,501 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码） | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）📊 8793 阅读 | 👍 10 点赞 | 💬 8 评论 | ⭐ 46 收藏  目录 前言 目的 思路 代码实现 需要导入的模块 1. 导入解析网站列表，实现解析过程 2. 设计UI界面 3. 设置窗口居中和循环执行 4. 注意事项 完整源码 运行效果 总结  前言本节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）">
+<meta property="og:url" content="https://your-domain.com/2023/03/03/zh-CN/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8F%AF%E5%AF%BC%E5%87%BAexe%EF%BC%8C%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）📊 8793 阅读 | 👍 10 点赞 | 💬 8 评论 | ⭐ 46 收藏  目录 前言 目的 思路 代码实现 需要导入的模块 1. 导入解析网站列表，实现解析过程 2. 设计UI界面 3. 设置窗口居中和循环执行 4. 注意事项 完整源码 运行效果 总结  前言本节">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png">
+<meta property="article:published_time" content="2023-03-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-03T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="api">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="tkinter">
+<meta property="article:tag" content="视频解析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）",
+  "url": "https://your-domain.com/2023/03/03/zh-CN/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8F%AF%E5%AF%BC%E5%87%BAexe%EF%BC%8C%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/",
+  "image": "https://your-domain.com/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png",
+  "datePublished": "2023-03-03T15:00:00.000Z",
+  "dateModified": "2023-03-03T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/03/03/zh-CN/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8F%AF%E5%AF%BC%E5%87%BAexe%EF%BC%8C%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-03-03T15:00:00.000Z" title="Created 2023-03-04 00:00:00">2023-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-03T15:00:00.000Z" title="Updated 2023-03-04 00:00:00">2023-03-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">4.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>22mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-03-04 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/129339111">39. 实战：基于api接口实现视频解析播放（32接口，窗口化操作，可导出exe，附源码）</a><br>📊 8793 阅读 | 👍 10 点赞 | 💬 8 评论 | ⭐ 46 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>前言</p>
+<p>目的</p>
+<p>思路</p>
+<p>代码实现</p>
+<p>需要导入的模块</p>
+<p>1. 导入解析网站列表，实现解析过程</p>
+<p>2. 设计UI界面</p>
+<p>3. 设置窗口居中和循环执行</p>
+<p>4. 注意事项</p>
+<p>完整源码</p>
+<p>运行效果</p>
+<p>总结</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本节将类似<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128812483" title="34. 实战：基于某api实现歌曲检索与下载（附完整源代码）">34. 实战：基于某api实现歌曲检索与下载（附完整源代码）</a>，也将基于api实现视频解析播放的功能，并且还实现了用户UI界面，随后大家也可以用py2exe等库导出exe来永久保存可执行文件。</p>
+<p>本例具有32个接口供大家解析，一般前面的就能够顺利解析出来了，看大家喜好~</p>
+<hr>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>实现输入任意视频链接，在用户UI窗口选择解析接口，点击解析按钮自动跳转到系统默认浏览器进行播放。</p>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1. 导入解析网站列表，实现解析过程</p>
+<p>2. 设计UI界面</p>
+<p>3. 设置窗口居中和循环执行</p>
+<p>4. 注意事项</p>
+<hr>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="需要导入的模块"><a href="#需要导入的模块" class="headerlink" title="需要导入的模块"></a>需要导入的模块</h4><p><code>python from urllib import parse import tkinter.messagebox as msgbox import tkinter as tk import webbrowser import re </code> </p>
+<h4 id="1-导入解析网站列表，实现解析过程"><a href="#1-导入解析网站列表，实现解析过程" class="headerlink" title="1. 导入解析网站列表，实现解析过程"></a>1. 导入解析网站列表，实现解析过程</h4><p><code>python &quot;&quot;&quot; 函数说明:视频播放 &quot;&quot;&quot; def video_play(self): # 视频解析网站地址 # port_1 = &#39;https://jx.618g.com/?url=&#39; port_1 = &#39;https://im1907.top/?jx=&#39; port_2 = &#39;https://jx.jsonplayer.com/player/?url=&#39; port_3 = &#39;https://jx.aidouer.net/?url=&#39; port_4 = &#39;https://jx.xmflv.com/?url=&#39; port_5 = &#39;https://okjx.cc/?url=&#39; port_6 = &#39;https://www.nxflv.com/?url=&#39; port_7 = &#39;https://www.yemu.xyz/?url=&#39; port_8 = &#39;https://jx.m3u8.tv/jiexi/?url=&#39; port_9 = &#39;https://jx.blbo.cc:4433/?url=&#39; port_10 = &#39;https://api.qianqi.net/vip/?url=&#39; port_11 = &#39;https://jx.nnxv.cn/tv.php?url=&#39; port_12 = &#39;https://bd.jx.cn/?url=&#39; port_13 = &#39;https://123.1dior.cn/?url=&#39; port_14 = &#39;https://www.ckplayer.vip/jiexi/?url=&#39; port_15 = &#39;https://www.ckmov.vip/api.php?url=&#39; port_16 = &#39;https://jx.playerjy.com/?url=&#39; port_17 = &#39;https://ckmov.ccyjjd.com/ckmov/?url=&#39; port_18 = &#39;https://www.ckmov.com/?url=&#39; port_19 = &#39;https://www.h8jx.com/jiexi.php?url=&#39; port_20 = &#39;https://svip.bljiex.cc/?v=&#39; port_21 = &#39;https://api.jiexi.la/?url=&#39; port_22 = &#39;https://jiexi.janan.net/jiexi/?url=&#39; port_23 = &#39;https://www.mtosz.com/erzi.php?url=&#39; port_24 = &#39;https://www.administratorw.com/video.php?url=&#39; port_25 = &#39;https://www.pangujiexi.cc/jiexi.php?url=&#39; port_26 = &#39;https://www.gai4.com/?url=&#39; port_27 = &#39;https://go.yh0523.cn/y.cy?url=&#39; port_28 = &#39;https://www.1717yun.com/jx/ty.php?url=&#39; port_29 = &#39;https://jx.4kdv.com/?url=&#39; port_30 = &#39;https://www.8090g.cn/?url=&#39; port_31 = &#39;https://jx.dj6u.com/?url=&#39; port_32 = &#39;https://jx.000180.top/jx/?url=&#39; # 正则表达是判定是否为合法链接 if re.match(r&#39;^https?:/{2}\w.+$&#39;, self.url.get()): port_num = self.v.get() port_url_referer = locals()[f&#39;port_{port_num}&#39;] # 视频链接获取 ip = self.url.get() # 视频链接加密 ip = parse.quote_plus(ip) # 浏览器打开 webbrowser.open(port_url_referer + self.url.get()) else: msgbox.showerror(title=&#39;错误&#39;, message=&#39;视频链接地址无效，请重新输入！&#39;) </code> </p>
+<p><strong>这里用locals函数实现基于变量名称的字符串检索变量对应值的操作，还是值得一学的。如果是全局变量就要使用globals，用法是一样的。</strong></p>
+<h4 id="2-设计UI界面"><a href="#2-设计UI界面" class="headerlink" title="2. 设计UI界面"></a>2. 设计UI界面</h4><p>就常规设计一下，大同小异的，博主审美能力有限，就做的很粗糙了：</p>
+<p><code>python def __init__(self, width=1280, height=720): self.w = width self.h = height self.title = &#39;Vector的VIP解析助手&#39; self.root = tk.Tk(className=self.title) # 定义button控件上的文字 self.url = tk.StringVar() # 定义选择哪个播放源 self.v = tk.IntVar() # 默认为1 self.v.set(1) # Frame空间 frame_1 = tk.Frame(self.root) frame_2 = tk.Frame(self.root) frame_3 = tk.Frame(self.root) # Menu菜单 menu = tk.Menu(self.root) self.root.config(menu=menu) moviemenu = tk.Menu(menu, tearoff=0) menu.add_cascade(label=&#39;友情链接&#39;, menu=moviemenu) # 各大视频网站 moviemenu.add_command(label=&#39;腾讯视频&#39;, command=lambda: webbrowser.open(&#39;http://v.qq.com/&#39;)) moviemenu.add_command(label=&#39;搜狐视频&#39;, command=lambda: webbrowser.open(&#39;http://tv.sohu.com/&#39;)) moviemenu.add_command(label=&#39;芒果TV&#39;, command=lambda: webbrowser.open(&#39;http://www.mgtv.com/&#39;)) moviemenu.add_command(label=&#39;爱奇艺&#39;, command=lambda: webbrowser.open(&#39;http://www.iqiyi.com/&#39;)) moviemenu.add_command(label=&#39;PPTV&#39;, command=lambda: webbrowser.open(&#39;http://www.bilibili.com/&#39;)) moviemenu.add_command(label=&#39;优酷&#39;, command=lambda: webbrowser.open(&#39;http://www.youku.com/&#39;)) moviemenu.add_command(label=&#39;乐视&#39;, command=lambda: webbrowser.open(&#39;http://www.le.com/&#39;)) moviemenu.add_command(label=&#39;土豆&#39;, command=lambda: webbrowser.open(&#39;http://www.tudou.com/&#39;)) moviemenu.add_command(label=&#39;A站&#39;, command=lambda: webbrowser.open(&#39;http://www.acfun.tv/&#39;)) moviemenu.add_command(label=&#39;B站&#39;, command=lambda: webbrowser.open(&#39;http://www.bilibili.com/&#39;)) # 控件内容设置 group = tk.Label(frame_1, text=&#39;请选择一个视频解析方式：&#39;, padx=10, pady=10) tb1 = tk.Radiobutton(frame_1, text=&#39;纯净/B站&#39;, variable=self.v, value=1, width=10, height=3) tb2 = tk.Radiobutton(frame_1, text=&#39;综合/B站&#39;, variable=self.v, value=2, width=10, height=3) tb3 = tk.Radiobutton(frame_1, text=&#39;爱豆&#39;, variable=self.v, value=3, width=10, height=3) tb4 = tk.Radiobutton(frame_1, text=&#39;虾米&#39;, variable=self.v, value=4, width=10, height=3) tb5 = tk.Radiobutton(frame_1, text=&#39;OK解析&#39;, variable=self.v, value=5, width=10, height=3) tb6 = tk.Radiobutton(frame_1, text=&#39;诺讯&#39;, variable=self.v, value=6, width=10, height=3) tb7 = tk.Radiobutton(frame_1, text=&#39;夜幕&#39;, variable=self.v, value=7, width=10, height=3) tb8 = tk.Radiobutton(frame_1, text=&#39;M3U8.TV&#39;, variable=self.v, value=8, width=10, height=3) tb9 = tk.Radiobutton(frame_1, text=&#39;人人迷&#39;, variable=self.v, value=9, width=10, height=3) tb10 = tk.Radiobutton(frame_1, text=&#39;全民&#39;, variable=self.v, value=10, width=10, height=3) tb11 = tk.Radiobutton(frame_1, text=&#39;七哥&#39;, variable=self.v, value=11, width=10, height=3) tb12 = tk.Radiobutton(frame_1, text=&#39;冰豆&#39;, variable=self.v, value=12, width=10, height=3) tb13 = tk.Radiobutton(frame_1, text=&#39;迪奥&#39;, variable=self.v, value=13, width=10, height=3) tb14 = tk.Radiobutton(frame_1, text=&#39;CK&#39;, variable=self.v, value=14, width=10, height=3) tb15 = tk.Radiobutton(frame_1, text=&#39;ckmov&#39;, variable=self.v, value=15, width=10, height=3) tb16 = tk.Radiobutton(frame_1, text=&#39;playerjy/B站&#39;, variable=self.v, value=16, width=10, height=3) tb17 = tk.Radiobutton(frame_1, text=&#39;ccyjjd&#39;, variable=self.v, value=17, width=10, height=3) tb18 = tk.Radiobutton(frame_1, text=&#39;诺诺&#39;, variable=self.v, value=18, width=10, height=3) tb19 = tk.Radiobutton(frame_1, text=&#39;H8&#39;, variable=self.v, value=19, width=10, height=3) tb20 = tk.Radiobutton(frame_1, text=&#39;BL&#39;, variable=self.v, value=20, width=10, height=3) tb21 = tk.Radiobutton(frame_1, text=&#39;解析la&#39;, variable=self.v, value=21, width=10, height=3) tb22 = tk.Radiobutton(frame_1, text=&#39;MUTV&#39;, variable=self.v, value=22, width=10, height=3) tb23 = tk.Radiobutton(frame_1, text=&#39;MAO&#39;, variable=self.v, value=23, width=10, height=3) tb24 = tk.Radiobutton(frame_1, text=&#39;无名&#39;, variable=self.v, value=24, width=10, height=3) tb25 = tk.Radiobutton(frame_1, text=&#39;盘古&#39;, variable=self.v, value=25, width=10, height=3) tb26 = tk.Radiobutton(frame_1, text=&#39;盖世&#39;, variable=self.v, value=26, width=10, height=3) tb27 = tk.Radiobutton(frame_1, text=&#39;0523&#39;, variable=self.v, value=27, width=10, height=3) tb28 = tk.Radiobutton(frame_1, text=&#39;17云&#39;, variable=self.v, value=28, width=10, height=3) tb29 = tk.Radiobutton(frame_1, text=&#39;4K&#39;, variable=self.v, value=29, width=10, height=3) tb30 = tk.Radiobutton(frame_1, text=&#39;8090&#39;, variable=self.v, value=30, width=10, height=3) tb31 = tk.Radiobutton(frame_1, text=&#39;听乐&#39;, variable=self.v, value=31, width=10, height=3) tb32 = tk.Radiobutton(frame_1, text=&#39;180&#39;, variable=self.v, value=32, width=10, height=3) label1 = tk.Label(frame_2, text=&quot;请输入视频链接：&quot;) entry = tk.Entry(frame_2, textvariable=self.url, highlightcolor=&#39;Fuchsia&#39;, highlightthickness=1, width=35) label2 = tk.Label(frame_2, text=&quot; &quot;) play = tk.Button(frame_2, text=&quot;播放&quot;, font=(&#39;楷体&#39;, 12), fg=&#39;Purple&#39;, width=2, height=1, command=self.video_play) label3 = tk.Label(frame_2, text=&quot; &quot;) label_explain = tk.Label(frame_3, fg=&#39;red&#39;, font=(&#39;楷体&#39;, 18), text=&#39;\n注意：\nCSDN博主Vec_Kun版权所有\n此工具仅用于交流学习\n请勿用于任何商业用途！&#39;) label_warning = tk.Label(frame_3, fg=&#39;black&#39;, font=(&#39;楷体&#39;, 16), text=&#39;\n\n&#39;) # 控件布局 frame_1.pack() frame_2.pack() frame_3.pack() group.grid(row=0, column=0) tb1.grid(row=0, column=1) tb2.grid(row=0, column=2) tb3.grid(row=0, column=3) tb4.grid(row=0, column=4) tb5.grid(row=1, column=1) tb6.grid(row=1, column=2) tb7.grid(row=1, column=3) tb8.grid(row=1, column=4) tb9.grid(row=2, column=1) tb10.grid(row=2, column=2) tb11.grid(row=2, column=3) tb12.grid(row=2, column=4) tb13.grid(row=3, column=1) tb14.grid(row=3, column=2) tb15.grid(row=3, column=3) tb16.grid(row=3, column=4) tb17.grid(row=4, column=1) tb18.grid(row=4, column=2) tb19.grid(row=4, column=3) tb20.grid(row=4, column=4) tb21.grid(row=5, column=1) tb22.grid(row=5, column=2) tb23.grid(row=5, column=3) tb24.grid(row=5, column=4) tb25.grid(row=6, column=1) tb26.grid(row=6, column=2) tb27.grid(row=6, column=3) tb28.grid(row=6, column=4) tb29.grid(row=7, column=1) tb30.grid(row=7, column=2) tb31.grid(row=7, column=3) tb32.grid(row=7, column=4) label1.grid(row=0, column=0) entry.grid(row=0, column=1) label2.grid(row=0, column=2) play.grid(row=0, column=3, ipadx=10, ipady=10) label3.grid(row=0, column=4) label_explain.grid(row=1, column=0) label_warning.grid(row=2, column=0) </code> </p>
+<h4 id="3-设置窗口居中和循环执行"><a href="#3-设置窗口居中和循环执行" class="headerlink" title="3. 设置窗口居中和循环执行"></a>3. 设置窗口居中和循环执行</h4><p><code>python &quot;&quot;&quot; 函数说明:tkinter窗口居中 &quot;&quot;&quot; def center(self): ws = self.root.winfo_screenwidth() hs = self.root.winfo_screenheight() x = int((ws / 2) - (self.w / 2)) y = int((hs / 2) - (self.h / 2)) self.root.geometry(&#39;{}x{}+{}+{}&#39;.format(self.w, self.h, x, y)) </code> <code>python &quot;&quot;&quot; 函数说明:loop等待用户事件 &quot;&quot;&quot; def loop(self): # 禁止修改窗口大小 self.root.resizable(False, False) # 窗口居中 self.center() self.root.mainloop() </code> </p>
+<p>最后在主函数运行就好了</p>
+<p><code>python if __name__ == &#39;__main__&#39;: app = APP() # 实例化APP对象 app.loop() # loop等待用户事件 </code> </p>
+<h4 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4. 注意事项"></a>4. 注意事项</h4><p><strong>此工具仅用于交流学习，请勿用于任何商业用途！！！</strong></p>
+<p><strong>此工具仅用于交流学习，请勿用于任何商业用途！！！</strong></p>
+<p><strong>此工具仅用于交流学习，请勿用于任何商业用途！！！</strong></p>
+<hr>
+<h3 id="完整源码"><a href="#完整源码" class="headerlink" title="完整源码"></a>完整源码</h3><p><code>python # Created at UESTC # Author: Vector Kun # Time: 2023/1/30 11:26 # url解析 from urllib import parse import tkinter.messagebox as msgbox import tkinter as tk import webbrowser import re class APP: def __init__(self, width=1280, height=720): self.w = width self.h = height self.title = &#39;Vector的VIP解析助手&#39; self.root = tk.Tk(className=self.title) # 定义button控件上的文字 self.url = tk.StringVar() # 定义选择哪个播放源 self.v = tk.IntVar() # 默认为1 self.v.set(1) # Frame空间 frame_1 = tk.Frame(self.root) frame_2 = tk.Frame(self.root) frame_3 = tk.Frame(self.root) # Menu菜单 menu = tk.Menu(self.root) self.root.config(menu=menu) moviemenu = tk.Menu(menu, tearoff=0) menu.add_cascade(label=&#39;友情链接&#39;, menu=moviemenu) # 各大视频网站 moviemenu.add_command(label=&#39;腾讯视频&#39;, command=lambda: webbrowser.open(&#39;http://v.qq.com/&#39;)) moviemenu.add_command(label=&#39;搜狐视频&#39;, command=lambda: webbrowser.open(&#39;http://tv.sohu.com/&#39;)) moviemenu.add_command(label=&#39;芒果TV&#39;, command=lambda: webbrowser.open(&#39;http://www.mgtv.com/&#39;)) moviemenu.add_command(label=&#39;爱奇艺&#39;, command=lambda: webbrowser.open(&#39;http://www.iqiyi.com/&#39;)) moviemenu.add_command(label=&#39;PPTV&#39;, command=lambda: webbrowser.open(&#39;http://www.bilibili.com/&#39;)) moviemenu.add_command(label=&#39;优酷&#39;, command=lambda: webbrowser.open(&#39;http://www.youku.com/&#39;)) moviemenu.add_command(label=&#39;乐视&#39;, command=lambda: webbrowser.open(&#39;http://www.le.com/&#39;)) moviemenu.add_command(label=&#39;土豆&#39;, command=lambda: webbrowser.open(&#39;http://www.tudou.com/&#39;)) moviemenu.add_command(label=&#39;A站&#39;, command=lambda: webbrowser.open(&#39;http://www.acfun.tv/&#39;)) moviemenu.add_command(label=&#39;B站&#39;, command=lambda: webbrowser.open(&#39;http://www.bilibili.com/&#39;)) # 控件内容设置 group = tk.Label(frame_1, text=&#39;请选择一个视频解析方式：&#39;, padx=10, pady=10) tb1 = tk.Radiobutton(frame_1, text=&#39;纯净/B站&#39;, variable=self.v, value=1, width=10, height=3) tb2 = tk.Radiobutton(frame_1, text=&#39;综合/B站&#39;, variable=self.v, value=2, width=10, height=3) tb3 = tk.Radiobutton(frame_1, text=&#39;爱豆&#39;, variable=self.v, value=3, width=10, height=3) tb4 = tk.Radiobutton(frame_1, text=&#39;虾米&#39;, variable=self.v, value=4, width=10, height=3) tb5 = tk.Radiobutton(frame_1, text=&#39;OK解析&#39;, variable=self.v, value=5, width=10, height=3) tb6 = tk.Radiobutton(frame_1, text=&#39;诺讯&#39;, variable=self.v, value=6, width=10, height=3) tb7 = tk.Radiobutton(frame_1, text=&#39;夜幕&#39;, variable=self.v, value=7, width=10, height=3) tb8 = tk.Radiobutton(frame_1, text=&#39;M3U8.TV&#39;, variable=self.v, value=8, width=10, height=3) tb9 = tk.Radiobutton(frame_1, text=&#39;人人迷&#39;, variable=self.v, value=9, width=10, height=3) tb10 = tk.Radiobutton(frame_1, text=&#39;全民&#39;, variable=self.v, value=10, width=10, height=3) tb11 = tk.Radiobutton(frame_1, text=&#39;七哥&#39;, variable=self.v, value=11, width=10, height=3) tb12 = tk.Radiobutton(frame_1, text=&#39;冰豆&#39;, variable=self.v, value=12, width=10, height=3) tb13 = tk.Radiobutton(frame_1, text=&#39;迪奥&#39;, variable=self.v, value=13, width=10, height=3) tb14 = tk.Radiobutton(frame_1, text=&#39;CK&#39;, variable=self.v, value=14, width=10, height=3) tb15 = tk.Radiobutton(frame_1, text=&#39;ckmov&#39;, variable=self.v, value=15, width=10, height=3) tb16 = tk.Radiobutton(frame_1, text=&#39;playerjy/B站&#39;, variable=self.v, value=16, width=10, height=3) tb17 = tk.Radiobutton(frame_1, text=&#39;ccyjjd&#39;, variable=self.v, value=17, width=10, height=3) tb18 = tk.Radiobutton(frame_1, text=&#39;诺诺&#39;, variable=self.v, value=18, width=10, height=3) tb19 = tk.Radiobutton(frame_1, text=&#39;H8&#39;, variable=self.v, value=19, width=10, height=3) tb20 = tk.Radiobutton(frame_1, text=&#39;BL&#39;, variable=self.v, value=20, width=10, height=3) tb21 = tk.Radiobutton(frame_1, text=&#39;解析la&#39;, variable=self.v, value=21, width=10, height=3) tb22 = tk.Radiobutton(frame_1, text=&#39;MUTV&#39;, variable=self.v, value=22, width=10, height=3) tb23 = tk.Radiobutton(frame_1, text=&#39;MAO&#39;, variable=self.v, value=23, width=10, height=3) tb24 = tk.Radiobutton(frame_1, text=&#39;无名&#39;, variable=self.v, value=24, width=10, height=3) tb25 = tk.Radiobutton(frame_1, text=&#39;盘古&#39;, variable=self.v, value=25, width=10, height=3) tb26 = tk.Radiobutton(frame_1, text=&#39;盖世&#39;, variable=self.v, value=26, width=10, height=3) tb27 = tk.Radiobutton(frame_1, text=&#39;0523&#39;, variable=self.v, value=27, width=10, height=3) tb28 = tk.Radiobutton(frame_1, text=&#39;17云&#39;, variable=self.v, value=28, width=10, height=3) tb29 = tk.Radiobutton(frame_1, text=&#39;4K&#39;, variable=self.v, value=29, width=10, height=3) tb30 = tk.Radiobutton(frame_1, text=&#39;8090&#39;, variable=self.v, value=30, width=10, height=3) tb31 = tk.Radiobutton(frame_1, text=&#39;听乐&#39;, variable=self.v, value=31, width=10, height=3) tb32 = tk.Radiobutton(frame_1, text=&#39;180&#39;, variable=self.v, value=32, width=10, height=3) label1 = tk.Label(frame_2, text=&quot;请输入视频链接：&quot;) entry = tk.Entry(frame_2, textvariable=self.url, highlightcolor=&#39;Fuchsia&#39;, highlightthickness=1, width=35) label2 = tk.Label(frame_2, text=&quot; &quot;) play = tk.Button(frame_2, text=&quot;播放&quot;, font=(&#39;楷体&#39;, 12), fg=&#39;Purple&#39;, width=2, height=1, command=self.video_play) label3 = tk.Label(frame_2, text=&quot; &quot;) label_explain = tk.Label(frame_3, fg=&#39;red&#39;, font=(&#39;楷体&#39;, 18), text=&#39;\n注意：\nCSDN博主Vec_Kun版权所有\n此工具仅用于交流学习\n请勿用于任何商业用途！&#39;) label_warning = tk.Label(frame_3, fg=&#39;black&#39;, font=(&#39;楷体&#39;, 16), text=&#39;\n\n&#39;) # 控件布局 frame_1.pack() frame_2.pack() frame_3.pack() group.grid(row=0, column=0) tb1.grid(row=0, column=1) tb2.grid(row=0, column=2) tb3.grid(row=0, column=3) tb4.grid(row=0, column=4) tb5.grid(row=1, column=1) tb6.grid(row=1, column=2) tb7.grid(row=1, column=3) tb8.grid(row=1, column=4) tb9.grid(row=2, column=1) tb10.grid(row=2, column=2) tb11.grid(row=2, column=3) tb12.grid(row=2, column=4) tb13.grid(row=3, column=1) tb14.grid(row=3, column=2) tb15.grid(row=3, column=3) tb16.grid(row=3, column=4) tb17.grid(row=4, column=1) tb18.grid(row=4, column=2) tb19.grid(row=4, column=3) tb20.grid(row=4, column=4) tb21.grid(row=5, column=1) tb22.grid(row=5, column=2) tb23.grid(row=5, column=3) tb24.grid(row=5, column=4) tb25.grid(row=6, column=1) tb26.grid(row=6, column=2) tb27.grid(row=6, column=3) tb28.grid(row=6, column=4) tb29.grid(row=7, column=1) tb30.grid(row=7, column=2) tb31.grid(row=7, column=3) tb32.grid(row=7, column=4) label1.grid(row=0, column=0) entry.grid(row=0, column=1) label2.grid(row=0, column=2) play.grid(row=0, column=3, ipadx=10, ipady=10) label3.grid(row=0, column=4) label_explain.grid(row=1, column=0) label_warning.grid(row=2, column=0) &quot;&quot;&quot; 函数说明:视频播放 &quot;&quot;&quot; def video_play(self): # 视频解析网站地址 # port_1 = &#39;https://jx.618g.com/?url=&#39; port_1 = &#39;https://im1907.top/?jx=&#39; port_2 = &#39;https://jx.jsonplayer.com/player/?url=&#39; port_3 = &#39;https://jx.aidouer.net/?url=&#39; port_4 = &#39;https://jx.xmflv.com/?url=&#39; port_5 = &#39;https://okjx.cc/?url=&#39; port_6 = &#39;https://www.nxflv.com/?url=&#39; port_7 = &#39;https://www.yemu.xyz/?url=&#39; port_8 = &#39;https://jx.m3u8.tv/jiexi/?url=&#39; port_9 = &#39;https://jx.blbo.cc:4433/?url=&#39; port_10 = &#39;https://api.qianqi.net/vip/?url=&#39; port_11 = &#39;https://jx.nnxv.cn/tv.php?url=&#39; port_12 = &#39;https://bd.jx.cn/?url=&#39; port_13 = &#39;https://123.1dior.cn/?url=&#39; port_14 = &#39;https://www.ckplayer.vip/jiexi/?url=&#39; port_15 = &#39;https://www.ckmov.vip/api.php?url=&#39; port_16 = &#39;https://jx.playerjy.com/?url=&#39; port_17 = &#39;https://ckmov.ccyjjd.com/ckmov/?url=&#39; port_18 = &#39;https://www.ckmov.com/?url=&#39; port_19 = &#39;https://www.h8jx.com/jiexi.php?url=&#39; port_20 = &#39;https://svip.bljiex.cc/?v=&#39; port_21 = &#39;https://api.jiexi.la/?url=&#39; port_22 = &#39;https://jiexi.janan.net/jiexi/?url=&#39; port_23 = &#39;https://www.mtosz.com/erzi.php?url=&#39; port_24 = &#39;https://www.administratorw.com/video.php?url=&#39; port_25 = &#39;https://www.pangujiexi.cc/jiexi.php?url=&#39; port_26 = &#39;https://www.gai4.com/?url=&#39; port_27 = &#39;https://go.yh0523.cn/y.cy?url=&#39; port_28 = &#39;https://www.1717yun.com/jx/ty.php?url=&#39; port_29 = &#39;https://jx.4kdv.com/?url=&#39; port_30 = &#39;https://www.8090g.cn/?url=&#39; port_31 = &#39;https://jx.dj6u.com/?url=&#39; port_32 = &#39;https://jx.000180.top/jx/?url=&#39; # 正则表达是判定是否为合法链接 if re.match(r&#39;^https?:/{2}\w.+$&#39;, self.url.get()): port_num = self.v.get() port_url_referer = locals()[f&#39;port_{port_num}&#39;] # 视频链接获取 ip = self.url.get() # 视频链接加密 ip = parse.quote_plus(ip) # 浏览器打开 webbrowser.open(port_url_referer + self.url.get()) else: msgbox.showerror(title=&#39;错误&#39;, message=&#39;视频链接地址无效，请重新输入！&#39;) &quot;&quot;&quot; 函数说明:tkinter窗口居中 &quot;&quot;&quot; def center(self): ws = self.root.winfo_screenwidth() hs = self.root.winfo_screenheight() x = int((ws / 2) - (self.w / 2)) y = int((hs / 2) - (self.h / 2)) self.root.geometry(&#39;{}x{}+{}+{}&#39;.format(self.w, self.h, x, y)) &quot;&quot;&quot; 函数说明:loop等待用户事件 &quot;&quot;&quot; def loop(self): # 禁止修改窗口大小 self.root.resizable(False, False) # 窗口居中 self.center() self.root.mainloop() if __name__ == &#39;__main__&#39;: app = APP() # 实例化APP对象 app.loop() # loop等待用户事件 </code> </p>
+<hr>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/b4268fea6ad5.png"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/a01962d708fd.png"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/282fdeb01d18.png"></p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本节实现了输入任意视频链接，在用户UI窗口选择解析接口，点击解析按钮自动跳转到系统默认浏览器进行播放的功能，切记不要用于商业活动！本教程仅用于个人学习交流用途！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/03/03/zh-CN/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8F%AF%E5%AF%BC%E5%87%BAexe%EF%BC%8C%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/">https://your-domain.com/2023/03/03/zh-CN/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8F%AF%E5%AF%BC%E5%87%BAexe%EF%BC%8C%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/api/">api</a><a class="post-meta__tags" href="/tags/tkinter/">tkinter</a><a class="post-meta__tags" href="/tags/%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90/">视频解析</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/03/07/en/40-Practical-Music-Parser-with-Tkinter-GUI/" title="40. Practical: Music Parser with Tkinter GUI"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/40.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Etkinter%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7UI%E7%95%8C%E9%9D%A2%E2%80%94%E2%80%94%E5%AF%B934%E5%B0%8F/9af7a7c56491.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">40. Practical: Music Parser with Tkinter GUI</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 40. 实战：基于tkinter实现用户UI界面📊 1399 views | 👍 5 likes | 💬 8 comments | ⭐ 20 favorites  Table of Contents Introduction Objective Approach Code Implementation  Design main UI interface Encapsulate core song parsing code Download music to local storage Center window and wait for events  Complete Source Code Results Summary  IntroductionThis section upgrades the previous music search project by adding a user UI interface. You can export it...</div></div></div></a><a class="pagination-related" href="/2023/03/03/zh-CN/38.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E7%9A%84%E6%9F%90%E5%AE%9D%E7%A7%92%E6%9D%80%E6%8A%A2%E8%B4%AD%E7%B3%BB%E7%BB%9F%EF%BC%88%E9%99%84%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%EF%BC%89/" title="38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/38.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eselenium%E7%9A%84%E6%9F%90%E5%AE%9D%E7%A7%92%E6%9D%80%E6%8A%A2%E8%B4%AD%E7%B3%BB%E7%BB%9F%EF%BC%88%E9%99%84%E5%AE%8C%E6%95%B4/c12a0161b511.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：38. 实战：基于selenium的某宝秒杀抢购系统（附完整代码）📊 2747 阅读 | 👍 7 点赞 | 💬 9 评论 | ⭐ 11 收藏  目录 前言 目的 思路 代码实现 1. 自动打开浏览器，并配置选项 2. 实现扫码登陆 3. 进入购物车选择秒杀商品（本例勾选全选） 4. 获取当前时间，大于设定时间时下单 5. 下单成功后语音提示用户返回付款  完整源码 运行效果 总结  前言每到购物节，某宝某东等购物平台就会有层出不穷的秒杀活动，但我们总会由于手速、网速等原因抢不到自己需要的低价商品，很是苦恼。这个时候我们的Python自动化脚本工具又可以登场了：利用selenium工具设计自动抢购系统，到点自助下单就可以咯~  本节以某宝为例，给大家做一个简要的演示。  目的编写一个自动抢购程序，要求能设定一个时间和目标商品（提前加入购物车中），使用自动化工具持续监测当前时间，一旦到设定时间，自动下单某宝设定好的商品并提交，抢占商品。  思路1. 实现自动打开浏览器，进入登录界面。 2. 扫码登陆&#x2F;账号密码登录（账号密码登录的方式我...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/03/03/en/39-Practical-Video-Parser-with-32-APIs-GUI/" title="39. Practical: Video Parser with 32 APIs and GUI"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/39.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Eapi%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%92%AD%E6%94%BE%EF%BC%8832%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%AA%97%E5%8F%A3/e1b865bac071.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-04</div><div class="info-item-2">39. Practical: Video Parser with 32 APIs and GUI</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 39. 实战：基于api接口实现视频解析播放📊 8793 views | 👍 10 likes | 💬 8 comments | ⭐ 46 favorites  Table of Contents Introduction Objective Approach Code Implementation  Required modules Import parsing website list Design UI interface Set window centering and loop  Complete Source Code Results Summary  IntroductionThis section, similar to the music search project, implements video parsing and playback using APIs, with a user UI interface. You can a...</div></div></div></a><a class="pagination-related" href="/2023/03/07/en/40-Practical-Music-Parser-with-Tkinter-GUI/" title="40. Practical: Music Parser with Tkinter GUI"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/40.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Etkinter%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7UI%E7%95%8C%E9%9D%A2%E2%80%94%E2%80%94%E5%AF%B934%E5%B0%8F/9af7a7c56491.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-08</div><div class="info-item-2">40. Practical: Music Parser with Tkinter GUI</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 40. 实战：基于tkinter实现用户UI界面📊 1399 views | 👍 5 likes | 💬 8 comments | ⭐ 20 favorites  Table of Contents Introduction Objective Approach Code Implementation  Design main UI interface Encapsulate core song parsing code Download music to local storage Center window and wait for events  Complete Source Code Results Summary  IntroductionThis section upgrades the previous music search project by adding a user UI interface. You can export it...</div></div></div></a><a class="pagination-related" href="/2023/03/07/zh-CN/40.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Etkinter%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7UI%E7%95%8C%E9%9D%A2%E2%80%94%E2%80%94%E5%AF%B934%E5%B0%8F%E8%8A%82%E7%9A%84VIP%E9%9F%B3%E4%B9%90%E8%A7%A3%E6%9E%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%A8%E9%9D%A2%E5%8D%87%E7%BA%A7%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/" title="40. 实战：基于tkinter实现用户UI界面——对34小节的VIP音乐解析系统的全面升级（附源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/40.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8Etkinter%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7UI%E7%95%8C%E9%9D%A2%E2%80%94%E2%80%94%E5%AF%B934%E5%B0%8F/9af7a7c56491.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-08</div><div class="info-item-2">40. 实战：基于tkinter实现用户UI界面——对34小节的VIP音乐解析系统的全面升级（附源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：40. 实战：基于tkinter实现用户UI界面——对34小节的VIP音乐解析系统的全面升级（附源码）📊 1399 阅读 | 👍 5 点赞 | 💬 8 评论 | ⭐ 20 收藏  目录 前言 目的 思路 代码实现 1. 首先设计主页UI界面 2. 封装核心解析歌曲代码 3. 下载音乐到本地 4. 将界面居中，禁止修改窗口大小，等待关闭&#x2F;退出指令  完整源码 运行效果 使用过程 菜单栏 打包的exe 总结  前言本节将升级34. 实战：基于某api实现歌曲检索与下载（附完整源代码），也将基于api实现视频解析播放的功能，并且还实现了用户UI界面，可以用pyinstaller等库导出exe来永久保存可执行文件。 博主已经成功导出可执行文件，包括上一节的视频解析软件也已经导出。需要的小伙伴可以私信我或者评论区留言，我分享给你~  目的实现一个VIP音乐解析系统，要求能够通过关键字检索需要的歌曲，并且设计用户界面，进行直观的交互行为，下载到本地同目录下的Download文件夹中。  思路使用tkinter库设计UI界面并把各组件封装起来，...</div></div></div></a><a class="pagination-related" href="/2022/12/30/zh-CN/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/" title="09. bs4解析基础与实例"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">09. bs4解析基础与实例</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：09. bs4解析基础与实例📊 802 阅读 | 👍 4 点赞 | 💬 4 评论 | ⭐ 6 收藏  目录 前言 bs4的安装 bs4使用基础 bs4实例——获取某网站菜价 代码实现 完整代码 重要提醒 总结  前言我们已经具备了基本的HTML知识，能够简单的识别HTML源代码中的各类元素。这一节我们将正式学习bs4的用法，并用一个实例来展示它的方便之处。可以说，相比于正则法，bs4是非常简单的。  bs4的安装没有安装过Python模块的同学可以参照我在requests章节的安装模块部分，把requests替换成bs4就可以了。 传送门：Python模块安装的三种方式 当然，大多数看到这一节的同学应该已经懂得模块的安装了，bs4模块安装如下： python pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple    bs4使用基础BeautifulSoup对象获取html中的内容主要通过两个方法来完成：  find() find_all()   不论是 find 还是 fi...</div></div></div></a><a class="pagination-related" href="/2023/01/01/zh-CN/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/" title="12. XPath解析入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-02</div><div class="info-item-2">12. XPath解析入门</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：12. XPath解析入门📊 611 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 6 收藏  目录 前言 模块安装 XPath涉及的基本概念 XPath基本语法 测试完整代码 XPath进阶用法 需求1：让xpath处理这个资源文件 需求2：找到标签位置，如html标签 需求3：找到无序列表(ul)中每一项(li)包裹的文本内容 需求4：找到无序列表(ul)中第一项(li)包裹的文本内容 需求5：找到无序列表(ul)中每一项(li)包裹的链接(a)内容 需求6：获取href为‘dapao’包裹的文字（属性筛选） 需求7：先获取列表项，再递归每个列表项取出包裹文本和a标签的href属性值 需求8：练习：打印第一个div的文本信息 XPath进阶用法完整代码  前言XPath是一门在 XML 文档中查找信息的语言。XPath可用来在 XML 文档中对元素和属性进行遍历。而我们熟知的HTML恰巧属于XML的⼀个子集，所以完全可以用XPath去查找html中的内容。  模块安装老样子，直接pip install lxml   XPath涉及的...</div></div></div></a><a class="pagination-related" href="/2023/01/30/zh-CN/34.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%9F%90api%E5%AE%9E%E7%8E%B0%E6%AD%8C%E6%9B%B2%E6%A3%80%E7%B4%A2%E4%B8%8E%E4%B8%8B%E8%BD%BD%EF%BC%88%E9%99%84%E5%AE%8C%E6%95%B4%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%89/" title="34. 实战：基于某api实现歌曲检索与下载（附完整源代码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/34.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%9F%90api%E5%AE%9E%E7%8E%B0%E6%AD%8C%E6%9B%B2%E6%A3%80%E7%B4%A2%E4%B8%8E%E4%B8%8B%E8%BD%BD%EF%BC%88%E9%99%84%E5%AE%8C%E6%95%B4%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%89/ba8af8d87d60.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-31</div><div class="info-item-2">34. 实战：基于某api实现歌曲检索与下载（附完整源代码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：34. 实战：基于某api实现歌曲检索与下载（附完整源代码）📊 1778 阅读 | 👍 3 点赞 | 💬 15 评论 | ⭐ 6 收藏  目录 前言 （相关链接在评论区） 目的 （相关链接在评论区） 思路 （相关链接在评论区） 代码实现 1. 访问某音乐平台（链接放在评论区了），抓包搜索接口 2. 抓取音乐id信息 3. 解析音乐id，获取下载直链 4. 保存到本地 5. 实现用户交互逻辑 完整代码 运行效果 总结  前言本节将介绍基于Python和某api实现的歌曲检索与批量下载功能的实现。 （相关链接在评论区）  目的实现搜索任意关键词，选择任意序号歌曲下载或下载当页全部歌曲。  思路1. 访问某音乐平台**（链接放在评论区了）** ，抓包搜索接口 2. 抓取音乐id信息 3. 解析音乐id，获取下载直链 4. 保存到本地 5. 实现用户交互逻辑  代码实现1. 访问某音乐平台**（链接放在评论区了）** ，抓包搜索接口 查看源代码，发现没有数据，所以抓包。 F12 – &gt; Network –&gt; Fetch&#x2F;XHR...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E5%AF%BC%E5%85%A5%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="toc-number">4.1.</span> <span class="toc-text">需要导入的模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AF%BC%E5%85%A5%E8%A7%A3%E6%9E%90%E7%BD%91%E7%AB%99%E5%88%97%E8%A1%A8%EF%BC%8C%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">1. 导入解析网站列表，实现解析过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%BE%E8%AE%A1UI%E7%95%8C%E9%9D%A2"><span class="toc-number">4.3.</span> <span class="toc-text">2. 设计UI界面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AE%BE%E7%BD%AE%E7%AA%97%E5%8F%A3%E5%B1%85%E4%B8%AD%E5%92%8C%E5%BE%AA%E7%8E%AF%E6%89%A7%E8%A1%8C"><span class="toc-number">4.4.</span> <span class="toc-text">3. 设置窗口居中和循环执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.5.</span> <span class="toc-text">4. 注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E6%BA%90%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">完整源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text">运行效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

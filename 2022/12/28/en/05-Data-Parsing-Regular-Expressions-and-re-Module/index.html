@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>05. Data Parsing, Regular Expressions and re Module | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This article was migrated from CSDN blogOriginal link: 05. 数据解析、正则表达式与re模块  Table of Contents Data Parsing Overview Regular Expressions Concept of Regex Pros and Cons of Regular Expressions Regex Syn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05. Data Parsing, Regular Expressions and re Module">
+<meta property="og:url" content="https://your-domain.com/2022/12/28/en/05-Data-Parsing-Regular-Expressions-and-re-Module/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="This article was migrated from CSDN blogOriginal link: 05. 数据解析、正则表达式与re模块  Table of Contents Data Parsing Overview Regular Expressions Concept of Regex Pros and Cons of Regular Expressions Regex Syn">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png">
+<meta property="article:published_time" content="2022-12-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-28T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="crawler">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="pip">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="regex">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "05. Data Parsing, Regular Expressions and re Module",
+  "url": "https://your-domain.com/2022/12/28/en/05-Data-Parsing-Regular-Expressions-and-re-Module/",
+  "image": "https://your-domain.com/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png",
+  "datePublished": "2022-12-28T15:00:00.000Z",
+  "dateModified": "2022-12-28T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2022/12/28/en/05-Data-Parsing-Regular-Expressions-and-re-Module/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '05. Data Parsing, Regular Expressions and re Module',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">05. Data Parsing, Regular Expressions and re Module</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">05. Data Parsing, Regular Expressions and re Module</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-28T15:00:00.000Z" title="Created 2022-12-29 00:00:00">2022-12-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-28T15:00:00.000Z" title="Updated 2022-12-29 00:00:00">2022-12-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python-Web-Crawler-Tutorial/">Python Web Crawler Tutorial</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>12mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2022-12-29 00:00:00&quot;}" hidden></div><blockquote>
+<p>This article was migrated from CSDN blog<br>Original link: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128479831">05. 数据解析、正则表达式与re模块</a></p>
+</blockquote>
+<p><strong>Table of Contents</strong></p>
+<p>Data Parsing Overview</p>
+<p>Regular Expressions</p>
+<p>Concept of Regex</p>
+<p>Pros and Cons of Regular Expressions</p>
+<p>Regex Syntax</p>
+<p>Common Metacharacters</p>
+<p>Quantifiers</p>
+<p>Greedy vs Lazy Matching</p>
+<p>Typical Cases</p>
+<p>re Module</p>
+<p>Common Functions in re Module</p>
+<p>Summary</p>
+<p>Complete Code Used in This Section</p>
+<hr>
+<h3 id="Data-Parsing-Overview"><a href="#Data-Parsing-Overview" class="headerlink" title="Data Parsing Overview"></a>Data Parsing Overview</h3><p>In previous sections, we basically mastered the basic skills of scraping entire webpages. However, in most cases, we don’t need the entire webpage content, such as page frameworks, advertisements, notifications, etc. How do we extract only the target data we need? This involves data parsing!</p>
+<p>We will learn three parsing methods:</p>
+<p>1. re parsing</p>
+<p>2. bs4 parsing</p>
+<p>3. xpath parsing</p>
+<p>These three methods are not limited to standalone use - they can be mixed according to needs. When writing crawlers, we’re completely results-oriented. As the saying goes, it doesn’t matter if it’s a black cat or white cat - a cat that catches mice is a good cat! As long as we can get the data we want, the method doesn’t matter. After mastering these methods, we can then consider performance issues.</p>
+<hr>
+<h3 id="Regular-Expressions"><a href="#Regular-Expressions" class="headerlink" title="Regular Expressions"></a>Regular Expressions</h3><p>When it comes to data parsing, regular expressions are indispensable.</p>
+<h4 id="Concept-of-Regex"><a href="#Concept-of-Regex" class="headerlink" title="Concept of Regex:"></a>Concept of Regex:</h4><blockquote>
+<p>Regular Expression is a syntax rule that uses expressions to match strings.</p>
+</blockquote>
+<p>In plain terms, it’s extracting the parts we want from a piece of text&#x2F;code through a series of expressions. The webpage source code we scrape is essentially a super long string, so using regular expressions to extract content from it is perfect!</p>
+<h4 id="Pros-and-Cons-of-Regular-Expressions"><a href="#Pros-and-Cons-of-Regular-Expressions" class="headerlink" title="Pros and Cons of Regular Expressions:"></a>Pros and Cons of Regular Expressions:</h4><p>Pros: Fast speed, high efficiency, high accuracy</p>
+<p>Cons: Somewhat difficult for beginners to get started</p>
+<p>As long as we can master the logical relationships of regex writing, creating a regular expression to extract page content isn’t actually complex.</p>
+<h4 id="Regex-Syntax"><a href="#Regex-Syntax" class="headerlink" title="Regex Syntax:"></a>Regex Syntax:</h4><p>Use metacharacters in combinations to match strings. Here’s a website for testing regular expressions online:</p>
+<p><a target="_blank" rel="noopener" href="https://tool.oschina.net/regex/">Online Regex Testing Website<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png"><a target="_blank" rel="noopener" href="https://tool.oschina.net/regex/">https://tool.oschina.net/regex/</a></a></p>
+<p>Metacharacters: Special symbols with fixed meanings</p>
+<h4 id="Common-Metacharacters"><a href="#Common-Metacharacters" class="headerlink" title="Common Metacharacters:"></a>Common Metacharacters:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.     Match any character except newline</span><br><span class="line">\w    Match letter, digit, or underscore</span><br><span class="line">\s    Match any whitespace character</span><br><span class="line">\d    Match digit</span><br><span class="line">\n    Match newline</span><br><span class="line">\t    Match tab</span><br><span class="line">^     Match start of string</span><br><span class="line">$     Match end of string</span><br><span class="line">\W    Match non-letter, non-digit, non-underscore</span><br><span class="line">\S    Match non-whitespace</span><br><span class="line">\D    Match non-digit</span><br><span class="line">a|b   Match character a or b</span><br><span class="line">()    Match expression in parentheses, also represents a group</span><br><span class="line">[...] Match characters in character class</span><br><span class="line">[^...] Match all characters except those in character class</span><br></pre></td></tr></table></figure>
+
+<h4 id="Quantifiers"><a href="#Quantifiers" class="headerlink" title="Quantifiers:"></a>Quantifiers:</h4><p>Control how many times the preceding metacharacter appears</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*       Repeat zero or more times</span><br><span class="line">\+      Repeat one or more times</span><br><span class="line">?       Repeat zero or one time</span><br><span class="line">&#123;n&#125;     Repeat n times</span><br><span class="line">&#123;n,&#125;    Repeat n or more times</span><br><span class="line">&#123;n,m&#125;   Repeat n to m times</span><br></pre></td></tr></table></figure>
+
+<h4 id="Greedy-vs-Lazy-Matching"><a href="#Greedy-vs-Lazy-Matching" class="headerlink" title="Greedy vs Lazy Matching"></a>Greedy vs Lazy Matching</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.*    Greedy matching</span><br><span class="line">.*?   Lazy matching</span><br></pre></td></tr></table></figure>
+
+<p>Pay special attention to these two - lazy matching is what we use most when writing crawlers.</p>
+<h4 id="Typical-Cases"><a href="#Typical-Cases" class="headerlink" title="Typical Cases"></a>Typical Cases</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">String: Playing chicken game, let&#x27;s play games tonight. What are you doing? Playing games</span><br><span class="line">Expression: Playing.*?game</span><br><span class="line">Result: Playing chicken game</span><br><span class="line"></span><br><span class="line">Expression: Playing.*game</span><br><span class="line">Result: Playing chicken game, let&#x27;s play games tonight. What are you doing? Playing games</span><br><span class="line"></span><br><span class="line">String: &lt;div&gt;Hot and Sour Soup&lt;/div&gt;</span><br><span class="line">Expression: &lt;.*&gt;</span><br><span class="line">Result: &lt;div&gt;Hot and Sour Soup&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">Expression: &lt;.*?&gt;</span><br><span class="line">Result: &lt;div&gt; &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">String: &lt;div&gt;Hot and Sour Soup&lt;/div&gt;&lt;div&gt;&lt;span&gt;Rice Ball&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">Expression: &lt;div&gt;.*&lt;/div&gt;</span><br><span class="line">Result: &lt;div&gt;Hot and Sour Soup&lt;/div&gt;&lt;div&gt;&lt;span&gt;Rice Ball&lt;/span&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">Expression: &lt;div&gt;.*?&lt;/div&gt;</span><br><span class="line">Result: &lt;div&gt;Hot and Sour Soup&lt;/div&gt;  &lt;div&gt;&lt;span&gt;Rice Ball&lt;/span&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>So we can discover this pattern:</p>
+<p>.*? means match as few as possible</p>
+<p>.* means match as many as possible</p>
+<p>Remember this pattern for now - it will be used when writing crawlers later.</p>
+<hr>
+<h3 id="re-Module"><a href="#re-Module" class="headerlink" title="re Module"></a>re Module</h3><p>Now the question is: I know how to write regular expressions, but how do I use them in Python programs?</p>
+<p>Observant readers may have noticed that the initials of <strong>R</strong>egular <strong>E</strong>xpression are “re” - that’s our re module. So we just need to import re in Python programs to use regex.</p>
+<h4 id="Common-Functions-in-re-Module"><a href="#Common-Functions-in-re-Module" class="headerlink" title="Common Functions in re Module"></a>Common Functions in re Module</h4><p>1. findall finds all matches, returns a list</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># findall: Match all content in string that matches the regex</span></span><br><span class="line"><span class="comment"># lst=re.findall(&quot;\d+&quot;,&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;)</span></span><br><span class="line">lst = re.findall(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)  <span class="comment"># Adding r is better</span></span><br><span class="line"><span class="built_in">print</span>(lst)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>2. search will match, but if it finds the first result, it returns that result. If no match, search returns None</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># search, returns when first result is found, returns match object, need .group() to get data</span></span><br><span class="line">s = re.search(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="built_in">print</span>(s.group())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3. match can only match from the beginning of the string</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># match matches from the beginning, returns match object, need .group() to get data</span></span><br><span class="line"><span class="comment"># t = re.match(r&quot;\d+&quot;, &quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;)  # Can&#x27;t match, empty, group() will error</span></span><br><span class="line">t = re.<span class="keyword">match</span>(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="built_in">print</span>(t.group())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>4. finditer, similar to findall, but returns an iterator (<strong>important</strong>)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># finditer: Match all content in string [returns iterator], need .group() to get content from iterator</span></span><br><span class="line">it = re.finditer(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(it)  <span class="comment"># Returns iterator</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> it:</span><br><span class="line">    <span class="built_in">print</span>(i.group())  <span class="comment"># Display content</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>5. compile, can preload a long regex for convenient later use</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Preload regular expression</span></span><br><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+&quot;</span>)</span><br><span class="line">ret = obj.finditer(<span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(ret)  <span class="comment"># Returns iterator</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> ret:</span><br><span class="line">    <span class="built_in">print</span>(j.group())  <span class="comment"># Display content</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">ret = obj.findall(<span class="string">&quot;Everyone look at 5, look 7, look 5 look 5, 5 announces 42, 54 something&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>6. How to extract specific content from regex?</p>
+<p>You can name groups to get specific content from regex matches</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;qilin&#x27;&gt;&lt;span id=&#x27;1&#x27;&gt;Guo Qilin&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;iron&#x27;&gt;&lt;span id=&#x27;2&#x27;&gt;Song Tie&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;sucker&#x27;&gt;&lt;span id=&#x27;3&#x27;&gt;Big Smart&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;thinker&#x27;&gt;&lt;span id=&#x27;4&#x27;&gt;Fan Sizhe&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;balabala&#x27;&gt;&lt;span id=&#x27;5&#x27;&gt;Nonsense&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;&lt;div class=&#x27;.*?&#x27;&gt;&lt;span id=&#x27;\d+&#x27;&gt;.*?&lt;/span&gt;&lt;/div&gt;&quot;</span>, re.S)  <span class="comment"># re.S: let . match newlines</span></span><br><span class="line"><span class="comment"># Printing is still tedious</span></span><br><span class="line">result = obj.finditer(s)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> result:</span><br><span class="line">    <span class="built_in">print</span>(i.group())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># (?P&lt;group_name&gt;regex) can further extract content from regex matches</span></span><br><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;&lt;div class=&#x27;(?P&lt;classes&gt;.*?)&#x27;&gt;&lt;span id=&#x27;(?P&lt;id&gt;\d+)&#x27;&gt;(?P&lt;showname&gt;.*?)&lt;/span&gt;&lt;/div&gt;&quot;</span>, re.S)</span><br><span class="line">result = obj.finditer(s)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> result:</span><br><span class="line">    <span class="built_in">print</span>(i.group(<span class="string">&quot;classes&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(i.group(<span class="string">&quot;showname&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(i.group(<span class="string">&quot;id&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Here we can see that by using groups, we can further filter the content matched by regex, making results clearer, more readable, and more valuable.</p>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this section, we learned a very important method for data parsing: regular expressions. We also learned about the application of regular expressions in Python: the re module. Through various examples, we practiced using regular expressions.</p>
+<p>I hope everyone can continue to work hard with me and enhance our personal abilities~</p>
+<p>(You can use your spare time to learn more about computer networking and HTML&#x2F;frontend knowledge to facilitate our future learning)</p>
+<p>For HTML learning, you can refer to my other column <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/category_12132070.html">HTML Introduction, Advanced and Practice</a></p>
+<hr>
+<h3 id="Complete-Code-Used-in-This-Section-Comment-out-parts-you-don’t-want-to-see-when-testing-for-easier-observation"><a href="#Complete-Code-Used-in-This-Section-Comment-out-parts-you-don’t-want-to-see-when-testing-for-easier-observation" class="headerlink" title="Complete Code Used in This Section (Comment out parts you don’t want to see when testing for easier observation)"></a>Complete Code Used in This Section (Comment out parts you don’t want to see when testing for easier observation)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># findall: Match all content in string that matches the regex</span></span><br><span class="line">lst = re.findall(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(lst)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># finditer: Match all content in string [returns iterator], need .group() to get content</span></span><br><span class="line">it = re.finditer(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(it)  <span class="comment"># Returns iterator</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> it:</span><br><span class="line">    <span class="built_in">print</span>(i.group())  <span class="comment"># Display content</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># search, returns when first result is found, returns match object, need .group() to get data</span></span><br><span class="line">s = re.search(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="built_in">print</span>(s.group())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># match matches from the beginning, returns match object, need .group() to get data</span></span><br><span class="line">t = re.<span class="keyword">match</span>(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="built_in">print</span>(t.group())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preload regular expression</span></span><br><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+&quot;</span>)</span><br><span class="line">ret = obj.finditer(<span class="string">&quot;My phone number is: 10086, my girlfriend&#x27;s phone is: 10010&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(ret)  <span class="comment"># Returns iterator</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> ret:</span><br><span class="line">    <span class="built_in">print</span>(j.group())  <span class="comment"># Display content</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">ret = obj.findall(<span class="string">&quot;Everyone look at 5, look 7, look 5 look 5, 5 announces 42, 54 something&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">s = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;qilin&#x27;&gt;&lt;span id=&#x27;1&#x27;&gt;Guo Qilin&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;iron&#x27;&gt;&lt;span id=&#x27;2&#x27;&gt;Song Tie&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;sucker&#x27;&gt;&lt;span id=&#x27;3&#x27;&gt;Big Smart&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;thinker&#x27;&gt;&lt;span id=&#x27;4&#x27;&gt;Fan Sizhe&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&#x27;balabala&#x27;&gt;&lt;span id=&#x27;5&#x27;&gt;Nonsense&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;&lt;div class=&#x27;.*?&#x27;&gt;&lt;span id=&#x27;\d+&#x27;&gt;.*?&lt;/span&gt;&lt;/div&gt;&quot;</span>, re.S)</span><br><span class="line">result = obj.finditer(s)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> result:</span><br><span class="line">    <span class="built_in">print</span>(i.group())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;&lt;div class=&#x27;(?P&lt;classes&gt;.*?)&#x27;&gt;&lt;span id=&#x27;(?P&lt;id&gt;\d+)&#x27;&gt;(?P&lt;showname&gt;.*?)&lt;/span&gt;&lt;/div&gt;&quot;</span>, re.S)</span><br><span class="line">result = obj.finditer(s)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> result:</span><br><span class="line">    <span class="built_in">print</span>(i.group(<span class="string">&quot;classes&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(i.group(<span class="string">&quot;showname&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(i.group(<span class="string">&quot;id&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2022/12/28/en/05-Data-Parsing-Regular-Expressions-and-re-Module/">https://your-domain.com/2022/12/28/en/05-Data-Parsing-Regular-Expressions-and-re-Module/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/crawler/">crawler</a><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/regex/">regex</a><a class="post-meta__tags" href="/tags/pip/">pip</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/12/28/en/06-Practical-Scraping-Movie-Top250-with-Python-Regex/" title="06. Practical: Scraping Movie Top250 with Python Regex"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/06.-%E5%AE%9E%E6%88%98%EF%BC%9APython%E6%AD%A3%E5%88%99%E6%B3%95%E6%8A%93%E5%8F%96%E6%9F%90%E7%94%B5%E5%BD%B1%E7%BD%91Top250%E4%BF%A1%E6%81%AF/9546f4c712a0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">06. Practical: Scraping Movie Top250 with Python Regex</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 06. Practical: Scraping Movie Top250 with Python Regex📊 913 views | 👍 6 likes | 💬 1 comment | ⭐ 16 favorites  Table of Contents Introduction Requirements Approach Code Implementation Complete Code Results Summary  IntroductionAfter learning the basics in previous chapters, we now have the ability to work on small projects. Our target is the movie ranking website we mentioned before - we’ll scrape the Top 250 movies for practice.  Requ...</div></div></div></a><a class="pagination-related" href="/2022/12/27/zh-CN/04.-requests%E6%A8%A1%E5%9D%97%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%89%E4%B8%AA%E6%A1%88%E4%BE%8B%EF%BC%88%E6%90%9C%E7%8B%97%E6%90%9C%E7%B4%A2%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%EF%BC%89/" title="04. requests模块入门与三个案例（搜狗搜索/百度翻译/豆瓣电影）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/04.-requests%E6%A8%A1%E5%9D%97%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%89%E4%B8%AA%E6%A1%88%E4%BE%8B%EF%BC%88%E6%90%9C%E7%8B%97%E6%90%9C%E7%B4%A2%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/c1cbbc3abfb2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">04. requests模块入门与三个案例（搜狗搜索/百度翻译/豆瓣电影）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：04. requests模块入门与三个案例（搜狗搜索&#x2F;百度翻译&#x2F;豆瓣电影）📊 1185 阅读 | 👍 1 点赞 | 💬 3 评论 | ⭐ 9 收藏  目录 前言 requests的安装 1. cmd中输入安装 2. PyCharm中运行安装 3. Anaconda虚拟环境中安装 4. 检查是否安装成功 案例1. 抓取搜狗搜索内容 案例2 利用百度翻译网站制作一个自己的翻译小程序 案例3 豆瓣电影高分排行榜读取 总结  前言 在前面小节中，我们使用urllib来抓取页面源代码，这是python内置的一个模块，但它并不是我们常用的爬虫工具。 常用的抓取页面的模块是第三方模块——requests。这个模块的优势就是比urllib还要简单，并且处理各种请求都很方便。  requests的安装既然是第三方模块，那就需要我们对该模块进行安装，安装方法： 1. cmd中输入安装① 按下win+R，输入cmd，按下回车  ② 输入pip install requests  如果安装速度慢的话可以改用国内镜像源安装：  2. PyChar...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/28/zh-CN/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/" title="05. 数据解析、正则表达式与re模块"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-29</div><div class="info-item-2">05. 数据解析、正则表达式与re模块</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：05. 数据解析、正则表达式与re模块📊 401 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 5 收藏  目录 数据解析概述 正则表达式 正则的概念： 正则表达式的优缺点： 正则的语法： 常用元字符： 量词： 贪婪匹配和惰性匹配 典型案例 re模块 re模块中常用的几个函数 总结 本节用到的全部代码（测试时请注释不看的部分，这样便于观察结果）  数据解析概述在前几节中，我们基本掌握了抓取整个网页的基本技能，但是大多数情况下，我们并不需要整个网页的内容，譬如网页框架、广告、网页通知等。我们想要只抓取我们需要的目标数据，该怎么去处理呢？这就涉及到了数据解析！ 我们将一共学习三种解析方式： 1. re解析 2. bs4解析 3. xpath解析 这三种方式并不局限于单独使用，可以根据需求混合进行使用，我们写爬虫是完全以结果作为导向的，正所谓不管黑猫白猫，能抓得到耗子就是好猫嘛！只要能拿得到我们想要的数据，用什么方案并不重要。当我们能够掌握这些方法以后，再去考虑性能的问题。  正则表达式说到数据解析，最先离不开的就是正则表达式了。 正则的概念...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/01-Web-Crawler-Overview-and-First-Program/" title="01. Web Crawler Overview and First Program"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">01. Web Crawler Overview and First Program</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 01. 爬虫概述与第一个程序  Table of Contents Web Crawler Overview What is a Web Crawler? Web Crawlers and Python Is Web Crawling Legal? The Sword and Shield of Web Crawling Anti-Crawling Mechanisms Anti-Anti-Crawling Strategies My First Web Crawler Program  Web Crawler Overview What is a Web Crawler?Have you ever encountered a situation where you wanted to save some important data from the internet for your own use? For example:   When browsing bea...</div></div></div></a><a class="pagination-related" href="/2023/01/26/zh-CN/%E8%A7%A3%E5%86%B3nes_py%E5%9C%A8pip%E5%AE%89%E8%A3%85%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决nes_py在pip安装报错的问题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E8%A7%A3%E5%86%B3nes_py%E5%9C%A8pip%E5%AE%89%E8%A3%85%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/b86ced89d568.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-27</div><div class="info-item-2">解决nes_py在pip安装报错的问题</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：解决nes_py在pip安装报错的问题📊 5555 阅读 | 👍 16 点赞 | 💬 11 评论 | ⭐ 18 收藏  目录 项目场景： 问题描述 原因分析： 解决方案： 解决结果：  项目场景：想跟随油管某视频复现强化学习方法玩超级马里奥的过程，结果在在Anaconda3虚拟环境中用pip安装nes_py时一直报错，报错信息如下： bash Building wheel for nes-py (setup.py) ... error error: subprocess-exited-with-error × python setup.py bdist_wheel did not run successfully. │ exit code: 1 ╰─&gt; [21 lines of output] running bdist_wheel running build running build_py creating build creating build\lib.win-amd64-cpython-37 creating build\l...</div></div></div></a><a class="pagination-related" href="/2023/01/26/en/Fix-nes_py-pip-Installation-Error/" title="Fixing nes_py pip Installation Error on Windows"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E8%A7%A3%E5%86%B3nes_py%E5%9C%A8pip%E5%AE%89%E8%A3%85%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/b86ced89d568.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-27</div><div class="info-item-2">Fixing nes_py pip Installation Error on Windows</div></div><div class="info-2"><div class="info-item-1">Project ScenarioWhile following a YouTube tutorial to implement reinforcement learning for Super Mario Bros, I encountered persistent errors when installing nes_py via pip in an Anaconda3 virtual environment. Problem DescriptionThe error message indicates:  Failed to build wheel for nes-py Microsoft Visual C++ 14.0 or greater is required  123error: Microsoft Visual C++ 14.0 or greater is required. Get it with &quot;Microsoft C++ Build Tools&quot;: https://visualstudio.microsoft.com/visual-cpp...</div></div></div></a><a class="pagination-related" href="/2022/12/30/en/10-Supplementary-Example-Scraping-Dynamic-JS-Vegetable-Price-Pages/" title="10. Supplementary Example: Scraping Dynamic JS Vegetable Price Pages"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/6346d93934d9.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">10. Supplementary Example: Scraping Dynamic JS Vegetable Price Pages</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 10. Supplementary Example: Scraping Dynamic JS Vegetable Price Pages📊 301 views | 👍 4 likes | 💬 2 comments | ⭐ 5 favorites  Table of Contents Introduction Approach Code Implementation Complete Code Summary  IntroductionA typical case for scraping vegetable prices is a Beijing wholesale market website, but its page has been redesigned and can’t be scraped using bs4 parsing. Through analysis, we found it uses dynamic JS requests for the...</div></div></div></a><a class="pagination-related" href="/2022/12/30/en/09-bs4-Parsing-Basics-and-Examples/" title="09. bs4 Parsing Basics and Examples"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">09. bs4 Parsing Basics and Examples</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: 09. bs4 Parsing Basics and Examples📊 802 views | 👍 4 likes | 💬 4 comments | ⭐ 6 favorites  Table of Contents Introduction Installing bs4 bs4 Usage Basics bs4 Example: Scraping Vegetable Prices Code Implementation Complete Code Important Reminder Summary  IntroductionWe now have basic HTML knowledge and can identify various elements in HTML source code. In this chapter, we’ll formally learn bs4 usage and demonstrate its convenience wit...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Parsing-Overview"><span class="toc-number">1.</span> <span class="toc-text">Data Parsing Overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regular-Expressions"><span class="toc-number">2.</span> <span class="toc-text">Regular Expressions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Concept-of-Regex"><span class="toc-number">2.1.</span> <span class="toc-text">Concept of Regex:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pros-and-Cons-of-Regular-Expressions"><span class="toc-number">2.2.</span> <span class="toc-text">Pros and Cons of Regular Expressions:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Regex-Syntax"><span class="toc-number">2.3.</span> <span class="toc-text">Regex Syntax:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Common-Metacharacters"><span class="toc-number">2.4.</span> <span class="toc-text">Common Metacharacters:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Quantifiers"><span class="toc-number">2.5.</span> <span class="toc-text">Quantifiers:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Greedy-vs-Lazy-Matching"><span class="toc-number">2.6.</span> <span class="toc-text">Greedy vs Lazy Matching</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Typical-Cases"><span class="toc-number">2.7.</span> <span class="toc-text">Typical Cases</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re-Module"><span class="toc-number">3.</span> <span class="toc-text">re Module</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Common-Functions-in-re-Module"><span class="toc-number">3.1.</span> <span class="toc-text">Common Functions in re Module</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">4.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complete-Code-Used-in-This-Section-Comment-out-parts-you-don%E2%80%99t-want-to-see-when-testing-for-easier-observation"><span class="toc-number">5.</span> <span class="toc-text">Complete Code Used in This Section (Comment out parts you don’t want to see when testing for easier observation)</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

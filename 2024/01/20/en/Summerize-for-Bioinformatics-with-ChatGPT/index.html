@@ -1,0 +1,1161 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Summerize for Bioinformatics with ChatGPT | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：Summerize for Bioinformatics with ChatGPT📊 971 阅读 | 👍 22 点赞 | 💬 0 评论 | ⭐ 13 收藏   目录 Basic Introduction Historical Events Bioinformatics vs. Computational Biology Levels of Bioinfo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Summerize for Bioinformatics with ChatGPT">
+<meta property="og:url" content="https://your-domain.com/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：Summerize for Bioinformatics with ChatGPT📊 971 阅读 | 👍 22 点赞 | 💬 0 评论 | ⭐ 13 收藏   目录 Basic Introduction Historical Events Bioinformatics vs. Computational Biology Levels of Bioinfo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png">
+<meta property="article:published_time" content="2024-01-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-20T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="BLAST">
+<meta property="article:tag" content="Bioinformatics">
+<meta property="article:tag" content="GA">
+<meta property="article:tag" content="PSSM方法">
+<meta property="article:tag" content="启发式算法">
+<meta property="article:tag" content="复习资料">
+<meta property="article:tag" content="生物信息学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Summerize for Bioinformatics with ChatGPT",
+  "url": "https://your-domain.com/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/",
+  "image": "https://your-domain.com/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png",
+  "datePublished": "2024-01-20T15:00:00.000Z",
+  "dateModified": "2024-01-20T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Summerize for Bioinformatics with ChatGPT',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">Summerize for Bioinformatics with ChatGPT</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Summerize for Bioinformatics with ChatGPT</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-20T15:00:00.000Z" title="Created 2024-01-21 00:00:00">2024-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-20T15:00:00.000Z" title="Updated 2024-01-21 00:00:00">2024-01-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">复习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">10.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>49mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2024-01-21 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/135716837">Summerize for Bioinformatics with ChatGPT</a><br>📊 971 阅读 | 👍 22 点赞 | 💬 0 评论 | ⭐ 13 收藏</p>
+</blockquote>
+<hr>
+<p><strong>目录</strong></p>
+<p>Basic Introduction</p>
+<p>Historical Events</p>
+<p>Bioinformatics vs. Computational Biology</p>
+<p>Levels of Bioinfo &amp; CompBio</p>
+<p>Molecular Biology Primer</p>
+<p>Homework 1</p>
+<p>A brief Introduction to DNA &amp; RNA</p>
+<p>A brief Introduction to Protein</p>
+<p>Sequencing Technologies</p>
+<p>Sequence Alignment</p>
+<p>Pairwise sequence alignment</p>
+<p>Basic notions</p>
+<p>Goal of Pairwise Alignment:</p>
+<p>Algorithms for G&amp;L Alignments</p>
+<p>Homework 2</p>
+<p>Database similarity searches</p>
+<p>BLAST: Basic Local Alignment Search Tool</p>
+<p>FASTA: FAST-All </p>
+<p>Comparison between BLAST &amp; FASTA</p>
+<p>Homework 3</p>
+<p>Multiple sequence alignment</p>
+<p>1. Progressive alignment methods</p>
+<p>2. Iterative alignment methods</p>
+<p>PSSM方法</p>
+<p>Motifs and domains</p>
+<p>Homework 4</p>
+<p>My understanding to Expectation Maximization(EM) Algorithm:</p>
+<p>Core Algorithm:</p>
+<p>Code in PyCharm: (python&#x3D;3.8)</p>
+<p>The final result: </p>
+<p>The difficulties I met:</p>
+<p>Machine Learning Approaches</p>
+<p>GA for sequencing and MSA</p>
+<p>Sequencing by Using GA</p>
+<p>Multiple Sequence Alignments Using GA</p>
+<p>Protein Function Prediction</p>
+<p>Gene Function Prediction Using SVM</p>
+<p>Protein Function Prediction Using DNN</p>
+<p>Protein Structure Prediction</p>
+<p>Protein Folding Based on EDA</p>
+<p>Protein Folding Based on Deep Reinforcement Learning</p>
+<p>AlphaFold2 for Protein Structure Prediction</p>
+<p>References</p>
+<hr>
+<h3 id="Basic-Introduction"><a href="#Basic-Introduction" class="headerlink" title="Basic Introduction"></a>Basic Introduction</h3><h4 id="Historical-Events"><a href="#Historical-Events" class="headerlink" title="Historical Events"></a>Historical Events</h4><h5 id="Bioinformatics-vs-Computational-Biology"><a href="#Bioinformatics-vs-Computational-Biology" class="headerlink" title="Bioinformatics vs. Computational Biology"></a>Bioinformatics vs. Computational Biology</h5><ul>
+<li>Bioinformatics &#x3D; the creation of tools (algorithms, databases) that solve problems. The goal is to build useful tools that work on biological data. lt is about engineering.</li>
+<li>Computational biology &#x3D; the study of biology using computational techniques. The goal is to learn new biology, knowledge about living systems. lt is about discovery.</li>
+</ul>
+<h5 id="Levels-of-Bioinfo-CompBio"><a href="#Levels-of-Bioinfo-CompBio" class="headerlink" title="Levels of Bioinfo &amp; CompBio"></a>Levels of Bioinfo &amp; CompBio</h5><ul>
+<li>Level 0: <strong>Modeling for modeling</strong> ‘s sake</li>
+<li>Level 1: (entry) Use published tools to <strong>analyze data</strong> and <strong>generate hypotheses</strong> for experimentalists</li>
+<li>Level 2 (Bioinfo): <strong>Develop algorithms and databases</strong> for data analyses on new technologies, data integration and reuse.</li>
+<li>Level 3 (CompBio): Make <strong>biological discoveries</strong> from public dataintegration and modeling</li>
+<li>Level X: Integrative studies from big consortia</li>
+</ul>
+<hr>
+<h4 id="Molecular-Biology-Primer"><a href="#Molecular-Biology-Primer" class="headerlink" title="Molecular Biology Primer"></a>Molecular Biology Primer</h4><blockquote>
+<p><strong>All life depends on 3 critical molecules</strong></p>
+<ul>
+<li><p>DNAs </p>
+<ul>
+<li>Hold information on how cell works</li>
+</ul>
+</li>
+<li><p>RNAs </p>
+<ul>
+<li><p>Act to transfer short pieces of information to different parts  of cell </p>
+</li>
+<li><p>Provide templates to synthesize into protein</p>
+</li>
+</ul>
+</li>
+<li><p>Proteins </p>
+<ul>
+<li><p>Form <strong>enzymes(酶)</strong> that send signals to other cells and regulate  gene activity </p>
+</li>
+<li><p>Form body’s major components (e.g. hair, skin, etc.)</p>
+</li>
+<li><p>蛋白质在生命系统中的重要作用：</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>• Catalysis催化作用</p>
+<p>• Carrier and transport承运人和运输</p>
+<p>• Regulatory调节</p>
+</blockquote>
+<blockquote>
+<h5 id="Homework-1"><a href="#Homework-1" class="headerlink" title="Homework 1"></a><strong>Homework 1</strong></h5><p>Write a report describing <em>Cell</em> , <em>DNA</em> , <em>RNA</em> , Proteins and discussing their relations, from information point of view. </p>
+<ul>
+<li><strong>Replication: 复制</strong></li>
+<li><strong>Transcription: 转录</strong></li>
+<li><strong>Translation: 翻译</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png"></p>
+</blockquote>
+<h5 id="A-brief-Introduction-to-DNA-RNA"><a href="#A-brief-Introduction-to-DNA-RNA" class="headerlink" title="A brief Introduction to DNA &amp; RNA"></a>A brief Introduction to DNA &amp; RNA</h5><ul>
+<li>DNA &amp; RNA are <strong>polymers(聚合物)</strong> of<strong>nucleotides(核苷酸)</strong><ul>
+<li>DNA is a nucleic acid, made of long chains of nucleotides, which has four kinds of bases, <strong>A, T, C, G</strong>. DNA is a <strong>double strand helix(双链螺旋)</strong> , <strong>hydrogen bonds(氢键)</strong> between <strong>bases(碱基)</strong> hold the strands together: A and T, C and G. <ul>
+<li><p>Untwisting and replication (using DNA <strong>polymerase(聚合酶)</strong>): each strand is a template of a new strand</p>
+</li>
+<li><p>DNA replication begins at many specific sites</p>
+</li>
+<li><p>Each strand of the double helix is oriented in the opposite direction</p>
+</li>
+<li><p>The sequence of codons in DNA spells out the primary structure of a polypeptide</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>(Polypeptides form proteins that cells and organisms use)</p>
+<pre><code>* RNA is also a nucleic acid: different sugar (has 1 more O on the 2nd Carbon) ;  U instead of T; Single strand, usually
+</code></pre>
+<h5 id="A-brief-Introduction-to-Protein"><a href="#A-brief-Introduction-to-Protein" class="headerlink" title="A brief Introduction to Protein"></a>A brief Introduction to Protein</h5><ul>
+<li>Proteins are key players in our living systems. </li>
+<li>Proteins are polymers consisting of <strong>20 kinds of amino****acids. (没有 BJOUXZ这六个字母)</strong></li>
+<li>Each protein folds into a unique three-dimensional structure defined by its amino acid sequence. </li>
+<li>Protein structure has a <strong>hierarchical nature(层级性).</strong></li>
+<li>Protein structure is closely related to its function. </li>
+<li>Protein structure prediction is a grand challenge of computational biology</li>
+</ul>
+<hr>
+<h4 id="Sequencing-Technologies"><a href="#Sequencing-Technologies" class="headerlink" title="Sequencing Technologies"></a>Sequencing Technologies</h4><blockquote>
+<ul>
+<li>1st gen: <strong>Sanger sequencing (桑格测序)</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li><p><strong>DNA片段制备：</strong> 复制要测序的DNA片段。</p>
+</li>
+<li><p><strong>反应混合物：</strong> 创建一个反应混合物，其中包括标准核苷酸（A、T、C、G）和一小部分双脱氧核苷酸（ddATP、ddTTP、ddCTP、ddGTP）。</p>
+</li>
+<li><p><strong>DNA合成：</strong> 进行DNA合成反应，当DNA链生长到带有<strong>dideoxynucleotide（双脱氧核苷酸）</strong> 的位置时，DNA链终止。</p>
+</li>
+<li><p><strong>分离DNA片段：</strong> 通过凝胶电泳分离不同长度的DNA片段。</p>
+</li>
+<li><p><strong>电泳分析：</strong> 分离的DNA片段形成带状图谱，根据其长度可视化。</p>
+</li>
+<li><p><strong>结果解读：</strong> 通过分析图谱中的颜色或信号，确定DNA序列。</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<ul>
+<li>2nd gen: <strong>Illumina sequencing (伊卢米纳测序)</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li><p><strong>文库制备：</strong> 剪切DNA成短片段，添加适配器形成文库。</p>
+</li>
+<li><p><strong>文库扩增：</strong> 扩增成数百万复制。</p>
+</li>
+<li><p><strong>聚类：</strong> 形成DNA片段簇。</p>
+</li>
+<li><p><strong>桥PCR：</strong> 将DNA片段桥接到适配器上。</p>
+</li>
+<li><p><strong>测序：</strong> 逐一添加核苷酸，观察荧光信号，确定DNA序列。</p>
+</li>
+<li><p><strong>数据分析：</strong> 处理图像和信号，得到原始测序数据。</p>
+</li>
+<li><p><strong>序列拼接和分析：</strong> 将短读段拼接成完整序列，进行进一步的生物信息学分析。</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<ul>
+<li>3rd gen: <strong>Third generation sequencing (第三代测序)</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li><p><strong>DNA准备：</strong> 提取DNA并进行质控，确保适合直接测序。</p>
+</li>
+<li><p><strong>DNA模板制备：</strong> 将DNA片段固定在SMRT细胞中，形成单分子的DNA模板。</p>
+</li>
+<li><p><strong>SMRT细胞测序：</strong> 使用聚合酶在DNA模板上合成互补链，同时测量逐个核苷酸的加入，形成实时的荧光信号。</p>
+</li>
+<li><p><strong>数据采集：</strong> 通过监测SMRT细胞中的DNA合成过程，实时获取长读长的测序数据。</p>
+</li>
+<li><p><strong>数据分析：</strong> 对得到的原始数据进行处理和分析，包括错误校正和序列拼接。</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="Sequence-Alignment"><a href="#Sequence-Alignment" class="headerlink" title="Sequence Alignment"></a>Sequence Alignment</h3><h4 id="Pairwise-sequence-alignment"><a href="#Pairwise-sequence-alignment" class="headerlink" title="Pairwise sequence alignment"></a>Pairwise sequence alignment</h4><h5 id="Basic-notions"><a href="#Basic-notions" class="headerlink" title="Basic notions"></a>Basic notions</h5><p>To express the relatedness:</p>
+<ol>
+<li><strong>identity 相同度</strong></li>
+<li><strong>similarity 相似度 （相似物化性质，可以被替换的碱基）</strong><ol>
+<li>Calculation 1: <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://latex.csdn.net/eq?%5Cfrac%7B2*L_%7Bs%7D%7D%7BL_%7Ba%7D&plus;L_%7Bb%7D%7D" alt="\\frac{2*L_{s}}{L_{a}+L_{b}}"> (Ls: 相同&#x2F;相似残基对数；La&#x2F;Lb: 两条序列的长度)</li>
+<li>Calculation 2: <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://latex.csdn.net/eq?%5Cfrac%7BL_%7Bs%7D%7D%7BL_%7Ba%7D%7D" alt="\\frac{L_{s}}{L_{a}}"> (Ls: 相同&#x2F;相似残基对数；La: 较短序列的长度)</li>
+</ol>
+</li>
+<li><strong>homology 同源性 （序列间存在进化关系的推断）</strong><ol>
+<li><strong>Caution： 同源性要么有要么没有，不能“有点”同源性！</strong></li>
+<li><strong>Judgement： 相同度和相似度的百分比</strong>（序列较短时会出现偶然） <ol>
+<li>Solve：<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/08d0d5ec95a7.png"></li>
+<li><strong>（↑在 Safe Zone里就可以安全地认为它是同源的）</strong></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Amino acids varies from “R” groups.</p>
+<ul>
+<li>Amino acids are joined by <strong>amide linkages (酰胺键)</strong> to form proteins.</li>
+<li>Each C-N bond is called a <strong>peptide bond (肽键)</strong>.</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>A short chain of amino acids is called a <strong>peptide (多肽)</strong>(usually &lt;100). </p>
+</li>
+<li><p>A longer chain of amino acids is called a <strong>protein</strong>. </p>
+</li>
+<li><p>When an amino acid is part of a peptide or protein, it is called an amino acid <strong>residue (残基)</strong>.</p>
+</li>
+<li><p><strong>amino terminus</strong> &#x2F; <strong>N-terminus (氨基)</strong> , has a free amino group.</p>
+<ul>
+<li>Residues are numbered at the beginning of N terminus.</li>
+</ul>
+</li>
+<li><p><strong>carboxyl terminus</strong> &#x2F; <strong>C-terminus (羧基)</strong> , has a free carboxyl group.</p>
+</li>
+</ul>
+</blockquote>
+<h5 id="Goal-of-Pairwise-Alignment"><a href="#Goal-of-Pairwise-Alignment" class="headerlink" title="Goal of Pairwise Alignment:"></a><strong>Goal of Pairwise Alignment:</strong></h5><p>Find best pairing of two sequences so there is maximum correspondence between residues.</p>
+<p><strong>Methods:</strong></p>
+<ul>
+<li>Global Alignment: 找到最适合于两个长度大致相同的高度相似的序列</li>
+<li>Local Alignment: 找到两个序列相似性最高的区域，这两个序列的长度可以非常不同</li>
+</ul>
+<h5 id="Algorithms-for-G-L-Alignments"><a href="#Algorithms-for-G-L-Alignments" class="headerlink" title="Algorithms for G&amp;L Alignments"></a>Algorithms for G&amp;L Alignments</h5><blockquote>
+<ul>
+<li><p>1. <strong>Dot matrix</strong> (dot plot) <strong>method</strong> : 一种使用二维矩阵的图形化方法</p>
+<ul>
+<li><p>​​​​ <strong>构建矩阵：</strong> 将两个序列分别放置在矩阵的水平和垂直方向上，形成一个二维矩阵。 </p>
+</li>
+<li><p><strong>相似性标记：</strong> 在相同位置上，如果两个序列的字符相同或相似，就在该位置上绘制一个点（或其他符号）。</p>
+</li>
+<li><p><strong>可视化：</strong> 查看绘制的点阵，观察序列之间的相似性模式。</p>
+</li>
+</ul>
+</li>
+<li><p>2.<strong>⭐</strong> <strong>Dynamic programming</strong> (DP) <strong>method</strong> : 生成一个包含所有可能对齐的分数的二维对齐矩阵，以便定量地找到最佳对齐</p>
+<ul>
+<li><p>需要一个评分方法（Scoring System）：</p>
+<ul>
+<li><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://latex.csdn.net/eq?score(A)%20=%20%5Calpha%20w-%20%5Cbeta%20x%20-%20%5Cgamma%20y" alt="score\(A\) &#x3D; \\alpha w- \\beta x - \\gamma y"></p>
+</li>
+<li><p>w: 配对数；x: 未配对数；y: 间隙（gap）数 </p>
+<ul>
+<li>Reward for matches:  α (positive score)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Mismatch penalty: -β (negative score) </p>
+<p>Gap penalty: -γ (negative score) </p>
+<pre><code>* **Global alignment: Needleman-Wunsch (NW) algorithm**
+  * **定义状态：** 将比对问题划分为一个二维矩阵，矩阵的每个元素对应于两个序列的某一对字符。矩阵中的每个元素表示在该位置上的比对分数，即对应字符的相似性得分。
+  * **初始化：** 在矩阵的第一行和第一列中设置初始值，表示第一个序列或第二个序列与空序列之间的比对分数。这些初始值是根据所选择的比对得分规则确定的。**C(i,0)=-i*γ C(0,j)=-j*γ**
+
+  * **状态转移方程：** 确定状态之间的转移关系，即如何从先前的状态得到当前状态。在NW算法中，状态转移方程通常包括匹配、插入和删除操作，对应于在两个序列中移动、匹配或插入缺失字符。
+
+    * **w(a,b)=+α(if a=b)/-β(if a≠b)**
+
+    * For 1≤i≤n,1≤j≤m: 
+      * **C(i,j)=max{ [****C(i-1, j-1)+w(Si,Tj)], [C(i-1, j)-γ], [C(i, j-1)-γ]}**
+      * Si/Tj: Prefix of length i of S/T sequence
+    * ![](/images/posts/Summerize-for-Bioinformatics-w/2c8a42e8a541.png)
+  * **计算矩阵：** 根据状态转移方程，计算整个矩阵的值。这可以通过自底向上的方式，从左上角逐步计算到右下角，也就是从序列的开头到末尾。
+
+  * ![](/images/posts/Summerize-for-Bioinformatics-w/d8c97735c058.png)
+
+  * **回溯：** 根据计算得到的矩阵，从右下角开始回溯，找到最优比对路径。这个路径就是使两个序列得分最高的比对方式。时间复杂度O(mn)
+
+* **Local alignment: Smith-Waterman (SW) algorithm**
+  * **​​​​​​​****定义状态：** 将比对问题划分为一个二维矩阵，矩阵的每个元素对应于两个序列的某一对字符。矩阵中的每个元素表示在该位置上的比对分数，即对应字符的相似性得分。(蛋白质局部相似可能对应着“功能亚基”相似，这是主要的)
+  * **初始化：** **在矩阵的第一行和第一列中设置初始值为零** ，表示起始位置。与Needleman-Wunsch算法不同，Smith-Waterman算法的初始化值为零，不考虑与空序列的比对。
+
+  * **状态转移方程：** 确定状态之间的转移关系，即如何从先前的状态得到当前状态。在SW算法中，状态转移方程包括匹配、插入、删除操作，对应于在两个序列中移动、匹配或插入缺失字符。
+
+    * **C(i,j)=max{ [****C(i-1, j-1)+score(Si,Tj)], [C(i-1, j)-γ], [C(i, j-1)-γ], 0 }**
+
+  * **计算矩阵：** 根据状态转移方程，计算整个矩阵的值。这可以通过自底向上的方式，从左上角逐步计算到右下角，也就是从序列的开头到末尾。
+
+  * **回溯：** 根据计算得到的矩阵，找到矩阵中的最高得分及其位置。从该位置开始回溯，沿着得分最高的路径，找到最优的局部比对。时间复杂度O(mn)
+
+* **Gap Panalty Function (间隙惩罚函数)**
+
+  * **​​​​​​​ Gap penalty = _h + gk_**
+</code></pre>
+<p>where  <em>k &#x3D;</em> length of gap;  <em>h &#x3D;</em> gap opening penalty;  <em>g &#x3D;</em> gap continuation penalty （g＜h, 因为随着缺口开放会有几个残基伴随着插入或删除，所以应该减少额外残基的惩罚）</p>
+<pre><code>  * **惩罚分数要合理** ：太高会导致没有空隙从而没有合理的对齐；太低会导致间隙太多让不相关的序列以高分对齐。 
+
+* **Substitution Matrix or Scoring Matrix （替代矩阵/评分矩阵）**
+
+  * **​​​​​​​****PAM矩阵（Point Accepted Mutation）：** 用于描述蛋白质的氨基酸替代概率（全局比对）。
+
+  * **BLOSUM矩阵（BLOcks SUbstitution Matrix）：** 用于比对蛋白质序列。BLOSUM矩阵的版本如BLOSUM62常用于蛋白质序列比对（局部比对）。
+
+  * **DNA矩阵：** 用于比对DNA序列，通常包括不同碱基之间的替代得分。
+
+* **Extreme Value Distribution (极值分布)**
+
+  * **生成分布：** **(例)** 通过对1000次与1000个随机打乱的序列进行比对，得到了一个包含1000个比对得分的分布。这个分布被称为Extreme Value Distribution。
+
+  * **绘制图表：** 利用这1000个比对得分，制作了一个图表。通过观察图表，可以看出比对得分的整体分布模式，即极值分布的特定模式。
+
+  * **比对原始得分：** 将原始的比对得分（S）与极值分布进行比对。如果原始得分（S）位于分布的极右边缘，那么说明该比对结果很可能不是由于随机情况而产生的，而是由于序列的同源性。
+
+  * **计算P-value：** 通过极值分布的公式![P\(X\\geq S\)=1-e^{-Kmne^{\\lambda S}}](https://latex.csdn.net/eq?P%28X%5Cgeq%20S%29%3D1-e%5E%7B-Kmne%5E%7B%5Clambda%20S%7D%7D)计算P-value。（m和n是序列长度，K和λ是基于评分矩阵的常数）P-value表示原始比对得分出现在或更极端的位置的概率。P-value越小，说明比对不太可能是由于随机情况而产生的，从而增加了对同源性的推断的可信度。
+</code></pre>
+<ul>
+<li><p>3. <strong>Word method</strong></p>
+<ul>
+<li><p>Introduced in <strong>“</strong> <strong>Database similarity searches”</strong></p>
+</li>
+<li><p>“word method” 可能指代对生物序列中的k-mer (一个 k-mer 是指长度为 k 的子串) 进行处理和分析的方法。</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Homework-2"><a href="#Homework-2" class="headerlink" title="Homework 2"></a>Homework 2</h4><p>1. There are two amino acid sequences, <strong>seq1: COELACANTH</strong> and <strong>seq2: PELICAN.</strong>**** Obtain the global alignment by using DP (the Needleman-Wunsch algorithm) . </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/7233de09aa50.png"></p>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/4ef17d5d907b.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/c9b2a8e7da26.png"></p>
+</blockquote>
+<p>2. Two different dot matrix analysis servers to analyze the sequence of the human low density lipoprotein receptor(np_000518)</p>
+<blockquote>
+<p>1.  <a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/protein/NP_000518.1">https://www.ncbi.nlm.nih.gov/protein/NP_000518.1</a>  get the origin </p>
+<p>2.  <a target="_blank" rel="noopener" href="https://www.ebi.ac.uk/Tools/seqstats/emboss_dottup/">https://www.ebi.ac.uk/Tools/seqstats/emboss_dottup/</a>  generate the result </p>
+<p>3.  <a target="_blank" rel="noopener" href="https://www.bioinformatics.nl/cgi-bin/emboss/dotmatcher">https://www.bioinformatics.nl/cgi-bin/emboss/dotmatcher</a>  generate the result </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/a2b6cd1c9394.png"></p>
+<p>The long diagonal indicates that there exists a perfect match from the beginning to the end between the two sequences. (Because the two sequences are the same.)</p>
+<p>The shorter diagonals represent the local approximate matches between the two sequences. The reason that those shorter diagonals mostly occur in the lower left corner is that there are many similar patterns before the position of 400.</p>
+</blockquote>
+<h4 id="Database-similarity-searches"><a href="#Database-similarity-searches" class="headerlink" title="Database similarity searches"></a>Database similarity searches</h4><blockquote>
+<p><em>“ An application of Pairwise Sequence Alignment”</em></p>
+</blockquote>
+<blockquote>
+<p><strong>The basic procedure for doing this:</strong></p>
+<ul>
+<li>Submit the sequence of interest (the**“<strong><strong>query</strong></strong>” sequence**) </li>
+<li>It is aligned in a pairwise manner to EVERY sequence in the<strong>database</strong></li>
+<li>Based on these pairwise comparisons, all sequences that have similarity to the query are found </li>
+<li>Pairwise alignments between the query and each of these similar sequences are returned as output</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/0b2bd240e658.png"></p>
+</blockquote>
+<blockquote>
+<p><strong>Requirements:</strong> （尝试让这三者达到平衡，因为是相互掣肘的）</p>
+<p>1. <strong>sensitivity</strong> (漏判越少敏感性越好)</p>
+<p>2. <strong>specificity(selectivity)</strong> (误判越少特异性越好)</p>
+<p>3. <strong>speed</strong> (从数据库搜索获取输出所需的时间越少速度越快)</p>
+<p>Idea: 动态规划是穷举算法，时间效率低，在不影响太多敏感性和特异性的条件下，我们可以采用<strong>启发式算法(Heuristic Algorithms),</strong> but 不能保证找到最优&#x2F;最准确的结果</p>
+<p><strong>Shortcut:</strong> “Test” each sequence to see whether it is worth aligning with <strong>query_seq</strong></p>
+<p>常见的启发式算法：<strong>BLAST</strong> 和 <strong>FASTA</strong> 它们就是所谓的<strong>WORD METHOD</strong></p>
+<ul>
+<li><p><strong>Merits：</strong> 50-100 times faster than DP</p>
+</li>
+<li><p><strong>Shorts：</strong> not guaranteed to find the best&#x2F;most accurate result</p>
+</li>
+<li><p>Based on finding short stretches of identical or nearly identical letters (which are called “words”, “ <em>k-tuples</em> ”, or “ <em>ktups</em> ”) in two sequences.</p>
+</li>
+<li><p>基本过程：</p>
+<ul>
+<li><p>​​​​​​​​​​​​​​ <strong>寻找相同的word(s)：</strong> 找到两个序列中共有的word或词组，并对它们进行比对。 </p>
+</li>
+<li><p><strong>通过对齐word扩展比对：</strong> 通过对齐每个word两侧的相似区域，扩展比对的范围。</p>
+</li>
+<li><p><strong>计算对齐区域的得分：</strong> 对扩展后的对齐区域进行得分计算，通常使用某种评分矩阵或得分规则来衡量相似性。</p>
+</li>
+<li><p><strong>连接高分区域：</strong> 将相邻的高分对齐区域连接在一起，形成最终的局部比对结果。</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h5 id="BLAST-B-asic-L-ocal-A-lignment-S-earch-T-ool"><a href="#BLAST-B-asic-L-ocal-A-lignment-S-earch-T-ool" class="headerlink" title="BLAST: B asic L ocal A lignment S earch T ool"></a><strong>BLAST: B</strong> asic <strong>L</strong> ocal <strong>A</strong> lignment <strong>S</strong> earch <strong>T</strong> ool</h5><blockquote>
+<ol>
+<li><p><strong>局部比对：</strong> BLAST采用局部比对的策略，即先寻找两个序列之间的局部相似性，然后根据这些局部相似性进行进一步的分析。</p>
+</li>
+<li><p><strong>查询序列：</strong> 用户提供一个查询序列，可以是DNA、RNA或蛋白质序列。</p>
+</li>
+<li><p><strong>数据库搜索：</strong> BLAST将查询序列与目标数据库中的序列进行比对。以蛋白质为例，一个长度为三的蛋白质单词要与<strong>20<em>20</em>20</strong> &#x3D;8000个词比对。</p>
+</li>
+<li><p><strong>比对算法：</strong> BLAST使用启发式算法，通过构建短词（words）的索引来加速搜索。它首先找到与查询序列中的短词相匹配的目标序列，然后通过局部比对的方式逐步扩展匹配区域。单词长度蛋白质通常是3个，DNA通常是11个</p>
+</li>
+<li><p><strong>计算分数：</strong> BLAST根据相似性得分（根据选择的替代矩阵，例如BLOSUM或PAM矩阵）对匹配区域进行打分，默认是BLOSUM62。一般比对<strong>阈值(threshold)</strong> 是T&#x3D;11. 如果超过了阈值，那么就认为可以被替换，作为”seed”, 例如下图：</p>
+<ol>
+<li><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/31b8ab8f5b38.png"></p>
+</li>
+<li><p>如果在这个配对附近又出现了配对，可以将它们<strong>连接</strong> 起来形成一段更长的无间隔的配对（早期BLAST不会这样）</p>
+</li>
+<li><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/ef7954f03d1e.png"></p>
+</li>
+<li><p>基于这个配对序列，继续向两边扩展，直到分数开始下降，最终得到的就是<strong>HSP(高分段配对)</strong></p>
+</li>
+<li><p>HSP分数大于某<strong>截断值(cutoff value)</strong> S时保留，否则丢弃；</p>
+</li>
+<li><p>单个数据库找到多个HSP就连接起来形成<strong>有缺口的</strong> 配对（早期BLAST不会这样）</p>
+</li>
+<li><p>最后给查询序列和配对序列进行SW配对，配对的数据库序列称为“<strong>命中(hits)</strong> ”查询序列</p>
+</li>
+</ol>
+</li>
+<li><p><strong>输出结果：</strong> BLAST输出匹配的序列及其相似性得分，同时提供了可视化的比对图形和其他有关匹配的信息。</p>
+</li>
+<li><p><strong>P-value：</strong> BLAST的输出中通常包括P-value，表示在随机情况下得到相同或更好匹配的期望次数。P-value越小，表示匹配越显著。(We have mentioned this in the SW algorithm part)</p>
+<ol>
+<li><strong>注意</strong> ：实际上m、n的定义变化了，在这里它们指的都是有效值，都是用<strong>实际长度减去两个对齐序列的对齐长度的平均值</strong></li>
+</ol>
+</li>
+<li><p><strong>E-value：Expected Value</strong> 指的是the number of high-scoring matches we expect to observe between the query and unrelated sequences. 计算公式如下</p>
+<ol>
+<li><p>​​​​​​​<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/ea06a6081db8.png"></p>
+</li>
+<li><p><strong>D</strong> : <strong>数据库里序列数目</strong> （数据库的大小size）</p>
+</li>
+<li><p><strong>p</strong> : 根据极值分布，获得对齐<strong>得分≥S的概率</strong></p>
+</li>
+<li><p><strong>m’: 数据库的有效长度（数据库大小的另一种度量）</strong></p>
+</li>
+<li><p>The  <strong>E-value</strong> is  <strong>the number of HSP’s</strong> with an alignment score ≥ S that are expected to occur  by chance when searching a database of <em>D</em> sequences.</p>
+</li>
+<li><p>“<em>The smaller the E-value, the less likely the alignment is due to chance</em> “</p>
+</li>
+<li><p>搜索某一个数据库获得的E值不能用于其他数据库，因为数据库大小越大，E值更倾向于越大。</p>
+</li>
+</ol>
+</li>
+<li><p><em>“A p-value is a way of representing the significance of an alignment. An E-value is simply another way of representing the significance of that alignment.”</em></p>
+</li>
+<li><p><strong>The normalization of scores</strong> : 对齐的原始分数取决于评分矩阵和间隙惩罚，而标准化分数可以独立于评分矩阵来评估不同BLAST查询得出的结果来判断哪个对齐更合理。</p>
+</li>
+</ol>
+<pre><code> 1. ​​​​​​​计算公式 ![](/images/posts/Summerize-for-Bioinformatics-w/d2ea6887b295.png)
+
+ 2. _S_ = raw alignment score 原始对齐分数； λ = constant that depends on scoring matrix 评分矩阵给出的常数； _K_ = constant that depends on scoring matrix 评分矩阵给出的常数
+
+ 3. ![](/images/posts/Summerize-for-Bioinformatics-w/d3d9ece75110.png)
+</code></pre>
+<ol start="11">
+<li><strong>LCR: Low Complexity Regions</strong> ： 低复杂度区域，信息重复且单一，都是短而重复的片段，会干扰最终输出的配对片段，在蛋白质序列中占约15%，可能会导致 虚假命中和虚高配对分数（spurious hits and artificially high alignment scores）。</li>
+</ol>
+<pre><code> 1. Avoid method 1: **Filtering**. 在查询区域把 LCR片段用小写字母或歧义字符替换（ **蛋白质X，DNA是N** ），当然这么做 可能会遗漏一些真实匹配 
+
+ 2. Avoid Method 2: **Masking**. LCR中的字符在构 建查询单词表中被忽略，但是可以 在扩展和对齐优化中使用
+</code></pre>
+</blockquote>
+<h5 id="FASTA-FAST-All"><a href="#FASTA-FAST-All" class="headerlink" title="FASTA: FAST-All"></a><strong>FASTA: FAST-All</strong></h5><blockquote>
+<ol>
+<li><p><strong>开发者：</strong> 由 David Lipman 和 William Pearson 于 1988 年开发。</p>
+</li>
+<li><p><strong>首个广泛使用的快速数据库搜索程序：</strong> FASTA 是第一个被广泛使用的用于进行快速数据库搜索的程序。它的主要目的是在大型生物数据库中快速找到与查询序列相似的序列。</p>
+</li>
+<li><p><strong>启发式词法方法：</strong> FASTA 使用一种启发式的 word 方法来创建查询序列与数据库序列之间的局部比对。该方法通过寻找两个序列中的词（words）的相似性来进行比对。</p>
+</li>
+<li><p><strong>从精确匹配的词开始：</strong> FASTA 在比对过程中从寻找两个序列中的词的精确匹配开始。在蛋白质序列中，通常使用 ktup &#x3D; 1 或 2，而在DNA序列中，通常使用 4-6。</p>
+</li>
+</ol>
+</blockquote>
+<h5 id="Comparison-between-BLAST-FASTA"><a href="#Comparison-between-BLAST-FASTA" class="headerlink" title="Comparison between BLAST &amp; FASTA"></a>Comparison between BLAST &amp; FASTA</h5><blockquote>
+<p>• BLAST is faster </p>
+<p>• FASTA generally produces a better final alignment </p>
+<p>• FASTA is more likely to find distantly related sequences </p>
+<p>• Performance of the two methods is similar for highly similar sequences </p>
+<p>• Both methods are appropriate for rapid initial searches</p>
+</blockquote>
+<h4 id="Homework-3"><a href="#Homework-3" class="headerlink" title="Homework 3"></a>Homework 3</h4><p><strong>1.</strong> Answer the following questions about scoring an alignment.</p>
+<p><strong>A.</strong> Calculate the score for the DNA sequence alignment shown below, using the scoring matrix below. Use an affine gap penalty to score the gaps, with -11 for opening the gap and -1 for each additional position in the gap. (“Affine gap penalty” refers to a situation when the gap opening and gap extension penalties are not the same. The gap opening penalty should be greater than the gap extension penalty.) </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/5ccd10240cec.png"></p>
+<blockquote>
+<p>**2x27–5x4–11–2&#x3D;21 **</p>
+<p>Match scores: 27 matching bases: 27 * 2 &#x3D; 54 points</p>
+<p>Mismatch score: 4 mismatched base: 4 * -5 &#x3D; -20 points</p>
+<p>Gap scores: 1 gap in the first sequence: 1 * -11 &#x3D; -11 points<br> Each extension of the gap: 2 * -1 &#x3D; -2 points </p>
+<p>The total gap score: -11 - 2 &#x3D; -13 points</p>
+<p>Overall alignment score &#x3D; Match scores + Mismatch scores + Total Gap score &#x3D; 54 + (-20) + (-13) &#x3D; <strong><strong>21</strong></strong></p>
+</blockquote>
+<p><strong>B.</strong> How would the score change if you were to use a nonaffine gap penalty? To answer the question, try a nonaffine penalty of -2, and then -6.</p>
+<blockquote>
+<p>2x27 – 5x4 – 3x2 &#x3D; 28(for nonaffine penalty -2) </p>
+<p>2x27 – 5x4 – 3x6 &#x3D; 16(for nonaffine penalty -6)</p>
+<p>With non-affine gap penalty of -2 per gap:</p>
+<p>There would now be 1 gap that receives a linear penalty of -2 * 3 bases &#x3D; -6 </p>
+<p>Overall score is: Matches (54) + Mismatch (-20) + Gaps (-6) &#x3D; 54-20-6 &#x3D; <strong><strong>28</strong></strong></p>
+<p>With non-affine penalty of -6 per gap: </p>
+<p>The 1 gap gets a score of -6 * 1 gap &#x3D; -6 </p>
+<p>Overall score is: Matches (54) + Mismatch (-20) + Gaps (-18) &#x3D; 54-20-18 &#x3D; <strong><strong>16</strong></strong></p>
+</blockquote>
+<p><strong>2.</strong> Below is part of the BLOSUM62 matrix. Answer the following questions using this matrix.</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/763d47eb658b.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/d5030e19f033.png"></p>
+<p><strong>A.</strong> Using this matrix, two aligned cysteines (C) would receive a score of 9 while two aligned threonines (T) would only receive a score of 5. What can you conclude about cysteine relative to threonine?</p>
+<blockquote>
+<p>Cysteines (C) is rarer than threonines (T) . The higher the match score the rarer the match.</p>
+</blockquote>
+<p><strong>B.</strong> A serine (S) aligned with a cysteine (C) would receive a negative score (-1) while a serine aligned with a threonine would receive a positive score (1). Offer a possible explanation for this in terms of physicochemical properties of the amino acid side chains.</p>
+<blockquote>
+<p>The Mercapto is difficult to generate hydrogen bond than Hydroxyl </p>
+</blockquote>
+<p><strong><strong>C.</strong></strong>**** The bestng an alignment score. Use the BLOSUM62 matrix alignment of the two amino acid sequences “LDS” and “LNS” is obvious (it’s shown below). Given a scoring system, you could easily calculate an alignment score. Set up a matrix and use the dynamic programming algorithm to “prove” that this is the best alignment by calculating x (see Powerpoint notes) to score aligned residues, and use a gap penalty of -1. (You may hand write the matrix in your homework rather than typing it if you like.</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/0dd1f343c9a7.png"></p>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/cea6d3abe084.png"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/252617ffc1b5.png"></p>
+<p>It receives an alignment score of 4 + 1 + 4 &#x3D; 9</p>
+<p>The matrix verifies this is the maximum possible alignment score using these sequences and rules. So it proves this alignment is optimal.</p>
+</blockquote>
+<p><strong>3</strong><strong>.</strong> Find the optimal global alignment of the two sequences **<em>Seq</em> 1: THISLINE and <em>Seq</em> 2: ISALIGNED **based on the BLOSUM62 matrix with linear gap penalty of -4.</p>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/526bbd13b42a.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/067e65bdb364.png"></p>
+</blockquote>
+<h4 id="Multiple-sequence-alignment"><a href="#Multiple-sequence-alignment" class="headerlink" title="Multiple sequence alignment"></a>Multiple sequence alignment</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/e6808c3bf895.png"></p>
+<p>*全动态编程对于多序列比对是不实用的。序列长残基多时候比较指数增长</p>
+<ul>
+<li>Categories of Heuristic Algorithms for Multiple Sequence Alignment:</li>
+</ul>
+<h5 id="1-Progressive-alignment-methods"><a href="#1-Progressive-alignment-methods" class="headerlink" title="1. Progressive alignment methods"></a>1. Progressive alignment methods</h5><p>【first calculate a pairwise alignment for the two most closely related sequences and </p>
+<p>progressively add more sequences to the alignment.】P8&#x2F;p16</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/8a232a542315.png"></p>
+<h5 id="2-Iterative-alignment-methods"><a href="#2-Iterative-alignment-methods" class="headerlink" title="2. Iterative alignment methods"></a>2. Iterative alignment methods</h5><p>【Iterative alignment methods attempt to correct a problem of progressive methods: </p>
+<p>Errors in the initial alignments of the most closely related sequences are propagated to the final multiple sequence alignment.】</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/ae7fb1ebf981.png"></p>
+<h5 id="PSSM方法"><a href="#PSSM方法" class="headerlink" title="PSSM方法"></a><strong><strong>PSSM方法</strong></strong></h5><blockquote>
+<p>【PSSM中的每个值是在多序列比对中给定位置处观察到的该氨基酸的计数除以在比对中该位置处该氨基酸的预期计数的比率。然后将该值转换为对数刻度（通常以2为基数）。</p>
+<p>PSSM中的值反映了任何给定氨基酸出现在比对中的每个位置的概率，以及在比对中每个位置的保守或非保守取代的影响。】</p>
+</blockquote>
+<h4 id="Motifs-and-domains"><a href="#Motifs-and-domains" class="headerlink" title="Motifs and domains"></a>Motifs and domains</h4><blockquote>
+<p>*Motif– a short conserved sequence pattern; can be just a few amino acid residues, up to ~20.</p>
+<p>*Domain– a longer conserved sequence pattern which adopts a particular three-dimensional structure and is an independent functional and structural unit; typically 40-700 residues.</p>
+<p>*吉布斯采样算法吉布斯采样是一个原理上类似于EM的迭代过程，但算法不同。在每次迭</p>
+<p>代中，移除一个序列，并从剩余序列中构建试验比对。与EM一样，Gibbs采样在一组序</p>
+<p>列中搜索统计上最可能的基序，并可以在每个序列中找到这些基序的最佳宽度和数量。</p>
+<p>*配置文件HMM：轮廓HMM可以从一组未对齐的序列中构建。对模型的长度（匹配状态的数量）和概率参数进行了初步猜测。然后通过迭代更新概率参数来训练模型（该过程可以使用各种算法）。</p>
+<ul>
+<li>EM-algorithm：Step 1. Maximization Step 2. Expectation Step 3. Repeat Step 1 and 2.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li>期望最大化(Expectation Maximization, EM)算法 该算法通过迭代的方法从一组序列中发现统计上最可能的基序模式(motif或domain)。它不依赖于事先产生的多重序列比对。</li>
+<li>吉布斯采样(Gibbs Sampler)算法<br> 与EM算法类似的迭代过程,也能在一组序列中发现motif或domain,并能找出每条序列中这些模式的最佳长度和数量。</li>
+<li>配置隐马尔可夫模型(Profile Hidden Markov Model) 可以从一组未比对的序列中构建。通过迭代更新概率参数对模型进行训练。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>这些都是用统计学方法从序列数据集中学习motif和domain的无监督学习算法。不需要事先的序列比对就能发现序列模式。</p>
+</blockquote>
+<h4 id="Homework-4"><a href="#Homework-4" class="headerlink" title="Homework 4"></a>Homework 4</h4><ol>
+<li><strong>Identifying protein motifs using Expectation Maximization (EM) algorithm.</strong></li>
+</ol>
+<p>Suppose we have 200 protein sequences of length 100, in the dataset. Each character represents an amino acid. The length of the motif is 10. The figure below shows the first 10 samples in the dataset.</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/bd76fccc0100.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/d1330c486812.png">Write a program to identify the starting position of the motif in each protein sequence. Write a report which includes: a) your understanding on EM algorithm, b) the core algorithm, c) the final result (starting positions and PSSM of the motif), d) the difficulties you met.</p>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/a9c5e768b0b0.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/272b78939fdd.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/b39e68e2bfa6.png"></p>
+<ul>
+<li><h5 id="My-understanding-to-Expectation-Maximization-EM-Algorithm"><a href="#My-understanding-to-Expectation-Maximization-EM-Algorithm" class="headerlink" title="My understanding to Expectation Maximization(EM) Algorithm:"></a><strong>My understanding to Expectation Maximization(EM) Algorithm:</strong></h5></li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li>The EM algorithm is an iterative method that estimates model parameters where there are missing, hidden, or unobserved values.</li>
+<li>It proceeds in two steps that are repeated until convergence: <ol>
+<li>Expectation (E) Step: Creating a function for the expectation of the log-likelihood evaluated using the current estimate for parameters. This involves estimating values for latent variables based on the current parameter values.</li>
+<li>Maximization (M) Step: Finding parameters that maximize the expected log-likelihood found on the E step. These become the new parameter estimates.</li>
+</ol>
+</li>
+<li>By iteratively doing E and M steps, EM finds the parameters that locally maximize the likelihood of the data comprising both observed and unobserved values.</li>
+<li>For motif finding, the “unobserved” data are the true starting positions of each motif instance. The expectation step estimates motif locations, while the maximization step finds an updated motif model that fits best based on those expected motif positions.</li>
+</ol>
+</blockquote>
+<blockquote>
+<ul>
+<li><h5 id="Core-Algorithm"><a href="#Core-Algorithm" class="headerlink" title="Core Algorithm:"></a><strong>Core Algorithm:</strong></h5></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Fake code:</p>
+<ol>
+<li>Initialize motif starting positions randomly in each sequence</li>
+<li>E-step: <ol>
+<li>Extract motif instances from each sequence based on current start positions</li>
+<li>Calculate probability of each position being the true start given current motif model</li>
+</ol>
+</li>
+<li>M-step: <ol>
+<li>Update start position for each sequence to position with highest probability from E-step</li>
+<li>Update PSSM for motif based on new aligned motif instances</li>
+</ol>
+</li>
+<li>Repeat E-step and M-step until convergence</li>
+<li>Output final motif start positions and PSSM</li>
+</ol>
+</blockquote>
+<blockquote>
+<h5 id="Code-in-PyCharm-python-3-8"><a href="#Code-in-PyCharm-python-3-8" class="headerlink" title="Code in PyCharm: (python&#x3D;3.8)"></a>Code in PyCharm: (python&#x3D;3.8)</h5><p><code>python # Created at WASEDA Univ. # Author: Vector Kun # Time: 2023/12/17 12:44 import csv from random import randint as randint from math import log as log import matplotlib.pyplot as plt from numpy import mean from matplotlib.pyplot import MultipleLocator # Define basic parameters proteinsDataset = &quot;proteins.csv&quot; resultFile = &quot;result.txt&quot; trainNum = 200 trainTime = 10 motif_length = 10 def csv_reader(path): &quot;&quot;&quot;Read data from csv&quot;&quot;&quot; origin_protein_list = [] with open(path) as f: reader = csv.reader(f) for item in reader: origin_protein_list.append(item) # print(origin_protein_list) return origin_protein_list def data_preprocess(path): &quot;&quot;&quot;Remove order in the data&quot;&quot;&quot; protein_order_list = csv_reader(path)[1:] protein_list = [] for protein in protein_order_list: protein_list.append(protein[1:]) # print(protein_list) return protein_list def matrix_transposition(matrix): &quot;&quot;&quot;Transpose the matrix&quot;&quot;&quot; new_matrix = [] for i in range(len(matrix[0])): matrix1 = [] for j in range(len(matrix)): matrix1.append(matrix[j][i]) new_matrix.append(matrix1) # print(new_matrix) return new_matrix def PSSM_calculation(seqs): &quot;&quot;&quot;Calculate pssm matrix&quot;&quot;&quot; # The species of the aminos amino_acids_list = [&#39;A&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;, &#39;I&#39;, &#39;K&#39;, &#39;L&#39;, &#39;M&#39;, &#39;N&#39;, &#39;P&#39;, &#39;Q&#39;, &#39;R&#39;, &#39;S&#39;, &#39;T&#39;, &#39;V&#39;, &#39;W&#39;, &#39;Y&#39;] # PSSM matrix weight_matrix = {} # Frequency of amino acids fre_matrix = {} # Number of occurrences of amino acids at each position count_matrix = {} # Initialization for amino in amino_acids_list: count_matrix[amino] = [0] * motif_length fre_matrix[amino] = 0 weight_matrix[amino] = [0] * motif_length # Calculate the number of amino acids in each position col_num = 0 new_seqs = matrix_transposition(seqs) for col in new_seqs: for amino in col: i = col_num count_matrix[amino][i] += 1 col_num += 1 # Calculate the frequency of amino acids for amino in count_matrix: amino_sum = 0 for count in count_matrix[amino]: amino_sum += count frequency = amino_sum / (len(seqs) * motif_length) fre_matrix[amino] = frequency # Calculate weight matrix for i in range(0, motif_length): for amino in count_matrix: # Calculate WM by dividing it by the total nums of swqs count_divided_nums = count_matrix[amino][i] / len(seqs) if fre_matrix[amino] == 0: weight = 0 # Calculate WM by dividing it by the frequency of the aminos else: weight = count_divided_nums / fre_matrix[amino] # Logarithmic operation on matrix if weight == 0: weight = -10 else: weight = log(weight, 10) weight_matrix[amino][i] += float(format(weight, &#39;.4f&#39;)) # print(count_matrix, &#39;\n&#39;, fre_matrix, &#39;\n&#39;, weight_matrix, &#39;\n&#39;) return weight_matrix def get_random_seqs(protein_list): &quot;&quot;&quot;Randomly initialize the starting position&quot;&quot;&quot; train_seq = [] for i in range(0, trainNum): head = randint(0, 90) tail = head + motif_length seq = protein_list[i][head:tail] train_seq.append(seq) # print(train_seq) return train_seq def cal_score(seqs, weight_matrix): &quot;&quot;&quot;Calculate the score based on sequences and the WM&quot;&quot;&quot; score = 0 for i in range(0, motif_length): score += weight_matrix[seqs[i]][i] return score def get_train_seqs(protein_list, weight_matrix): &quot;&quot;&quot;Calculate scores os all the motifs with different starting position, select the optimal position &quot;&quot;&quot; max_score = [] train_seqs = [] max_index = [] for protein in protein_list: score_list = [] for i in range(0, 90): test_seq = protein[i:i + motif_length] # Calculate scores of different position in one protein score_list.append(cal_score(test_seq, weight_matrix)) # Get the max one max_position = score_list.index(max(score_list)) # Get the optimal sequences of one protein new_train_seq = protein[max_position:max_position + motif_length] # Get the best score to cal ave max_score.append(max(score_list)) train_seqs.append(new_train_seq) max_index.append(max_position) return train_seqs, max_index, max_score def data_training(protein_list): &quot;&quot;&quot;Train the data&quot;&quot;&quot; # Number of iterations iteration_num = 100 Best_ave = 0 Best_iteration = 0 for i in range(iteration_num): # Average score of every iteration max_score_list = [] # Initialize the position randomly first train_seq = get_random_seqs(protein_list) # Calculate PSSM matrix weight_matrix = PSSM_calculation(train_seq) for j in range(0, iteration_num): # Estimate and choose the best position new_train_seqs, max_index, max_score = get_train_seqs(protein_list, weight_matrix) # Calculate new matrix weight_matrix = PSSM_calculation(new_train_seqs) max_score_list.append(mean(max_score)) # Plot convergence generation = [] for k in range(1, iteration_num + 1): generation.append(k) max_score_list = [] plt.plot(generation, max_score_list) y_major_locator = MultipleLocator(0.3) ax = plt.gca() ax.yaxis.set_major_locator(y_major_locator) plt.ylabel(&#39;Mean scores&#39;, fontsize=10) plt.show() # Write the result to txt f = open(&quot;result.txt&quot;, &quot;a&quot;) f.write(&quot;\n&quot; + f&quot;Iteration {i}&quot; + &#39;\n&#39; + &quot;Starting positions:&quot; + str(max_index)) f.write(&#39;\n&#39; + &quot;PSSM:&quot; + str(weight_matrix)) f.write(&#39;\n&#39; + &quot;Scores:&quot; + str(max_score_list)) f.write(&#39;\n&#39; + &quot;Average best score:&quot; + str(mean(max_score))) # Get the max score if Best_ave &lt;= mean(max_score): Best_ave = mean(max_score) Best_iteration = i print(f&quot;Iteration {i}: Best average score = {Best_ave}&quot;) print(&#39;Best iteration: &#39;, Best_iteration) if __name__ == &#39;__main__&#39;: fl = open(&quot;result.txt&quot;, &quot;wt&quot;) fl.close() # Get the protein list proteinList = data_preprocess(proteinsDataset) data_training(proteinList) </code> </p>
+<ul>
+<li><h5 id="The-final-result"><a href="#The-final-result" class="headerlink" title="The final result:"></a><strong>The final result:</strong></h5></li>
+</ul>
+</blockquote>
+<p><code>python D:\Anaconda3\envs\spider\python.exe Iteration 0: Best average score = 4.3729255 Best iteration: 0 Iteration 1: Best average score = 5.199039 Best iteration: 1 Iteration 2: Best average score = 5.199039 Best iteration: 1 Iteration 3: Best average score = 5.199039 Best iteration: 1 Iteration 4: Best average score = 6.680054999999999 Best iteration: 4 Iteration 5: Best average score = 6.680054999999999 Best iteration: 4 Iteration 6: Best average score = 6.680054999999999 Best iteration: 4 Iteration 7: Best average score = 6.680054999999999 Best iteration: 4 Iteration 8: Best average score = 6.680054999999999 Best iteration: 4 Iteration 9: Best average score = 6.680054999999999 Best iteration: 4 Iteration 10: Best average score = 6.680054999999999 Best iteration: 4 Iteration 11: Best average score = 6.680054999999999 Best iteration: 4 Iteration 12: Best average score = 6.680054999999999 Best iteration: 4 Iteration 13: Best average score = 6.680054999999999 Best iteration: 4 Iteration 14: Best average score = 6.680054999999999 Best iteration: 4 Iteration 15: Best average score = 6.680054999999999 Best iteration: 4 Iteration 16: Best average score = 6.680054999999999 Best iteration: 4 Iteration 17: Best average score = 6.680054999999999 Best iteration: 4 Iteration 18: Best average score = 6.680054999999999 Best iteration: 4 Iteration 19: Best average score = 6.680054999999999 Best iteration: 4 Iteration 20: Best average score = 6.680054999999999 Best iteration: 4 Iteration 21: Best average score = 6.680054999999999 Best iteration: 4 Iteration 22: Best average score = 6.680054999999999 Best iteration: 4 Iteration 23: Best average score = 6.680054999999999 Best iteration: 4 Iteration 24: Best average score = 6.680054999999999 Best iteration: 4 Iteration 25: Best average score = 6.680054999999999 Best iteration: 4 Iteration 26: Best average score = 6.680054999999999 Best iteration: 4 Iteration 27: Best average score = 6.680054999999999 Best iteration: 4 Iteration 28: Best average score = 6.680054999999999 Best iteration: 4 Iteration 29: Best average score = 6.680054999999999 Best iteration: 4 Iteration 30: Best average score = 6.680054999999999 Best iteration: 4 Iteration 31: Best average score = 6.680054999999999 Best iteration: 4 Iteration 32: Best average score = 6.832890500000001 Best iteration: 32 Iteration 33: Best average score = 6.832890500000001 Best iteration: 32 Iteration 34: Best average score = 6.832890500000001 Best iteration: 32 Iteration 35: Best average score = 6.832890500000001 Best iteration: 32 Iteration 36: Best average score = 6.832890500000001 Best iteration: 32 Iteration 37: Best average score = 6.855327999999999 Best iteration: 37 Iteration 38: Best average score = 6.870583999999999 Best iteration: 38 Iteration 39: Best average score = 6.870583999999999 Best iteration: 38 Iteration 40: Best average score = 6.9964825 Best iteration: 40 Iteration 41: Best average score = 6.9964825 Best iteration: 40 Iteration 42: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 43: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 44: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 45: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 46: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 47: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 48: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 49: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 50: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 51: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 52: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 53: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 54: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 55: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 56: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 57: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 58: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 59: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 60: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 61: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 62: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 63: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 64: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 65: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 66: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 67: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 68: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 69: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 70: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 71: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 72: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 73: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 74: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 75: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 76: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 77: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 78: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 79: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 80: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 81: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 82: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 83: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 84: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 85: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 86: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 87: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 88: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 89: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 90: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 91: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 92: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 93: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 94: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 95: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 96: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 97: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 98: Best average score = 7.2110034999999995 Best iteration: 42 Iteration 99: Best average score = 7.2110034999999995 Best iteration: 42 Process finished with exit code 0 </code> </p>
+<blockquote>
+<p>From the output, we can get:</p>
+<p>Iteration 99: Best average score &#x3D; 7.2110034999999995<br> Best iteration: 42</p>
+<p>So the best average score of 100 iterations is roughly 7.211, which iteration number is 42.</p>
+<p>The <strong>Convergence Plot</strong> is shown below:</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/57f6ffdb711a.png"></p>
+<p>The result to iteration 42 in result.txt is:</p>
+<p><code>python Iteration 42 Starting positions:[40, 23, 0, 57, 8, 73, 49, 85, 29, 46, 82, 4, 49, 14, 32, 23, 78, 41, 0, 43, 69, 82, 76, 3, 25, 5, 36, 82, 34, 74, 30, 89, 15, 54, 42, 49, 84, 66, 71, 22, 23, 11, 51, 31, 77, 45, 30, 83, 48, 7, 80, 45, 60, 33, 84, 82, 86, 13, 79, 22, 21, 12, 68, 69, 81, 38, 68, 64, 89, 65, 47, 58, 53, 12, 56, 30, 12, 72, 16, 85, 57, 42, 86, 81, 30, 8, 6, 65, 32, 82, 24, 53, 11, 26, 15, 75, 44, 41, 56, 7, 27, 76, 34, 63, 46, 9, 32, 35, 13, 27, 88, 78, 86, 76, 26, 26, 74, 44, 51, 74, 29, 87, 46, 8, 64, 34, 13, 5, 57, 19, 80, 10, 68, 1, 28, 23, 33, 34, 56, 88, 63, 41, 57, 31, 30, 29, 8, 51, 26, 29, 31, 58, 69, 84, 47, 1, 55, 88, 34, 55, 65, 66, 7, 7, 89, 76, 60, 58, 37, 73, 84, 87, 24, 6, 18, 14, 83, 1, 60, 16, 68, 42, 31, 10, 47, 8, 57, 32, 52, 51, 32, 59, 64, 2, 72, 26, 66, 58, 7, 5] PSSM:{&#39;A&#39;: [0.9723, -1.2504, -0.9494, -1.2504, -10.0, -1.2504, -0.6484, -0.9494, -10.0, -10.0], &#39;C&#39;: [-1.5514, -1.5514, 0.6891, -1.2504, -1.5514, -10.0, -1.2504, 0.6841, -1.2504, -1.5514], &#39;D&#39;: [-0.0414, -0.3424, -0.3424, -10.0, 0.1347, 0.1347, 0.1347, -0.0414, 0.3565, -0.0414], &#39;E&#39;: [-0.0414, 0.2596, -0.0414, -10.0, -0.0414, -0.0414, -10.0, -10.0, 0.2596, 0.4357], &#39;F&#39;: [0.1549, 0.331, 0.5528, -10.0, -10.0, -0.1461, -0.1461, -10.0, 0.1549, -10.0], &#39;G&#39;: [-0.9661, -0.6651, -0.7901, -0.9661, -10.0, -1.2672, -10.0, -0.9661, 0.9658, -10.0], &#39;H&#39;: [-10.0, 0.0706, 0.2467, 0.2467, -10.0, -10.0, -0.2304, 0.3716, 0.0706, 0.0706], &#39;I&#39;: [-10.0, -10.0, 0.301, -10.0, 0.426, -10.0, -0.1761, 0.301, 0.1249, 0.1249], &#39;K&#39;: [-0.1761, 0.426, -10.0, -0.1761, 0.426, -0.1761, -0.1761, -10.0, 0.1249, -0.1761], &#39;L&#39;: [-1.2648, -1.2648, -1.2648, -1.2648, -10.0, 0.9807, -0.7877, -1.2648, -10.0, -10.0], &#39;M&#39;: [-10.0, -0.0792, -10.0, 0.6198, 0.2218, -10.0, 0.2218, -10.0, -0.0792, -0.0792], &#39;N&#39;: [0.5229, -10.0, -10.0, -0.0792, -10.0, -0.0792, -10.0, -0.0792, -0.0792, 0.5229], &#39;P&#39;: [-10.0, -10.0, -1.2492, 0.6977, -10.0, -1.5502, -1.5502, -10.0, -1.5502, 0.6878], &#39;Q&#39;: [0.301, -10.0, -0.1761, -10.0, -0.1761, 0.301, -0.1761, 0.1249, 0.1249, 0.1249], &#39;R&#39;: [-0.0212, 0.1549, -10.0, 0.2798, -0.3222, -0.0212, 0.4559, -0.0212, -10.0, -0.3222], &#39;S&#39;: [-0.7924, 0.9685, -10.0, -1.2695, -10.0, -0.9685, -0.7924, -0.6675, -10.0, -10.0], &#39;T&#39;: [-1.2553, -1.2553, -1.2553, -10.0, -0.9542, -10.0, 0.9726, -10.0, -0.9542, -0.6532], &#39;V&#39;: [-0.9845, -0.9845, -10.0, -1.2856, 0.9721, -0.9845, -0.9845, -1.2856, -0.9845, -10.0], &#39;W&#39;: [0.426, -0.1761, 0.301, -10.0, -10.0, 0.1249, -10.0, -0.1761, 0.301, -0.1761], &#39;Y&#39;: [0.4559, -10.0, -10.0, -0.1461, -10.0, 0.331, -10.0, 0.331, -10.0, 0.331]} Scores:[1.6438155, 7.475081, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999, 7.525479999999999] Average best score:7.2110034999999995 </code> </p>
+<ul>
+<li><h5 id="The-difficulties-I-met"><a href="#The-difficulties-I-met" class="headerlink" title="The difficulties I met:"></a><strong>The difficulties I met:</strong></h5></li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li>Determining suitable stopping criteria and determining when the algorithm has converged to a stable solution. In practice, heuristics like a maximum number of iterations are used.</li>
+<li>Avoid getting stuck in poor local optima rather than the global optimum. Using multiple random restarts can mitigate this issue.</li>
+<li>Runtime complexity for large datasets. Matrix computations may be intensive for large sequence sets and long motifs. Parallelization and approximation methods can improve scalability.</li>
+<li>Interpreting the resulting motif model. Statistical significance testing should be done to evaluate if the identified motif represents a true common signal vs random shared patterns.</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="Machine-Learning-Approaches"><a href="#Machine-Learning-Approaches" class="headerlink" title="Machine Learning Approaches"></a>Machine Learning Approaches</h3><h4 id="GA-for-sequencing-and-MSA"><a href="#GA-for-sequencing-and-MSA" class="headerlink" title="GA for sequencing and MSA"></a>GA for sequencing and MSA</h4><h5 id="Sequencing-by-Using-GA"><a href="#Sequencing-by-Using-GA" class="headerlink" title="Sequencing by Using GA"></a>Sequencing by Using GA</h5><blockquote>
+<p>GA – Genetic Algorithm（基因互换、变异）</p>
+<p>EDA – Estimation of Distribution Algorithm</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/0fc8221dff2d.png"></p>
+<p>*Sequencing by Using GA</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/843d7478e4ff.png"></p>
+</blockquote>
+<h5 id="Multiple-Sequence-Alignments-Using-GA"><a href="#Multiple-Sequence-Alignments-Using-GA" class="headerlink" title="Multiple Sequence Alignments Using GA"></a>Multiple Sequence Alignments Using GA</h5><p>*Using Genetic Algorithms for Pairwise and Multiple Sequence Alignments</p>
+<h4 id="Protein-Function-Prediction"><a href="#Protein-Function-Prediction" class="headerlink" title="Protein Function Prediction"></a>Protein Function Prediction</h4><h5 id="Gene-Function-Prediction-Using-SVM"><a href="#Gene-Function-Prediction-Using-SVM" class="headerlink" title="Gene Function Prediction Using SVM"></a>Gene Function Prediction Using SVM</h5><blockquote>
+<p>本节讨论了使用SVM进行基因功能预测的多标签分类和层次多标签分类方法。</p>
+<p>主要内容有:</p>
+<p>1. 基于标签排序和精细决策边界SVM的多标签分类方法。该方法考虑了样本重叠的信息,通过Bias模型改进重叠样本的分类准确率;并提出了一个基于输入实例和标签排序的实例相关阈值选取策略。</p>
+<p>2. 基于过采样和层次约束的层次多标签分类方法。该方法通过提出分层SMOTE方法解决数据集不平衡问题;并通过在TPR规则集成中引入分类器性能权重来改进集成,限制差分类器的错误传播效应。</p>
+<p>3. 在Yeast和Genbase数据集上的试验表明,上述两种方法在基因功能预测任务上都能取得不错的性能。</p>
+<p>4. 这些方法为解决基因测序数据的功能标注与分类问题提供了有效的机器学习框架。</p>
+</blockquote>
+<h5 id="Protein-Function-Prediction-Using-DNN"><a href="#Protein-Function-Prediction-Using-DNN" class="headerlink" title="Protein Function Prediction Using DNN"></a>Protein Function Prediction Using DNN</h5><blockquote>
+<p>本节主要内容是关于使用深度迁移学习方法进行蛋白质功能预测的研究。</p>
+<p>主要有以下几个方面:</p>
+<p>1. 使用多头多尾深度卷积神经网络模型进行基因本体论(GO)注释预测。该模型可以实现知识迁移,提高模型性能。</p>
+<p>2. 通过GO注释预测的迁移学习来增强亚细胞定位预测。共享特征提取器,实现预训练和微调。</p>
+<p>3. 基于迁移学习的蛋白质相互作用预测,用于复合物检测。迁移模型从GO和定位注释任务中学习知识。</p>
+<p>4. 在GO注释、定位和相互作用预测任务之间实现了迁移学习。提出的模型可以扩展到其他生物信息学任务。</p>
+<p>5. 试验结果表明,迁移学习可以有效改进蛋白质功能预测的性能。</p>
+<p>总体而言,本节研究了如何利用深度学习和迁移学习的方法,改进蛋白质功能预测与标注的性能。</p>
+</blockquote>
+<h4 id="Protein-Structure-Prediction"><a href="#Protein-Structure-Prediction" class="headerlink" title="Protein Structure Prediction"></a>Protein Structure Prediction</h4><h5 id="Protein-Folding-Based-on-EDA"><a href="#Protein-Folding-Based-on-EDA" class="headerlink" title="Protein Folding Based on EDA"></a>Protein Folding Based on EDA</h5><blockquote>
+<p>本节主要内容是关于使用基于EDA的混合智能算法进行蛋白质结构预测的研究。</p>
+<p>主要包含以下几个方面:</p>
+<p>1. 使用混合EDA算法求解简化的HP模型蛋白质折叠问题。提出复合适应度函数、引导算子局部搜索和改进的回溯修复方法。</p>
+<p>2. 提出自适应分群EDA算法,使用亲和传播聚类实现自适应分群,并使用玻尔兹曼机制实现平衡搜索。应用于连续优化和HP模型蛋白质结构预测问题。</p>
+<p>3. 试验结果表明,所提出的混合EDA和自适应分群EDA算法都可以有效提高蛋白质结构预测的性能。</p>
+<p>4. EDA算法与特定问题信息的结合为解决蛋白质结构预测等复杂优化问题提供了一种有效途径。</p>
+<p>总的来说, 它探讨了EDA算法在蛋白质结构预测问题上的应用,以及如何设计出性能更优的混合EDA和自适应EDA算法。</p>
+</blockquote>
+<h5 id="Protein-Folding-Based-on-Deep-Reinforcement-Learning"><a href="#Protein-Folding-Based-on-Deep-Reinforcement-Learning" class="headerlink" title="Protein Folding Based on Deep Reinforcement Learning"></a>Protein Folding Based on Deep Reinforcement Learning</h5><blockquote>
+<p>本节是关于蛋白质折叠问题的研究报告。主要内容包括:</p>
+<p>1. 简介蛋白质折叠问题和HP模型<br> 2. 深度强化学习方法用于解决HP模型中的蛋白质折叠问题<br> 3. AlphaGo系列中蒙特卡洛树搜索(MCTS)的应用<br> 4. 将MCTS应用于HP模型以解决蛋白质折叠问题<br> 5. 蛋白质结构预测的最新进展,如AlphaFold</p>
+<p>报告介绍了如何通过深度强化学习和蒙特卡洛树搜索等方法来预测蛋白质序列的三维结构,这是蛋白质折叠问题的核心。总的来说,这篇报告聚焦在利用AI技术来解决蛋白质结构预测这个基础科学难题上。</p>
+</blockquote>
+<h5 id="AlphaFold2-for-Protein-Structure-Prediction"><a href="#AlphaFold2-for-Protein-Structure-Prediction" class="headerlink" title="AlphaFold2 for Protein Structure Prediction"></a>AlphaFold2 for Protein Structure Prediction</h5><blockquote>
+<p>本节是关于AlphaFold2蛋白质结构预测方法的介绍和分析报告。主要内容包括:</p>
+<p>1. 蛋白质折叠问题的背景简介<br> 2. AlphaFold2的整体流程概览,包括数据准备、嵌入、Evoformer模块、结构模块等<br> 3. AlphaFold2的具体技术细节,如多序列比对、表征提取、注意力机制、损失函数等<br> 4. AlphaFold2预测蛋白质结构的应用,如蛋白质结构数据库</p>
+<p>简而言之,这是一篇介绍和分析AlphaFold2在蛋白质结构预测领域里程碑式的进展的报告。它概述了这一最先进的AI系统是如何解决这一困扰生物学家50年之久的难题的。总的来说,这篇报告聚焦在利用深度学习技术来推动基础科学发展方面的内容。</p>
+</blockquote>
+<hr>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>EMBL-EBI, <a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/EBI%20Research%20-%20Functional%20Genomics%20-%20Introduction%20To%20Biology.mht" title="A Quick Introduction to Elements of Biology">A Quick Introduction to Elements of Biology</a> - Cells, Molecules, Genes, Functional Genomics, Microarrays</li>
+<li>DOE Human Genome Program:  <em><a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/Primer%20on%20Molecular%20Genetics%20%28DOE%20Human%20Genome%20Program,%201992%29.pdf" title="Primer on Molecular Genetics">Primer on Molecular Genetics</a></em> , 1992</li>
+<li>Jin Xiong, <a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/Essential%20Bioinformation%20%28Jin%20Xiong,%20Cambridge%20University%20Press,%202006%29.pdf" title="Essential Bioinformatics">Essential Bioinformatics</a>, Cambridge University Press, 2006</li>
+<li>P. Larranaga et.al., “<a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/Machine%20Learning%20in%20Bioinformatics,%20Briefings%20in%20Bioinformatics,%207%281%29,%2086-112.pdf" title="Machine Learning in Bioinformatics">Machine Learning in Bioinformatics</a>“,  <em>Briefings in Bioinformatics</em> , 7(1), 86-112, 2006</li>
+<li>J.M. Claverie and C. Notredame,  <em><a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/Bioinformatics.For.Dummies.2nd.Ed%20%28for%20Dummies,%202007%29.pdf" title="Bioinformatics for Dummies, 2nd Ed.">Bioinformatics for Dummies, 2nd Ed.</a></em> , Wiley Publishing Inc, 2007</li>
+<li>B. Alberts et.al.,  <em><a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/Molecular%20Biology%20of%20The%20Cell%205th%20Ed%20%28Garland%20Science,%202008%29.pdf" title="Molecular Biology of THE CELL, 5th Ed.">Molecular Biology of THE CELL, 5th Ed.</a></em> , Garland Science, 2008</li>
+<li>N.C. Jones and P.A. Pevzner,  <em><a target="_blank" rel="noopener" href="https://www2.hflab.ips.waseda.ac.jp/~jinglu/Courses/11300ABio/An%20Introduction%20to%20Bioinformatics%20Algorithms%20%28Neil%20C.%20Jones%20and%20Pavel%20A.%20Pevzner,%20The%20MIT%20Press,%202004%29.pdf" title="An Introduction to Bioinformatics Algorithms">An Introduction to Bioinformatics Algorithms</a></em> , The MIT Press, 2004</li>
+<li>DNAFTB: <a target="_blank" rel="noopener" href="http://dnaftb.org/" title="DNA from the Beginning">DNA from the Beginning</a> (An animated primer of 75 experiments that made modern genetics)</li>
+</ul>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/">https://your-domain.com/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">复习资料</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/Bioinformatics/">Bioinformatics</a><a class="post-meta__tags" href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95/">启发式算法</a><a class="post-meta__tags" href="/tags/PSSM%E6%96%B9%E6%B3%95/">PSSM方法</a><a class="post-meta__tags" href="/tags/GA/">GA</a><a class="post-meta__tags" href="/tags/BLAST/">BLAST</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/01/20/zh-CN/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E4%B8%8EChatGPT%E6%80%BB%E7%BB%93/" title="生物信息学与ChatGPT总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">生物信息学与ChatGPT总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summerize for Bioinformatics with ChatGPT  基础介绍历史事件生物信息学 vs. 计算生物学 生物信息学 &#x3D; 创建解决问题的工具（算法、数据库）。目标是构建处理生物数据的有用工具。这是关于工程的。 计算生物学 &#x3D; 使用计算技术研究生物学。目标是学习关于生命系统的新生物学知识。这是关于发现的。  生物信息学和计算生物学的层级 第0级：为建模而建模 第1级（入门）：使用已发布的工具分析数据并为实验人员生成假设 第2级（生物信息学）：为新技术、数据集成和重用开发算法和数据库进行数据分析 第3级（计算生物学）：从公共数据集成和建模中做出生物学发现 第X级：来自大型联盟的综合研究   分子生物学入门 所有生命依赖于3种关键分子  DNA 保存细胞如何工作的信息   RNA 将短片段信息传递到细胞的不同部分 提供合成蛋白质的模板   蛋白质 形成向其他细胞发送信号并调节基因活动的酶 形成身体的主要成分（如头发、皮肤等） 蛋白质在生命系统中的重要作用： 催化作用 载体和运输 调节        ...</div></div></div></a><a class="pagination-related" href="/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" title="集成系统封装与组装技术总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">集成系统封装与组装技术总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summary for Packaging and Assembly Technologies for Integrated Systems  引言封装与组装层级：   裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片 封装层级：第一层级裸芯片的封装器件 印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板 整体系统层级：包含多个第三层级印刷电路板及其外壳的完整系统   讨论主题：  集成器件的封装技术 电路板技术 组装技术 可靠性评估技术 数值分析评估技术  封装类型  集成器件的封装问题1：回答关于SIP、ZIP和DIP封装类型的以下问题。 1. 与ZIP相比，SIP的优缺点是什么？  SIP的优点：结构比ZIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于ZIP。  2. 与DIP相比，SIP的优缺点是什么？  SIP的优点：结构比DIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于DIP。  问题2：回答关于SOP、SOJ和SON封装类型的以下问题。 1. 与SOJ相比，SO...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/01/20/zh-CN/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E4%B8%8EChatGPT%E6%80%BB%E7%BB%93/" title="生物信息学与ChatGPT总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="info-item-2">生物信息学与ChatGPT总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summerize for Bioinformatics with ChatGPT  基础介绍历史事件生物信息学 vs. 计算生物学 生物信息学 &#x3D; 创建解决问题的工具（算法、数据库）。目标是构建处理生物数据的有用工具。这是关于工程的。 计算生物学 &#x3D; 使用计算技术研究生物学。目标是学习关于生命系统的新生物学知识。这是关于发现的。  生物信息学和计算生物学的层级 第0级：为建模而建模 第1级（入门）：使用已发布的工具分析数据并为实验人员生成假设 第2级（生物信息学）：为新技术、数据集成和重用开发算法和数据库进行数据分析 第3级（计算生物学）：从公共数据集成和建模中做出生物学发现 第X级：来自大型联盟的综合研究   分子生物学入门 所有生命依赖于3种关键分子  DNA 保存细胞如何工作的信息   RNA 将短片段信息传递到细胞的不同部分 提供合成蛋白质的模板   蛋白质 形成向其他细胞发送信号并调节基因活动的酶 形成身体的主要成分（如头发、皮肤等） 蛋白质在生命系统中的重要作用： 催化作用 载体和运输 调节        ...</div></div></div></a><a class="pagination-related" href="/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" title="集成系统封装与组装技术总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-19</div><div class="info-item-2">集成系统封装与组装技术总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summary for Packaging and Assembly Technologies for Integrated Systems  引言封装与组装层级：   裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片 封装层级：第一层级裸芯片的封装器件 印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板 整体系统层级：包含多个第三层级印刷电路板及其外壳的完整系统   讨论主题：  集成器件的封装技术 电路板技术 组装技术 可靠性评估技术 数值分析评估技术  封装类型  集成器件的封装问题1：回答关于SIP、ZIP和DIP封装类型的以下问题。 1. 与ZIP相比，SIP的优缺点是什么？  SIP的优点：结构比ZIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于ZIP。  2. 与DIP相比，SIP的优缺点是什么？  SIP的优点：结构比DIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于DIP。  问题2：回答关于SOP、SOJ和SON封装类型的以下问题。 1. 与SOJ相比，SO...</div></div></div></a><a class="pagination-related" href="/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/" title="Summary for Packaging and Assembly Technologies for Integrated Systems"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-19</div><div class="info-item-2">Summary for Packaging and Assembly Technologies for Integrated Systems</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：Summary for Packaging and Assembly Technologies for Integrated Systems📊 1035 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 25 收藏  目录   Introduction Type of Packages: Packaging of integrated devices Question 1: Question 2: Question 3: Question 4: Question 5: Report 1: Front-end and back-end process Question 6: Question 7: Inspection Process Report 2: Prototyping and mass production Question 8: Question 9: Question 10:  Question 11: Report 3: Printed circuit boards (PCBs) What is PCB? Question ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Basic Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Historical-Events"><span class="toc-number">1.1.</span> <span class="toc-text">Historical Events</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Bioinformatics-vs-Computational-Biology"><span class="toc-number">1.1.1.</span> <span class="toc-text">Bioinformatics vs. Computational Biology</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Levels-of-Bioinfo-CompBio"><span class="toc-number">1.1.2.</span> <span class="toc-text">Levels of Bioinfo &amp; CompBio</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Molecular-Biology-Primer"><span class="toc-number">1.2.</span> <span class="toc-text">Molecular Biology Primer</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Homework-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Homework 1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#A-brief-Introduction-to-DNA-RNA"><span class="toc-number">1.2.2.</span> <span class="toc-text">A brief Introduction to DNA &amp; RNA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#A-brief-Introduction-to-Protein"><span class="toc-number">1.2.3.</span> <span class="toc-text">A brief Introduction to Protein</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sequencing-Technologies"><span class="toc-number">1.3.</span> <span class="toc-text">Sequencing Technologies</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequence-Alignment"><span class="toc-number">2.</span> <span class="toc-text">Sequence Alignment</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pairwise-sequence-alignment"><span class="toc-number">2.1.</span> <span class="toc-text">Pairwise sequence alignment</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Basic-notions"><span class="toc-number">2.1.1.</span> <span class="toc-text">Basic notions</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Goal-of-Pairwise-Alignment"><span class="toc-number">2.1.2.</span> <span class="toc-text">Goal of Pairwise Alignment:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithms-for-G-L-Alignments"><span class="toc-number">2.1.3.</span> <span class="toc-text">Algorithms for G&amp;L Alignments</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Homework-2"><span class="toc-number">2.2.</span> <span class="toc-text">Homework 2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Database-similarity-searches"><span class="toc-number">2.3.</span> <span class="toc-text">Database similarity searches</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#BLAST-B-asic-L-ocal-A-lignment-S-earch-T-ool"><span class="toc-number">2.3.1.</span> <span class="toc-text">BLAST: B asic L ocal A lignment S earch T ool</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#FASTA-FAST-All"><span class="toc-number">2.3.2.</span> <span class="toc-text">FASTA: FAST-All</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparison-between-BLAST-FASTA"><span class="toc-number">2.3.3.</span> <span class="toc-text">Comparison between BLAST &amp; FASTA</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Homework-3"><span class="toc-number">2.4.</span> <span class="toc-text">Homework 3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multiple-sequence-alignment"><span class="toc-number">2.5.</span> <span class="toc-text">Multiple sequence alignment</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-Progressive-alignment-methods"><span class="toc-number">2.5.1.</span> <span class="toc-text">1. Progressive alignment methods</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-Iterative-alignment-methods"><span class="toc-number">2.5.2.</span> <span class="toc-text">2. Iterative alignment methods</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PSSM%E6%96%B9%E6%B3%95"><span class="toc-number">2.5.3.</span> <span class="toc-text">PSSM方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Motifs-and-domains"><span class="toc-number">2.6.</span> <span class="toc-text">Motifs and domains</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Homework-4"><span class="toc-number">2.7.</span> <span class="toc-text">Homework 4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#My-understanding-to-Expectation-Maximization-EM-Algorithm"><span class="toc-number">2.7.1.</span> <span class="toc-text">My understanding to Expectation Maximization(EM) Algorithm:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Core-Algorithm"><span class="toc-number">2.7.2.</span> <span class="toc-text">Core Algorithm:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Code-in-PyCharm-python-3-8"><span class="toc-number">2.7.3.</span> <span class="toc-text">Code in PyCharm: (python&#x3D;3.8)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#The-final-result"><span class="toc-number">2.7.4.</span> <span class="toc-text">The final result:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#The-difficulties-I-met"><span class="toc-number">2.7.5.</span> <span class="toc-text">The difficulties I met:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Machine-Learning-Approaches"><span class="toc-number">3.</span> <span class="toc-text">Machine Learning Approaches</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GA-for-sequencing-and-MSA"><span class="toc-number">3.1.</span> <span class="toc-text">GA for sequencing and MSA</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Sequencing-by-Using-GA"><span class="toc-number">3.1.1.</span> <span class="toc-text">Sequencing by Using GA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Multiple-Sequence-Alignments-Using-GA"><span class="toc-number">3.1.2.</span> <span class="toc-text">Multiple Sequence Alignments Using GA</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Protein-Function-Prediction"><span class="toc-number">3.2.</span> <span class="toc-text">Protein Function Prediction</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Gene-Function-Prediction-Using-SVM"><span class="toc-number">3.2.1.</span> <span class="toc-text">Gene Function Prediction Using SVM</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Protein-Function-Prediction-Using-DNN"><span class="toc-number">3.2.2.</span> <span class="toc-text">Protein Function Prediction Using DNN</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Protein-Structure-Prediction"><span class="toc-number">3.3.</span> <span class="toc-text">Protein Structure Prediction</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Protein-Folding-Based-on-EDA"><span class="toc-number">3.3.1.</span> <span class="toc-text">Protein Folding Based on EDA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Protein-Folding-Based-on-Deep-Reinforcement-Learning"><span class="toc-number">3.3.2.</span> <span class="toc-text">Protein Folding Based on Deep Reinforcement Learning</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AlphaFold2-for-Protein-Structure-Prediction"><span class="toc-number">3.3.3.</span> <span class="toc-text">AlphaFold2 for Protein Structure Prediction</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

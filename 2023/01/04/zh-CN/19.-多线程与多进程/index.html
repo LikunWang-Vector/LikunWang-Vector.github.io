@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>19. 多线程与多进程 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：19. 多线程与多进程📊 184 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 前言 单线程与多线程 首先看一个单线程例子 执行结果： 再来一个多线程的例子，调用Thread类： 看一下执行结果： ​编辑 也可以写一个子类来继承线程的属性： 看一下执行结果： 看一下执行结果： 多进程 我们还是导包，写一个实例： 看一下执行结果： 总结​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19. 多线程与多进程">
+<meta property="og:url" content="https://your-domain.com/2023/01/04/zh-CN/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：19. 多线程与多进程📊 184 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 前言 单线程与多线程 首先看一个单线程例子 执行结果： 再来一个多线程的例子，调用Thread类： 看一下执行结果： ​编辑 也可以写一个子类来继承线程的属性： 看一下执行结果： 看一下执行结果： 多进程 我们还是导包，写一个实例： 看一下执行结果： 总结​">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png">
+<meta property="article:published_time" content="2023-01-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-04T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="开发语言">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="网络爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "19. 多线程与多进程",
+  "url": "https://your-domain.com/2023/01/04/zh-CN/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/",
+  "image": "https://your-domain.com/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png",
+  "datePublished": "2023-01-04T15:00:00.000Z",
+  "dateModified": "2023-01-04T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/04/zh-CN/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '19. 多线程与多进程',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">19. 多线程与多进程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">19. 多线程与多进程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-04T15:00:00.000Z" title="Created 2023-01-05 00:00:00">2023-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-04T15:00:00.000Z" title="Updated 2023-01-05 00:00:00">2023-01-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>3mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-05 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128562553">19. 多线程与多进程</a><br>📊 184 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 4 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>前言</p>
+<p>单线程与多线程</p>
+<p>首先看一个单线程例子</p>
+<p>执行结果：</p>
+<p>再来一个多线程的例子，调用Thread类：</p>
+<p>看一下执行结果：</p>
+<p>​编辑</p>
+<p>也可以写一个子类来继承线程的属性：</p>
+<p>看一下执行结果：</p>
+<p>看一下执行结果：</p>
+<p>多进程</p>
+<p>我们还是导包，写一个实例：</p>
+<p>看一下执行结果：</p>
+<p>总结​​​​​​​</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>首先介绍基本概念 </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png"></p>
+<p>进程是资源单位，而线程是执行单位，一个进程至少包含一个线程。</p>
+<p>启动每一个进程默认有一个主进程。</p>
+<p>Python中的多线程是通过Thread类来实现的，多进程是通过Process类来实现的。</p>
+<hr>
+<h3 id="单线程与多线程"><a href="#单线程与多线程" class="headerlink" title="单线程与多线程"></a>单线程与多线程</h3><h4 id="首先看一个单线程例子"><a href="#首先看一个单线程例子" class="headerlink" title="首先看一个单线程例子"></a>首先看一个单线程例子</h4><p><code>python def func(): for i in range(1000): print(&quot;func&quot;, i) if __name__ == &#39;__main__&#39;: func() for i in range(1000): print(&quot;main&quot;, i) </code> </p>
+<p>调用函数其实还是单线程，编译后执行会先执行func函数再执行main函数中的循环。</p>
+<h4 id="执行结果："><a href="#执行结果：" class="headerlink" title="执行结果："></a>执行结果：</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/31e811215c92.png"></p>
+<h4 id="再来一个多线程的例子，调用Thread类："><a href="#再来一个多线程的例子，调用Thread类：" class="headerlink" title="再来一个多线程的例子，调用Thread类："></a>再来一个多线程的例子，调用Thread类：</h4><p><code>python # 多线程 from threading import Thread # 线程类 def func(): for i in range(1000): print(&quot;func&quot;, i) if __name__ == &#39;__main__&#39;: t = Thread(target=func) # 创建线程并给线程安排任务 t.start() # 多线程状态为可以开始工作状态, 具体的执行时间由CPU决定 for i in range(1000): print(&quot;main&quot;, i) </code> </p>
+<p>我们先用Thread类在主函数创建一个线程，再将它启动，设置为运行状态。至于执行时间等调度问题就交给CPU执行了。</p>
+<h4 id="看一下执行结果："><a href="#看一下执行结果：" class="headerlink" title="看一下执行结果："></a>看一下执行结果：</h4><h4 id=""><a href="#" class="headerlink" title=""></a><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/4975d71dc218.png"></h4><p>可以看到输出结果是func与main混杂的，说明两条线程是同时执行的，才会出现输出混在一起的情况。 </p>
+<h4 id="也可以写一个子类来继承线程的属性："><a href="#也可以写一个子类来继承线程的属性：" class="headerlink" title="也可以写一个子类来继承线程的属性："></a>也可以写一个子类来继承线程的属性：</h4><p><code>python # 多线程 from threading import Thread # 线程类 class MyThread(Thread): # def run(self): # 固定的 -&gt; 当线程被执行的时候, 被执行的就是run() for i in range(1000): print(&quot;子线程&quot;, i) if __name__ == &#39;__main__&#39;: t = MyThread() # t.run() # 方法的调用了. -&gt; 单线程???? t.start() # 开启线程 for i in range(1000): print(&quot;主线程&quot;, i) </code> </p>
+<p>子类继承了Thread类的属性，它里面定义了run函数，当此子类被调用时，将运行run函数。</p>
+<p>主类中同样是创建多线程子类对象，并开启线程。注意这里千万不要用run方法，否则变成了调用子类的方法，执行完毕后才会执行后面的代码，变成了类似刚刚举得单线程例子了。</p>
+<h4 id="看一下执行结果：-1"><a href="#看一下执行结果：-1" class="headerlink" title="看一下执行结果："></a>看一下执行结果：</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/4d3cb813114b.png"></p>
+<p>很明显也是主线程子线程同时进行的。</p>
+<p>当然，我们也可以定义多个线程，效果也更复杂，但我们为了区分不同的子线程也可以进行传参命名来区分：</p>
+<p><code>python from threading import Thread def func(name): # ?? for i in range(1000): print(name, i) if __name__ == &#39;__main__&#39;: t1 = Thread(target=func, args=(&quot;Alice&quot;,)) # 传递参数必须是元组 t1.start() t2 = Thread(target=func, args=(&quot;Bob&quot;,)) t2.start() </code> </p>
+<p>比如这个时候我们引入了两个子线程，向func函数传递参数name，输出结果就会带有子线程不同的特征值便于区分。注意：参数args传入的信息必须是元组形式。</p>
+<h4 id="看一下执行结果：-2"><a href="#看一下执行结果：-2" class="headerlink" title="看一下执行结果："></a>看一下执行结果：</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/807da55bcaaa.png"></p>
+<p>可以看到，我们的输出结果成功把两个子线程区分开来，便于我们查看结果。</p>
+<hr>
+<h3 id="多进程​​​​​​​"><a href="#多进程​​​​​​​" class="headerlink" title="多进程​​​​​​​"></a>多进程​​​​​​​</h3><p>多进程在Python的写法和多线程是差不多的，但它背后的逻辑却有很大的不同。多进程对于CPU的开销比多线程要大得多，所以我们还是最常用多线程。</p>
+<h4 id="我们还是导包，写一个实例："><a href="#我们还是导包，写一个实例：" class="headerlink" title="我们还是导包，写一个实例："></a>我们还是导包，写一个实例：</h4><p><code>python from multiprocessing import Process def func(): for i in range(1000): print(&quot;子进程&quot;, i) if __name__ == &#39;__main__&#39;: p = Process(target=func) p.start() for i in range(1000): print(&quot;主进程&quot;, i) </code> </p>
+<p>可以看到除了导包不同，调用的api不同，思路是一致的。</p>
+<h4 id="-1"><a href="#-1" class="headerlink" title=""></a></h4><h4 id="看一下执行结果：-3"><a href="#看一下执行结果：-3" class="headerlink" title="看一下执行结果："></a>看一下执行结果：</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/51ea85d9a8c5.png"></p>
+<p>可以看到也是并行的输出，效果类似。</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>今天我们认识了线程、进程的概念，学习了如何在Python中调用多线程方法Thread类、多进程方法Process等，用几个简单的例子深入理解了上述概念。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/04/zh-CN/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/">https://your-domain.com/2023/01/04/zh-CN/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a><a class="post-meta__tags" href="/tags/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/">网络爬虫</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/19.-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E8%BF%9B%E7%A8%8B/ee87aaef5a99.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/04/zh-CN/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/" title="18. 概述如何加快爬虫效率"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/63a82f71b089.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">18. 概述如何加快爬虫效率</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：18. 概述如何加快爬虫效率📊 281 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 前言 概述 图例  前言我们以前做过的爬虫项目都是小体量的工程，很快就能完成。但我们以后肯定要面对一个现实的问题：假如我们要抓取成千上万条数据呢？访问成千上万此页面循环执行一段代码，效率显然是不够高的。那么怎样才能提高效率呢？这就是我们即将展开说的内容。  概述加快效率的方法有很多种。 比如我们做几件事情，可以通过统筹安排让这几件事同时进行，最后达到节约时间的效果，这个方式在计算机中也可以实现，它叫作多线程。 比如我们做几件事情，还可以让朋友们帮我们来做，一人做一件事，也可以达到节约时间的效果，很快地完成，这个方法也可以在计算机中实现，它叫作多进程。 图例 我们通过图片可以看到，n线程的执行效率至少是单线程的n倍，极大的节约了我们的时间。  当然还有其他方法提高效率，例如协程、异步爬虫等。 我们将在后面的小节展开说说这些知识点。 </div></div></div></a><a class="pagination-related" href="/2023/01/04/zh-CN/17.-%E5%AE%9E%E6%88%98%EF%BC%9A%E6%89%8B%E6%8A%8A%E6%89%8B%E9%80%9A%E5%85%B3%E6%9F%90%E9%9F%B3%E4%B9%90%E5%B9%B3%E5%8F%B0%E7%83%AD%E9%97%A8%E8%AF%84%E8%AE%BA/" title="17. 实战：手把手通关某音乐平台热门评论"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/17.-%E5%AE%9E%E6%88%98%EF%BC%9A%E6%89%8B%E6%8A%8A%E6%89%8B%E9%80%9A%E5%85%B3%E6%9F%90%E9%9F%B3%E4%B9%90%E5%B9%B3%E5%8F%B0%E7%83%AD%E9%97%A8%E8%AF%84%E8%AE%BA/b61cfee9840a.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">17. 实战：手把手通关某音乐平台热门评论</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：17. 实战：手把手通关某音乐平台热门评论📊 347 阅读 | 👍 2 点赞 | 💬 3 评论 | ⭐ 8 收藏  目录 前言 链接在评论区！！！！！！！ 目的 保姆级思路 最后奉上完整代码  运行效果  前言众所周知，某音乐平台的评论区金句频出，热门评论更是美不胜收，我们也想要批量获取这些信息来做信息分析，数据处理等工作，也可以陶冶自己的情操，一举多得。所以我们今天来尝试获取某音乐平台的评论区。  目的获取某音乐平台评论区数据  保姆级思路访问想要获取评论的网页 链接在评论区！！！！！！！链接在评论区！！！！！！！链接在评论区！！！！！！！ 查看页面源代码，看是否包含评论信息： 以下图的评论为例  在页面源代码中CRTL+F查找：  可以看到源代码中是不存在的，那就要另找办法了。我们前面练习过，如果源代码没有，那大概率就是在js请求中获取信息了。  所以我们依旧来到开发者工具，进入网络模块，筛选XHR选项，刷新页面，获得一堆信息。  F12–网络–Fetch&#x2F;XHR–刷新–↓ 通过筛选（一个个找），最后找到了get commen...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/30/zh-CN/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/" title="10. 补充实例：js动态请求菜价网页的爬取"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/6346d93934d9.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">10. 补充实例：js动态请求菜价网页的爬取</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：10. 补充实例：js动态请求菜价网页的爬取📊 301 阅读 | 👍 4 点赞 | 💬 2 评论 | ⭐ 5 收藏  目录 前言 思路 代码实现 完整代码 总结  前言爬取菜价的典型案例是北京新XX网站，但是它页面已经改版，无法通过bs4解析方式进行爬取。我们通过分析发现它是通过js动态请求表格的，所以我们再次对它见招拆招。  思路1. 先观察源代码，发现数据不在源代码中  2. 打开网页调试器（F12），选择Network选项，记录网络活动。当我们换页的时候，能检测到一个动态的js请求：  点击换页以后出现以下请求：  我们查看详情，发现它是一个POST请求  查看其负载，也就是所需要传递的参数：  发现我们传参里有上述七个数据，其中最重要的就是前两个：分别是限制每次传输的信息条数和当前页面，也就是第current页。 打开URL也能看到里面确实存在数据：  所以我们可以考虑用requests来访问该URL  代码实现第一步，老朋友，先获取源代码 python url = &#39;在评论区&#39; dat = { &quot;limi...</div></div></div></a><a class="pagination-related" href="/2023/01/04/zh-CN/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/" title="18. 概述如何加快爬虫效率"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/63a82f71b089.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="info-item-2">18. 概述如何加快爬虫效率</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：18. 概述如何加快爬虫效率📊 281 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 前言 概述 图例  前言我们以前做过的爬虫项目都是小体量的工程，很快就能完成。但我们以后肯定要面对一个现实的问题：假如我们要抓取成千上万条数据呢？访问成千上万此页面循环执行一段代码，效率显然是不够高的。那么怎样才能提高效率呢？这就是我们即将展开说的内容。  概述加快效率的方法有很多种。 比如我们做几件事情，可以通过统筹安排让这几件事同时进行，最后达到节约时间的效果，这个方式在计算机中也可以实现，它叫作多线程。 比如我们做几件事情，还可以让朋友们帮我们来做，一人做一件事，也可以达到节约时间的效果，很快地完成，这个方法也可以在计算机中实现，它叫作多进程。 图例 我们通过图片可以看到，n线程的执行效率至少是单线程的n倍，极大的节约了我们的时间。  当然还有其他方法提高效率，例如协程、异步爬虫等。 我们将在后面的小节展开说说这些知识点。 </div></div></div></a><a class="pagination-related" href="/2023/01/05/zh-CN/20.-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%8E%E8%BF%9B%E7%A8%8B%E6%B1%A0/" title="20. 线程池与进程池"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/20.-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%8E%E8%BF%9B%E7%A8%8B%E6%B1%A0/b7139937380e.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-06</div><div class="info-item-2">20. 线程池与进程池</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：20. 线程池与进程池📊 256 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 前言 概念 实现 线程池 进程池 运行效果 总结  前言我们认识了进程、线程，也了解了多进程和多线程对于执行效率的好处，那么我们该怎么将它很好的运用于实战呢？比如我们要创建一百个线程，总不能用t0&#x3D;Thread一直到t99&#x3D;Thread吧，这样效率是极低的。所以我们引入一个新概念：线程池与进程池。  概念线程池: 一次性开辟一些线程，我们用户直接给线程池提交任务，线程任务的调度交给线程池来完成。 进程池: 一次性开辟一些进程，我们用户直接给进程池提交任务，进程任务的调度交给进程池来完成。  实现线程池python from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor def fn(name): for i in range(1000): print(name, i) if __name__ == &#39;__main__&#39;:...</div></div></div></a><a class="pagination-related" href="/2023/01/02/zh-CN/14.-Requests%E8%BF%9B%E9%98%B6%EF%BC%9A%E5%A4%84%E7%90%86%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF%E4%B8%8ECookie/" title="14. Requests进阶：处理登录信息与Cookie"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/14.-Requests%E8%BF%9B%E9%98%B6%EF%BC%9A%E5%A4%84%E7%90%86%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF%E4%B8%8ECookie/2b7d39717143.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="info-item-2">14. Requests进阶：处理登录信息与Cookie</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：14. Requests进阶：处理登录信息与Cookie📊 964 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 6 收藏  目录 前言 目的 思路 代码实现 1. session法 2. requests法 完整代码 session法 requests法 总结  前言我们在前面的爬虫学习过程中已经用过headers了，对它并不陌生。Header为HTTP协议中的请求头，⼀般存放⼀些和请求内容无关的数据，有时也会存放⼀些安全验证信息。比如常见的User-Agent, token, cookie等。 通过requests发送的请求，我们可以通过headers保存请求头信息来处理cookie等，也可以单独进行存放，最后由requests来帮我们自动拼接成完整的http请求。 本章我们将引入一个新的概念：会话（session）。它会记住以前请求到的信息，并沿用到后面的url请求，类似浏览器的缓存机制。而request每次都默认是第一次访问，不会记住访问的缓存。  目的我们以某小说网为例，抓取用户阅读过的小说列表，用requests和sessi...</div></div></div></a><a class="pagination-related" href="/2023/01/01/zh-CN/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/" title="12. XPath解析入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-02</div><div class="info-item-2">12. XPath解析入门</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：12. XPath解析入门📊 611 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 6 收藏  目录 前言 模块安装 XPath涉及的基本概念 XPath基本语法 测试完整代码 XPath进阶用法 需求1：让xpath处理这个资源文件 需求2：找到标签位置，如html标签 需求3：找到无序列表(ul)中每一项(li)包裹的文本内容 需求4：找到无序列表(ul)中第一项(li)包裹的文本内容 需求5：找到无序列表(ul)中每一项(li)包裹的链接(a)内容 需求6：获取href为‘dapao’包裹的文字（属性筛选） 需求7：先获取列表项，再递归每个列表项取出包裹文本和a标签的href属性值 需求8：练习：打印第一个div的文本信息 XPath进阶用法完整代码  前言XPath是一门在 XML 文档中查找信息的语言。XPath可用来在 XML 文档中对元素和属性进行遍历。而我们熟知的HTML恰巧属于XML的⼀个子集，所以完全可以用XPath去查找html中的内容。  模块安装老样子，直接pip install lxml   XPath涉及的...</div></div></div></a><a class="pagination-related" href="/2023/02/01/zh-CN/37.-%E5%AE%9E%E6%88%98%EF%BC%9AXpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96%E4%BB%BB%E6%84%8F%E5%AE%8C%E6%95%B4%E5%B0%8F%E8%AF%B4%E4%B8%80%E5%8D%83%E4%BD%99%E8%8A%82%E5%88%B0%E6%9C%AC%E5%9C%B0txt%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF%E4%BB%BB%E6%84%8F%E5%B0%8F%E8%AF%B4%E7%BD%91%E7%AB%99%E5%8F%AF%E5%A5%97%E7%94%A8%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/" title="37. 实战：Xpath+线程池实现抓取任意完整小说一千余节到本地txt文件&#x2F;模板任意小说网站可套用（附源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/37.-%E5%AE%9E%E6%88%98%EF%BC%9AXpath+%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E6%8A%93%E5%8F%96%E4%BB%BB%E6%84%8F%E5%AE%8C%E6%95%B4%E5%B0%8F%E8%AF%B4%E4%B8%80%E5%8D%83%E4%BD%99%E8%8A%82/6ee61c1d85b8.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-02</div><div class="info-item-2">37. 实战：Xpath+线程池实现抓取任意完整小说一千余节到本地txt文件&#x2F;模板任意小说网站可套用（附源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：37. 实战：Xpath+线程池实现抓取任意完整小说一千余节到本地txt文件&#x2F;模板任意小说网站可套用（附源码）📊 2274 阅读 | 👍 6 点赞 | 💬 8 评论 | ⭐ 17 收藏  目录 前言 目的 思路 代码实现 1. 从给定的URL中拿到所有章节的标题和子链接 2. 将标题和子链接形成一个字典，便于后续提取信息 3. 实现在单个章节详细页面提取所有文本信息 4. 保存到本地文件，在前面加上数字序号便于顺序保存 5. 在主函数中添加线程池，遍历字典输入标题和子链接开始多线程任务 完整源码 运行效果 总结  前言本来是想实现抓取番茄小说的，但是它虽然免费，当我写完全部代码的时候才发现后面的部分只能下载APP看，真是坑人……还好我把函数都封装了，整体逻辑是不变的，最终选择了另一个免费小说网——笔趣阁作为案例。 老规矩，我还是把链接放在评论区 ，不然审核不过的 同时我也会把番茄小说的放到最后的完整代码部分供大家借鉴。  目的给定小说URL，使用Xpath+线程池实现抓取任意完整小说，并分章节按顺序保存到本地txt文件。  思路思...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">单线程与多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E7%9C%8B%E4%B8%80%E4%B8%AA%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%BE%8B%E5%AD%90"><span class="toc-number">2.1.</span> <span class="toc-text">首先看一个单线程例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">执行结果：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%8D%E6%9D%A5%E4%B8%80%E4%B8%AA%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%8C%E8%B0%83%E7%94%A8Thread%E7%B1%BB%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">再来一个多线程的例子，调用Thread类：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%8B%E4%B8%80%E4%B8%8B%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">2.4.</span> <span class="toc-text">看一下执行结果：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.5.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%86%99%E4%B8%80%E4%B8%AA%E5%AD%90%E7%B1%BB%E6%9D%A5%E7%BB%A7%E6%89%BF%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="toc-number">2.6.</span> <span class="toc-text">也可以写一个子类来继承线程的属性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%8B%E4%B8%80%E4%B8%8B%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A-1"><span class="toc-number">2.7.</span> <span class="toc-text">看一下执行结果：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%8B%E4%B8%80%E4%B8%8B%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A-2"><span class="toc-number">2.8.</span> <span class="toc-text">看一下执行结果：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B"><span class="toc-number">3.</span> <span class="toc-text">多进程​​​​​​​</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E8%BF%98%E6%98%AF%E5%AF%BC%E5%8C%85%EF%BC%8C%E5%86%99%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">我们还是导包，写一个实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-1"><span class="toc-number">3.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%8B%E4%B8%80%E4%B8%8B%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A-3"><span class="toc-number">3.3.</span> <span class="toc-text">看一下执行结果：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UESTC Operating System Review Notes (1): Operating System Overview | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents PrefaceOperating System OverviewGoals and FunctionsDefinitionGoalsFunctionsHistory of Operating SystemsSingle-User SystemsSimple Batch Processing SystemsMultiprogramming Batch System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UESTC Operating System Review Notes (1): Operating System Overview">
+<meta property="og:url" content="https://your-domain.com/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents PrefaceOperating System OverviewGoals and FunctionsDefinitionGoalsFunctionsHistory of Operating SystemsSingle-User SystemsSimple Batch Processing SystemsMultiprogramming Batch System">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png">
+<meta property="article:published_time" content="2023-02-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-11T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="operating-system">
+<meta property="article:tag" content="review-notes">
+<meta property="article:tag" content="study-materials">
+<meta property="article:tag" content="system-architecture">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "UESTC Operating System Review Notes (1): Operating System Overview",
+  "url": "https://your-domain.com/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png",
+  "datePublished": "2023-02-11T15:00:00.000Z",
+  "dateModified": "2023-02-11T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UESTC Operating System Review Notes (1): Operating System Overview',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">UESTC Operating System Review Notes (1): Operating System Overview</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">UESTC Operating System Review Notes (1): Operating System Overview</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-11T15:00:00.000Z" title="Created 2023-02-12 00:00:00">2023-02-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-11T15:00:00.000Z" title="Updated 2023-02-12 00:00:00">2023-02-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Review-Notes/">Review Notes</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>7mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-12 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>Preface<br>Operating System Overview<br>Goals and Functions<br>Definition<br>Goals<br>Functions<br>History of Operating Systems<br>Single-User Systems<br>Simple Batch Processing Systems<br>Multiprogramming Batch Systems<br>Time-Sharing Systems<br>Personal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …<br>Real-Time Systems<br>Basic Characteristics<br>Concurrency<br>Sharing<br>Virtualization<br>Non-determinism<br>System Architecture<br>Unstructured Operating Systems<br>Modular System Structure<br>Layered System Structure<br>Operating System Security<br>Memory<br>Information Protection and Security</p>
+<hr>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>This review note is based on the UESTC Computer Operating Systems Teaching Syllabus (2022), divided into five major chapters:</p>
+<blockquote>
+<ul>
+<li><strong>CM1</strong>: Operating System Concepts - Basic functions, development history and trends, mainstream architectures, common OS characteristics, security mechanisms.</li>
+<li><strong>CM2</strong>: Process Management - Process concepts, thread concepts, process lifecycle, scheduling algorithms, synchronization and mutual exclusion, inter-process communication, and deadlocks.</li>
+<li><strong>CM3</strong>: Memory Management - Memory space concepts, contiguous allocation, discrete allocation (paging, segmentation, segment-page management), virtual memory management, and page replacement algorithms.</li>
+<li><strong>CM4</strong>: Device Management - I&#x2F;O system structure, buffer management, disk structure, and disk scheduling algorithms.</li>
+<li><strong>CM5</strong>: File Management - File system functions, logical structure, physical structure, directories, file sharing, and file system consistency.</li>
+</ul>
+</blockquote>
+<p>This section focuses on CM1:</p>
+<blockquote>
+<p>Chapter 1: Computer Operating System Introduction (6 hours)</p>
+<p>Main content: Batch processing technology, multiprogramming technology, OS concepts, OS development, basic OS types, fundamental concepts and characteristics, OS features, OS services, functional modules, system architecture, system calls, command interface, program interface, virtual machines, client&#x2F;server, etc.</p>
+<p>Requirements:</p>
+<ul>
+<li>Memorize: OS architecture, development history and main types</li>
+<li>Understand: Basic concepts, goals and functions, user interface and system call significance</li>
+<li>Apply: Batch processing and multiprogramming technology</li>
+<li>Analyze: Basic OS types, characteristics, and functional modules</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Operating-System-Overview"><a href="#Operating-System-Overview" class="headerlink" title="Operating System Overview"></a>Operating System Overview</h2><hr>
+<h3 id="Goals-and-Functions"><a href="#Goals-and-Functions" class="headerlink" title="Goals and Functions"></a>Goals and Functions</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><blockquote>
+<p>An operating system is a collection of programs that control and manage computer hardware and software resources, reasonably schedule various jobs, and facilitate user interaction.</p>
+</blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png"></p>
+<h4 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h4><blockquote>
+<ul>
+<li><strong>Convenience</strong>: Make computers easier to use</li>
+<li><strong>Efficiency</strong>: Use computer resources more effectively</li>
+<li><strong>Extensibility</strong>: Enable development, testing, and introduction of new features</li>
+<li><strong>Openness</strong>: Support application portability and interoperability</li>
+</ul>
+</blockquote>
+<h4 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h4><blockquote>
+<ul>
+<li><strong>Processor Management</strong>: Allocate processors to processes (threads) according to certain algorithms, with effective management and control.</li>
+<li><strong>Memory Management</strong>: Provide runtime environment for multiprogramming, facilitate usage, improve memory utilization, and logically extend memory.</li>
+<li><strong>Device Management</strong>: Complete user I&#x2F;O requests, allocate required I&#x2F;O devices, improve CPU and I&#x2F;O device utilization, increase I&#x2F;O speed, and facilitate device usage.</li>
+<li><strong>File Management</strong>: Manage user and system files for convenient use while ensuring file security.</li>
+<li><strong>User Interface</strong>: Command set provided by OS for user interaction.</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="History-of-Operating-Systems"><a href="#History-of-Operating-Systems" class="headerlink" title="History of Operating Systems"></a>History of Operating Systems</h3><h4 id="Single-User-Systems"><a href="#Single-User-Systems" class="headerlink" title="Single-User Systems"></a>Single-User Systems</h4><blockquote>
+<p><strong>Processing Mechanism</strong>:</p>
+<ul>
+<li>Manual operation, user has exclusive access to all resources</li>
+<li>Offline I&#x2F;O (I&#x2F;O with peripheral computers) → evolved into Simple Batch Processing Systems</li>
+</ul>
+</blockquote>
+<h4 id="Simple-Batch-Processing-Systems"><a href="#Simple-Batch-Processing-Systems" class="headerlink" title="Simple Batch Processing Systems"></a>Simple Batch Processing Systems</h4><blockquote>
+<p><strong>Processing Mechanism</strong>: Automatic processing of a batch of jobs; memory holds only one job at a time; upon completion&#x2F;error → automatically loads another job (automatic job sequencing)</p>
+<p><strong>Main Characteristics</strong>: Automation, Sequential processing, Single-program operation</p>
+<p><strong>Advantages</strong>: Reduced manual operation, solved automatic job sequencing problem</p>
+<p><strong>Disadvantages</strong>: Long average turnaround time (processor runs only one program at a time, waits during I&#x2F;O operations, low utilization), no interactive capability → evolved into Multiprogramming Batch Systems</p>
+</blockquote>
+<h4 id="Multiprogramming-Batch-Systems"><a href="#Multiprogramming-Batch-Systems" class="headerlink" title="Multiprogramming Batch Systems"></a>Multiprogramming Batch Systems</h4><blockquote>
+<p><strong>Improvements over Single Batch Processing</strong>:</p>
+<ul>
+<li>Multiple jobs reside in memory simultaneously</li>
+<li>When one job needs I&#x2F;O or completes&#x2F;errors, processor switches to another job (automatic scheduling)</li>
+<li>Multiple programs execute concurrently</li>
+<li><strong>Job scheduler</strong> handles job scheduling</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Main Characteristics</strong>: Multiprogramming, Non-sequential execution, Scheduling</p>
+<p><strong>Advantages</strong>: Improved resource utilization and throughput</p>
+<p><strong>Disadvantages</strong>: No interactive capability → evolved into Time-Sharing Systems</p>
+</blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/b691137bc495.png"></p>
+<h4 id="Time-Sharing-Systems"><a href="#Time-Sharing-Systems" class="headerlink" title="Time-Sharing Systems"></a>Time-Sharing Systems</h4><blockquote>
+<p><strong>Processing Mechanism</strong>: Clock interrupts with time slices</p>
+<p><strong>Origin</strong>: Human-computer interaction, mainframe sharing, convenient access</p>
+<p><strong>Main Characteristics</strong>: Multiplexing, Independence, Timeliness, Interactivity</p>
+</blockquote>
+<p><strong>[Comparison with Multiprogramming Batch Systems]</strong></p>
+<p>The main difference lies in user interaction - users can input commands at terminals to control the computer. The focus also differs: multiprogramming batch systems emphasize processor utilization, while time-sharing systems prioritize job efficiency.</p>
+<h4 id="Personal-Computers-→-Distributed-Systems-→-Internet-Era-→-Mobile-Computing-Era-→-…"><a href="#Personal-Computers-→-Distributed-Systems-→-Internet-Era-→-Mobile-Computing-Era-→-…" class="headerlink" title="Personal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …"></a>Personal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …</h4><blockquote>
+<p>For general understanding only, details omitted.</p>
+</blockquote>
+<h4 id="Real-Time-Systems"><a href="#Real-Time-Systems" class="headerlink" title="Real-Time Systems"></a>Real-Time Systems</h4><blockquote>
+<p><strong>Definition</strong>:<br>Systems that can respond to external event requests in real-time (promptly), start or complete event processing within specified time limits, and coordinate all real-time tasks to run consistently.</p>
+<p><strong>Application Areas</strong>:<br>Aerospace, military, industrial control, real-time control systems, real-time information systems</p>
+<p><strong>Characteristics</strong>:<br>Multiplexing, Independence, Interactivity, Reliability, Timeliness</p>
+</blockquote>
+<hr>
+<h3 id="Basic-Characteristics-of-Operating-Systems"><a href="#Basic-Characteristics-of-Operating-Systems" class="headerlink" title="Basic Characteristics of Operating Systems"></a>Basic Characteristics of Operating Systems</h3><blockquote>
+<ul>
+<li>Concurrency (most important characteristic)</li>
+<li>Sharing</li>
+<li>Virtualization</li>
+<li>Non-determinism</li>
+</ul>
+</blockquote>
+<h4 id="Concurrency"><a href="#Concurrency" class="headerlink" title="Concurrency"></a>Concurrency</h4><p><strong>Parallelism</strong>: Two or more events occur at the same instant (single-processor systems)</p>
+<p><strong>Concurrency</strong>: Two or more events occur within the same time interval (multi-processor systems)</p>
+<h4 id="Sharing"><a href="#Sharing" class="headerlink" title="Sharing"></a>Sharing</h4><p>System resources can be used jointly by multiple concurrently executing processes in memory.</p>
+<blockquote>
+<ul>
+<li><strong>Mutual Exclusion Sharing</strong>:<ul>
+<li>Critical resources are resources that only one process can access at a time</li>
+<li>Critical resources can be provided to multiple processes, but only one process can use them at a time</li>
+</ul>
+</li>
+<li><strong>Simultaneous Access</strong>:<ul>
+<li>Macroscopically, resource sharing means multiple tasks can use system hardware and software resources simultaneously</li>
+<li>Microscopically, resource sharing means multiple tasks can alternately and mutually exclusively use certain resources (e.g., disk)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Virtualization"><a href="#Virtualization" class="headerlink" title="Virtualization"></a>Virtualization</h4><p>Abstracting physical entities into logical products (time-division [virtual processors&#x2F;virtual devices], space-division [virtual memory]…)</p>
+<h4 id="Non-determinism"><a href="#Non-determinism" class="headerlink" title="Non-determinism"></a>Non-determinism</h4><p>Same program, same input, but output results may differ.</p>
+<blockquote>
+<ul>
+<li><strong>Asynchrony</strong>: Processes execute asynchronously; running speed and results are unpredictable</li>
+<li><strong>Random functions</strong>: random(); gettimeofday()…</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Operating-System-Architecture"><a href="#Operating-System-Architecture" class="headerlink" title="Operating System Architecture"></a>Operating System Architecture</h3><blockquote>
+<p>Four generations of OS evolution:</p>
+<ul>
+<li>First generation: Unstructured operating systems</li>
+<li>Second generation: Modular structure</li>
+<li>Third generation: Layered structure</li>
+<li>Fourth generation: Engineering + Software Development → Software Engineering</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Common OS overall structure:</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/2dc959ef5bab.png"></p>
+</blockquote>
+<h4 id="Unstructured-Operating-Systems"><a href="#Unstructured-Operating-Systems" class="headerlink" title="Unstructured Operating Systems"></a>Unstructured Operating Systems</h4><p>The OS is a collection of numerous procedures that can call each other. There is no internal structure - it’s both massive and chaotic, hence also called monolithic system structure.</p>
+<p>Programs written this way have many errors, and debugging and maintenance costs are very high.</p>
+<h4 id="Modular-System-Structure"><a href="#Modular-System-Structure" class="headerlink" title="Modular System Structure"></a>Modular System Structure</h4><p>The OS contains several modules, each implementing a set of basic concepts and related attributes.</p>
+<p>Modules can reference concepts and attributes from any other module.</p>
+<ul>
+<li><strong>Advantages</strong>:<ul>
+<li>Improved correctness, understandability, and maintainability of OS design</li>
+<li>Enhanced adaptability</li>
+<li>Accelerated development process</li>
+</ul>
+</li>
+<li><strong>Disadvantages</strong>:<ul>
+<li>Difficult to precisely describe module division and interface specifications</li>
+<li>When dividing modules by function, shared and exclusive resources are not distinguished</li>
+</ul>
+</li>
+</ul>
+<h4 id="Layered-System-Structure"><a href="#Layered-System-Structure" class="headerlink" title="Layered System Structure"></a>Layered System Structure</h4><p>The OS contains several layers, each implementing a set of basic concepts and related attributes.</p>
+<p>Each layer’s implementation depends only on concepts and attributes provided by its immediate lower layer, hiding the existence of lower layers from upper layers.</p>
+<hr>
+<h3 id="Operating-System-Security"><a href="#Operating-System-Security" class="headerlink" title="Operating System Security"></a>Operating System Security</h3><h4 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h4><p><strong>Virtual Storage</strong>:</p>
+<ul>
+<li>Access storage logically without considering available physical memory space</li>
+<li>Meet the need for multiple jobs to reside in memory simultaneously</li>
+<li>Swap-in&#x2F;swap-out mechanism</li>
+<li>Paging mechanism: Different process sizes cause mismatch during whole-process swapping</li>
+<li>Partial job residence: Hardware detects page faults and arranges loading</li>
+</ul>
+<p><strong>Paging Mechanism</strong>:</p>
+<ul>
+<li>Processes consist of several fixed-size blocks, all the same size</li>
+<li>Virtual address consists of page number and intra-page offset</li>
+<li>Each page of a process can be placed anywhere in memory</li>
+<li>Provides dynamic mapping between virtual addresses and physical addresses in memory</li>
+</ul>
+<h4 id="Information-Protection-and-Security"><a href="#Information-Protection-and-Security" class="headerlink" title="Information Protection and Security"></a>Information Protection and Security</h4><ul>
+<li><strong>Availability</strong>: Protect system from interruption</li>
+<li><strong>Confidentiality</strong>: Ensure users cannot read unauthorized data</li>
+<li><strong>Data Integrity</strong>: Protect data from unauthorized modification</li>
+<li><strong>Authentication</strong>: Involves correct user identity verification and message&#x2F;data legitimacy</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/">https://your-domain.com/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/review-notes/">review-notes</a><a class="post-meta__tags" href="/tags/study-materials/">study-materials</a><a class="post-meta__tags" href="/tags/system-architecture/">system-architecture</a><a class="post-meta__tags" href="/tags/operating-system/">operating-system</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/11/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="电子科技大学操作系统期末复习笔记（一）：操作系统概述"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（一）：操作系统概述</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（一）：操作系统概述📊 2672 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 50 收藏  目录 前言 操作系统概述 操作系统的目标与功能 操作系统的定义 目标 功能 操作系统的历史 单用户系统 简单批处理系统 多道批处理系统 分时系统 个人电脑 → 分布式系统 → 互联网时代 → 移动计算时代 → …… 实时系统 操作系统的基本特征 并发 共享 虚拟 不确定性 操作系统的体系结构 无结构操作系统 模块化系统结构 分层式系统结构 操作系统安全 内存 信息保护和安全  前言本复习笔记基于电子科技大学计算机操作系统-教学大纲（2022）中的课程模块部分，分为五大章节，分别是：   CM1： 操作系统概念。操作系统基本功能、操作系统发展历史及趋势、操作系统主流架构、常见操作系统特点、操作系统安全机制。  CM2： 进程管理。进程概念、线程概念、进程生命周期、进程调度算法、进程同步互斥、进程间通信和死锁。  CM3： 内存管理。内存空间的概念、连续分配、离散分配（分页管理、分段管理、段页式管理）、虚拟存储管理...</div></div></div></a><a class="pagination-related" href="/2023/02/09/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="电子科技大学人工智能期末复习笔记（五）：机器学习"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/a270835672e5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">电子科技大学人工智能期末复习笔记（五）：机器学习</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学人工智能期末复习笔记（五）：机器学习📊 8967 阅读 | 👍 25 点赞 | 💬 10 评论 | ⭐ 63 收藏  目录 前言 监督学习 vs 无监督学习 回归 vs 分类 Regression vs Classification 训练集 vs 测试集 vs 验证集 泛化和过拟合 Generalization &amp; Overfitting 线性分类器 Linear Classifiers 激活函数 - 概率决策 ⚠线性回归  决策树 Decision Trees 决策树构建递归退出条件C 信息熵 Entropy 信息增益 Information Gain ⚠ID3算法实例 总结  前言本复习笔记基于李晶晶老师的课堂PPT与复习大纲，供自己期末复习与学弟学妹参考用。 本节是人工智能复习的最后一小节，重点在于了解概念，会做计算题。 前面几节都在专栏当中，可以自行查看，也可以走传送门： 电子科技大学人工智能期末复习笔记（一）：搜索问题 电子科技大学人工智能期末复习笔记（二）：MDP与强化学习 电子科技大学人工智能期末复习笔记（...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/06/01/en/UESTC-CA-Notes-1-Overview/" title="UESTC Computer Architecture Review Notes (1): Overview"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E8%BF%B0/0e0baf20a0b1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-02</div><div class="info-item-2">UESTC Computer Architecture Review Notes (1): Overview</div></div><div class="info-2"><div class="info-item-1">Table of Contents Computer ClassificationComputer Architecture DefinitionComputer PerformanceQuantitative Design PrinciplesAmdahl’s LawCPU Performance Formula  Key Points Overview  Computer ClassificationFlynn’s TaxonomyDefinition: Computer architecture classification based on instruction stream and data stream quantities. Content:  SISD: Single Instruction, Single Data Example: Serial computers   MISD: Multiple Instruction, Single Data Example: Few real examples exist   SIMD: Single Instruct...</div></div></div></a><a class="pagination-related" href="/2023/02/18/en/UESTC-OS-Notes-5-File-Management/" title="UESTC Operating System Review Notes (5): File Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-19</div><div class="info-item-2">UESTC Operating System Review Notes (5): File Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceFile Management BasicsBasic ConceptsFile StructureLogical StructurePhysical StructureFile Management: DirectoriesFile Control Block (FCB)Directory OrganizationPath NamesLinksFile Management: Disk ManagementFree Space ManagementFile ConsistencyFile ExecutionVirtual File System (VFS)  PrefaceThis is the final section, focusing on CM5: File Management - file system functions, logical structure, physical structure, directories, file sharing, and file system consistency.  ...</div></div></div></a><a class="pagination-related" href="/2023/06/02/en/UESTC-CA-Notes-2-Instruction-Set/" title="UESTC Computer Architecture Review Notes (2): Instruction Set"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/b11fc38cc0a7.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-03</div><div class="info-item-2">UESTC Computer Architecture Review Notes (2): Instruction Set</div></div><div class="info-2"><div class="info-item-1">Table of Contents ISA ClassificationMemory AddressingAddressing ModesOperand Types and Instruction OperationsInstruction EncodingMIPS Architecture  Key Points Overview  Instruction Set Architecture (ISA) ClassificationClassification BasisInternal data storage structure of the processor. Storage StructuresStack, Accumulator, General-Purpose Registers Differences Stack: Operands implicitly at stack top Accumulator: One implicit operand is the accumulator General-Purpose Registers: Operands must...</div></div></div></a><a class="pagination-related" href="/2023/06/11/en/UESTC-Compiler-Notes-8-Semantic-Analysis/" title="UESTC Compiler Principles Review Notes (8): Semantic Analysis"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89%EF%BC%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/588596378e8b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="info-item-2">UESTC Compiler Principles Review Notes (8): Semantic Analysis</div></div><div class="info-2"><div class="info-item-1">Table of Contents Semantic Analysis OverviewAttribute GrammarsSyntax-Directed TranslationIntermediate Code Generation  Key Points Overview  Semantic Analysis Content       </div></div></div></a><a class="pagination-related" href="/2023/06/11/en/UESTC-Compiler-Notes-9-Code-Optimization/" title="UESTC Compiler Principles Review Notes (9): Code Optimization"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89%EF%BC%9A%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/dd9c539f53e4.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="info-item-2">UESTC Compiler Principles Review Notes (9): Code Optimization</div></div><div class="info-2"><div class="info-item-1">Table of Contents Code Optimization OverviewLocal OptimizationGlobal OptimizationLoop Optimization  Key Points Overview This chapter covers code optimization techniques used in compilers to improve the efficiency of generated code while preserving program semantics. </div></div></div></a><a class="pagination-related" href="/2023/06/04/en/UESTC-CA-Notes-4-Memory-System/" title="UESTC Computer Architecture Review Notes (4): Memory System"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-05</div><div class="info-item-2">UESTC Computer Architecture Review Notes (4): Memory System</div></div><div class="info-2"><div class="info-item-1">Table of Contents Cache FundamentalsCache Performance and OptimizationMain Memory and Virtual MemoryChapter Summary  Key Points Overview  Cache FundamentalsThree Mapping Methods Direct Mapping: Block can only be placed in one unique cache location Fully Associative: Block can be placed anywhere in cache Set Associative: Block can be placed in any position within a set If a set has n blocks, the cache is called n-way set associative     Physical Address to Cache Address MappingPhysical Address...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Operating-System-Overview"><span class="toc-number">2.</span> <span class="toc-text">Operating System Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Goals-and-Functions"><span class="toc-number">2.1.</span> <span class="toc-text">Goals and Functions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Definition"><span class="toc-number">2.1.1.</span> <span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Goals"><span class="toc-number">2.1.2.</span> <span class="toc-text">Goals</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Functions"><span class="toc-number">2.1.3.</span> <span class="toc-text">Functions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#History-of-Operating-Systems"><span class="toc-number">2.2.</span> <span class="toc-text">History of Operating Systems</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Single-User-Systems"><span class="toc-number">2.2.1.</span> <span class="toc-text">Single-User Systems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Simple-Batch-Processing-Systems"><span class="toc-number">2.2.2.</span> <span class="toc-text">Simple Batch Processing Systems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multiprogramming-Batch-Systems"><span class="toc-number">2.2.3.</span> <span class="toc-text">Multiprogramming Batch Systems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Sharing-Systems"><span class="toc-number">2.2.4.</span> <span class="toc-text">Time-Sharing Systems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Personal-Computers-%E2%86%92-Distributed-Systems-%E2%86%92-Internet-Era-%E2%86%92-Mobile-Computing-Era-%E2%86%92-%E2%80%A6"><span class="toc-number">2.2.5.</span> <span class="toc-text">Personal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Real-Time-Systems"><span class="toc-number">2.2.6.</span> <span class="toc-text">Real-Time Systems</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Characteristics-of-Operating-Systems"><span class="toc-number">2.3.</span> <span class="toc-text">Basic Characteristics of Operating Systems</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Concurrency"><span class="toc-number">2.3.1.</span> <span class="toc-text">Concurrency</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sharing"><span class="toc-number">2.3.2.</span> <span class="toc-text">Sharing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Virtualization"><span class="toc-number">2.3.3.</span> <span class="toc-text">Virtualization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Non-determinism"><span class="toc-number">2.3.4.</span> <span class="toc-text">Non-determinism</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Operating-System-Architecture"><span class="toc-number">2.4.</span> <span class="toc-text">Operating System Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Unstructured-Operating-Systems"><span class="toc-number">2.4.1.</span> <span class="toc-text">Unstructured Operating Systems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Modular-System-Structure"><span class="toc-number">2.4.2.</span> <span class="toc-text">Modular System Structure</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Layered-System-Structure"><span class="toc-number">2.4.3.</span> <span class="toc-text">Layered System Structure</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Operating-System-Security"><span class="toc-number">2.5.</span> <span class="toc-text">Operating System Security</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Memory"><span class="toc-number">2.5.1.</span> <span class="toc-text">Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Information-Protection-and-Security"><span class="toc-number">2.5.2.</span> <span class="toc-text">Information Protection and Security</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

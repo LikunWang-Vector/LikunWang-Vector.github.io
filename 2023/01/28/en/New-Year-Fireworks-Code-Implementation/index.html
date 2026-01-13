@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>New Year Fireworks Code Implementation (with Source Code) | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This article was migrated from CSDN blogOriginal link: New Year Fireworks Code Implementation📊 4549 views | 👍 14 likes | 💬 4 comments | ⭐ 21 favorites   Table of Contents Introduction Code Structu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New Year Fireworks Code Implementation (with Source Code)">
+<meta property="og:url" content="https://your-domain.com/2023/01/28/en/New-Year-Fireworks-Code-Implementation/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="This article was migrated from CSDN blogOriginal link: New Year Fireworks Code Implementation📊 4549 views | 👍 14 likes | 💬 4 comments | ⭐ 21 favorites   Table of Contents Introduction Code Structu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png">
+<meta property="article:published_time" content="2023-01-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-28T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "New Year Fireworks Code Implementation (with Source Code)",
+  "url": "https://your-domain.com/2023/01/28/en/New-Year-Fireworks-Code-Implementation/",
+  "image": "https://your-domain.com/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png",
+  "datePublished": "2023-01-28T15:00:00.000Z",
+  "dateModified": "2023-01-28T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/28/en/New-Year-Fireworks-Code-Implementation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'New Year Fireworks Code Implementation (with Source Code)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">New Year Fireworks Code Implementation (with Source Code)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">New Year Fireworks Code Implementation (with Source Code)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-28T15:00:00.000Z" title="Created 2023-01-29 00:00:00">2023-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-28T15:00:00.000Z" title="Updated 2023-01-29 00:00:00">2023-01-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML-Beginner-to-Advanced/">HTML Beginner to Advanced</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-29 00:00:00&quot;}" hidden></div><blockquote>
+<p>This article was migrated from CSDN blog<br>Original link: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128790122">New Year Fireworks Code Implementation</a><br>📊 4549 views | 👍 14 likes | 💬 4 comments | ⭐ 21 favorites</p>
+</blockquote>
+<blockquote>
+<p><strong>Table of Contents</strong></p>
+<p>Introduction</p>
+<p>Code Structure</p>
+<ol>
+<li><p>Main HTML Code</p>
+</li>
+<li><p>JavaScript Files</p>
+</li>
+</ol>
+<p>GameCanvas.js</p>
+<p>script.js</p>
+<p>Running Effect</p>
+</blockquote>
+<hr>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This article introduces the implementation of New Year fireworks code along with the complete source code.</p>
+<hr>
+<h2 id="Code-Structure"><a href="#Code-Structure" class="headerlink" title="Code Structure"></a>Code Structure</h2><h3 id="1-Main-HTML-Code"><a href="#1-Main-HTML-Code" class="headerlink" title="1. Main HTML Code"></a>1. Main HTML Code</h3><p>The code is as follows:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Happy New Year 2023<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&#x27;js/gameCanvas-4.0.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/script.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>As you can see, two JavaScript files are imported, both stored locally.</p>
+<h3 id="2-JavaScript-Files"><a href="#2-JavaScript-Files" class="headerlink" title="2. JavaScript Files"></a>2. JavaScript Files</h3><h4 id="GameCanvas-js"><a href="#GameCanvas-js" class="headerlink" title="GameCanvas.js"></a>GameCanvas.js</h4><p>This is a canvas game framework that provides various utility functions for drawing, animation, audio, and math operations. Key features include:</p>
+<ul>
+<li>Canvas creation and management</li>
+<li>Drawing primitives (circles, rectangles, lines, etc.)</li>
+<li>Mouse and touch event handling</li>
+<li>Audio playback</li>
+<li>Math utilities (distance, angle, normalization)</li>
+<li>Collision detection</li>
+</ul>
+<p>The full source code is available in the original article.</p>
+<h4 id="script-js"><a href="#script-js" class="headerlink" title="script.js"></a>script.js</h4><p><strong>Modify the text in <code>var points</code> to change the text that appears when fireworks explode.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gc = <span class="keyword">new</span> <span class="title class_">GameCanvas</span>();</span><br><span class="line"><span class="keyword">var</span> points = <span class="title function_">textToPoints</span>(<span class="string">&quot; Happy New Year 2023!&quot;</span>, <span class="number">15</span>, <span class="string">&quot;Anton&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> titleParticles = [];</span><br><span class="line"><span class="keyword">var</span> fireworks = [];</span><br><span class="line"><span class="keyword">var</span> particles = [];</span><br><span class="line"><span class="keyword">var</span> gravity = <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    fireworks.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Firework</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * width, height, <span class="title class_">Math</span>.<span class="title function_">random</span>() - <span class="number">0.5</span>, -(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">7</span> + <span class="number">5</span>)));</span><br><span class="line">  &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">fireworks.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Firework</span>(width / <span class="number">2</span>, height, <span class="number">0</span>, -<span class="number">9.5</span>, <span class="number">10</span>, <span class="string">&quot;gold&quot;</span>, <span class="literal">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  fireworks.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Firework</span>(width / <span class="number">2</span>, height, <span class="number">0</span>, -<span class="number">9.5</span>, <span class="number">10</span>, <span class="string">&quot;gold&quot;</span>, <span class="literal">true</span>));</span><br><span class="line">&#125;, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create star background</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">250</span>; i++) &#123;</span><br><span class="line">  <span class="title function_">circle</span>(</span><br><span class="line">    <span class="title class_">Math</span>.<span class="title function_">random</span>() * width,</span><br><span class="line">    <span class="title class_">Math</span>.<span class="title function_">random</span>() * height,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;rgb(200, 200, 200)&quot;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> starImage = <span class="title function_">canvasToImage</span>();</span><br><span class="line"><span class="title function_">background</span>(<span class="string">&quot;black&quot;</span>);</span><br><span class="line"><span class="title function_">loop</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">loop</span>(<span class="params"></span>) &#123;</span><br><span class="line">  gc.<span class="property">ctx</span>.<span class="property">globalCompositeOperation</span> = <span class="string">&quot;source-over&quot;</span>;</span><br><span class="line">  <span class="title function_">background</span>(<span class="string">&quot;rgba(0, 0, 0, 0.1)&quot;</span>);</span><br><span class="line">  gc.<span class="property">ctx</span>.<span class="title function_">drawImage</span>(starImage, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  gc.<span class="property">ctx</span>.<span class="property">globalCompositeOperation</span> = <span class="string">&quot;lighter&quot;</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fireworks.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> firework = fireworks[i];</span><br><span class="line">    firework.<span class="title function_">update</span>();</span><br><span class="line">    firework.<span class="title function_">render</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; particles.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> particle = particles[i];</span><br><span class="line">    particle.<span class="title function_">update</span>();</span><br><span class="line">    particle.<span class="title function_">render</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; titleParticles.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> p = titleParticles[i];</span><br><span class="line">    p.<span class="title function_">update</span>();</span><br><span class="line">    p.<span class="title function_">render</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">requestAnimationFrame</span>(loop);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">TitleParticle</span>(<span class="params">x, y, vx, vy</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">x</span> = x;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">y</span> = y;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">vx</span> = vx;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">vy</span> = vy;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">ay</span> = <span class="number">0.2</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">radius</span> = <span class="number">4</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">maxHealth</span> = <span class="number">200</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">health</span> = <span class="number">200</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">update</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">x</span> += <span class="variable language_">this</span>.<span class="property">vx</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">y</span> += <span class="variable language_">this</span>.<span class="property">vy</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vx</span> *= <span class="number">0.95</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vy</span> *= <span class="number">0.95</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vy</span> += <span class="variable language_">this</span>.<span class="property">ay</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ay</span> *= <span class="number">0.95</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">radius</span> = (<span class="variable language_">this</span>.<span class="property">health</span> / <span class="variable language_">this</span>.<span class="property">maxHealth</span>) * <span class="number">4</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">health</span>--;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">health</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      titleParticles.<span class="title function_">splice</span>(titleParticles.<span class="title function_">indexOf</span>(<span class="variable language_">this</span>), <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">render</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">circle</span>(<span class="variable language_">this</span>.<span class="property">x</span>, <span class="variable language_">this</span>.<span class="property">y</span>, <span class="variable language_">this</span>.<span class="property">radius</span>, <span class="string">&quot;rgba(255, 255, 255, &quot;</span> + (<span class="variable language_">this</span>.<span class="property">health</span> / <span class="variable language_">this</span>.<span class="property">maxHealth</span>) + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Firework</span>(<span class="params">x, y, vx, vy, radius = <span class="number">5</span>, color = <span class="string">&quot;white&quot;</span>, title = <span class="literal">false</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">x</span> = x;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">y</span> = y;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">vx</span> = vx;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">vy</span> = vy;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">radius</span> = radius;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">title</span> = title;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">color</span> = color;</span><br><span class="line">  </span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">update</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">x</span> += <span class="variable language_">this</span>.<span class="property">vx</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">y</span> += <span class="variable language_">this</span>.<span class="property">vy</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vy</span> += gravity;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">vy</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      fireworks.<span class="title function_">splice</span>(fireworks.<span class="title function_">indexOf</span>(<span class="variable language_">this</span>), <span class="number">1</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">title</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> scale = <span class="number">0.3</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; points.<span class="property">length</span>; i++) &#123;</span><br><span class="line">          <span class="keyword">var</span> p = points[i];</span><br><span class="line">          <span class="keyword">var</span> v = &#123;</span><br><span class="line">            <span class="attr">x</span>: (p.<span class="property">x</span> - <span class="number">60</span>) * scale + (<span class="title class_">Math</span>.<span class="title function_">random</span>() - <span class="number">0.5</span>) * <span class="number">0.1</span>,</span><br><span class="line">            <span class="attr">y</span>: (p.<span class="property">y</span> - <span class="number">20</span>) * scale + (<span class="title class_">Math</span>.<span class="title function_">random</span>() - <span class="number">0.5</span>) * <span class="number">0.1</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">var</span> particle = <span class="keyword">new</span> <span class="title class_">TitleParticle</span>(<span class="variable language_">this</span>.<span class="property">x</span>, <span class="variable language_">this</span>.<span class="property">y</span>, v.<span class="property">x</span>, v.<span class="property">y</span>);</span><br><span class="line">          titleParticles.<span class="title function_">push</span>(particle);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> color = [<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">256</span> &gt;&gt; <span class="number">0</span>, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">256</span> &gt;&gt; <span class="number">0</span>, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">256</span> &gt;&gt; <span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="number">2</span>; i += <span class="number">0.1</span>) &#123;</span><br><span class="line">          <span class="keyword">var</span> power = (<span class="title class_">Math</span>.<span class="title function_">random</span>() + <span class="number">0.5</span>) * <span class="number">4</span>;</span><br><span class="line">          <span class="keyword">var</span> vx = <span class="title class_">Math</span>.<span class="title function_">cos</span>(i) * power;</span><br><span class="line">          <span class="keyword">var</span> vy = <span class="title class_">Math</span>.<span class="title function_">sin</span>(i) * power;</span><br><span class="line">          particles.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Particle</span>(<span class="variable language_">this</span>.<span class="property">x</span>, <span class="variable language_">this</span>.<span class="property">y</span>, vx, vy, <span class="title class_">Math</span>.<span class="title function_">random</span>() + <span class="number">3</span>, color));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">render</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">circle</span>(<span class="variable language_">this</span>.<span class="property">x</span>, <span class="variable language_">this</span>.<span class="property">y</span>, <span class="variable language_">this</span>.<span class="property">radius</span>, <span class="variable language_">this</span>.<span class="property">color</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Particle</span>(<span class="params">x, y, vx, vy, radius, color</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">x</span> = x;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">y</span> = y;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">vx</span> = vx;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">vy</span> = vy;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">life</span> = <span class="number">100</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">color</span> = color;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">radius</span> = radius;</span><br><span class="line">  </span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">update</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">x</span> += <span class="variable language_">this</span>.<span class="property">vx</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">y</span> += <span class="variable language_">this</span>.<span class="property">vy</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vy</span> += gravity;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vx</span> *= <span class="number">0.95</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">vy</span> *= <span class="number">0.95</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">life</span>--;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">life</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      particles.<span class="title function_">splice</span>(particles.<span class="title function_">indexOf</span>(<span class="variable language_">this</span>), <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">render</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">circle</span>(<span class="variable language_">this</span>.<span class="property">x</span>, <span class="variable language_">this</span>.<span class="property">y</span>, <span class="number">3</span> * (<span class="variable language_">this</span>.<span class="property">life</span> / <span class="number">100</span>), <span class="string">&quot;rgba(&quot;</span> + <span class="variable language_">this</span>.<span class="property">color</span>[<span class="number">0</span>] + <span class="string">&quot;, &quot;</span> + <span class="variable language_">this</span>.<span class="property">color</span>[<span class="number">1</span>] + <span class="string">&quot;, &quot;</span> + <span class="variable language_">this</span>.<span class="property">color</span>[<span class="number">2</span>] + <span class="string">&quot;, &quot;</span> + (<span class="variable language_">this</span>.<span class="property">life</span> / <span class="number">100</span>) + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">textToPoints</span>(<span class="params">text, textSize, font</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line">  canvas.<span class="property">width</span> = <span class="number">1024</span>;</span><br><span class="line">  canvas.<span class="property">height</span> = textSize * <span class="number">1.3</span>;</span><br><span class="line">  <span class="keyword">var</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">  ctx.<span class="property">textBaseline</span> = <span class="string">&quot;middle&quot;</span>;</span><br><span class="line">  ctx.<span class="property">font</span> = textSize + <span class="string">&quot;px &quot;</span> + font;</span><br><span class="line">  ctx.<span class="title function_">fillText</span>(text, <span class="number">0</span>, canvas.<span class="property">height</span> / <span class="number">2</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> imageData = ctx.<span class="title function_">getImageData</span>(<span class="number">0</span>, <span class="number">0</span>, canvas.<span class="property">width</span>, canvas.<span class="property">height</span>);</span><br><span class="line">  <span class="keyword">var</span> data = imageData.<span class="property">data</span>;</span><br><span class="line">  <span class="keyword">var</span> points = [];</span><br><span class="line">  <span class="keyword">var</span> <span class="title function_">index</span> = (<span class="params">x, y</span>) =&gt; (x + canvas.<span class="property">width</span> * y) * <span class="number">4</span>;</span><br><span class="line">  <span class="keyword">var</span> threshold = <span class="number">50</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.<span class="property">length</span>; i += <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i + <span class="number">3</span>] &gt; threshold) &#123;</span><br><span class="line">      <span class="keyword">var</span> p = &#123;</span><br><span class="line">        <span class="attr">x</span>: (i / <span class="number">4</span>) % canvas.<span class="property">width</span>,</span><br><span class="line">        <span class="attr">y</span>: (i / <span class="number">4</span>) / canvas.<span class="property">width</span> &gt;&gt; <span class="number">0</span></span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">if</span> (data[<span class="title function_">index</span>(p.<span class="property">x</span> + <span class="number">1</span>, p.<span class="property">y</span>) + <span class="number">3</span>] &lt; threshold ||</span><br><span class="line">          data[<span class="title function_">index</span>(p.<span class="property">x</span> - <span class="number">1</span>, p.<span class="property">y</span>) + <span class="number">3</span>] &lt; threshold ||</span><br><span class="line">          data[<span class="title function_">index</span>(p.<span class="property">x</span>, p.<span class="property">y</span> + <span class="number">1</span>) + <span class="number">3</span>] &lt; threshold ||</span><br><span class="line">          data[<span class="title function_">index</span>(p.<span class="property">x</span>, p.<span class="property">y</span> - <span class="number">1</span>) + <span class="number">3</span>] &lt; threshold) &#123;</span><br><span class="line">        points.<span class="title function_">push</span>(&#123;</span><br><span class="line">          <span class="attr">x</span>: (i / <span class="number">4</span>) % canvas.<span class="property">width</span>,</span><br><span class="line">          <span class="attr">y</span>: (i / <span class="number">4</span>) / canvas.<span class="property">width</span> &gt;&gt; <span class="number">0</span></span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> points;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Running-Effect"><a href="#Running-Effect" class="headerlink" title="Running Effect"></a>Running Effect</h3><p>Here’s what it looks like when running:</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png"></p>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This article introduced the implementation of New Year fireworks code. The key concepts include:</p>
+<ul>
+<li>Using HTML5 Canvas for rendering</li>
+<li>Particle system for fireworks effects</li>
+<li>Text-to-points conversion for displaying custom messages</li>
+<li>Animation loop using <code>requestAnimationFrame</code></li>
+<li>Physics simulation with gravity and velocity decay</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/28/en/New-Year-Fireworks-Code-Implementation/">https://your-domain.com/2023/01/28/en/New-Year-Fireworks-Code-Implementation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/html5/">html5</a><a class="post-meta__tags" href="/tags/javascript/">javascript</a><a class="post-meta__tags" href="/tags/css/">css</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/" title="实战： 跨年烟花代码的实现（附源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">实战： 跨年烟花代码的实现（附源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：实战： 跨年烟花代码的实现（附源码）📊 4549 阅读 | 👍 14 点赞 | 💬 4 评论 | ⭐ 21 收藏   目录 前言 一、pandas是什么？ 二、代码结构 1.介绍主html代码 2. js文件介绍 GameCanvas.js script.js 运行效果   前言本文章将介绍跨年烟花代码的实现以及源代码  提示：以下是本篇文章正文内容 一、pandas是什么？示例：pandas 是基于NumPy 的一种工具，该工具是为了解决数据分析任务而创建的。 二、代码结构1.介绍主html代码代码如下：  html &lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot; &gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;2023新年快乐&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script src=&#39;js/gameCanvas-4.0.js&#3...</div></div></div></a><a class="pagination-related" href="/2023/01/27/zh-CN/33.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%9F%90%E7%BD%91%E7%AB%99%E5%BA%97%E9%93%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E6%9F%A5%E8%AF%A2%E4%B8%8E%E6%89%B9%E9%87%8F%E6%8A%93%E5%8F%96%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/" title="33. 实战：实现某网站店铺信息的查询与批量抓取（附源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/33.-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%9F%90%E7%BD%91%E7%AB%99%E5%BA%97%E9%93%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E6%9F%A5%E8%AF%A2%E4%B8%8E%E6%89%B9%E9%87%8F%E6%8A%93%E5%8F%96%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/a3f69c03ab5b.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">33. 实战：实现某网站店铺信息的查询与批量抓取（附源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：33. 实战：实现某网站店铺信息的查询与批量抓取（附源码）📊 1321 阅读 | 👍 3 点赞 | 💬 3 评论 | ⭐ 6 收藏  目录 前言 目的 思路 代码实现 1. 请求URL，获取源代码 2. 解析源代码，获取数据 3. 完善保存数据的函数save_data 4. 理清main函数逻辑，循环传递每一页有效信息的参数 完整代码 运行效果 总结  前言近日，我们每周四都能刷到一堆“疯狂星期四”的梗图或者消息，那么如果真的Vivo50，我们该去哪里消费呢？假设我们来到一个新的城市，或者想知道我们爆了50金币网友所在的城市到底有没有相关店铺该怎么办？ 那么我们就可以来进行一个小小的爬虫，一次编程，方便后面的每一次查询。  目的1. 实现输入任意关键词查询店铺 2. 将所有店铺信息输出到控制台，自行选择是否保存到本地 3. 要求是封装好的结果，将各个功能分离  思路1. 请求URL，获取源代码 2. 解析源代码，获取数据 3. 完善逻辑  代码实现1. 请求URL，获取源代码首先访问请求店铺信息页面（URL不便展示，放在评论区了 ），发现我...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/01/28/zh-CN/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/" title="实战： 跨年烟花代码的实现（附源码）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E5%AE%9E%E6%88%98%EF%BC%9A-%E8%B7%A8%E5%B9%B4%E7%83%9F%E8%8A%B1%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%99%84%E6%BA%90%E7%A0%81%EF%BC%89/d7d85a1e5622.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-29</div><div class="info-item-2">实战： 跨年烟花代码的实现（附源码）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：实战： 跨年烟花代码的实现（附源码）📊 4549 阅读 | 👍 14 点赞 | 💬 4 评论 | ⭐ 21 收藏   目录 前言 一、pandas是什么？ 二、代码结构 1.介绍主html代码 2. js文件介绍 GameCanvas.js script.js 运行效果   前言本文章将介绍跨年烟花代码的实现以及源代码  提示：以下是本篇文章正文内容 一、pandas是什么？示例：pandas 是基于NumPy 的一种工具，该工具是为了解决数据分析任务而创建的。 二、代码结构1.介绍主html代码代码如下：  html &lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot; &gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;2023新年快乐&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script src=&#39;js/gameCanvas-4.0.js&#3...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/" title="HTML5语义元素"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML5%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0/c95d3aea07da.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML5语义元素</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML5语义元素📊 328 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 什么是语义元素？ 浏览器支持 HTML5 中新的语义元素 HTML5 语义元素 HTML5元素 实例 HTML5元素 实例 嵌套语义元素 HTML5元素 实例 HTML5元素 实例 HTML5元素 实例 HTML5元素 实例 HTML5和元素 实例 为何使用 HTML5 元素？ HTML5 中的语义元素 一个完整的实例  语义学（源自古希腊）可定义为对语言意义的研究。 语义元素是拥有语义的元素。  什么是语义元素？语义元素清楚地向浏览器和开发者描述其意义。 非语义 元素的例子： 和  - 无法提供关于其内容的信息。 语义 元素的例子：、 以及  - 清晰地定义其内容。  浏览器支持所有现代浏览器均支持 HTML5 语义元素。 此外，我们还可以“帮助”老式浏览器处理“未知元素”。  HTML5 中新的语义元素许多网站包含了指示导航、页眉以及页脚的 HTML 代码，例如这些：  。 HTML5 提供了定义页面不同部分的新语义元素：         ...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML-Entities/" title="HTML Entities and Reserved Characters"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML Entities and Reserved Characters</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Entities Non-breaking Space HTML Example Useful Character Entities in HTML  Reserved characters in HTML must be replaced with character entities.  HTML EntitiesSome characters are reserved in HTML. In HTML, you cannot use the less than sign (&lt;) and greater than sign (&gt;) because the browser will mistake them for tags. If we want to correctly display reserved characters, we must use character entities in the HTML source code. A character entity looks like this: 1&am...</div></div></div></a><a class="pagination-related" href="/2022/12/25/en/HTML-Classes/" title="HTML Classes"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML Classes</div></div><div class="info-2"><div class="info-item-1">Table of Contents Example Classifying Block Elements Classifying Inline Elements A Complete Example  Classifying HTML elements (setting classes) allows us to define CSS styles for element classes. Set the same style for the same class, or different styles for different classes.  Example12345678910111213141516171819202122232425&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;.cities &#123;  background-color: black;  color: white;  margin: 20px;  padding: 20px;&#125;&lt;/style&gt;&lt;/...</div></div></div></a><a class="pagination-related" href="/2022/12/25/en/HTML-Head/" title="HTML Head"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML Head</div></div><div class="info-2"><div class="info-item-1">Table of Contents Examples HTML &lt;head&gt; Element HTML &lt;title&gt; Element HTML &lt;base&gt; Element HTML &lt;link&gt; Element HTML &lt;style&gt; Element HTML &lt;meta&gt; Element HTML &lt;script&gt; Element A Complete Example  ExamplesDocument Title - The &lt;title&gt; tag defines the document title. All Links Open in New Window - How to use the base tag to make all links on a page open in a new window. Document Description - Using the &lt;meta&gt; element to describe the document. Docu...</div></div></div></a><a class="pagination-related" href="/2023/02/01/zh-CN/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/" title="CSS列表与表格"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-02</div><div class="info-item-2">CSS列表与表格</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS列表与表格📊 1676 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 ​编辑 HTML 列表和 CSS 列表属性 不同的列表项目标记 实例 图像作为列表项标记 实例 定位列表项标记 实例 删除默认设置 实例 列表 - 简写属性 实例 设置列表的颜色样式 实例 更多实例 所有 CSS 列表属性 表格边框 实例 全宽表格 实例 双边框 合并表格边框 实例 实例 表格宽度和高度 实例 实例 水平对齐 实例 实例 垂直对齐 实例 表格内边距 实例 水平分隔线 实例 可悬停表格 实例 条状表格 实例 表格颜色 实例 响应式表格 实例 更多实例 CSS 表格属性   HTML 列表和 CSS 列表属性在 HTML 中，列表主要有两种类型：  无序列表（）- 列表项用的是项目符号标记 有序列表（）- 列表项用的是数字或字母标记  CSS 列表属性可以：  为有序列表设置不同的列表项标记 为无序列表设置不同的列表项标记 将图像设置为列表项标记 为列表和列表项添加背景色   不同的列表项目标记list-style-type 属性指...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Structure"><span class="toc-number">2.</span> <span class="toc-text">Code Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Main-HTML-Code"><span class="toc-number">2.1.</span> <span class="toc-text">1. Main HTML Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-JavaScript-Files"><span class="toc-number">2.2.</span> <span class="toc-text">2. JavaScript Files</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GameCanvas-js"><span class="toc-number">2.2.1.</span> <span class="toc-text">GameCanvas.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#script-js"><span class="toc-number">2.2.2.</span> <span class="toc-text">script.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Running-Effect"><span class="toc-number">2.3.</span> <span class="toc-text">Running Effect</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">3.</span> <span class="toc-text">Summary</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

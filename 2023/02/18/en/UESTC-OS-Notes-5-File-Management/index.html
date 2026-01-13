@@ -1,0 +1,772 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UESTC Operating System Review Notes (5): File Management | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents PrefaceFile Management BasicsBasic ConceptsFile StructureLogical StructurePhysical StructureFile Management: DirectoriesFile Control Block (FCB)Directory OrganizationPath NamesLinksF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UESTC Operating System Review Notes (5): File Management">
+<meta property="og:url" content="https://your-domain.com/2023/02/18/en/UESTC-OS-Notes-5-File-Management/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents PrefaceFile Management BasicsBasic ConceptsFile StructureLogical StructurePhysical StructureFile Management: DirectoriesFile Control Block (FCB)Directory OrganizationPath NamesLinksF">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png">
+<meta property="article:published_time" content="2023-02-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-18T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="file-management">
+<meta property="article:tag" content="operating-system">
+<meta property="article:tag" content="review-notes">
+<meta property="article:tag" content="study-materials">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "UESTC Operating System Review Notes (5): File Management",
+  "url": "https://your-domain.com/2023/02/18/en/UESTC-OS-Notes-5-File-Management/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png",
+  "datePublished": "2023-02-18T15:00:00.000Z",
+  "dateModified": "2023-02-18T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/18/en/UESTC-OS-Notes-5-File-Management/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UESTC Operating System Review Notes (5): File Management',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">UESTC Operating System Review Notes (5): File Management</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">UESTC Operating System Review Notes (5): File Management</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-18T15:00:00.000Z" title="Created 2023-02-19 00:00:00">2023-02-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-18T15:00:00.000Z" title="Updated 2023-02-19 00:00:00">2023-02-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Review-Notes/">Review Notes</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>8mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-19 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>Preface<br>File Management Basics<br>Basic Concepts<br>File Structure<br>Logical Structure<br>Physical Structure<br>File Management: Directories<br>File Control Block (FCB)<br>Directory Organization<br>Path Names<br>Links<br>File Management: Disk Management<br>Free Space Management<br>File Consistency<br>File Execution<br>Virtual File System (VFS)</p>
+<hr>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>This is the final section, focusing on CM5: File Management - file system functions, logical structure, physical structure, directories, file sharing, and file system consistency.</p>
+<hr>
+<h2 id="File-Management-Basics"><a href="#File-Management-Basics" class="headerlink" title="File Management Basics"></a>File Management Basics</h2><h3 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h3><h4 id="File"><a href="#File" class="headerlink" title="File"></a>File</h4><blockquote>
+<ul>
+<li>An ordered collection of related elements with a symbolic name</li>
+<li>Users organize associated storage units into files based on logical function</li>
+<li>File is the basic logical unit for storing information on disk</li>
+<li>File name: Naming for related elements</li>
+</ul>
+</blockquote>
+<h4 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h4><blockquote>
+<p>Concept:</p>
+<ul>
+<li>Software that manages, controls, and operates on files</li>
+<li>The only way for users or applications to access files</li>
+</ul>
+<p>Goals and Functions:</p>
+<ul>
+<li>Ensure file data validity</li>
+<li>Reduce or eliminate possibility of data loss or corruption</li>
+<li>Optimize throughput (system) and response time (user)</li>
+<li>Provide I&#x2F;O support for various storage devices with unified interface</li>
+<li>Manage file storage space, allocate and reclaim storage</li>
+<li>Implement access by name: File namespace ↔ Storage space</li>
+<li>Implement file sharing, provide protection and security measures</li>
+</ul>
+</blockquote>
+<h4 id="File-System-Implementation-Model"><a href="#File-System-Implementation-Model" class="headerlink" title="File System Implementation Model"></a>File System Implementation Model</h4><blockquote>
+<ul>
+<li>File system interface: Commands, system calls, GUI file access</li>
+<li>Logical function layer: Based on interface requests, obtain physical parameters through FCB, directories, allocation tables</li>
+<li>Physical driver layer: Convert logical commands to driver actions</li>
+</ul>
+</blockquote>
+<h4 id="File-Composition"><a href="#File-Composition" class="headerlink" title="File Composition"></a>File Composition</h4><blockquote>
+<p>File &#x3D; Metadata + File content<br>Metadata: File name, internal ID (e.g., Unix inode), owner, access time&#x2F;permissions, file size…</p>
+</blockquote>
+<h4 id="File-Classification"><a href="#File-Classification" class="headerlink" title="File Classification"></a>File Classification</h4><blockquote>
+<ul>
+<li>By usage: System files, user files, library files</li>
+<li>By organization: Ordinary files, directory files, special files</li>
+<li>By access: Read-only, read-write, executable</li>
+<li>By data form: Source files, object files, executable files</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="File-Structure"><a href="#File-Structure" class="headerlink" title="File Structure"></a>File Structure</h3><h4 id="Logical-Structure"><a href="#Logical-Structure" class="headerlink" title="Logical Structure"></a>Logical Structure</h4><blockquote>
+<p>From user perspective, independent of physical storage structure</p>
+</blockquote>
+<p><strong>Unstructured Files (Stream Files)</strong></p>
+<blockquote>
+<ul>
+<li>Basic unit is byte; file is a logically meaningful, unstructured sequence of bytes</li>
+<li>No inherent data structure; provides great flexibility</li>
+<li>User defines file content meaning</li>
+</ul>
+</blockquote>
+<p><strong>Structured Files (Record Files)</strong></p>
+<blockquote>
+<ul>
+<li>File consists of several records; each record has a key for searching</li>
+<li>Components: Record, field, key</li>
+</ul>
+</blockquote>
+<p><strong>File Organization and Access</strong></p>
+<blockquote>
+<ul>
+<li><strong>Heap File</strong>: Data stored in arrival order; variable record length and field count; very low random access efficiency</li>
+<li><strong>Sequential File</strong>: All records ordered by primary field; fixed field definition and record length; best for batch processing</li>
+<li><strong>Indexed Sequential File</strong>: Sequential file with records grouped; index table records first record of each group</li>
+<li><strong>Indexed File</strong>: Each index entry points to a record; index sorted by key field</li>
+<li><strong>Direct&#x2F;Hash File</strong>: Storage location calculated by hash function with key as parameter; fast access</li>
+</ul>
+</blockquote>
+<h4 id="Physical-Structure"><a href="#Physical-Structure" class="headerlink" title="Physical Structure"></a>Physical Structure</h4><blockquote>
+<p>File logical address and physical address mapping; how files are stored on physical media</p>
+</blockquote>
+<p><strong>File Allocation Table</strong></p>
+<blockquote>
+<ul>
+<li>File storage space divided into equal-sized physical blocks</li>
+<li>Physical block is basic allocation and transfer unit</li>
+<li>Block size typically multiples of sector size (512B, 1KB, 2KB, 4KB)</li>
+<li>Different OS names: DOS FAT, Windows NTFS MFT, Unix inode</li>
+</ul>
+</blockquote>
+<p><strong>Contiguous Allocation</strong></p>
+<blockquote>
+<ul>
+<li>File information stored in consecutive physical blocks</li>
+<li>Advantages: Simple; supports sequential and random access; fastest sequential access</li>
+<li>Disadvantages: Difficult for dynamic file growth; may cause disk fragmentation</li>
+</ul>
+</blockquote>
+<p><strong>Linked Allocation</strong></p>
+<blockquote>
+<ul>
+<li>File information in non-contiguous blocks connected by pointers</li>
+<li>Implicit linking: Each block has pointer to next block</li>
+<li>Explicit linking: Pointers stored in memory link table</li>
+<li>Advantages: Better disk utilization; no external fragmentation; easy insertion&#x2F;deletion</li>
+<li>Disadvantages: More seeks; poor random access; reliability issues</li>
+</ul>
+</blockquote>
+<p><strong>Indexed Allocation</strong></p>
+<blockquote>
+<ul>
+<li>File information in non-contiguous blocks; each file has index table recording block numbers</li>
+<li>Index table is array of disk block addresses</li>
+<li>Advantages: Supports random access; supports dynamic growth; multi-level indexing for large files</li>
+<li>Disadvantages: More seeks</li>
+</ul>
+</blockquote>
+<p><strong>Multi-level Indexing</strong></p>
+<blockquote>
+<p>When one data block cannot hold all file partitions, multiple index nodes needed</p>
+<ul>
+<li>Direct blocks</li>
+<li>Single indirect blocks</li>
+<li>Double indirect blocks</li>
+<li>Triple indirect blocks</li>
+</ul>
+</blockquote>
+<p><strong>Unix iNode</strong></p>
+<blockquote>
+<ul>
+<li>13 index entries, each 2 bytes</li>
+<li>First 10: direct blocks</li>
+<li>11th: single indirect addressing</li>
+<li>12th and 13th: double and triple indirect addressing</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="File-Management-Directories"><a href="#File-Management-Directories" class="headerlink" title="File Management: Directories"></a>File Management: Directories</h2><h3 id="File-Control-Block-FCB"><a href="#File-Control-Block-FCB" class="headerlink" title="File Control Block (FCB)"></a>File Control Block (FCB)</h3><blockquote>
+<ul>
+<li>Data structure describing and controlling files</li>
+<li>One-to-one correspondence with files</li>
+<li>Indicator of file existence</li>
+</ul>
+<p>FCB Information:</p>
+<ul>
+<li>File name: User access name</li>
+<li>File physical location: Storage location on external storage</li>
+<li>Usage information: Creation time, access time, modify time</li>
+</ul>
+</blockquote>
+<h3 id="Directory"><a href="#Directory" class="headerlink" title="Directory"></a>Directory</h3><h4 id="Basic-Concepts-1"><a href="#Basic-Concepts-1" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h4><blockquote>
+<ul>
+<li>File directory: Collection of files</li>
+<li>Directory: Collection of file metadata (control blocks)</li>
+<li>Directory file: File composed of directory entries</li>
+<li><strong>Directory is a file</strong></li>
+</ul>
+</blockquote>
+<h4 id="Directory-Functions"><a href="#Directory-Functions" class="headerlink" title="Directory Functions"></a>Directory Functions</h4><blockquote>
+<ul>
+<li>Access by name</li>
+<li>Improve search speed</li>
+<li>File sharing</li>
+<li>Allow file name duplication</li>
+</ul>
+</blockquote>
+<h4 id="FCB-Organization-Methods"><a href="#FCB-Organization-Methods" class="headerlink" title="FCB Organization Methods"></a>FCB Organization Methods</h4><blockquote>
+<p>Calculation: FCB is 48 bytes, block is 512 bytes, directory has 128 files.<br>Calculate average disk accesses to find a file.</p>
+<ul>
+<li>FCBs per block: 512&#x2F;48 &#x3D; 10</li>
+<li>Blocks needed for 128 files: 128&#x2F;10 &#x3D; 13</li>
+<li>Average disk accesses: (1+13)&#x2F;2 &#x3D; 7</li>
+</ul>
+</blockquote>
+<h4 id="Improved-FCB-Organization"><a href="#Improved-FCB-Organization" class="headerlink" title="Improved FCB Organization"></a>Improved FCB Organization</h4><blockquote>
+<p>Split FCB into two parts:</p>
+<ul>
+<li>Symbol directory entry: File name + file number</li>
+<li>Basic directory entry: Remaining FCB information</li>
+</ul>
+<p>Reduces average disk accesses significantly</p>
+</blockquote>
+<h4 id="Directory-Organization"><a href="#Directory-Organization" class="headerlink" title="Directory Organization"></a>Directory Organization</h4><p><strong>Single-Level Directory</strong></p>
+<blockquote>
+<p>All files in same directory<br>Disadvantages: Slow search; no duplicate names; no sharing; no grouping</p>
+</blockquote>
+<p><strong>Two-Level Directory</strong></p>
+<blockquote>
+<p>Separate directory for each user</p>
+<ul>
+<li>User File Directory (UFD)</li>
+<li>Master File Directory (MFD)<br>Advantages: Same file names for different users; faster search; user isolation<br>Disadvantages: Not conducive to sharing</li>
+</ul>
+</blockquote>
+<p><strong>Tree Directory Structure</strong></p>
+<blockquote>
+<ul>
+<li>Each level can contain files or subdirectories</li>
+<li>One root directory; each directory&#x2F;file has unique parent<br>Advantages: Clear hierarchy; easy protection and dynamic mounting<br>Disadvantages: Less convenient sharing</li>
+</ul>
+</blockquote>
+<h3 id="Path-Names"><a href="#Path-Names" class="headerlink" title="Path Names"></a>Path Names</h3><blockquote>
+<p>Unique expression from tree root to node</p>
+<ul>
+<li>Absolute path: Specified from root directory</li>
+<li>Relative path: From current working directory (.&#x2F; current, ..&#x2F; parent)</li>
+</ul>
+</blockquote>
+<h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><p><strong>Hard Link</strong></p>
+<blockquote>
+<ul>
+<li>Multiple file names link to same inode</li>
+<li>Must be in same file system</li>
+<li>File not deleted if other links exist</li>
+</ul>
+</blockquote>
+<p><strong>Soft Link (Symbolic Link)</strong></p>
+<blockquote>
+<ul>
+<li>Special file containing path to another file&#x2F;directory</li>
+<li>Can cross disks, directories, even machines</li>
+<li>Independent of original file</li>
+</ul>
+</blockquote>
+<h3 id="Acyclic-Graph-Directory"><a href="#Acyclic-Graph-Directory" class="headerlink" title="Acyclic Graph Directory"></a>Acyclic Graph Directory</h3><blockquote>
+<p>Based on tree directory, allows multiple directory entries to point to same file&#x2F;directory<br>Implements file&#x2F;directory sharing</p>
+</blockquote>
+<h3 id="General-Graph-Directory"><a href="#General-Graph-Directory" class="headerlink" title="General Graph Directory"></a>General Graph Directory</h3><blockquote>
+<p>Allows cycles; must avoid infinite loop searching<br>Garbage collection for orphan cycles</p>
+</blockquote>
+<hr>
+<h2 id="File-Management-Disk-Management"><a href="#File-Management-Disk-Management" class="headerlink" title="File Management: Disk Management"></a>File Management: Disk Management</h2><h3 id="Free-Space-Management"><a href="#Free-Space-Management" class="headerlink" title="Free Space Management"></a>Free Space Management</h3><h4 id="Free-Partition-Table"><a href="#Free-Partition-Table" class="headerlink" title="Free Partition Table"></a>Free Partition Table</h4><blockquote>
+<p>Register free partitions in table; each partition has entry with partition number, starting block, length</p>
+<ul>
+<li>Simple implementation</li>
+<li>Can quickly find needed size when sorted by length</li>
+<li>Table becomes large when many scattered free partitions</li>
+</ul>
+</blockquote>
+<h4 id="Free-Partition-Linked-List"><a href="#Free-Partition-Linked-List" class="headerlink" title="Free Partition Linked List"></a>Free Partition Linked List</h4><blockquote>
+<p>Use free partition space to link partitions via pointers</p>
+<ul>
+<li>No extra space overhead</li>
+<li>Slow recovery of files with many small partitions</li>
+</ul>
+</blockquote>
+<h4 id="Bit-Map"><a href="#Bit-Map" class="headerlink" title="Bit Map"></a>Bit Map</h4><blockquote>
+<p>Vector where each bit corresponds to one disk block</p>
+<ul>
+<li>Free block: 0, Used block: 1</li>
+<li>Easy to find contiguous free partitions</li>
+<li>Space needed: Disk capacity &#x2F; (8 × block size) bytes</li>
+</ul>
+</blockquote>
+<h4 id="Grouped-Block-Linking"><a href="#Grouped-Block-Linking" class="headerlink" title="Grouped Block Linking"></a>Grouped Block Linking</h4><blockquote>
+<ul>
+<li>Divide all free blocks into groups of n blocks</li>
+<li>First block of each group stores block numbers and count of next group</li>
+<li>Groups naturally form linked list</li>
+<li>First group’s info stored in special stack: Free block number stack</li>
+</ul>
+</blockquote>
+<p><strong>Allocation Method</strong></p>
+<blockquote>
+<p>Check if count&#x3D;&#x3D;1; if not, pop top element N, allocate, decrement count<br>If count&#x3D;&#x3D;1, pop N, read N’s content into stack, then allocate N</p>
+</blockquote>
+<p><strong>Release Method</strong></p>
+<blockquote>
+<p>Check if stack full; if not, push N, increment count<br>If full, write stack to block N, put N in stack, set count to 1</p>
+</blockquote>
+<hr>
+<h3 id="File-Consistency"><a href="#File-Consistency" class="headerlink" title="File Consistency"></a>File Consistency</h3><h4 id="Block-Consistency-Check"><a href="#Block-Consistency-Check" class="headerlink" title="Block Consistency Check"></a>Block Consistency Check</h4><blockquote>
+<ul>
+<li>Data block usage array and free array should be complementary</li>
+<li>Each block should appear exactly once in either array</li>
+</ul>
+</blockquote>
+<h4 id="Link-Count-Consistency-Check"><a href="#Link-Count-Consistency-Check" class="headerlink" title="Link Count Consistency Check"></a>Link Count Consistency Check</h4><blockquote>
+<ul>
+<li>Each directory entry contains inode number</li>
+<li>Shared file’s inode appears multiple times in directories</li>
+<li>Link count in inode should match directory appearances</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="File-Execution"><a href="#File-Execution" class="headerlink" title="File Execution"></a>File Execution</h3><h4 id="Data-Structures"><a href="#Data-Structures" class="headerlink" title="Data Structures"></a>Data Structures</h4><blockquote>
+<ul>
+<li><strong>User Open File Table</strong>: One per process, records user’s open files</li>
+<li><strong>System Open File Table</strong>: One for entire system, in memory; stores FCB file number, share count, read&#x2F;write position, open mode, modification flag</li>
+<li><strong>Memory iNode Table</strong>: Disk inode loaded to memory for operation; access speed; share control</li>
+</ul>
+</blockquote>
+<h4 id="File-Sharing"><a href="#File-Sharing" class="headerlink" title="File Sharing"></a>File Sharing</h4><blockquote>
+<ul>
+<li>Different processes independent access</li>
+<li>Same process duplicate fd: dup()&#x2F;dup2()&#x2F;fcntl()</li>
+<li>Cross-process duplicate fd: fork()</li>
+<li>fork() shares files, but files opened after fork() are not shared</li>
+</ul>
+</blockquote>
+<h4 id="File-Operations"><a href="#File-Operations" class="headerlink" title="File Operations"></a>File Operations</h4><blockquote>
+<ul>
+<li><strong>create</strong>: Create FCB, return file descriptor</li>
+<li><strong>open</strong>: Load FCB to memory, create user&#x2F;system open file table entries, establish association with memory inode, return file descriptor</li>
+<li><strong>close</strong>: Write cached data to disk; clean up user file open table; clean up system file open table; clean up memory inode table</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Virtual-File-System-VFS"><a href="#Virtual-File-System-VFS" class="headerlink" title="Virtual File System (VFS)"></a>Virtual File System (VFS)</h3><blockquote>
+<p>Supports object-oriented file system implementation - polymorphism</p>
+<ul>
+<li>User programs: Unified interface</li>
+<li>Underlying support: Different file systems</li>
+<li>VFS interface: API, not specific file system implementation</li>
+</ul>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/18/en/UESTC-OS-Notes-5-File-Management/">https://your-domain.com/2023/02/18/en/UESTC-OS-Notes-5-File-Management/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/algorithm/">algorithm</a><a class="post-meta__tags" href="/tags/review-notes/">review-notes</a><a class="post-meta__tags" href="/tags/study-materials/">study-materials</a><a class="post-meta__tags" href="/tags/operating-system/">operating-system</a><a class="post-meta__tags" href="/tags/file-management/">file-management</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/18/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" title="电子科技大学操作系统期末复习笔记（五）：文件管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://latex.csdn.net/eq?%5Cleftrightarrow" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（五）：文件管理</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（五）：文件管理📊 2835 阅读 | 👍 16 点赞 | 💬 9 评论 | ⭐ 47 收藏  目录 前言 文件管理：基础 基本概念 文件 文件系统 文件系统的实现模型 文件的组成 文件名 文件分类 文件结构 逻辑结构 物理结构 练习题  文件管理：目录 文件控制块FCB FCB：File Control Block FCB信息 目录 基本概念 目录功能 目录基本操作 ⭐FCB组织方法 ⭐改进的FCB组织方法 目录的组织 路径 无环图目录 链接 通用图目录 文件管理：磁盘管理 空闲分区表 概念 特点  空闲分区链表 概念 特点 位示图 成组块链接法 分配方法 释放方法 例题 文件一致性：盘块 链接数一致性检查 文件执行 数据结构 文件共享 文件操作 执行过程 虚拟文件系统 VFS  前言设备管理模块已经更新，传送门：电子科技大学操作系统期末复习笔记（四）：设备管理 本复习笔记基于电子科技大学计算机操作系统-教学大纲（2022）中的课程模块部分，分为五大章节，分别是：   CM1： 操作系统概念。操作系统基本功...</div></div></div></a><a class="pagination-related" href="/2023/02/16/zh-CN/2023%E7%BE%8E%E8%B5%9BC%E9%A2%98%EF%BC%9AWordle%E7%AD%9B%E9%80%89%E7%AE%97%E6%B3%95/" title="2023美赛C题：Wordle筛选算法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/2023%E7%BE%8E%E8%B5%9BC%E9%A2%98%EF%BC%9AWordle%E7%AD%9B%E9%80%89%E7%AE%97%E6%B3%95/6453f3f78436.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">2023美赛C题：Wordle筛选算法</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：2023美赛C题：Wordle筛选算法📊 5406 阅读 | 👍 6 点赞 | 💬 2 评论 | ⭐ 19 收藏  Wordle 规则介绍Wordle 每天会更新一个5个字母的单词，在6次尝试中猜出单词就算成功。每个猜测必须是一个有效的单词（不能是不能组成单词的字母排列）。 每次猜测后，字母块的颜色会改变，颜色含义如下：   程序编写单词数据Wordle的单词数据直接写在网页源代码里，进入Wordle，按F12查看源代码。  我们将这些数据提取出来就能的到Wordle单词列表，网上已经有人整理成json文件（点击传送门获取），同时还提出了SOARE 是最好的起始词，有兴趣的可查看《The Best Starting Word in WORDLE》 代码编写获取单词列表之后，就可以开始代码的编写了。 代码的基本思路就是，按照灰色、黄色和绿色三种情况分别处理，排除不符合的单词。 代码编写思路：  包含灰色色块字母的单词排除 不包含黄色色块字母的单词排除 包含黄色色块字母但是还在错误的位置的单词排除 与绿色色块字母位置不符合的单词排除  代码开源...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/" title="UESTC Operating System Review Notes (2): Process and Concurrency Control"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-14</div><div class="info-item-2">UESTC Operating System Review Notes (2): Process and Concurrency Control</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceProcess ManagementProcess BasicsPrecedence GraphsConcurrent ExecutionProcess Definition and CharacteristicsProcess StatesOperating System KernelProcess Control Block (PCB)Process CreationProcess Control Functions (fork and exec)Process TerminationProcess SwitchingThreadsProcessor SchedulingSingle Processor Scheduling (Key Topic)Scheduling AlgorithmsReal-Time SchedulingMulti-Processor SchedulingProcess Concurrency Control: Mutual Exclusion and SynchronizationSemaphores...</div></div></div></a><a class="pagination-related" href="/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/" title="UESTC Operating System Review Notes (1): Operating System Overview"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-12</div><div class="info-item-2">UESTC Operating System Review Notes (1): Operating System Overview</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceOperating System OverviewGoals and FunctionsDefinitionGoalsFunctionsHistory of Operating SystemsSingle-User SystemsSimple Batch Processing SystemsMultiprogramming Batch SystemsTime-Sharing SystemsPersonal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …Real-Time SystemsBasic CharacteristicsConcurrencySharingVirtualizationNon-determinismSystem ArchitectureUnstructured Operating SystemsModular System StructureLayered System StructureOperating Sy...</div></div></div></a><a class="pagination-related" href="/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/" title="UESTC Operating System Review Notes (4): Device Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-16</div><div class="info-item-2">UESTC Operating System Review Notes (4): Device Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceDevice ManagementI&#x2F;O SystemDevice ClassificationDevice ControllersI&#x2F;O ChannelsI&#x2F;O Control MethodsBuffer ManagementI&#x2F;O SoftwareDevice AllocationSPOOLingDisk StorageDisk StructureDisk AccessDisk Scheduling AlgorithmsDisk ManagementRAID  PrefaceThis review note focuses on CM4: Device Management - I&#x2F;O system structure, buffer management, disk structure, and disk scheduling algorithms.  Device ManagementI&#x2F;O SystemBasic Concepts From OS perspec...</div></div></div></a><a class="pagination-related" href="/2023/05/24/en/UESTC-Compiler-Notes-1-Introduction/" title="UESTC Compiler Principles Review Notes (1): Introduction"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%BB%AA%E8%AE%BA/662865df5905.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-25</div><div class="info-item-2">UESTC Compiler Principles Review Notes (1): Introduction</div></div><div class="info-2"><div class="info-item-1">Table of Contents Language ClassificationVon Neumann ArchitectureBinding ConceptsVariablesVirtual MachinesProgram Units  Key Points Overview  Language Classification  Imperative Languages: Von Neumann-based Functional Languages: Mathematical functions Logic Languages: Mathematical logic Object-Oriented Languages: Abstract data types   Von Neumann ArchitectureFoundation: Memory + Controller + Processor Characteristics:  Data&#x2F;instructions stored in binary form “Stored program” working meth...</div></div></div></a><a class="pagination-related" href="/2023/02/14/en/UESTC-OS-Notes-3-Memory-Management/" title="UESTC Operating System Review Notes (3): Memory Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/0751d072f211.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-15</div><div class="info-item-2">UESTC Operating System Review Notes (3): Memory Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceMemory Management OverviewStorage System StructureProgram Birth ProcessAddress SpacesAddress MappingProgram Linking MethodsProgram Loading MethodsContiguous AllocationSingle Contiguous AllocationPartition ManagementFixed Partition AllocationDynamic Partition AllocationPartition Allocation AlgorithmsOverlay and SwappingDiscrete AllocationPaged Storage ManagementAddress TranslationPage TablesTwo-Level and Multi-Level Page TablesInverted Page TablesSegmented Storage Mana...</div></div></div></a><a class="pagination-related" href="/2023/05/28/en/UESTC-Compiler-Notes-5-Lexical-Analysis/" title="UESTC Compiler Principles Review Notes (5): Lexical Analysis"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/354c339fe0b7.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-29</div><div class="info-item-2">UESTC Compiler Principles Review Notes (5): Lexical Analysis</div></div><div class="info-2"><div class="info-item-1">Table of Contents Lexical Analysis OverviewLexical Analyzer StructureState Transition DiagramsLexical Analyzer DesignSymbol Tables  Key Points Overview   Lexical Analysis OverviewFunction of Lexical AnalysisScan the source program’s character string, recognize token symbols according to lexical rules as output, and output relevant error information for lexical errors discovered during recognition (can assign line numbers to error messages). Relationship between Lexical Analyzer and Syntax Ana...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-Management-Basics"><span class="toc-number">2.</span> <span class="toc-text">File Management Basics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Concepts"><span class="toc-number">2.1.</span> <span class="toc-text">Basic Concepts</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#File"><span class="toc-number">2.1.1.</span> <span class="toc-text">File</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#File-System"><span class="toc-number">2.1.2.</span> <span class="toc-text">File System</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#File-System-Implementation-Model"><span class="toc-number">2.1.3.</span> <span class="toc-text">File System Implementation Model</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#File-Composition"><span class="toc-number">2.1.4.</span> <span class="toc-text">File Composition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#File-Classification"><span class="toc-number">2.1.5.</span> <span class="toc-text">File Classification</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#File-Structure"><span class="toc-number">2.2.</span> <span class="toc-text">File Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Logical-Structure"><span class="toc-number">2.2.1.</span> <span class="toc-text">Logical Structure</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Physical-Structure"><span class="toc-number">2.2.2.</span> <span class="toc-text">Physical Structure</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-Management-Directories"><span class="toc-number">3.</span> <span class="toc-text">File Management: Directories</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#File-Control-Block-FCB"><span class="toc-number">3.1.</span> <span class="toc-text">File Control Block (FCB)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Directory"><span class="toc-number">3.2.</span> <span class="toc-text">Directory</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Basic-Concepts-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">Basic Concepts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Directory-Functions"><span class="toc-number">3.2.2.</span> <span class="toc-text">Directory Functions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FCB-Organization-Methods"><span class="toc-number">3.2.3.</span> <span class="toc-text">FCB Organization Methods</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Improved-FCB-Organization"><span class="toc-number">3.2.4.</span> <span class="toc-text">Improved FCB Organization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Directory-Organization"><span class="toc-number">3.2.5.</span> <span class="toc-text">Directory Organization</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Path-Names"><span class="toc-number">3.3.</span> <span class="toc-text">Path Names</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Links"><span class="toc-number">3.4.</span> <span class="toc-text">Links</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Acyclic-Graph-Directory"><span class="toc-number">3.5.</span> <span class="toc-text">Acyclic Graph Directory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#General-Graph-Directory"><span class="toc-number">3.6.</span> <span class="toc-text">General Graph Directory</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-Management-Disk-Management"><span class="toc-number">4.</span> <span class="toc-text">File Management: Disk Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Free-Space-Management"><span class="toc-number">4.1.</span> <span class="toc-text">Free Space Management</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Free-Partition-Table"><span class="toc-number">4.1.1.</span> <span class="toc-text">Free Partition Table</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Free-Partition-Linked-List"><span class="toc-number">4.1.2.</span> <span class="toc-text">Free Partition Linked List</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bit-Map"><span class="toc-number">4.1.3.</span> <span class="toc-text">Bit Map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Grouped-Block-Linking"><span class="toc-number">4.1.4.</span> <span class="toc-text">Grouped Block Linking</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#File-Consistency"><span class="toc-number">4.2.</span> <span class="toc-text">File Consistency</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Block-Consistency-Check"><span class="toc-number">4.2.1.</span> <span class="toc-text">Block Consistency Check</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Link-Count-Consistency-Check"><span class="toc-number">4.2.2.</span> <span class="toc-text">Link Count Consistency Check</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#File-Execution"><span class="toc-number">4.3.</span> <span class="toc-text">File Execution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Data-Structures"><span class="toc-number">4.3.1.</span> <span class="toc-text">Data Structures</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#File-Sharing"><span class="toc-number">4.3.2.</span> <span class="toc-text">File Sharing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#File-Operations"><span class="toc-number">4.3.3.</span> <span class="toc-text">File Operations</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Virtual-File-System-VFS"><span class="toc-number">4.4.</span> <span class="toc-text">Virtual File System (VFS)</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

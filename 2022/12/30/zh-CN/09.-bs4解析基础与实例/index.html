@@ -1,0 +1,516 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>09. bs4解析基础与实例 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：09. bs4解析基础与实例📊 802 阅读 | 👍 4 点赞 | 💬 4 评论 | ⭐ 6 收藏  目录 前言 bs4的安装 bs4使用基础 bs4实例——获取某网站菜价 代码实现 完整代码 重要提醒 总结  前言我们已经具备了基本的HTML知识，能够简单的识别HTML源代码中的各类元素。这一节我们将正式学习bs4的用法，并用一个实例来展示它的方便之处。可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09. bs4解析基础与实例">
+<meta property="og:url" content="https://your-domain.com/2022/12/30/zh-CN/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：09. bs4解析基础与实例📊 802 阅读 | 👍 4 点赞 | 💬 4 评论 | ⭐ 6 收藏  目录 前言 bs4的安装 bs4使用基础 bs4实例——获取某网站菜价 代码实现 完整代码 重要提醒 总结  前言我们已经具备了基本的HTML知识，能够简单的识别HTML源代码中的各类元素。这一节我们将正式学习bs4的用法，并用一个实例来展示它的方便之处。可">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png">
+<meta property="article:published_time" content="2022-12-30T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-30T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="开发语言">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "09. bs4解析基础与实例",
+  "url": "https://your-domain.com/2022/12/30/zh-CN/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/",
+  "image": "https://your-domain.com/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png",
+  "datePublished": "2022-12-30T15:00:00.000Z",
+  "dateModified": "2022-12-30T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2022/12/30/zh-CN/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '09. bs4解析基础与实例',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">09. bs4解析基础与实例</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">09. bs4解析基础与实例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-30T15:00:00.000Z" title="Created 2022-12-31 00:00:00">2022-12-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-30T15:00:00.000Z" title="Updated 2022-12-31 00:00:00">2022-12-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">Python爬虫入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2022-12-31 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128505916">09. bs4解析基础与实例</a><br>📊 802 阅读 | 👍 4 点赞 | 💬 4 评论 | ⭐ 6 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>前言</p>
+<p>bs4的安装</p>
+<p>bs4使用基础</p>
+<p>bs4实例——获取某网站菜价</p>
+<p>代码实现</p>
+<p>完整代码</p>
+<p>重要提醒</p>
+<p>总结</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我们已经具备了基本的HTML知识，能够简单的识别HTML源代码中的各类元素。这一节我们将正式学习bs4的用法，并用一个实例来展示它的方便之处。可以说，相比于正则法，bs4是非常简单的。</p>
+<hr>
+<h3 id="bs4的安装"><a href="#bs4的安装" class="headerlink" title="bs4的安装"></a>bs4的安装</h3><p>没有安装过Python模块的同学可以参照我在requests章节的安装模块部分，把requests替换成bs4就可以了。</p>
+<p>传送门：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128471531?spm=1001.2014.3001.5501" title="Python模块安装的三种方式">Python模块安装的三种方式</a></p>
+<p>当然，大多数看到这一节的同学应该已经懂得模块的安装了，bs4模块安装如下：</p>
+<p><code>python pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple </code> </p>
+<hr>
+<h3 id="bs4使用基础"><a href="#bs4使用基础" class="headerlink" title="bs4使用基础"></a>bs4使用基础</h3><p>BeautifulSoup对象获取html中的内容主要通过两个方法来完成：</p>
+<ul>
+<li>find()</li>
+<li>find_all()</li>
+</ul>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png"></p>
+<p>不论是 find 还是 find_all，参数几乎是一致的 </p>
+<ul>
+<li><strong>语法：</strong> find(标签, 属性&#x3D;值) 意思是在页面中查找xxx标签，并且标签的xxx属性必须是xxx值</li>
+</ul>
+<p>例如，find(‘div’ , age&#x3D;18) 含义就是在页面中查找div标签，并且属性age必须是18的这个标签</p>
+<p>find_all() 用法和 find() 几乎一致。find() 查找一个，find_all() 查找页面中所有的。</p>
+<hr>
+<h3 id="bs4实例——获取某网站菜价"><a href="#bs4实例——获取某网站菜价" class="headerlink" title="bs4实例——获取某网站菜价"></a>bs4实例——获取某网站菜价</h3><p>由已知可得，只要源代码中有数据，我们就能通过bs4轻松找到并提取出来。</p>
+<p>目的：抓取某网站的菜价表并把所有信息输入到csv文件中。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>第一步，老规矩，先获取源代码</p>
+<p><code>python # 拿到页面源代码 url = &quot;在评论区&quot; resp = requests.get(url) # print(resp.text) </code> </p>
+<p>第二步，把页面源代码直接全部丢给BeautifulSoup进行预处理，就可以通过bs对象得到该页面的所有html标签了。</p>
+<p><code>python # 1. 生成bs对象 page = BeautifulSoup(resp.text, &quot;html.parser&quot;) # 指定html解析器 </code> </p>
+<p>第三步，找到我们想要的菜价表位置</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/59077596e46e.png"></p>
+<p>使用的是find函数。我们用的最多的就是前两个，第一个就是只找一个，第二个是查找所有的。</p>
+<p>我们在源代码中可以看到，我们想要的菜价数据全部被包裹在<table>标签中，这意味着被包含在表格里。而表格是由<tr>和<td>组成的，也就是行与列。</p>
+<p>这下思路就明确了：先定位到表格，再获得所有行，再把所有行中的数据依次存入csv文件。</p>
+<p>首先查看源代码，定位表格：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/484dbf500f90.png"></p>
+<p>可以看到表格标签中有一个属性值，并且是首次出现，那么我们就可以通过find精准的把他找出来 </p>
+<p><code>python # 2. 从bs对象中查找数据 # find(标签, 属性=值)：找第一个 # find_all(标签, 属性=值)：找全部 # table = page.find(&quot;table&quot;,class_=&quot;price-table&quot;) # class是python中的关键字，加_以示区别 # 另一种写法： table = page.find(&quot;table&quot;, attrs={&quot;class&quot;: &quot;price-table&quot;}) # 和上一行是一个意思，此时可以避免class # print(table) </code> </p>
+<p>下一步，定位所有行</p>
+<p><code>python # 不想要列名那一行（表头），只想要底下的数据，即拿到所有数据行 trs = table.find_all(&quot;tr&quot;)[1:] # tr是行的意思 </code> </p>
+<p>因为表格还存在表头，我们不想要的话就可以从第一行开始切片，这样就不会拿到表头了。</p>
+<p>最后，遍历所有行，把其中的数据拿出来</p>
+<p><code>python for tr in trs: # 每一行 tds = tr.find_all(&quot;td&quot;) # td表示单元格。拿到每行中的所有td # print(tds[0]) # 名字、产地、均价（元/公斤）、规格、日期 name = tds[0].text # .text表示拿到被标签标记的内容 place = tds[1].text avg_price = tds[2].text spec = tds[3].text date = tds[4].text # print(name,place,avg_price,spec,date) csvwriter.writerow([name, place, avg_price, spec, date]) f.close() print(&quot;over!!!&quot;) resp.close() </code> </p>
+<p>这样我们就顺利的把数据写入文件了。一定要记得要关闭文件并且关闭网络请求，这是一个好习惯，希望大家保持。</p>
+<hr>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><p><code>python # 安装 # pip install bs4 -i 清华 # 1. 拿到页面源代码 # 2. 使用bs4进行解析. 拿到数据 import requests from bs4 import BeautifulSoup import csv # 拿到页面源代码 url = &quot;在评论区&quot; resp = requests.get(url) # print(resp.text) f = open(&quot;广州江南菜价.csv&quot;, mode=&quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) csvwriter = csv.writer(f) # 使用bs4解析数据（两步） # 1. 生成bs对象 page = BeautifulSoup(resp.text, &quot;html.parser&quot;) # 指定html解析器 # 2. 从bs对象中查找数据 # find(标签, 属性=值)：找第一个 # find_all(标签, 属性=值)：找全部 # table = page.find(&quot;table&quot;,class_=&quot;price-table&quot;) # class是python中的关键字，加_以示区别 # 另一种写法： table = page.find(&quot;table&quot;, attrs={&quot;class&quot;: &quot;price-table&quot;}) # 和上一行是一个意思，此时可以避免class # print(table) # 不想要列名那一行（表头），只想要底下的数据，即拿到所有数据行 trs = table.find_all(&quot;tr&quot;)[1:] # tr是行的意思 for tr in trs: # 每一行 tds = tr.find_all(&quot;td&quot;) # td表示单元格。拿到每行中的所有td # print(tds[0]) # 名字、产地、均价（元/公斤）、规格、日期 name = tds[0].text # .text表示拿到被标签标记的内容 place = tds[1].text avg_price = tds[2].text spec = tds[3].text date = tds[4].text # print(name,place,avg_price,spec,date) csvwriter.writerow([name, place, avg_price, spec, date]) f.close() print(&quot;over!!!&quot;) resp.close() </code> </p>
+<hr>
+<h3 id="重要提醒"><a href="#重要提醒" class="headerlink" title="重要提醒"></a>重要提醒</h3><p>大家可以看到本例涉及的网站一共有一万多页，我们作为初学者一定不要盲目的去把所有数据都扒拿到！一个是没有什么用处，再一个是对网站服务器的负担很大，相当于搞破坏了，所以大家还是悠着点，适量的去试几页练手就好！当然也可以修改源代码里面的url部分或者套一个for循环来自动进行换页爬取。</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>今天我们认识了bs4解析方式，也以一个实例进行训练，获取了某网站的菜价，明显感觉到bs4比起正则的简单与便捷。当然，我们也应铭记不要对网站进行高频词的访问，不然就类似于DDoS攻击了，对于网站服务器很不友好。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2022/12/30/zh-CN/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/">https://your-domain.com/2022/12/30/zh-CN/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a><a class="post-meta__tags" href="/tags/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/09.-bs4%E8%A7%A3%E6%9E%90%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B/3fc20ab2cc40.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/12/30/zh-CN/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/" title="10. 补充实例：js动态请求菜价网页的爬取"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/6346d93934d9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">10. 补充实例：js动态请求菜价网页的爬取</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：10. 补充实例：js动态请求菜价网页的爬取📊 301 阅读 | 👍 4 点赞 | 💬 2 评论 | ⭐ 5 收藏  目录 前言 思路 代码实现 完整代码 总结  前言爬取菜价的典型案例是北京新XX网站，但是它页面已经改版，无法通过bs4解析方式进行爬取。我们通过分析发现它是通过js动态请求表格的，所以我们再次对它见招拆招。  思路1. 先观察源代码，发现数据不在源代码中  2. 打开网页调试器（F12），选择Network选项，记录网络活动。当我们换页的时候，能检测到一个动态的js请求：  点击换页以后出现以下请求：  我们查看详情，发现它是一个POST请求  查看其负载，也就是所需要传递的参数：  发现我们传参里有上述七个数据，其中最重要的就是前两个：分别是限制每次传输的信息条数和当前页面，也就是第current页。 打开URL也能看到里面确实存在数据：  所以我们可以考虑用requests来访问该URL  代码实现第一步，老朋友，先获取源代码 python url = &#39;在评论区&#39; dat = { &quot;limi...</div></div></div></a><a class="pagination-related" href="/2022/12/30/en/HTML-Quick-Reference/" title="HTML Quick Reference Guide"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">HTML Quick Reference Guide</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Basic Document Text Elements Logical Styles Physical Styles Links, Anchors, Image Elements Unordered List Ordered List Definition List Tables Frames Forms Entities Other Elements  HTML Basic Document12345678&lt;html&gt;&lt;head&gt;&lt;title&gt;Document name goes here&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Visible text goes here&lt;/body&gt;&lt;/html&gt;   Text Elements1234&lt;p&gt;This is a paragraph&lt;/p&gt;&lt;br&gt; (line break)&lt;hr&gt; (horizontal rule)&lt;pre&gt;...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/30/zh-CN/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/" title="10. 补充实例：js动态请求菜价网页的爬取"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10.-%E8%A1%A5%E5%85%85%E5%AE%9E%E4%BE%8B%EF%BC%9Ajs%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82%E8%8F%9C%E4%BB%B7%E7%BD%91%E9%A1%B5%E7%9A%84%E7%88%AC%E5%8F%96/6346d93934d9.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">10. 补充实例：js动态请求菜价网页的爬取</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：10. 补充实例：js动态请求菜价网页的爬取📊 301 阅读 | 👍 4 点赞 | 💬 2 评论 | ⭐ 5 收藏  目录 前言 思路 代码实现 完整代码 总结  前言爬取菜价的典型案例是北京新XX网站，但是它页面已经改版，无法通过bs4解析方式进行爬取。我们通过分析发现它是通过js动态请求表格的，所以我们再次对它见招拆招。  思路1. 先观察源代码，发现数据不在源代码中  2. 打开网页调试器（F12），选择Network选项，记录网络活动。当我们换页的时候，能检测到一个动态的js请求：  点击换页以后出现以下请求：  我们查看详情，发现它是一个POST请求  查看其负载，也就是所需要传递的参数：  发现我们传参里有上述七个数据，其中最重要的就是前两个：分别是限制每次传输的信息条数和当前页面，也就是第current页。 打开URL也能看到里面确实存在数据：  所以我们可以考虑用requests来访问该URL  代码实现第一步，老朋友，先获取源代码 python url = &#39;在评论区&#39; dat = { &quot;limi...</div></div></div></a><a class="pagination-related" href="/2022/12/27/zh-CN/04.-requests%E6%A8%A1%E5%9D%97%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%89%E4%B8%AA%E6%A1%88%E4%BE%8B%EF%BC%88%E6%90%9C%E7%8B%97%E6%90%9C%E7%B4%A2%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%EF%BC%89/" title="04. requests模块入门与三个案例（搜狗搜索&#x2F;百度翻译&#x2F;豆瓣电影）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/04.-requests%E6%A8%A1%E5%9D%97%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%89%E4%B8%AA%E6%A1%88%E4%BE%8B%EF%BC%88%E6%90%9C%E7%8B%97%E6%90%9C%E7%B4%A2%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/c1cbbc3abfb2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-28</div><div class="info-item-2">04. requests模块入门与三个案例（搜狗搜索&#x2F;百度翻译&#x2F;豆瓣电影）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：04. requests模块入门与三个案例（搜狗搜索&#x2F;百度翻译&#x2F;豆瓣电影）📊 1185 阅读 | 👍 1 点赞 | 💬 3 评论 | ⭐ 9 收藏  目录 前言 requests的安装 1. cmd中输入安装 2. PyCharm中运行安装 3. Anaconda虚拟环境中安装 4. 检查是否安装成功 案例1. 抓取搜狗搜索内容 案例2 利用百度翻译网站制作一个自己的翻译小程序 案例3 豆瓣电影高分排行榜读取 总结  前言 在前面小节中，我们使用urllib来抓取页面源代码，这是python内置的一个模块，但它并不是我们常用的爬虫工具。 常用的抓取页面的模块是第三方模块——requests。这个模块的优势就是比urllib还要简单，并且处理各种请求都很方便。  requests的安装既然是第三方模块，那就需要我们对该模块进行安装，安装方法： 1. cmd中输入安装① 按下win+R，输入cmd，按下回车  ② 输入pip install requests  如果安装速度慢的话可以改用国内镜像源安装：  2. PyChar...</div></div></div></a><a class="pagination-related" href="/2023/01/04/zh-CN/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/" title="18. 概述如何加快爬虫效率"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/18.-%E6%A6%82%E8%BF%B0%E5%A6%82%E4%BD%95%E5%8A%A0%E5%BF%AB%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87/63a82f71b089.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="info-item-2">18. 概述如何加快爬虫效率</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：18. 概述如何加快爬虫效率📊 281 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 前言 概述 图例  前言我们以前做过的爬虫项目都是小体量的工程，很快就能完成。但我们以后肯定要面对一个现实的问题：假如我们要抓取成千上万条数据呢？访问成千上万此页面循环执行一段代码，效率显然是不够高的。那么怎样才能提高效率呢？这就是我们即将展开说的内容。  概述加快效率的方法有很多种。 比如我们做几件事情，可以通过统筹安排让这几件事同时进行，最后达到节约时间的效果，这个方式在计算机中也可以实现，它叫作多线程。 比如我们做几件事情，还可以让朋友们帮我们来做，一人做一件事，也可以达到节约时间的效果，很快地完成，这个方法也可以在计算机中实现，它叫作多进程。 图例 我们通过图片可以看到，n线程的执行效率至少是单线程的n倍，极大的节约了我们的时间。  当然还有其他方法提高效率，例如协程、异步爬虫等。 我们将在后面的小节展开说说这些知识点。 </div></div></div></a><a class="pagination-related" href="/2023/01/01/zh-CN/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/" title="12. XPath解析入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/12.-XPath%E8%A7%A3%E6%9E%90%E5%85%A5%E9%97%A8/7dcace80f3c2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-02</div><div class="info-item-2">12. XPath解析入门</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：12. XPath解析入门📊 611 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 6 收藏  目录 前言 模块安装 XPath涉及的基本概念 XPath基本语法 测试完整代码 XPath进阶用法 需求1：让xpath处理这个资源文件 需求2：找到标签位置，如html标签 需求3：找到无序列表(ul)中每一项(li)包裹的文本内容 需求4：找到无序列表(ul)中第一项(li)包裹的文本内容 需求5：找到无序列表(ul)中每一项(li)包裹的链接(a)内容 需求6：获取href为‘dapao’包裹的文字（属性筛选） 需求7：先获取列表项，再递归每个列表项取出包裹文本和a标签的href属性值 需求8：练习：打印第一个div的文本信息 XPath进阶用法完整代码  前言XPath是一门在 XML 文档中查找信息的语言。XPath可用来在 XML 文档中对元素和属性进行遍历。而我们熟知的HTML恰巧属于XML的⼀个子集，所以完全可以用XPath去查找html中的内容。  模块安装老样子，直接pip install lxml   XPath涉及的...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/01.-%E7%88%AC%E8%99%AB%E6%A6%82%E8%BF%B0%E4%B8%8E%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/" title="01. 爬虫概述与第一个程序"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">01. 爬虫概述与第一个程序</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：01. 爬虫概述与第一个程序📊 510 阅读 | 👍 4 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 爬虫概述 什么是爬虫? 爬虫和Python 爬虫合法么? 爬虫的矛与盾 反爬机制 反反爬策略 我的第一个爬虫相关程序  爬虫概述 什么是爬虫?不知道各位是否遇到过这样的需求. 就是我们总是希望能够保存互联网上的⼀些重要的数据信息为己所用。 比如，   在浏览到⼀些优秀好看的图片时，总想保存起来留为日后做桌面上的壁纸； 在浏览到⼀些重要的数据时(各行各业)，希望保留下来日后为自己进行各种销售行为增光添彩； 在浏览到⼀些感兴趣的视频时, 希望保存在硬盘里供日后慢慢品鉴 ； 在浏览到⼀些十分优秀的歌声曲目时, 希望保存下来供我们在烦闷的生活中增添⼀份精彩 ……   那么恭喜你！爬虫将特别适合于你. 因为爬虫就是通过编写程序来爬取互联⽹上的优秀资源(图片、视频、音频、数据…)  爬虫和Python爬虫⼀定要用Python么? 非也~ 用Java也行, C也可以. 请各位记住, 编程语言只是工具. 抓到数据是你的目的。用什么工具去达到你的目 的...</div></div></div></a><a class="pagination-related" href="/2022/12/28/zh-CN/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/" title="05. 数据解析、正则表达式与re模块"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/05.-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Ere%E6%A8%A1%E5%9D%97/9aed1a1d72ca.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-29</div><div class="info-item-2">05. 数据解析、正则表达式与re模块</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：05. 数据解析、正则表达式与re模块📊 401 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 5 收藏  目录 数据解析概述 正则表达式 正则的概念： 正则表达式的优缺点： 正则的语法： 常用元字符： 量词： 贪婪匹配和惰性匹配 典型案例 re模块 re模块中常用的几个函数 总结 本节用到的全部代码（测试时请注释不看的部分，这样便于观察结果）  数据解析概述在前几节中，我们基本掌握了抓取整个网页的基本技能，但是大多数情况下，我们并不需要整个网页的内容，譬如网页框架、广告、网页通知等。我们想要只抓取我们需要的目标数据，该怎么去处理呢？这就涉及到了数据解析！ 我们将一共学习三种解析方式： 1. re解析 2. bs4解析 3. xpath解析 这三种方式并不局限于单独使用，可以根据需求混合进行使用，我们写爬虫是完全以结果作为导向的，正所谓不管黑猫白猫，能抓得到耗子就是好猫嘛！只要能拿得到我们想要的数据，用什么方案并不重要。当我们能够掌握这些方法以后，再去考虑性能的问题。  正则表达式说到数据解析，最先离不开的就是正则表达式了。 正则的概念...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bs4%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">bs4的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bs4%E4%BD%BF%E7%94%A8%E5%9F%BA%E7%A1%80"><span class="toc-number">3.</span> <span class="toc-text">bs4使用基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bs4%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E8%8E%B7%E5%8F%96%E6%9F%90%E7%BD%91%E7%AB%99%E8%8F%9C%E4%BB%B7"><span class="toc-number">4.</span> <span class="toc-text">bs4实例——获取某网站菜价</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.1.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">完整代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%8F%90%E9%86%92"><span class="toc-number">6.</span> <span class="toc-text">重要提醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

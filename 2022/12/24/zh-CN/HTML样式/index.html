@@ -1,0 +1,518 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML样式 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：HTML样式📊 114 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 的 style 属性 不赞成使用的标签和属性 应该避免使用下面这些标签和属性： HTML 样式实例 - 背景颜色 HTML 样式实例 - 字体、颜色和尺寸 HTML 样式实例 - 文本对齐 一个完整的实例  style 属性用于改变 HTML 元素的样式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML样式">
+<meta property="og:url" content="https://your-domain.com/2022/12/24/zh-CN/HTML%E6%A0%B7%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：HTML样式📊 114 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 的 style 属性 不赞成使用的标签和属性 应该避免使用下面这些标签和属性： HTML 样式实例 - 背景颜色 HTML 样式实例 - 字体、颜色和尺寸 HTML 样式实例 - 文本对齐 一个完整的实例  style 属性用于改变 HTML 元素的样式。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2022-12-24T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-24T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="前端框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML样式",
+  "url": "https://your-domain.com/2022/12/24/zh-CN/HTML%E6%A0%B7%E5%BC%8F/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2022-12-24T15:00:00.000Z",
+  "dateModified": "2022-12-24T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2022/12/24/zh-CN/HTML%E6%A0%B7%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML样式',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML样式</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML样式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-24T15:00:00.000Z" title="Created 2022-12-25 00:00:00">2022-12-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-24T15:00:00.000Z" title="Updated 2022-12-25 00:00:00">2022-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">HTML入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2022-12-25 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128433891">HTML样式</a><br>📊 114 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>HTML 的 style 属性</p>
+<p>不赞成使用的标签和属性</p>
+<p>应该避免使用下面这些标签和属性：</p>
+<p>HTML 样式实例 - 背景颜色</p>
+<p>HTML 样式实例 - 字体、颜色和尺寸</p>
+<p>HTML 样式实例 - 文本对齐</p>
+<p>一个完整的实例</p>
+<hr>
+<p>style 属性用于改变 HTML 元素的样式。</p>
+<hr>
+<p><code>&lt;html&gt; &lt;body style=&quot;background-color:PowderBlue;&quot;&gt; &lt;h1&gt;Look! Styles and colors&lt;/h1&gt; &lt;p style=&quot;font-family:verdana;color:red&quot;&gt; This text is in Verdana and red&lt;/p&gt; &lt;p style=&quot;font-family:times;color:green&quot;&gt; This text is in Times and green&lt;/p&gt; &lt;p style=&quot;font-size:30px&quot;&gt;This text is 30 pixels high&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<hr>
+<h3 id="HTML-的-style-属性"><a href="#HTML-的-style-属性" class="headerlink" title="HTML 的 style 属性"></a>HTML 的 style 属性</h3><p>style 属性的作用：</p>
+<p><strong>提供了一种改变所有 HTML 元素的样式的通用方法。</strong></p>
+<p>样式是 HTML 4 引入的，它是一种新的首选的改变 HTML 元素样式的方式。通过 HTML 样式，能够通过使用 style 属性直接将样式添加到 HTML 元素，或者间接地在独立的样式表中（CSS 文件）进行定义。</p>
+<p>HTML 中，我们将使用 style 属性来改变 HTML 样式。</p>
+<hr>
+<h3 id="不赞成使用的标签和属性"><a href="#不赞成使用的标签和属性" class="headerlink" title="不赞成使用的标签和属性"></a>不赞成使用的标签和属性</h3><p>在 HTML 4 中，有若干的标签和属性是被废弃的。被废弃（Deprecated）的意思是在未来版本的 HTML 和 XHTML 中将不支持这些标签和属性。</p>
+<p>这里传达的信息很明确：请<strong>避免使用</strong> 这些被废弃的标签和属性！</p>
+<h4 id="应该避免使用下面这些标签和属性："><a href="#应该避免使用下面这些标签和属性：" class="headerlink" title="应该避免使用下面这些标签和属性："></a>应该避免使用下面这些标签和属性：</h4><table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+</table>
+<center>| 定义居中的内容。  
+<font> 和 <basefont>| 定义 HTML 字体。  
+<s> 和 <strike>| 定义删除线文本  
+<u>| 定义下划线文本  
+属性| 描述  
+align| 定义文本的对齐方式  
+bgcolor| 定义背景颜色  
+color| 定义文本颜色  
+  
+<p>对于以上这些标签和属性：请使用样式代替！</p>
+<hr>
+<h3 id="HTML-样式实例-背景颜色"><a href="#HTML-样式实例-背景颜色" class="headerlink" title="HTML 样式实例 - 背景颜色"></a>HTML 样式实例 - 背景颜色</h3><p>background-color 属性为元素定义了背景颜色：</p>
+<p><code>&lt;html&gt; &lt;body style=&quot;background-color:yellow&quot;&gt; &lt;h2 style=&quot;background-color:red&quot;&gt;This is a heading&lt;/h2&gt; &lt;p style=&quot;background-color:green&quot;&gt;This is a paragraph.&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_bodybgstyle" title="亲自试一试">亲自试一试</a></p>
+<p>style 属性淘汰了“旧的” bgcolor 属性。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_bodybgcol" title="亲自试一试：设置背景颜色的旧方法">亲自试一试：设置背景颜色的旧方法</a></p>
+<hr>
+<h3 id="HTML-样式实例-字体、颜色和尺寸"><a href="#HTML-样式实例-字体、颜色和尺寸" class="headerlink" title="HTML 样式实例 - 字体、颜色和尺寸"></a>HTML 样式实例 - 字体、颜色和尺寸</h3><p>font-family、color 以及 font-size 属性分别定义元素中文本的字体系列、颜色和字体尺寸：</p>
+<p><code>&lt;html&gt; &lt;body&gt; &lt;h1 style=&quot;font-family:verdana&quot;&gt;A heading&lt;/h1&gt; &lt;p style=&quot;font-family:arial;color:red;font-size:20px;&quot;&gt;A paragraph.&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_newfont" title="亲自试一试">亲自试一试</a></p>
+<p>style 属性淘汰了旧的 <font> 标签。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_font" title="亲自试一试：设置字体的旧方法">亲自试一试：设置字体的旧方法</a></p>
+<hr>
+<h3 id="HTML-样式实例-文本对齐"><a href="#HTML-样式实例-文本对齐" class="headerlink" title="HTML 样式实例 - 文本对齐"></a>HTML 样式实例 - 文本对齐</h3><p>text-align 属性规定了元素中文本的水平对齐方式：</p>
+<p><code>&lt;html&gt; &lt;body&gt; &lt;h1 style=&quot;text-align:center&quot;&gt;This is a heading&lt;/h1&gt; &lt;p&gt;The heading above is aligned to the center of this page.&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_headeralign" title="亲自试一试">亲自试一试</a></p>
+<p>style 属性淘汰了旧的 “align” 属性。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_header" title="亲自试一试：设置居中对齐的旧方法">亲自试一试：设置居中对齐的旧方法</a></p>
+<hr>
+<h3 id="一个完整的实例"><a href="#一个完整的实例" class="headerlink" title="一个完整的实例"></a>一个完整的实例</h3><p><code>&lt;!DOCTYPE HTML&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Style&lt;/title&gt; &lt;/head&gt; &lt;body style=&quot;background-color:PowderBlue;&quot;&gt; &lt;h1&gt;Look! Styles and colors&lt;/h1&gt; &lt;p style=&quot;font-family:verdana;color:red&quot;&gt; This text is in Verdana and red&lt;/p&gt; &lt;p style=&quot;font-family:times;color:green&quot;&gt; This text is in Times and green&lt;/p&gt; &lt;p style=&quot;font-size:30px&quot;&gt;This text is 30 pixels high&lt;/p&gt; &lt;h2 style=&quot;background-color:red&quot;&gt;This is a heading&lt;/h2&gt; &lt;p style=&quot;background-color:green&quot;&gt;This is a paragraph.&lt;/p&gt; &lt;h1 style=&quot;text-align:center&quot;&gt;This is a heading&lt;/h1&gt; &lt;p&gt;上面的标题相对于页面居中对齐。&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2022/12/24/zh-CN/HTML%E6%A0%B7%E5%BC%8F/">https://your-domain.com/2022/12/24/zh-CN/HTML%E6%A0%B7%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/html5/">html5</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/css/">css</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">前端框架</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%B3%A8%E9%87%8A/" title="HTML注释"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">HTML注释</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML注释📊 126 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 注释标签 实例 实例 实例 条件注释 软件程序标签 一个完整的实例  注释标签  用于在 HTML 插入注释。  HTML 注释标签您能够通过如下语法向 HTML 源代码添加注释： 实例&lt;!-- 在此处写注释 --&gt;  注释：在开始标签中有一个惊叹号，但是结束标签中没有。 浏览器不会显示注释，但是能够帮助记录您的 HTML 文档。 您可以利用注释在 HTML 中放置通知和提醒信息： 实例&lt;!-- 这是一段注释 --&gt; &lt;p&gt;这是一个段落。&lt;/p&gt; &lt;!-- 记得在此处添加信息 --&gt;  亲自试一试 注释对于 HTML 纠错也大有帮助，因为您可以一次注释一行 HTML 代码，以搜索错误： 实例&lt;!-- 此刻不显示图片： &lt;img border=&quot;0&quot; src=&quot;/i/tulip_ballade.jpg&quot; alt=&quot;Tuli...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%A0%87%E9%A2%98/" title="HTML标题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">HTML标题</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML标题📊 115 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 标题 实例 标题很重要 HTML 水平线 实例 HTML 注释以及在PyCharm中快速添加注释 实例 HTML 提示 - 如何查看源代码 来自本页的实例 HTML 标签参考手册 一个完整的实例  在 HTML 文档中，标题很重要。  HTML 标题标题（Heading）是通过  -  等标签进行定义的。  定义最大的标题。 定义最小的标题。  实例&lt;h1&gt;This is a heading&lt;/h1&gt; &lt;h2&gt;This is a heading&lt;/h2&gt; &lt;h3&gt;This is a heading&lt;/h3&gt;  亲自试一试 注释：浏览器会自动地在标题的前后添加空行。 注释：默认情况下，HTML 会自动地在块级元素 前后添加一个额外的空行，比如段落、标题元素前后。  标题很重要请确保将 HTML heading 标签只用于标题。不要仅仅是为了产生粗体或大号的文本而使用标题 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%A0%87%E9%A2%98/" title="HTML标题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML标题</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML标题📊 115 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 标题 实例 标题很重要 HTML 水平线 实例 HTML 注释以及在PyCharm中快速添加注释 实例 HTML 提示 - 如何查看源代码 来自本页的实例 HTML 标签参考手册 一个完整的实例  在 HTML 文档中，标题很重要。  HTML 标题标题（Heading）是通过  -  等标签进行定义的。  定义最大的标题。 定义最小的标题。  实例&lt;h1&gt;This is a heading&lt;/h1&gt; &lt;h2&gt;This is a heading&lt;/h2&gt; &lt;h3&gt;This is a heading&lt;/h3&gt;  亲自试一试 注释：浏览器会自动地在标题的前后添加空行。 注释：默认情况下，HTML 会自动地在块级元素 前后添加一个额外的空行，比如段落、标题元素前后。  标题很重要请确保将 HTML heading 标签只用于标题。不要仅仅是为了产生粗体或大号的文本而使用标题 ...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML-id%E5%B1%9E%E6%80%A7/" title="HTML id属性"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML id属性</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML id属性📊 638 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 使用 id 属性 实例 Class 与 ID 的差异 实例 通过 ID 和链接实现 HTML 书签 实例 实例 在 JavaScript 中使用 id 属性 实例 一个完整的实例 本章总结  HTML id 属性用于 为HTML 元素指定唯一的 id。 一个 HTML文档中不能存在多个有相同 id 的元素。  使用 id 属性id 属性指定 HTML 元素的唯一 ID。 id 属性的值在 HTML 文档中必须是唯一的。 id 属性用于指向样式表中的特定样式声明。JavaScript 也可使用它来访问和操作拥有特定 ID 的元素。 id 的语法是：写一个井号 (#)，后跟一个 id 名称。然后，在花括号 {} 中定义 CSS 属性。 下面的例子中我们有一个 &lt;h1&gt; 元素，它指向 id 名称 “myHeader”。这个 &lt;h1&gt; 元素将根据 head 部分中的 #myHeader 样式定义进行样式设置： 实例&lt;!DO...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E9%93%BE%E6%8E%A5/" title="HTML链接"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML链接</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML链接📊 891 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 HTML 超链接（链接） HTML 链接语法 实例 HTML 链接 - target 属性 HTML 链接 - name 属性 命名锚的语法： 实例 基本的注意事项-有用的提示： 更多实例 HTML 链接标签 一个完整的实例  HTML 使用超级链接与网络上的另一个文档相连。 几乎可以在所有的网页中找到链接。点击链接可以从一张页面跳转到另一张页面。  实例创建超级链接 本例演示如何在 HTML 文档中创建链接。 将图像作为链接 本例演示如何使用图像作为链接。 （可以在本页底端找到更多实例）  HTML 超链接（链接）超链接可以是一个字，一个词，或者一组词，也可以是一幅图像，您可以点击这些内容来跳转到新的文档或者当前文档中的某个部分。 当您把鼠标指针移动到网页中的某个链接上时，箭头会变为一只小手。 我们通过使用  标签在 HTML 中创建链接。 有两种使用  标签的方式：  通过使用 href 属性 - 创建指向另一个文档的链接 通过使用 nam...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7/" title="HTML特殊符号"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML特殊符号</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML特殊符号📊 161 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 符号实体 实例 HTML 支持的一些数学符号 HTML 支持的一些希腊字母 HTML 支持的一些其他实体。 一个完整的实例  键盘上不存在的字符也可以由实体代替。  HTML 符号实体在上一章中已经讲解了 HTML 实体符号。 普通键盘上不存在众多数学、技术和货币符号。 如需将此类符号添加到 HTML 页面，您可以使用 HTML 实体名称（HTML entity name）。 如果不存在实体名称，则可使用实体编号，十进制或十六进制的引用。 实例&lt;p&gt;我将显示 &amp;&lt;/p&gt; &lt;p&gt;我将显示 &amp;#8364;&lt;/p&gt; &lt;p&gt;我将显示 &amp;#x20AC;&lt;/p&gt;  将显示为： 我将显示 &amp; 我将显示 € 我将显示 €  亲自试一试  HTML 支持的一些数学符号   字符 数字 实体 描述    ∀ &#8704; &forall; FOR AL...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96/" title="HTML文本格式化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML文本格式化</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML文本格式化📊 545 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 HTML 文本格式化实例 如何查看 HTML 源码 文本格式化标签 “计算机输出”标签 引用、引用和术语定义 延伸阅读： 一个完整的实例  HTML 可定义很多供格式化输出的元素，比如粗体和斜体字。 下面有很多例子，可以亲自试试：  HTML 文本格式化实例文本格式化 此例演示如何在一个 HTML 文件中对文本进行格式化 预格式文本 此例演示如何使用 pre 标签对空行和空格进行控制。 “计算机输出”标签 此例演示不同的“计算机输出”标签的显示效果。 地址 此例演示如何在 HTML 文件中写地址。 缩写和首字母缩写 此例演示如何实现缩写或首字母缩写。 文字方向 此例演示如何改变文字的方向。 块引用 此例演示如何实现长短不一的引用语。 删除字效果和插入字效果 此例演示如何标记删除文本和插入文本。  如何查看 HTML 源码当你看到一个很棒的站点，你会不会很想知道开发人员是如何将它实现的？ 你有没有看过一些网页，并且想知道它是如何做出来的呢？ 要揭...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%AE%B5%E8%90%BD/" title="HTML段落"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML段落</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML段落📊 146 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 段落 实例 不要忘记结束标签 实例 HTML 折行 还是  HTML 输出 - 有用的提示 来自本页的实例 更多实例 HTML 标签参考手册 一个完整的实例  可以把 HTML 文档分割为若干段落。  HTML 段落段落是通过  标签定义的。 实例&lt;p&gt;This is a paragraph&lt;/p&gt; &lt;p&gt;This is another paragraph&lt;/p&gt;  亲自试一试 注释：浏览器会自动地在段落的前后添加空行。（ 是块级元素） 提示：使用空的段落标记  去插入一个空行是个坏习惯。用  标签代替它！（但是不要用  标签去创建列表。不要着急，您将在稍后的篇幅学习到 HTML 列表。）  不要忘记结束标签即使忘了使用结束标签，大多数浏览器也会正确地将 HTML 显示出来： 实例&lt;p&gt;This is a paragraph &lt;p&gt;This is another par...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E7%9A%84-style-%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">HTML 的 style 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%B5%9E%E6%88%90%E4%BD%BF%E7%94%A8%E7%9A%84%E6%A0%87%E7%AD%BE%E5%92%8C%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">不赞成使用的标签和属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E8%AF%A5%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E4%B8%8B%E9%9D%A2%E8%BF%99%E4%BA%9B%E6%A0%87%E7%AD%BE%E5%92%8C%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">应该避免使用下面这些标签和属性：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E6%A0%B7%E5%BC%8F%E5%AE%9E%E4%BE%8B-%E8%83%8C%E6%99%AF%E9%A2%9C%E8%89%B2"><span class="toc-number">3.</span> <span class="toc-text">HTML 样式实例 - 背景颜色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E6%A0%B7%E5%BC%8F%E5%AE%9E%E4%BE%8B-%E5%AD%97%E4%BD%93%E3%80%81%E9%A2%9C%E8%89%B2%E5%92%8C%E5%B0%BA%E5%AF%B8"><span class="toc-number">4.</span> <span class="toc-text">HTML 样式实例 - 字体、颜色和尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E6%A0%B7%E5%BC%8F%E5%AE%9E%E4%BE%8B-%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90"><span class="toc-number">5.</span> <span class="toc-text">HTML 样式实例 - 文本对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">一个完整的实例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

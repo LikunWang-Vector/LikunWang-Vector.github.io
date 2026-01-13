@@ -1,0 +1,555 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS Responsive Design - Complete Guide (Viewport, Grid View, Media Queries, Images, Videos) | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents Responsive Web Design - IntroductionResponsive Web Design - ViewportResponsive Web Design - Grid ViewResponsive Web Design - Media QueriesResponsive Web Design - ImagesResponsive Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Responsive Design - Complete Guide (Viewport, Grid View, Media Queries, Images, Videos)">
+<meta property="og:url" content="https://your-domain.com/2023/02/01/en/CSS-Responsive-Design/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents Responsive Web Design - IntroductionResponsive Web Design - ViewportResponsive Web Design - Grid ViewResponsive Web Design - Media QueriesResponsive Web Design - ImagesResponsive Web">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87/94d02e902a70.png">
+<meta property="article:published_time" content="2023-02-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-01T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="grid-view">
+<meta property="article:tag" content="media-queries">
+<meta property="article:tag" content="viewport">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87/94d02e902a70.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS Responsive Design - Complete Guide (Viewport, Grid View, Media Queries, Images, Videos)",
+  "url": "https://your-domain.com/2023/02/01/en/CSS-Responsive-Design/",
+  "image": "https://your-domain.com/images/posts/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87/94d02e902a70.png",
+  "datePublished": "2023-02-01T15:00:00.000Z",
+  "dateModified": "2023-02-01T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/01/en/CSS-Responsive-Design/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS Responsive Design - Complete Guide (Viewport, Grid View, Media Queries, Images, Videos)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87/94d02e902a70.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS Responsive Design - Complete Guide (Viewport, Grid View, Media Queries, Images, Videos)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS Responsive Design - Complete Guide (Viewport, Grid View, Media Queries, Images, Videos)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-01T15:00:00.000Z" title="Created 2023-02-02 00:00:00">2023-02-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-01T15:00:00.000Z" title="Updated 2023-02-02 00:00:00">2023-02-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS-Beginner-to-Advanced/">CSS Beginner to Advanced</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>10mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-02 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>Responsive Web Design - Introduction<br>Responsive Web Design - Viewport<br>Responsive Web Design - Grid View<br>Responsive Web Design - Media Queries<br>Responsive Web Design - Images<br>Responsive Web Design - Videos</p>
+<hr>
+<h2 id="Responsive-Web-Design-Introduction"><a href="#Responsive-Web-Design-Introduction" class="headerlink" title="Responsive Web Design - Introduction"></a>Responsive Web Design - Introduction</h2><h3 id="What-is-Responsive-Web-Design"><a href="#What-is-Responsive-Web-Design" class="headerlink" title="What is Responsive Web Design?"></a>What is Responsive Web Design?</h3><p>Responsive web design makes your web page look good on all devices.</p>
+<p>Responsive web design uses only HTML and CSS.</p>
+<p>Responsive web design is not a program or a JavaScript.</p>
+<h3 id="Designing-For-The-Best-Experience-For-All-Users"><a href="#Designing-For-The-Best-Experience-For-All-Users" class="headerlink" title="Designing For The Best Experience For All Users"></a>Designing For The Best Experience For All Users</h3><p>Web pages can be viewed using many different devices: desktops, tablets, and phones. Your web page should look good, and be easy to use, regardless of the device.</p>
+<p>Web pages should not leave out information to fit smaller devices, but rather adapt its content to fit any device.</p>
+<p>It is called responsive web design when you use CSS and HTML to resize, hide, shrink, enlarge, or move the content to make it look good on any screen.</p>
+<hr>
+<h2 id="Responsive-Web-Design-Viewport"><a href="#Responsive-Web-Design-Viewport" class="headerlink" title="Responsive Web Design - Viewport"></a>Responsive Web Design - Viewport</h2><h3 id="What-is-The-Viewport"><a href="#What-is-The-Viewport" class="headerlink" title="What is The Viewport?"></a>What is The Viewport?</h3><p>The viewport is the user’s visible area of a web page.</p>
+<p>The viewport varies with the device, and will be smaller on a mobile phone than on a computer screen.</p>
+<p>Before tablets and mobile phones, web pages were designed only for computer screens, and it was common for web pages to have a static design and a fixed size.</p>
+<p>Then, when we started surfing the internet using tablets and mobile phones, fixed size web pages were too large to fit the viewport. To fix this, browsers on those devices scaled down the entire web page to fit the screen.</p>
+<h3 id="Setting-The-Viewport"><a href="#Setting-The-Viewport" class="headerlink" title="Setting The Viewport"></a>Setting The Viewport</h3><p>HTML5 introduced a method to let web designers take control over the viewport, through the <code>&lt;meta&gt;</code> tag.</p>
+<p>You should include the following <code>&lt;meta&gt;</code> viewport element in all your web pages:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>This gives the browser instructions on how to control the page’s dimensions and scaling.</p>
+<p>The <code>width=device-width</code> part sets the width of the page to follow the screen-width of the device (which will vary depending on the device).</p>
+<p>The <code>initial-scale=1.0</code> part sets the initial zoom level when the page is first loaded by the browser.</p>
+<h3 id="Size-Content-to-The-Viewport"><a href="#Size-Content-to-The-Viewport" class="headerlink" title="Size Content to The Viewport"></a>Size Content to The Viewport</h3><p>Users are used to scroll websites vertically on both desktop and mobile devices - but not horizontally!</p>
+<p>So, if the user is forced to scroll horizontally, or zoom out, to see the whole web page it results in a poor user experience.</p>
+<p>Some additional rules to follow:</p>
+<ol>
+<li>Do NOT use large fixed width elements</li>
+<li>Do NOT let the content rely on a particular viewport width to render well</li>
+<li>Use CSS media queries to apply different styling for small and large screens</li>
+</ol>
+<hr>
+<h2 id="Responsive-Web-Design-Grid-View"><a href="#Responsive-Web-Design-Grid-View" class="headerlink" title="Responsive Web Design - Grid View"></a>Responsive Web Design - Grid View</h2><h3 id="What-is-a-Grid-View"><a href="#What-is-a-Grid-View" class="headerlink" title="What is a Grid-View?"></a>What is a Grid-View?</h3><p>Many web pages are based on a grid-view, which means that the page is divided into columns.</p>
+<p>Using a grid-view is very helpful when designing web pages. It makes it easier to place elements on the page.</p>
+<p>A responsive grid-view often has 12 columns, and has a total width of 100%, and will shrink and expand as you resize the browser window.</p>
+<h3 id="Building-a-Responsive-Grid-View"><a href="#Building-a-Responsive-Grid-View" class="headerlink" title="Building a Responsive Grid-View"></a>Building a Responsive Grid-View</h3><p>First ensure that all HTML elements have the <code>box-sizing</code> property set to <code>border-box</code>. This makes sure that the padding and border are included in the total width and height of the elements.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>First, we must calculate the percentage for one column: 100% &#x2F; 12 columns &#x3D; 8.33%.</p>
+<p>Then we make one class for each of the 12 columns:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.col-1</span> &#123;<span class="attribute">width</span>: <span class="number">8.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-2</span> &#123;<span class="attribute">width</span>: <span class="number">16.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-3</span> &#123;<span class="attribute">width</span>: <span class="number">25%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-4</span> &#123;<span class="attribute">width</span>: <span class="number">33.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-5</span> &#123;<span class="attribute">width</span>: <span class="number">41.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-6</span> &#123;<span class="attribute">width</span>: <span class="number">50%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-7</span> &#123;<span class="attribute">width</span>: <span class="number">58.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-8</span> &#123;<span class="attribute">width</span>: <span class="number">66.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-9</span> &#123;<span class="attribute">width</span>: <span class="number">75%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-10</span> &#123;<span class="attribute">width</span>: <span class="number">83.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-11</span> &#123;<span class="attribute">width</span>: <span class="number">91.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-12</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>All these columns should be floating to the left, and have a padding of 15px:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[class*=<span class="string">&quot;col-&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Each row should be wrapped in a <code>&lt;div&gt;</code>. The number of columns inside a row should always add up to 12:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-3&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="comment">&lt;!-- 25% --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-9&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="comment">&lt;!-- 75% --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Responsive-Web-Design-Media-Queries"><a href="#Responsive-Web-Design-Media-Queries" class="headerlink" title="Responsive Web Design - Media Queries"></a>Responsive Web Design - Media Queries</h2><h3 id="What-is-a-Media-Query"><a href="#What-is-a-Media-Query" class="headerlink" title="What is a Media Query?"></a>What is a Media Query?</h3><p>Media query is a CSS technique introduced in CSS3.</p>
+<p>It uses the <code>@media</code> rule to include a block of CSS properties only if a certain condition is true.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p>If the browser window is 600px or smaller, the background color will be lightblue:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Add-a-Breakpoint"><a href="#Add-a-Breakpoint" class="headerlink" title="Add a Breakpoint"></a>Add a Breakpoint</h3><p>We can add a breakpoint where certain parts of the design will behave differently on each side of the breakpoint.</p>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><p>When the screen (browser window) gets smaller than 768px, each column should have a width of 100%:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For desktop: */</span></span><br><span class="line"><span class="selector-class">.col-1</span> &#123;<span class="attribute">width</span>: <span class="number">8.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-2</span> &#123;<span class="attribute">width</span>: <span class="number">16.66%</span>;&#125;</span><br><span class="line"><span class="comment">/* ... */</span></span><br><span class="line"><span class="selector-class">.col-12</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="comment">/* For mobile phones: */</span></span><br><span class="line">  <span class="selector-attr">[class*=<span class="string">&quot;col-&quot;</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Always-Design-for-Mobile-First"><a href="#Always-Design-for-Mobile-First" class="headerlink" title="Always Design for Mobile First"></a>Always Design for Mobile First</h3><p>Mobile First means designing for mobile before designing for desktop or any other device (This will make the page display faster on smaller devices).</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For mobile phones: */</span></span><br><span class="line"><span class="selector-attr">[class*=<span class="string">&quot;col-&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="comment">/* For desktop: */</span></span><br><span class="line">  <span class="selector-class">.col-1</span> &#123;<span class="attribute">width</span>: <span class="number">8.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-2</span> &#123;<span class="attribute">width</span>: <span class="number">16.66%</span>;&#125;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">  <span class="selector-class">.col-12</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Typical-Device-Breakpoints"><a href="#Typical-Device-Breakpoints" class="headerlink" title="Typical Device Breakpoints"></a>Typical Device Breakpoints</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Extra small devices (phones, 600px and down) */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Small devices (portrait tablets and large phones, 600px and up) */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">600px</span>) &#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Medium devices (landscape tablets, 768px and up) */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">768px</span>) &#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Large devices (laptops/desktops, 992px and up) */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">992px</span>) &#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Extra large devices (large laptops and desktops, 1200px and up) */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">1200px</span>) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Orientation-Portrait-Landscape"><a href="#Orientation-Portrait-Landscape" class="headerlink" title="Orientation: Portrait &#x2F; Landscape"></a>Orientation: Portrait &#x2F; Landscape</h3><p>Media queries can also be used to change layout of a page depending on the orientation of the browser.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">orientation</span>: landscape) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hide-Elements-With-Media-Queries"><a href="#Hide-Elements-With-Media-Queries" class="headerlink" title="Hide Elements With Media Queries"></a>Hide Elements With Media Queries</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* If the screen size is 600px or less, hide the element */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">div</span><span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Change-Font-Size-With-Media-Queries"><a href="#Change-Font-Size-With-Media-Queries" class="headerlink" title="Change Font Size With Media Queries"></a>Change Font Size With Media Queries</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* If the screen size is 601px or more, set the font-size of &lt;div&gt; to 80px */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">601px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">div</span><span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">80px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* If the screen size is 600px or less, set the font-size of &lt;div&gt; to 30px */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">div</span><span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Responsive-Web-Design-Images"><a href="#Responsive-Web-Design-Images" class="headerlink" title="Responsive Web Design - Images"></a>Responsive Web Design - Images</h2><h3 id="Using-The-width-Property"><a href="#Using-The-width-Property" class="headerlink" title="Using The width Property"></a>Using The width Property</h3><p>If the <code>width</code> property is set to a percentage and the height is set to “auto”, the image will be responsive and scale up and down:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Using-The-max-width-Property"><a href="#Using-The-max-width-Property" class="headerlink" title="Using The max-width Property"></a>Using The max-width Property</h3><p>If the <code>max-width</code> property is set to 100%, the image will scale down if it has to, but never scale up to be larger than its original size:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Background-Images"><a href="#Background-Images" class="headerlink" title="Background Images"></a>Background Images</h3><p>Background images can also respond to resizing and scaling.</p>
+<ol>
+<li><p>If the <code>background-size</code> property is set to “contain”, the background image will scale, and try to fit the content area. However, the image will keep its aspect ratio.</p>
+</li>
+<li><p>If the <code>background-size</code> property is set to “100% 100%”, the background image will stretch to cover the entire content area.</p>
+</li>
+<li><p>If the <code>background-size</code> property is set to “cover”, the background image will scale to cover the entire content area. The “cover” value keeps the aspect ratio, and some part of the background image may be clipped.</p>
+</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;img_flowers.jpg&#x27;</span>);</span><br><span class="line">  <span class="attribute">background-size</span>: cover;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Different-Images-for-Different-Devices"><a href="#Different-Images-for-Different-Devices" class="headerlink" title="Different Images for Different Devices"></a>Different Images for Different Devices</h3><p>A large image can be perfect on a big computer screen, but useless on a small device. To reduce the load, you can use media queries to display different images on different devices.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For width smaller than 400px: */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;img_smallflower.jpg&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* For width 400px and larger: */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">400px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;img_flowers.jpg&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTML5-Element"><a href="#HTML5-Element" class="headerlink" title="HTML5 &lt;picture&gt; Element"></a>HTML5 <code>&lt;picture&gt;</code> Element</h3><p>The HTML5 <code>&lt;picture&gt;</code> element allows you to define more than one image.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;img_smallflower.jpg&quot;</span> <span class="attr">media</span>=<span class="string">&quot;(max-width: 400px)&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;img_flowers.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img_flowers.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Flowers&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Responsive-Web-Design-Videos"><a href="#Responsive-Web-Design-Videos" class="headerlink" title="Responsive Web Design - Videos"></a>Responsive Web Design - Videos</h2><h3 id="Using-The-width-Property-1"><a href="#Using-The-width-Property-1" class="headerlink" title="Using The width Property"></a>Using The width Property</h3><p>If the <code>width</code> property is set to 100%, the video player will be responsive and scale up and down:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">video</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Using-The-max-width-Property-1"><a href="#Using-The-max-width-Property-1" class="headerlink" title="Using The max-width Property"></a>Using The max-width Property</h3><p>If the <code>max-width</code> property is set to 100%, the video player will scale down if it has to, but never scale up to be larger than its original size:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">video</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/01/en/CSS-Responsive-Design/">https://your-domain.com/2023/02/01/en/CSS-Responsive-Design/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/css/">css</a><a class="post-meta__tags" href="/tags/grid-view/">grid-view</a><a class="post-meta__tags" href="/tags/viewport/">viewport</a><a class="post-meta__tags" href="/tags/media-queries/">media-queries</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/CSS%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%EF%BC%88%E8%A7%86%E5%8F%A3%E7%BD%91%E6%A0%BC%E8%A7%86%E5%9B%BE%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%EF%BC%89%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87/94d02e902a70.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/01/en/Fix-UnicodeEncodeError-GBK-Codec-xa0/" title="Fix UnicodeEncodeError: 'gbk' codec can't encode character '\xa0'"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Fix UnicodeEncodeError: 'gbk' codec can't encode character '\xa0'</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: Fix UnicodeEncodeError: ‘gbk’ codec can’t encode character ‘\xa0’📊 6671 views | 👍 8 likes | 💬 0 comments | ⭐ 19 favorites  Table of Contents Project Scenario Problem Description Root Cause Analysis Solutions replace() function Other methods Using re.sub Using translate method Using split method Using unicodedata module       Project ScenarioWhile scraping novel data from the web, the webpage was encoded in GBK. When writing to a txt f...</div></div></div></a><a class="pagination-related" href="/2023/02/01/en/CSS-Lists-and-Tables/" title="CSS Lists and Tables"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E5%88%97%E8%A1%A8%E4%B8%8E%E8%A1%A8%E6%A0%BC/b9d0a39fd1bb.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">CSS Lists and Tables</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Lists and CSS List PropertiesDifferent List Item MarkersImage as List Item MarkerPosition List Item MarkersRemove Default SettingsList - Shorthand PropertyStyling Lists with ColorsTable BordersFull-Width TableCollapse Table BordersTable Width and HeightHorizontal AlignmentVertical AlignmentTable PaddingHorizontal DividersHoverable TableStriped TablesTable ColorResponsive Table  HTML Lists and CSS List PropertiesIn HTML, there are two main types of lists:  Unordered list...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/30/en/HTML-Quick-Reference/" title="HTML Quick Reference Guide"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">HTML Quick Reference Guide</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Basic Document Text Elements Logical Styles Physical Styles Links, Anchors, Image Elements Unordered List Ordered List Definition List Tables Frames Forms Entities Other Elements  HTML Basic Document12345678&lt;html&gt;&lt;head&gt;&lt;title&gt;Document name goes here&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Visible text goes here&lt;/body&gt;&lt;/html&gt;   Text Elements1234&lt;p&gt;This is a paragraph&lt;/p&gt;&lt;br&gt; (line break)&lt;hr&gt; (horizontal rule)&lt;pre&gt;...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Paragraphs/" title="HTML Paragraphs"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Paragraphs</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: HTML段落📊 146 views | 👍 1 like | 💬 1 comment | ⭐ 2 favorites   HTML documents can be divided into paragraphs.  HTML ParagraphsParagraphs are defined with the &lt;p&gt; tag. Example12&lt;p&gt;This is a paragraph&lt;/p&gt;&lt;p&gt;This is another paragraph&lt;/p&gt;  Note: Browsers automatically add blank lines before and after paragraphs. (&lt;p&gt; is a block-level element) Tip: Using empty paragraph tags &lt;p&gt;&lt;/p&gt; to inse...</div></div></div></a><a class="pagination-related" href="/2022/12/23/en/HTML-Basics-Four-Tags/" title="HTML Basics - Four Essential Tags"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E4%BB%A5%E5%9B%9B%E4%B8%AA%E6%A0%87%E7%AD%BE%E4%B8%BA%E4%BE%8B/cc1f1a2b9de5.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-24</div><div class="info-item-2">HTML Basics - Four Essential Tags</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: HTML基础——以四个标签为例📊 240 views | 👍 1 like | 💬 1 comment | ⭐ 2 favorites   HTML HeadingsHTML headings are defined with &lt;h1&gt; to &lt;h6&gt; tags. Example123&lt;h1&gt;This is a heading&lt;/h1&gt;&lt;h2&gt;This is a heading&lt;/h2&gt;&lt;h3&gt;This is a heading&lt;/h3&gt;   HTML ParagraphsHTML paragraphs are defined with the &lt;p&gt; tag. Example12&lt;p&gt;This is a paragraph.&lt;/p&gt;&lt;p&gt;This is another paragraph.&lt;/p&gt;  ...</div></div></div></a><a class="pagination-related" href="/2023/02/01/en/CSS-Grid-Layout/" title="CSS Grid Layout Tutorial: Grid Module, Container, and Items"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E7%BD%91%E6%A0%BC%E6%95%99%E7%A8%8B%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E6%A8%A1%E5%9D%97%E7%BD%91%E6%A0%BC%E5%AE%B9%E5%99%A8%E7%BD%91%E6%A0%BC%E9%A1%B9%E7%9B%AE/3d7a555ad741.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-02</div><div class="info-item-2">CSS Grid Layout Tutorial: Grid Module, Container, and Items</div></div><div class="info-2"><div class="info-item-1">Table of Contents CSS Grid Layout ModuleGrid LayoutGrid ElementsDisplay PropertyGrid ColumnsGrid RowsGrid GapsGrid LinesCSS Grid Containergrid-template-columns Propertygrid-template-rows Propertyjustify-content Propertyalign-content PropertyCSS Grid Itemsgrid-column Propertygrid-row Propertygrid-area PropertyNaming Grid ItemsThe Order of Items  CSS Grid Layout ModuleGrid LayoutThe CSS Grid Layout Module offers a grid-based layout system, with rows and columns, making it easier to design web p...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML-Layout/" title="HTML Layout"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML Layout</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Layout Using &lt;div&gt; Elements Website Layout Using HTML5 HTML Layout Using Tables A Complete Example  Websites often display content in multiple columns (like a magazine or newspaper).  HTML Layout Using &lt;div&gt; ElementsNote: The &lt;div&gt; element is often used as a layout tool, because it can easily be positioned with CSS. This example uses four &lt;div&gt; elements to create a multi-column layout: Example1234567891011121314151617181920212223242526272829&lt;b...</div></div></div></a><a class="pagination-related" href="/2022/12/25/en/HTML-ID-Attribute/" title="HTML ID Attribute"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML ID Attribute</div></div><div class="info-2"><div class="info-item-1">Table of Contents Using the id Attribute Difference Between Class and ID HTML Bookmarks with ID and Links Using the id Attribute in JavaScript Chapter Summary  The HTML id attribute is used to specify a unique id for an HTML element. You cannot have more than one element with the same id in an HTML document.  Using the id AttributeThe id attribute specifies a unique id for an HTML element. The value of the id attribute must be unique within the HTML document. The id attribute is used to point...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Responsive-Web-Design-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Responsive Web Design - Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Responsive-Web-Design"><span class="toc-number">1.1.</span> <span class="toc-text">What is Responsive Web Design?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Designing-For-The-Best-Experience-For-All-Users"><span class="toc-number">1.2.</span> <span class="toc-text">Designing For The Best Experience For All Users</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Responsive-Web-Design-Viewport"><span class="toc-number">2.</span> <span class="toc-text">Responsive Web Design - Viewport</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-The-Viewport"><span class="toc-number">2.1.</span> <span class="toc-text">What is The Viewport?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-The-Viewport"><span class="toc-number">2.2.</span> <span class="toc-text">Setting The Viewport</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Size-Content-to-The-Viewport"><span class="toc-number">2.3.</span> <span class="toc-text">Size Content to The Viewport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Responsive-Web-Design-Grid-View"><span class="toc-number">3.</span> <span class="toc-text">Responsive Web Design - Grid View</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-a-Grid-View"><span class="toc-number">3.1.</span> <span class="toc-text">What is a Grid-View?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Building-a-Responsive-Grid-View"><span class="toc-number">3.2.</span> <span class="toc-text">Building a Responsive Grid-View</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Responsive-Web-Design-Media-Queries"><span class="toc-number">4.</span> <span class="toc-text">Responsive Web Design - Media Queries</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-a-Media-Query"><span class="toc-number">4.1.</span> <span class="toc-text">What is a Media Query?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">4.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-a-Breakpoint"><span class="toc-number">4.2.</span> <span class="toc-text">Add a Breakpoint</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Always-Design-for-Mobile-First"><span class="toc-number">4.3.</span> <span class="toc-text">Always Design for Mobile First</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Typical-Device-Breakpoints"><span class="toc-number">4.4.</span> <span class="toc-text">Typical Device Breakpoints</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Orientation-Portrait-Landscape"><span class="toc-number">4.5.</span> <span class="toc-text">Orientation: Portrait &#x2F; Landscape</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hide-Elements-With-Media-Queries"><span class="toc-number">4.6.</span> <span class="toc-text">Hide Elements With Media Queries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-Font-Size-With-Media-Queries"><span class="toc-number">4.7.</span> <span class="toc-text">Change Font Size With Media Queries</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Responsive-Web-Design-Images"><span class="toc-number">5.</span> <span class="toc-text">Responsive Web Design - Images</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-The-width-Property"><span class="toc-number">5.1.</span> <span class="toc-text">Using The width Property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-The-max-width-Property"><span class="toc-number">5.2.</span> <span class="toc-text">Using The max-width Property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Background-Images"><span class="toc-number">5.3.</span> <span class="toc-text">Background Images</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Different-Images-for-Different-Devices"><span class="toc-number">5.4.</span> <span class="toc-text">Different Images for Different Devices</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5-Element"><span class="toc-number">5.5.</span> <span class="toc-text">HTML5 &lt;picture&gt; Element</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Responsive-Web-Design-Videos"><span class="toc-number">6.</span> <span class="toc-text">Responsive Web Design - Videos</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-The-width-Property-1"><span class="toc-number">6.1.</span> <span class="toc-text">Using The width Property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-The-max-width-Property-1"><span class="toc-number">6.2.</span> <span class="toc-text">Using The max-width Property</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

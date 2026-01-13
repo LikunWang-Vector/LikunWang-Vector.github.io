@@ -1,0 +1,954 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>电子科技大学计算机系统结构复习笔记（四）：存储系统 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（四）：存储系统📊 2756 阅读 | 👍 4 点赞 | 💬 0 评论 | ⭐ 23 收藏  目录 前言 重点一览 Cache基本原理 三种映像方式 物理地址与Cache地址的映射计算 Cache块标识 Cache替换算法 Cache写策略 分离cache与一体cache Cache性能与优化 Cache性能计算 Cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电子科技大学计算机系统结构复习笔记（四）：存储系统">
+<meta property="og:url" content="https://your-domain.com/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（四）：存储系统📊 2756 阅读 | 👍 4 点赞 | 💬 0 评论 | ⭐ 23 收藏  目录 前言 重点一览 Cache基本原理 三种映像方式 物理地址与Cache地址的映射计算 Cache块标识 Cache替换算法 Cache写策略 分离cache与一体cache Cache性能与优化 Cache性能计算 Cache">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png">
+<meta property="article:published_time" content="2023-06-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-04T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="Cache">
+<meta property="article:tag" content="复习笔记">
+<meta property="article:tag" content="存储系统">
+<meta property="article:tag" content="系统结构">
+<meta property="article:tag" content="虚拟存储器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "电子科技大学计算机系统结构复习笔记（四）：存储系统",
+  "url": "https://your-domain.com/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png",
+  "datePublished": "2023-06-04T15:00:00.000Z",
+  "dateModified": "2023-06-04T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '电子科技大学计算机系统结构复习笔记（四）：存储系统',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">电子科技大学计算机系统结构复习笔记（四）：存储系统</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">电子科技大学计算机系统结构复习笔记（四）：存储系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-06-04T15:00:00.000Z" title="Created 2023-06-05 00:00:00">2023-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-06-04T15:00:00.000Z" title="Updated 2023-06-05 00:00:00">2023-06-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">复习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>17mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-06-05 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/131026705">电子科技大学计算机系统结构复习笔记（四）：存储系统</a><br>📊 2756 阅读 | 👍 4 点赞 | 💬 0 评论 | ⭐ 23 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>前言</p>
+<p>重点一览</p>
+<p>Cache基本原理</p>
+<p>三种映像方式</p>
+<p>物理地址与Cache地址的映射计算</p>
+<p>Cache块标识</p>
+<p>Cache替换算法</p>
+<p>Cache写策略</p>
+<p>分离cache与一体cache</p>
+<p>Cache性能与优化</p>
+<p>Cache性能计算</p>
+<p>Cache性能优化</p>
+<p>主存储器与虚拟存储器</p>
+<p>主存储器性能优化</p>
+<p>虚拟存储器</p>
+<p>虚拟存储器与cache综合的地址计算</p>
+<p>本章小结</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本复习笔记基于叶老师的课堂PPT，供自己期末复习与学弟学妹参考用。</p>
+<hr>
+<h3 id="重点一览"><a href="#重点一览" class="headerlink" title="重点一览"></a>重点一览</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png"></p>
+<hr>
+<h3 id="Cache基本原理"><a href="#Cache基本原理" class="headerlink" title="Cache基本原理"></a>Cache基本原理</h3><h4 id="三种映像方式"><a href="#三种映像方式" class="headerlink" title="三种映像方式"></a>三种映像方式</h4><ul>
+<li>直接映像 <ul>
+<li>块只能放在Cache中唯一的位置</li>
+</ul>
+</li>
+<li>全相联 <ul>
+<li>块可以放在Cache中的任意位置</li>
+</ul>
+</li>
+<li>组相联 <ul>
+<li>块能够放在Cache一组中任意一块位置</li>
+<li>如果一组有n块，则Cache称为n路组相联</li>
+</ul>
+</li>
+</ul>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/0346715f4d8f.png"></p>
+<h4 id="物理地址与Cache地址的映射计算"><a href="#物理地址与Cache地址的映射计算" class="headerlink" title="物理地址与Cache地址的映射计算"></a>物理地址与Cache地址的映射计算</h4><p><strong>物理地址的格式</strong></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/c0eaec8c4d1b.png"></p>
+<ul>
+<li>索引 Index 字段选择 <ul>
+<li>在直接映像Cache中，选择块</li>
+<li>在组相联Cache中，选择组</li>
+<li>索引位数： log2(#块数) ——直接映像caches </li>
+<li>log2(#组数) ——组相联caches</li>
+</ul>
+</li>
+<li>字节位移量 Byte Offset 字段选择 <ul>
+<li>块中的某个字节</li>
+<li>位数： log2(块字节数)</li>
+</ul>
+</li>
+<li>标识Tag 用于查找在Cache或一组中的匹配块（即相同的块） <ul>
+<li>位数：物理地址位数 – 索引位数 – 块内偏移位数</li>
+</ul>
+</li>
+</ul>
+<p>例题：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/e8e842595fc1.png"></p>
+<h4 id="Cache块标识"><a href="#Cache块标识" class="headerlink" title="Cache块标识"></a>Cache块标识</h4><blockquote>
+<p>Cache的每个块都有一个标识 tag ：存放CPU访问数据所在块的主存物理地址中的高位部分（主存多块映射到cache一块）</p>
+<p>当CPU访问cache时，将<strong>比较主存地址与cache tag</strong> -—-如果两者相同，表示cache命中即数据在cache中</p>
+<p>通常，每个cache块还有一位有效位 valid bit ：表示cache块的内容是否有效</p>
+</blockquote>
+<h4 id="Cache替换算法"><a href="#Cache替换算法" class="headerlink" title="Cache替换算法"></a>Cache替换算法</h4><p>块替换（Cache缺失时）</p>
+<p>直接映像 cache，仅有唯一的一块能够被替换 对于组相联和全相联 caches，则有N块替换位置（ N是相联度）</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/fcb6d7c22123.png"></p>
+<p><strong>3种替换策略</strong></p>
+<ol>
+<li>随机替换 –— 随机选择被替换的一块。硬件容易实现，需要随机数产生器；均匀使用一组中的各块；可能替换即将被访问的那一块</li>
+<li>最近最少使用 (LRU)——选择一组中最近最少被访问的块作为被替换块。假定最近被访问的块很可能会一再访问；Cache中需要额外的位记录访问历史</li>
+<li>先进先出(FIFO)——选择一组中最先进入cache的一块 作为被替换块</li>
+</ol>
+<h4 id="Cache写策略"><a href="#Cache写策略" class="headerlink" title="Cache写策略"></a>Cache写策略</h4><ul>
+<li>如果数据<strong>写cache的同时也写主存</strong> ，cache被称为<strong>写直达</strong> （write-through cache） <ul>
+<li>Cache中的数据<strong>可以随时丢弃</strong> ——主存中有最新的数据</li>
+<li>Cache 控制位：只<strong>需要一位 valid</strong> bit（是否包含有效信息：“1”时表示该目录表项有效）</li>
+<li>主存（或其他处理器）总是有最新的数据</li>
+<li><strong>写停顿</strong> ：采用写直达策略，<strong>CPU必须等待写操作完成</strong></li>
+<li><strong>写缓冲</strong> ：一个小缓冲区，存放等待写入主存的几个值。 为了避免等待，很多CPU都使用一个写缓冲。 在写操作集中时，这个缓冲很有作用。 它不能完全消除停顿。例如：如果写的<strong>数据量大于缓冲区， 就可能产生停顿</strong> 。</li>
+</ul>
+</li>
+<li>如果数据<strong>写cache时不写主存</strong> ，cache被称为<strong>写回</strong> （write-back cache） <ul>
+<li><strong>不能丢弃cache</strong> 中的数据——可能需要写回到主存</li>
+<li>Cache 控制位：<strong>需要 valid位 和dirty 位</strong> （是否被修改：dirty为”1“时表示该块修改过）</li>
+<li>带宽较小，因为对同一块的多次写仅需要对主存写一次</li>
+</ul>
+</li>
+<li>写直达优点：读缺失不会导致替换时的写操作，保持了<strong>数据一致性，实现简单</strong> 。</li>
+<li>写回优点：写cache的<strong>速度更快，主存带宽更低</strong> 。</li>
+<li><strong>写缺失</strong> ：对cache进行写时，如果要写的块不在cache，有两种策略选择： <ul>
+<li><strong>写分配</strong> （Write allocate） 写失效时，把所写单元所在的块<strong>调入Cache（对应写回）</strong> ，然后再进行写命中操作。这与读失效类似。</li>
+<li><strong>不按写分配</strong> Write around (no write allocate) 写失效时，直接将值写入下一级存储器而不将相应的块调入Cache。 <strong>写的值不在cache中（在主存中，所以对应写直达）</strong> 。</li>
+<li>通常，写回caches采用写分配；</li>
+<li>写直达caches采用不按写分配。</li>
+</ul>
+</li>
+</ul>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/6f4d7bed404a.png"></p>
+<h4 id="分离cache与一体cache"><a href="#分离cache与一体cache" class="headerlink" title="分离cache与一体cache"></a>分离cache与一体cache</h4><p>一体cache：所有存储访问都是对单个 cache进行的。 需要较少的硬件；性能更低</p>
+<p>分离的指令cache与数据cache：指令与数据存放在不同的 cache中；需要额外的硬件 </p>
+<hr>
+<h3 id="Cache性能与优化"><a href="#Cache性能与优化" class="headerlink" title="Cache性能与优化"></a>Cache性能与优化</h3><h4 id="Cache性能计算"><a href="#Cache性能计算" class="headerlink" title="Cache性能计算"></a>Cache性能计算</h4><p><strong>缺失率</strong> ：Cache访问中，访问缺失次数占访问总次数的百分比。</p>
+<p><strong>缺失代价</strong> ：Cache访问缺失时，访问下一级存储器所花费的时间，通常用时钟周期数表示。</p>
+<p><strong>CPU 执行时间</strong> &#x3D;（ CPU 时钟周期数 + 存储器停顿周期数）×时钟周期时间 ①</p>
+<p>存储器停顿时钟周期数 &#x3D; 指令数 ×每条指令访存次数× 缺失率× 缺失代价 ②</p>
+<p>将②带入①可得：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7f8b1cd49617.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cdc228153372.png"></p>
+<p><strong>平均存储器访问时间</strong> ：<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/0a175d093f51.png"></p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="Cache性能优化"><a href="#Cache性能优化" class="headerlink" title="Cache性能优化"></a>Cache性能优化</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/ea42fc6ab3ff.png"></p>
+<p>因此，17种 cache 优化措施分为4类：</p>
+<p>1.减少缺失率 – 4 </p>
+<p>——增加块大小，增大 cache 容量，更高相联度，编译优化</p>
+<p>2.减少缺失代价 – 5 </p>
+<p>——多级 caches，关键字优先，读缺失优于写缺失，合并写缓冲，牺牲缓冲</p>
+<p>3. 通过并行减少缺失代价和缺失率–3 </p>
+<p>——非阻塞 caches，硬件预取，编译预取 </p>
+<p>4. 减少cache的命中时间 – 5 </p>
+<p>——小和简单的 caches，避免地址转换，流水线 cache 访问，路预测，踪迹 caches </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/957f852276a9.png"></p>
+<p><strong>减少缺失率</strong></p>
+<p>缺失产生的原因</p>
+<blockquote>
+<p>强制缺失—第1次访问一个块，它一定不在cache中，因此这一块必须被装入cache。这也称为冷启动缺失或首次访问缺失。 （甚至在一个无限 Cache中也有强制缺失）</p>
+<p>容量缺失—如果 cache容纳不了一个执行程序的所有块，由于一些块被替换出去后又要被访问引起容量缺失。</p>
+<p>冲突缺失—如果块放置策略是组相联或直接映像，如果有太多块映射到一组，一块可能被替换后又要被访问从而引起冲突缺失（除了强制和容量缺失外）也称为碰撞缺失或干涉缺失。</p>
+<p>①强制性缺失与Cache大小无关。</p>
+<p>②容量缺失随容量增加而减少，与相联度无关。</p>
+<p>③相联度越高，冲突失效就越少。 </p>
+<p>④ 2:1的Cache经验规则，即大小为N的直接映象Cache的缺失率约等于大小为N&#x2F;2的两路组相联Cache的缺失率。</p>
+</blockquote>
+<p>方法一：增大块容量</p>
+<ul>
+<li>方法 <ul>
+<li>更大的块减小了强制缺失率（更大的块容量意味着第一次装入的块数就少了），这是利用了空间局部性。</li>
+</ul>
+</li>
+<li>绘制的曲线是 U-形的 <ul>
+<li>可能会增加缺失代价，这是由于每次缺失需要取更多的数据。几乎会确定增加冲突缺失，这是因为cache中的块数更少。在小容量cache，甚至可能增加容量缺失。</li>
+<li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/ba57ff7f11c2.png"></li>
+</ul>
+</li>
+<li>权衡 <ul>
+<li>试图既要减小缺失率也要减小缺失代价。块容量的选择取决于下一级存储器的延迟和带宽。</li>
+</ul>
+</li>
+</ul>
+<p>方法二：增大cache容量</p>
+<ul>
+<li>增大cache容量减小了容量缺失和冲突缺失</li>
+<li>缺点：更长的命中时间；更高的价格</li>
+</ul>
+<p>方法三：更高的相联度</p>
+<ul>
+<li>方法 <ul>
+<li>对于低相联度（尤其是直接映像）cache，冲突缺失是一个问题。</li>
+<li>更高相联度减少了冲突缺失，从而改善了缺失率。</li>
+</ul>
+</li>
+<li>Cache经验法则：2:1 经验法则 <ul>
+<li>一个容量为 N直接映像cache与容量为 N&#x2F;2的2-路组相联cache具有相同的缺失率。</li>
+<li>从实用角度，8路组相联cache与相同容量全相联cache有效减少冲突缺失效果几乎相当</li>
+</ul>
+</li>
+<li>必须意识到：执行时间是唯一最终的评价指标！ 时钟周期时间与命中时间紧密相关。</li>
+</ul>
+<p>方法四：编译器优化</p>
+<ul>
+<li>方法 <ul>
+<li>无需修改硬件、利用编译器对指令程序、数据重排序就可以减小缺失率。</li>
+</ul>
+</li>
+<li>指令 <ul>
+<li>如，编译器预测转移发生，可以将转移目标基本块与转移指令后的基本块互换</li>
+</ul>
+</li>
+<li>数据 <ul>
+<li>合并数组：将二个连续数组合并为一个数组，改善空间和时间局部性</li>
+<li>循环交换：改变嵌套循环顺序以便按照数据的存储顺序来访问数据</li>
+<li>循环融合：将有相同循环和一些变量重叠的2个独立循环组合成一个循环</li>
+<li>分块：利用重复访问数据“块”（相对于整列或整行访问）改善空间局部性</li>
+</ul>
+</li>
+</ul>
+<p><strong>减少缺失代价</strong></p>
+<p>缺失代价是由于访问目标不在Cache中而从存储器中替换该块所花费的时间。</p>
+<p>方法一：多级Caches</p>
+<ul>
+<li>方法</li>
+<li>在一个小而快的一级cache与主存之间增加一个二级 cache <ul>
+<li>帮助满足 cache 快而大</li>
+</ul>
+</li>
+<li>一级 cache ： <ul>
+<li>一级 cache 是快得足够匹配CPU的时钟周期时间，而且小的可以与CPU做在一块芯片上，从而减少命中时间。</li>
+</ul>
+</li>
+<li>二级 cache： <ul>
+<li>更大的二级cache大得足以捕捉很多本该到主存的访问，从而有效地减少缺失代价。</li>
+<li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/4cc2d3a3f582.png">（局部缺失率）</li>
+<li>一级cache缺失代价实际上是二级cache的平均访存时间</li>
+<li>全局缺失率L1和局部缺失率相同；全局缺失率L2&#x3D;局部缺失率L1*局部缺失率L2</li>
+</ul>
+</li>
+</ul>
+<p>方法二：关键字优先和提前重启动（关键字优先）</p>
+<ul>
+<li>方法 <ul>
+<li>CPU只需要块中的一个字，不要等到取到整个块后才重新启动CPU（缺失代价就是读取关键字的代价）</li>
+<li>关键字优先—首先从存储器请求缺失的字并尽可能快地送到CPU；让CPU继续执行同时填放块中的其余字。</li>
+</ul>
+</li>
+<li>提前重启动— 以正常顺序取块，只要块中所请求的字到达，就送到CPU，让CPU继续执行。 <ul>
+<li>通常用在大块中</li>
+<li>空间局部性 &#x3D;&gt; 趋向于将需要下一个连续的字，应该说提前重启动是有利的</li>
+</ul>
+</li>
+</ul>
+<p>方法三：读缺失的优先级高于写缺失（读缺失优先）</p>
+<ul>
+<li>方法 <ul>
+<li>如果系统有写缓冲，写操作能够延迟到读后。</li>
+<li>但是，系统必须小心检查写缓冲中是否有读缺失要读的值。</li>
+</ul>
+</li>
+<li><strong>写直达</strong><ul>
+<li>当读缺失产生读主存时，有可能要读的数据在写缓冲中，还没有写入主存： </li>
+<li>数据在写缓冲中&#x3D;&gt; RAW 冒险</li>
+<li>解决办法： 如果简单等待写缓冲空，可能增加读缺失代价。可以在读之前<strong>检查写缓冲数据：如果没有冲突，让读主存优先</strong> 。</li>
+</ul>
+</li>
+<li><strong>写回</strong><ul>
+<li>读缺失替换脏块 </li>
+<li>通常操作：写脏块到主存，然后进行读操作。 </li>
+<li>如果有写缓冲：复制脏块到写缓冲，然后<strong>先读，再写</strong> 。 有读缺失时，也要<strong>检查写缓冲，看地址是否有冲突</strong> ，没有则可以读缺失优先。</li>
+</ul>
+</li>
+</ul>
+<p>方法四：合并写缓冲</p>
+<ul>
+<li>方法 <ul>
+<li>用写多个字代替写一个字，可以改善写缓冲的效率。</li>
+</ul>
+</li>
+<li>写直达，如果写缓冲包含其他修改的块，检查新数据的地址是否与写缓冲中的其他有效项地址匹配。<strong>如果匹配，新数据合并到那一项中</strong> 。</li>
+<li><strong>合并写优化技术有时可以减少写缓冲满时导致的停顿</strong> 。</li>
+</ul>
+<p>方法五：牺牲缓存（牺牲cache）</p>
+<ul>
+<li>方法 <ul>
+<li>牺牲缓存是一个小的全相联 cache，它<strong>存放几个最近被替换出的块</strong> 。 该技术常见<strong>并非必须</strong> 。</li>
+</ul>
+</li>
+<li>在发生缺失要访问下一级存储器以前，<strong>先检查牺牲cache</strong> ： <ul>
+<li>看是否有缺失的数据</li>
+<li>如果有，交换牺牲块与 cache 块。</li>
+</ul>
+</li>
+</ul>
+<p><strong>利用并行减少 Cache 缺失代价或缺失率</strong></p>
+<p>方法一：非阻塞cache减少cache缺失停顿（非阻塞cache）</p>
+<p>非阻塞cache：当等待取数据返回的同时，Cache并不停止，而是可以继续提供指令和数据</p>
+<ul>
+<li>方法 <ul>
+<li>减少缺失代价</li>
+<li>乱序执行的流水线处理器，在Cache缺失停顿时，仍然可以执行其他无关指令。</li>
+<li>非阻塞cache（无锁 cache）：在处理读缺失过程中，允许cache 继续提供命中（“缺失下命中”，“多重缺失下命中”）。</li>
+<li>非阻塞Cache通过重叠存储器访问和执行时间有效地降低了缺失代价；（处理器在等待数据Cache返回数据时，可以继续从指令Cache中取指令）</li>
+<li>复杂 caches 甚至能够重叠多个缺失（ “缺失下缺失”），将进一步有效地降低缺失代价。</li>
+</ul>
+</li>
+</ul>
+<p>方法二：指令和数据的硬件预取</p>
+<ul>
+<li>方法 <ul>
+<li>减少缺失</li>
+<li>在CPU实际需要访存数据以前，提前从主存取数据。</li>
+<li>在产生访存请求之前获取数据可减少强制缺失。</li>
+<li>可能增加其他缺失，如从cache中移走了有用的块。 <ul>
+<li>因此，很多 caches 会增加一个特殊的缓冲器中保存预取的块</li>
+</ul>
+</li>
+<li>例如：指令预取 <ul>
+<li>缺失时先访问流缓冲器，命中读出该块，发下一块预取请求； 如不命中，则从下级存储器取该块和下一块到Cache和流缓冲器</li>
+</ul>
+</li>
+<li>预取与CPU执行可以同时进行</li>
+</ul>
+</li>
+</ul>
+<p>方法三：编译器控制的预取</p>
+<p>方法</p>
+<p>减少缺失</p>
+<ul>
+<li>编译器插入<strong>预取指令</strong> 请求数据（在实际使用这些数据之前）</li>
+<li>有两种预取方式： <ul>
+<li><strong>捆绑</strong> 预取Binding prefetch：请求预取的值<strong>直接装入寄存器</strong> 。</li>
+<li><strong>非捆绑</strong> 预取：将数据<strong>预取到cache</strong> ，不放入寄存器。</li>
+</ul>
+</li>
+<li>通常特殊的预取指令<strong>不会引起异常</strong> ：一种特殊的执行形式</li>
+<li>发射执行预取指令需要花费时间 <ul>
+<li>预取产生的开销 &lt; 减少缺失节省的开销？</li>
+<li>超标量支持多指令发射有助于提高预取指令执行效率</li>
+</ul>
+</li>
+</ul>
+<p><strong>减少Cache命中时间</strong></p>
+<p>方法一：小和简单的Caches</p>
+<ul>
+<li>方法 <ul>
+<li>使用小的和直接映像 cache</li>
+</ul>
+</li>
+<li>实现一个cache必要的硬件越少，通过硬件的关键路径就越短。</li>
+<li><strong>直接映像无论是读还是写都快于组相联cache</strong></li>
+<li>命中的cache与CPU在同一芯片上，对于加快访问时间是非常重要的</li>
+</ul>
+<p>方法二：在cache索引时避免地址转换（避免地址转换）</p>
+<ul>
+<li><p>传统物理地址Cache存在的问题：地址转换。</p>
+</li>
+<li><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/9c938e4fe816.png"></p>
+</li>
+<li><p>CPU使用虚拟地址VA，Cache使用物理地址PA。页表在主存中，是一个大的数据结构。从主存取数据、存结果、取指令，需要2次访问主存！</p>
+</li>
+<li><p>一种快速地址转换的方式是使用一个特殊的缓存cache 存放最近用过的页表项 </p>
+<ul>
+<li>最常用的名字为 **Translation Lookaside Buffer or TLB **</li>
+<li><strong>TLB实际上是页表映射的一个cache</strong></li>
+<li><strong>TLB 的访问时间与cache 访问时间相当 (大大少于主存访问时间)</strong></li>
+<li><strong>类似于 cache，TLB 可以采用全相联、组相联、直接映像组织结构。</strong></li>
+<li><em><em>TLBs 通常是小的，</em> 在高端机器中典型大小不超过 128 - 256 项，采用全相联结构来检索；</em> 中档机器采用小的n-路组相联结构。**</li>
+<li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/330abdb6d378.png"></li>
+</ul>
+</li>
+<li><p>避免VA-PA地址转换的方法 </p>
+<ul>
+<li>Cache 也可以使用虚拟地址 <ul>
+<li>一个 cache 用虚拟地址检索称为虚拟 cache （ 相对于物理 cache ）。</li>
+</ul>
+</li>
+<li>虚拟索引物理标识：地址转换与cache访问并行进行，可以减少命中时间。 <ul>
+<li>避免索引时的地址转换</li>
+<li>虚拟索引也是物理地址的一部分，用索引访问cache与VA转换能够并行执行，则其后可以将通过TLB转换得到的物理 tag与访问cache获得的物理tag进行比较，如果相等，则Cache命中（即在Cache中能找得到）</li>
+<li>限制 cache不超过页大小： 采用该方法而cache更大怎么办？ <ul>
+<li>更高的相联度；页着色：同义地址的低位相同</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>虚拟cache虚拟标识 ：在命中时，不需要从虚拟地址转换为物理地址。 <ul>
+<li>同义问题：OS与用户程序使用不同的虚拟地址可能映射到同一物理地址，导致两个Cache副本</li>
+<li>每次进程切换时，逻辑上必须刷新cache，否则会假命中 <ul>
+<li>代价：刷新时间 + 来自空cache的“强制”缺失</li>
+<li>解决方法：增加tag宽度，加上进程标识符PID识别进程</li>
+</ul>
+</li>
+<li>处理别名或同义synonyms： 两个不同VA映射到同一个PA <ul>
+<li>硬件别名消去：保证每个cache块有唯一的地址</li>
+<li>软件方法：让所有别名地址的低位相同（称为页着色 page coloring）</li>
+</ul>
+</li>
+<li>I&#x2F;O 与cache交互：I&#x2F;O一般使用物理地址，因此需要将PA映射为VA</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>方法三：流水线化Cache访问</p>
+<ul>
+<li>方法 <ul>
+<li>写命中比读命中花费更长时间，因为在检查标识后才能写入数据。</li>
+<li>将写操作分为两步： <ul>
+<li>第1步标识检查</li>
+<li>第2步写数据</li>
+<li>本次写的第2步与下次标识比较的第1步同时进行。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>方法四：路预测</p>
+<ul>
+<li>路预测：针对组相联</li>
+<li>在cache中预留特殊的位，用来预测下一次访问cache可能在组中会用到的路或块。</li>
+<li>减少命中时间，减少功耗</li>
+</ul>
+<p>方法五：踪迹 cache</p>
+<ul>
+<li>踪迹cache：块中是动态指令序列（包括发生分支），而不是限制指令在一个静态cache块中（空间局部性）。</li>
+<li>Cache块中包含了由CPU确定的要执行指令的动态踪迹，而不是仅由存储器确定的静态指令序列。</li>
+<li>转移预测操作需要加入到cache，预测的地址必须单独验证以证明是一次有效的取操作。</li>
+</ul>
+<hr>
+<h3 id="主存储器与虚拟存储器"><a href="#主存储器与虚拟存储器" class="headerlink" title="主存储器与虚拟存储器"></a>主存储器与虚拟存储器</h3><h4 id="主存储器性能优化"><a href="#主存储器性能优化" class="headerlink" title="主存储器性能优化"></a>主存储器性能优化</h4><blockquote>
+<ul>
+<li><strong>主存储器</strong> 是存储层次结构中cache的下一层——也称为<strong>内存</strong></li>
+<li>主存通常采用DRAM，caches采用SRAM。</li>
+<li>主存的性能：延迟Latency ：减小更困难（对cache很重要)；带宽Bandwidth：用新的组织更容易改善带宽（单位 B&#x2F;CLK）（对I&#x2F;O重要）。对于2级cache，可以有更大的块容量。</li>
+<li>本节分析如何组织主存以改善带宽，也减小了缺失代价</li>
+</ul>
+</blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/fb346ce9bbde.png"></p>
+<p>提高带宽方法一：增加主存储器带宽</p>
+<ul>
+<li>双倍或四倍cache与主存之间的带宽</li>
+<li>主存带宽也将增加双倍或四倍 </li>
+<li>Amdahl’提出的经验规律：主存容量应该与CPU速度增长成线性比例</li>
+<li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/9882d30b8faa.png"></li>
+<li>单体多字存储器的性能随着主存宽度的增加而改善，缺失代价减少，带宽增加。</li>
+<li>代价是增加硬件</li>
+</ul>
+<p>提高带宽方法二： 简单交叉存储器</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/aa4f30f4f114.png"></p>
+<blockquote>
+<p>怎么决定是购买交叉存储器还是宽存储器？</p>
+<p>答案：可以通过计算CPI比较不同方案的性能改善。 </p>
+</blockquote>
+<h4 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h4><ul>
+<li>允许执行的一个程序 <ul>
+<li>可以放在不连续的存储位置</li>
+<li>不必全部放在主存中</li>
+</ul>
+</li>
+<li>允许计算机“欺骗”一个程序相信 <ul>
+<li>存储器是连续的</li>
+<li>存储空间比物理存储器更大，提供了很大存储空间的假象</li>
+</ul>
+</li>
+<li>虚拟存储器（VM）重要性 <ul>
+<li>便宜 – 不必买许多RAM</li>
+<li>解脱了程序员管理存储器资源的负担</li>
+<li>允许多道程序设计，分时共享，保护</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>优点</strong></p>
+<p>主存（物理存储器）作为辅助存储器（磁盘）的一个Cache</p>
+<p>具有更大和连续物理存储器的假象</p>
+<p>程序按“页”或“段”重定位</p>
+<p>多道程序中的保护</p>
+<p>虚拟地址：程序员使用的地址</p>
+<p>虚拟地址空间：虚拟地址的集合</p>
+<p>存储器地址：物理存储器中的字地址，也称为“物理地址” 或“实际地址”</p>
+<p>虚拟存储器系统分为两类：</p>
+<p><strong>页—- 固定大小的块 页式虚拟存储器</strong></p>
+<p><strong>段—- 可变大小的块 段式虚拟存储器</strong></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/9d9164db69ea.png"></p>
+<ol>
+<li><strong>映像规则</strong> ：考虑块的高缺失代价和需要更低的缺失率，OS允许块放在主存的任意位置</li>
+<li><strong>查找方法</strong> ：要查找块，段式可在段的物理地址上加上偏移地址就得到物理地址；页式可在物理页地址后简单拼接偏移地址就得到物理地址。 </li>
+<li><strong>替换算法</strong> ：虚拟存储器缺失时，为了最小化页缺失率，几乎所有操作系统都替换最近最少使用（LRU-least-recently used）的块。按照局部性原则，被替换的块正是将来很少可能用到的块。</li>
+<li><strong>写策略</strong> ：执行写操作时，由于访问磁盘代价过高，写策略采用写回方式，并且只有块被修改后才允许写回磁盘</li>
+</ol>
+</blockquote>
+<p>快速地址转换技术</p>
+<ul>
+<li>页表存放主存中： <ul>
+<li>页表很大，可能分页；</li>
+<li>从主存取数据、存结果、取指令，至少需要2次访问主存： <ul>
+<li>一次按虚拟地址访存从页表获得物理地址，二次访存获得数据。</li>
+</ul>
+</li>
+<li>访存时间太长！减少虚拟地址转换为物理地址的时间。</li>
+</ul>
+</li>
+<li>解决方法： <ul>
+<li>使用一个特殊的cache，存放最近用过的页表项 。这个cache就是TLB（ Translation Lookaside Buffer ）变换旁路缓冲器。</li>
+</ul>
+</li>
+</ul>
+<h4 id="虚拟存储器与cache综合的地址计算"><a href="#虚拟存储器与cache综合的地址计算" class="headerlink" title="虚拟存储器与cache综合的地址计算"></a>虚拟存储器与cache综合的地址计算</h4><p>虚拟地址到物理地址的转换：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/0fa790287690.png"></p>
+<p><strong>例题</strong></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/d422d886ff45.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/acf99b52182e.png"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/455e4eb0087d.png"></p>
+<p>如果一级Cache缺失，物理地址将继续用于二级Cache访问 </p>
+<hr>
+<h3 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h3><ul>
+<li>Cache存储器的三种映像方式（全相联、直接映像，组相联）</li>
+<li>物理地址与Cache地址的映射计算</li>
+<li>Cache的映像规则，块标识，替换算法，写策略，性能计算</li>
+<li>Cache性能优化的方法（减少缺失率4种，减少缺失代价5种，减少缺失率或缺失代价3种，减少命中时间5种）</li>
+<li>存储器层次结构概念，CPU—Cache—主存之间的信息访问单位</li>
+<li>Cache的映像规则，块标识，替换算法，写策略</li>
+<li>Cache性能优化的方法，减少缺失率4种，减少缺失代价5种，减少缺失率或缺失代价3种，减少命中时间5种</li>
+<li>主存增加带宽（减少缺失代价）：增加主存宽度，简单交叉存储器</li>
+<li>页式虚拟存储器，TLB原理及基本结构，一级Cache采用虚拟索引的VM如何实现虚拟地址转换为物理地址</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/">https://your-domain.com/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">复习笔记</a><a class="post-meta__tags" href="/tags/%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/">存储系统</a><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84/">系统结构</a><a class="post-meta__tags" href="/tags/Cache/">Cache</a><a class="post-meta__tags" href="/tags/%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8/">虚拟存储器</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/06/05/en/UESTC-CA-Homework/" title="UESTC Computer Architecture: Homework Solutions"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">UESTC Computer Architecture: Homework Solutions</div></div><div class="info-2"><div class="info-item-1"> This article was migrated from CSDN blogOriginal link: UESTC Computer Architecture: Homework Solutions📊 2671 views | 👍 17 likes | 💬 0 comments | ⭐ 35 favorites  Computer Architecture Homework SolutionsChapter 1-2 Homework1. Describe the characteristics of the four types of computer system architectures in Flynn’s classification. Answer: Flynn classifies computer system architectures into four categories based on different combinations of instruction streams and data streams:  SISD (Single...</div></div></div></a><a class="pagination-related" href="/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/" title="电子科技大学计算机系统结构复习笔记（三）：流水线技术"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/16b1d84d8492.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（三）：流水线技术</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（三）：流水线技术📊 5386 阅读 | 👍 14 点赞 | 💬 2 评论 | ⭐ 41 收藏  目录 前言 重点一览 流水线定义 基本概念 流水线分类 流水线特点 流水线时空图 流水线性能分析 流水线特点  经典5段流水线RISC处理器  流水线的三种冒险 冒险分类 停顿流水线 结构冒险 数据冒险 控制冒险 流水线处理机的指令系统 流水线指令系统与格式 流水线各级间的寄存器作用（看图理解） 流水线各级的操作（看图理解）  无相关流水线模型机多条指令执行过程（一例，看图理解）  流水线控制信号 数据前推与load前推  相关（冒险）小结 流水线异常与浮点流水线 流水线异常 异常原因 异常可能的阶段 停止和重新开始执行（MIPS） 精确中断（精确异常） 非精确中断（非精确异常） 精确异常和非精确异常 经典5段流水线扩展浮点流水线 浮点流水线的写冲突 浮点流水线数据相关 异常处理 本章小结  前言本复习笔记基于叶老师的课堂PPT，供自己期末复习与学弟学妹参考用。  重点一览  流水线定义基本概念流水线是利用执行...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/" title="电子科技大学计算机系统结构复习笔记（三）：流水线技术"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/16b1d84d8492.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-05</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（三）：流水线技术</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（三）：流水线技术📊 5386 阅读 | 👍 14 点赞 | 💬 2 评论 | ⭐ 41 收藏  目录 前言 重点一览 流水线定义 基本概念 流水线分类 流水线特点 流水线时空图 流水线性能分析 流水线特点  经典5段流水线RISC处理器  流水线的三种冒险 冒险分类 停顿流水线 结构冒险 数据冒险 控制冒险 流水线处理机的指令系统 流水线指令系统与格式 流水线各级间的寄存器作用（看图理解） 流水线各级的操作（看图理解）  无相关流水线模型机多条指令执行过程（一例，看图理解）  流水线控制信号 数据前推与load前推  相关（冒险）小结 流水线异常与浮点流水线 流水线异常 异常原因 异常可能的阶段 停止和重新开始执行（MIPS） 精确中断（精确异常） 非精确中断（非精确异常） 精确异常和非精确异常 经典5段流水线扩展浮点流水线 浮点流水线的写冲突 浮点流水线数据相关 异常处理 本章小结  前言本复习笔记基于叶老师的课堂PPT，供自己期末复习与学弟学妹参考用。  重点一览  流水线定义基本概念流水线是利用执行...</div></div></div></a><a class="pagination-related" href="/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/" title="电子科技大学计算机系统结构：课后作业"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-06</div><div class="info-item-2">电子科技大学计算机系统结构：课后作业</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构：课后作业📊 2671 阅读 | 👍 17 点赞 | 💬 0 评论 | ⭐ 35 收藏  计算机体系结构作业答案 第一二章作业 1.试述Flynn 分类的4 种计算机系统结构有何特点。 参考答案： Flynn按照指令流和数据流两种不同的组合，把计算机系统的结构分为以下4 类： （1）单指令流单数据流SISD（Single Instruction Stream Single Datastream），SISD 是传统的顺序处理计算机； （2）单指令流多数据流SIMD（Single Instruction Stream Multiple Datastream），SIMD 以阵列处理机为代表； （3）多指令流单数据流MISD（Multiple Instruction Stream Single Datastream），MISD 实际代表何种计算机，存在着不同的看法； （4）多指令流多数据流MIMD（Multiple Instruction Stream Multiple Datastream），多处理机与多计算机系统属于M...</div></div></div></a><a class="pagination-related" href="/2023/06/02/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/" title="电子科技大学计算机系统结构复习笔记（二）：指令系统"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/b11fc38cc0a7.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-03</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（二）：指令系统</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（二）：指令系统📊 2199 阅读 | 👍 4 点赞 | 💬 1 评论 | ⭐ 21 收藏  目录 前言 重点一览 指令集系统结构（ISA）的分类 分类依据 存储结构 区别 图示 通用寄存器系统结构分类 存储器寻址 概述 寻址方式 MIPS寻址模式 小结 操作数类型 指令操作 与指令编码 常用操作数类型 常用指令系统的操作 常用指令系统编码方式 MIPS系统结构 概述 MIPS寄存器 MIPS的数据类型 MIPS数据传输的寻址方式 MIPS的指令格式 MIPS操作  了解：谬误与易犯的错误 本章小结  前言本复习笔记基于叶老师的课堂PPT，供自己期末复习与学弟学妹参考用。  重点一览  指令集系统结构（ISA）的分类分类依据处理器内部数据的存储结构 存储结构堆栈、累加器、通用寄存器 区别 堆栈 系统结构中操作数隐含 的位于栈顶 累加器 系统结构中的一个隐含 操作数就是累加器 通用寄存器 结构系统中只能明确 的指定操作数，不是寄存器就是存储器地址  图示  (a)中，栈顶寄存器（TOS）指向堆栈顶部的输入操作...</div></div></div></a><a class="pagination-related" href="/2023/06/01/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E8%BF%B0/" title="电子科技大学计算机系统结构复习笔记（一）：概述"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E8%BF%B0/0e0baf20a0b1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-02</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（一）：概述</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（一）：概述📊 2684 阅读 | 👍 6 点赞 | 💬 1 评论 | ⭐ 33 收藏  目录 前言 重点一览 计算机分类 弗林分类法 市场分类 计算机系统结构定义 实现技术\功耗\成本的趋势\可靠性(了解)  计算机性能 性能评价指标 性能评价方法 计算机设计的量化原则 基本方法 Amdahl‘s 定律 CPU 性能公式 &#x2F; 时间计算 本章小结  前言本复习笔记基于叶老师的课堂PPT和复习提纲，供自己期末复习与学弟学妹参考用。  重点一览  计算机分类弗林分类法定义 ：基于指令流和数据流数量的计算机结构分类 内容 ：  SISD  Single instruction: 在任一时钟周期只有单个指令流在CPU执行 Single data: 在任一时钟周期只有单个数据流用作输入 例子: 串行计算机   MISD  每个处理单元用多个指令流对单个数据进行独立操作 单个数据流进入多个处理单元。 例子: 很少有这类计算机的实例   SIMD  例子: 适用于处理高度规整操作的问题，如图像处理   MIMD...</div></div></div></a><a class="pagination-related" href="/2023/06/11/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4/" title="电子科技大学编译原理复习笔记（十）：存储空间"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4/4443677910c3.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="info-item-2">电子科技大学编译原理复习笔记（十）：存储空间</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学编译原理复习笔记（十）：存储空间📊 541 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 6 收藏     </div></div></div></a><a class="pagination-related" href="/2023/02/11/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="电子科技大学操作系统期末复习笔记（一）：操作系统概述"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-12</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（一）：操作系统概述</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（一）：操作系统概述📊 2672 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 50 收藏  目录 前言 操作系统概述 操作系统的目标与功能 操作系统的定义 目标 功能 操作系统的历史 单用户系统 简单批处理系统 多道批处理系统 分时系统 个人电脑 → 分布式系统 → 互联网时代 → 移动计算时代 → …… 实时系统 操作系统的基本特征 并发 共享 虚拟 不确定性 操作系统的体系结构 无结构操作系统 模块化系统结构 分层式系统结构 操作系统安全 内存 信息保护和安全  前言本复习笔记基于电子科技大学计算机操作系统-教学大纲（2022）中的课程模块部分，分为五大章节，分别是：   CM1： 操作系统概念。操作系统基本功能、操作系统发展历史及趋势、操作系统主流架构、常见操作系统特点、操作系统安全机制。  CM2： 进程管理。进程概念、线程概念、进程生命周期、进程调度算法、进程同步互斥、进程间通信和死锁。  CM3： 内存管理。内存空间的概念、连续分配、离散分配（分页管理、分段管理、段页式管理）、虚拟存储管理...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E4%B8%80%E8%A7%88"><span class="toc-number">2.</span> <span class="toc-text">重点一览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">Cache基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E6%98%A0%E5%83%8F%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">三种映像方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%E4%B8%8ECache%E5%9C%B0%E5%9D%80%E7%9A%84%E6%98%A0%E5%B0%84%E8%AE%A1%E7%AE%97"><span class="toc-number">3.2.</span> <span class="toc-text">物理地址与Cache地址的映射计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E5%9D%97%E6%A0%87%E8%AF%86"><span class="toc-number">3.3.</span> <span class="toc-text">Cache块标识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">3.4.</span> <span class="toc-text">Cache替换算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E5%86%99%E7%AD%96%E7%95%A5"><span class="toc-number">3.5.</span> <span class="toc-text">Cache写策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%A6%BBcache%E4%B8%8E%E4%B8%80%E4%BD%93cache"><span class="toc-number">3.6.</span> <span class="toc-text">分离cache与一体cache</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">Cache性能与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97"><span class="toc-number">4.1.</span> <span class="toc-text">Cache性能计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">4.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">4.3.</span> <span class="toc-text">Cache性能优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text">主存储器与虚拟存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">5.1.</span> <span class="toc-text">主存储器性能优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.2.</span> <span class="toc-text">虚拟存储器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8Ecache%E7%BB%BC%E5%90%88%E7%9A%84%E5%9C%B0%E5%9D%80%E8%AE%A1%E7%AE%97"><span class="toc-number">5.3.</span> <span class="toc-text">虚拟存储器与cache综合的地址计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">本章小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

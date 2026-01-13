@@ -1,0 +1,719 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UESTC Computer Architecture Review Notes (4): Memory System | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents Cache FundamentalsCache Performance and OptimizationMain Memory and Virtual MemoryChapter Summary  Key Points Overview  Cache FundamentalsThree Mapping Methods Direct Mapping: Block">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UESTC Computer Architecture Review Notes (4): Memory System">
+<meta property="og:url" content="https://your-domain.com/2023/06/04/en/UESTC-CA-Notes-4-Memory-System/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents Cache FundamentalsCache Performance and OptimizationMain Memory and Virtual MemoryChapter Summary  Key Points Overview  Cache FundamentalsThree Mapping Methods Direct Mapping: Block">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png">
+<meta property="article:published_time" content="2023-06-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-04T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="cache">
+<meta property="article:tag" content="memory-system">
+<meta property="article:tag" content="review-notes">
+<meta property="article:tag" content="system-architecture">
+<meta property="article:tag" content="virtual-memory">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "UESTC Computer Architecture Review Notes (4): Memory System",
+  "url": "https://your-domain.com/2023/06/04/en/UESTC-CA-Notes-4-Memory-System/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png",
+  "datePublished": "2023-06-04T15:00:00.000Z",
+  "dateModified": "2023-06-04T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/06/04/en/UESTC-CA-Notes-4-Memory-System/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UESTC Computer Architecture Review Notes (4): Memory System',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">UESTC Computer Architecture Review Notes (4): Memory System</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">UESTC Computer Architecture Review Notes (4): Memory System</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-06-04T15:00:00.000Z" title="Created 2023-06-05 00:00:00">2023-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-06-04T15:00:00.000Z" title="Updated 2023-06-05 00:00:00">2023-06-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Review-Notes/">Review Notes</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>7mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-06-05 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>Cache Fundamentals<br>Cache Performance and Optimization<br>Main Memory and Virtual Memory<br>Chapter Summary</p>
+<hr>
+<h2 id="Key-Points-Overview"><a href="#Key-Points-Overview" class="headerlink" title="Key Points Overview"></a>Key Points Overview</h2><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png"></p>
+<hr>
+<h2 id="Cache-Fundamentals"><a href="#Cache-Fundamentals" class="headerlink" title="Cache Fundamentals"></a>Cache Fundamentals</h2><h3 id="Three-Mapping-Methods"><a href="#Three-Mapping-Methods" class="headerlink" title="Three Mapping Methods"></a>Three Mapping Methods</h3><ul>
+<li><strong>Direct Mapping</strong>: Block can only be placed in one unique cache location</li>
+<li><strong>Fully Associative</strong>: Block can be placed anywhere in cache</li>
+<li><strong>Set Associative</strong>: Block can be placed in any position within a set<ul>
+<li>If a set has n blocks, the cache is called n-way set associative</li>
+</ul>
+</li>
+</ul>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/0346715f4d8f.png"></p>
+<h3 id="Physical-Address-to-Cache-Address-Mapping"><a href="#Physical-Address-to-Cache-Address-Mapping" class="headerlink" title="Physical Address to Cache Address Mapping"></a>Physical Address to Cache Address Mapping</h3><p><strong>Physical Address Format</strong>:</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/c0eaec8c4d1b.png"></p>
+<ul>
+<li><strong>Index field</strong>: Selects block (direct mapping) or set (set associative)<ul>
+<li>Bits: log₂(#blocks) for direct mapping, log₂(#sets) for set associative</li>
+</ul>
+</li>
+<li><strong>Byte Offset field</strong>: Selects byte within block<ul>
+<li>Bits: log₂(block size in bytes)</li>
+</ul>
+</li>
+<li><strong>Tag field</strong>: Used to find matching block in cache or set<ul>
+<li>Bits: physical address bits - index bits - offset bits</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cache-Block-Identification"><a href="#Cache-Block-Identification" class="headerlink" title="Cache Block Identification"></a>Cache Block Identification</h3><ul>
+<li>Each cache block has a <strong>tag</strong>: stores high-order bits of physical address</li>
+<li>When CPU accesses cache, <strong>compare address with cache tag</strong> - match means cache hit</li>
+<li>Each cache block also has a <strong>valid bit</strong>: indicates if block content is valid</li>
+</ul>
+<h3 id="Cache-Replacement-Algorithms"><a href="#Cache-Replacement-Algorithms" class="headerlink" title="Cache Replacement Algorithms"></a>Cache Replacement Algorithms</h3><p>For set associative and fully associative caches:</p>
+<ol>
+<li><strong>Random</strong>: Randomly select block to replace. Easy to implement, may replace soon-needed block</li>
+<li><strong>LRU (Least Recently Used)</strong>: Replace least recently accessed block. Assumes recently accessed blocks will be accessed again</li>
+<li><strong>FIFO (First In First Out)</strong>: Replace oldest block in set</li>
+</ol>
+<h3 id="Cache-Write-Policies"><a href="#Cache-Write-Policies" class="headerlink" title="Cache Write Policies"></a>Cache Write Policies</h3><p><strong>Write-Through</strong>:</p>
+<ul>
+<li>Data written to cache and main memory simultaneously</li>
+<li>Cache data can be discarded anytime (main memory has latest data)</li>
+<li>Only needs valid bit</li>
+<li>Main memory always has latest data</li>
+<li><strong>Write stall</strong>: CPU must wait for write to complete</li>
+<li><strong>Write buffer</strong>: Small buffer holding values waiting to be written to main memory</li>
+</ul>
+<p><strong>Write-Back</strong>:</p>
+<ul>
+<li>Data written only to cache, not main memory</li>
+<li>Cannot discard cache data (may need to write back)</li>
+<li>Needs valid bit and dirty bit</li>
+<li>Lower bandwidth (multiple writes to same block &#x3D; one main memory write)</li>
+</ul>
+<p><strong>Write Miss Policies</strong>:</p>
+<ul>
+<li><strong>Write Allocate</strong>: On write miss, load block into cache, then write (used with write-back)</li>
+<li><strong>Write Around (No Write Allocate)</strong>: On write miss, write directly to main memory (used with write-through)</li>
+</ul>
+<h3 id="Split-vs-Unified-Cache"><a href="#Split-vs-Unified-Cache" class="headerlink" title="Split vs Unified Cache"></a>Split vs Unified Cache</h3><ul>
+<li><strong>Unified cache</strong>: All memory accesses to single cache. Less hardware, lower performance</li>
+<li><strong>Split cache</strong>: Separate instruction and data caches. More hardware, better performance</li>
+</ul>
+<hr>
+<h2 id="Cache-Performance-and-Optimization"><a href="#Cache-Performance-and-Optimization" class="headerlink" title="Cache Performance and Optimization"></a>Cache Performance and Optimization</h2><h3 id="Cache-Performance-Calculation"><a href="#Cache-Performance-Calculation" class="headerlink" title="Cache Performance Calculation"></a>Cache Performance Calculation</h3><p><strong>Miss Rate</strong>: Percentage of cache accesses that miss</p>
+<p><strong>Miss Penalty</strong>: Time to access next level memory on cache miss (in clock cycles)</p>
+<p><strong>CPU Execution Time</strong> &#x3D; (CPU clock cycles + Memory stall cycles) × Clock cycle time</p>
+<p>Memory stall cycles &#x3D; Instructions × Memory accesses per instruction × Miss rate × Miss penalty</p>
+<p><strong>Average Memory Access Time</strong> &#x3D; Hit time + Miss rate × Miss penalty</p>
+<h3 id="Cache-Performance-Optimization"><a href="#Cache-Performance-Optimization" class="headerlink" title="Cache Performance Optimization"></a>Cache Performance Optimization</h3><p>17 optimization techniques in 4 categories:</p>
+<p><strong>1. Reduce Miss Rate (4 methods)</strong>:</p>
+<ul>
+<li>Increase block size</li>
+<li>Increase cache capacity</li>
+<li>Higher associativity</li>
+<li>Compiler optimization</li>
+</ul>
+<p><strong>2. Reduce Miss Penalty (5 methods)</strong>:</p>
+<ul>
+<li>Multi-level caches</li>
+<li>Critical word first</li>
+<li>Read miss priority over write miss</li>
+<li>Merging write buffer</li>
+<li>Victim cache</li>
+</ul>
+<p><strong>3. Reduce Miss Penalty&#x2F;Rate via Parallelism (3 methods)</strong>:</p>
+<ul>
+<li>Non-blocking caches</li>
+<li>Hardware prefetching</li>
+<li>Compiler-controlled prefetching</li>
+</ul>
+<p><strong>4. Reduce Hit Time (5 methods)</strong>:</p>
+<ul>
+<li>Small and simple caches</li>
+<li>Avoid address translation</li>
+<li>Pipelined cache access</li>
+<li>Way prediction</li>
+<li>Trace caches</li>
+</ul>
+<h3 id="Miss-Causes-3-C’s"><a href="#Miss-Causes-3-C’s" class="headerlink" title="Miss Causes (3 C’s)"></a>Miss Causes (3 C’s)</h3><ul>
+<li><strong>Compulsory misses</strong>: First access to a block (cold start misses)</li>
+<li><strong>Capacity misses</strong>: Cache cannot hold all blocks needed by program</li>
+<li><strong>Conflict misses</strong>: Too many blocks map to same set (collision misses)</li>
+</ul>
+<p><strong>2:1 Cache Rule</strong>: Direct-mapped cache of size N has similar miss rate to 2-way set associative cache of size N&#x2F;2</p>
+<h3 id="Reducing-Miss-Rate-Methods"><a href="#Reducing-Miss-Rate-Methods" class="headerlink" title="Reducing Miss Rate Methods"></a>Reducing Miss Rate Methods</h3><p><strong>Method 1: Larger Block Size</strong></p>
+<ul>
+<li>Reduces compulsory misses (spatial locality)</li>
+<li>May increase miss penalty and conflict misses</li>
+<li>U-shaped curve for miss rate vs block size</li>
+</ul>
+<p><strong>Method 2: Larger Cache Capacity</strong></p>
+<ul>
+<li>Reduces capacity and conflict misses</li>
+<li>Drawbacks: longer hit time, higher cost</li>
+</ul>
+<p><strong>Method 3: Higher Associativity</strong></p>
+<ul>
+<li>Reduces conflict misses</li>
+<li>8-way associative ≈ fully associative for conflict miss reduction</li>
+</ul>
+<p><strong>Method 4: Compiler Optimization</strong></p>
+<ul>
+<li>Instruction reordering</li>
+<li>Data optimizations: array merging, loop interchange, loop fusion, blocking</li>
+</ul>
+<h3 id="Reducing-Miss-Penalty-Methods"><a href="#Reducing-Miss-Penalty-Methods" class="headerlink" title="Reducing Miss Penalty Methods"></a>Reducing Miss Penalty Methods</h3><p><strong>Method 1: Multi-Level Caches</strong></p>
+<ul>
+<li>L1: Fast enough to match CPU clock, small enough for on-chip</li>
+<li>L2: Large enough to capture accesses that would go to main memory</li>
+<li>L1 miss penalty &#x3D; L2 average access time</li>
+<li>Global miss rate L2 &#x3D; Local miss rate L1 × Local miss rate L2</li>
+</ul>
+<p><strong>Method 2: Critical Word First</strong></p>
+<ul>
+<li>Request missed word first, send to CPU immediately</li>
+<li>Let CPU continue while filling rest of block</li>
+</ul>
+<p><strong>Method 3: Read Miss Priority</strong></p>
+<ul>
+<li>For write-through: Check write buffer before reading main memory</li>
+<li>For write-back: Copy dirty block to write buffer, read first, then write</li>
+</ul>
+<p><strong>Method 4: Merging Write Buffer</strong></p>
+<ul>
+<li>Combine multiple writes to same block into single write</li>
+</ul>
+<p><strong>Method 5: Victim Cache</strong></p>
+<ul>
+<li>Small fully associative cache holding recently replaced blocks</li>
+<li>Check victim cache before accessing next level</li>
+</ul>
+<h3 id="Reducing-Hit-Time-Methods"><a href="#Reducing-Hit-Time-Methods" class="headerlink" title="Reducing Hit Time Methods"></a>Reducing Hit Time Methods</h3><p><strong>Method 1: Small and Simple Caches</strong></p>
+<ul>
+<li>Less hardware &#x3D; shorter critical path</li>
+<li>Direct mapping faster than set associative</li>
+</ul>
+<p><strong>Method 2: Avoid Address Translation</strong></p>
+<ul>
+<li>TLB (Translation Lookaside Buffer): Cache for page table entries</li>
+<li>Virtual indexed, physically tagged: Parallel address translation and cache access</li>
+<li>Virtual cache with virtual tag: No translation needed on hit</li>
+</ul>
+<p><strong>Method 3: Pipelined Cache Access</strong></p>
+<ul>
+<li>Split write into tag check and data write stages</li>
+</ul>
+<p><strong>Method 4: Way Prediction</strong></p>
+<ul>
+<li>Predict which way&#x2F;block will be accessed next</li>
+<li>Reduces hit time and power consumption</li>
+</ul>
+<p><strong>Method 5: Trace Cache</strong></p>
+<ul>
+<li>Blocks contain dynamic instruction sequences (including branches)</li>
+<li>Not limited to static cache blocks</li>
+</ul>
+<hr>
+<h2 id="Main-Memory-and-Virtual-Memory"><a href="#Main-Memory-and-Virtual-Memory" class="headerlink" title="Main Memory and Virtual Memory"></a>Main Memory and Virtual Memory</h2><h3 id="Main-Memory-Performance-Optimization"><a href="#Main-Memory-Performance-Optimization" class="headerlink" title="Main Memory Performance Optimization"></a>Main Memory Performance Optimization</h3><p>Main memory is the next level below cache, typically DRAM (caches use SRAM).</p>
+<p>Performance metrics:</p>
+<ul>
+<li><strong>Latency</strong>: Harder to reduce (important for cache)</li>
+<li><strong>Bandwidth</strong>: Easier to improve with new organization (important for I&#x2F;O)</li>
+</ul>
+<p><strong>Improving Bandwidth</strong>:</p>
+<p><strong>Method 1: Wider Memory</strong></p>
+<ul>
+<li>Double or quadruple cache-to-memory bandwidth</li>
+<li>Miss penalty decreases, bandwidth increases</li>
+<li>Cost: additional hardware</li>
+</ul>
+<p><strong>Method 2: Interleaved Memory</strong></p>
+<ul>
+<li>Multiple memory banks accessed in parallel</li>
+<li>Reduces effective access time</li>
+</ul>
+<h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><p><strong>Advantages</strong>:</p>
+<ul>
+<li>Main memory acts as cache for disk</li>
+<li>Provides illusion of larger, contiguous memory</li>
+<li>Program relocation by pages or segments</li>
+<li>Protection in multiprogramming</li>
+</ul>
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+<li>Virtual address: Address used by programmer</li>
+<li>Physical address: Actual memory address</li>
+<li>Page: Fixed-size block (paged virtual memory)</li>
+<li>Segment: Variable-size block (segmented virtual memory)</li>
+</ul>
+<p><strong>Virtual Memory Policies</strong>:</p>
+<ol>
+<li><strong>Mapping rule</strong>: Blocks can be placed anywhere (fully associative)</li>
+<li><strong>Lookup method</strong>: Page table maps virtual to physical addresses</li>
+<li><strong>Replacement</strong>: LRU (Least Recently Used)</li>
+<li><strong>Write policy</strong>: Write-back (disk access too expensive for write-through)</li>
+</ol>
+<h3 id="Fast-Address-Translation"><a href="#Fast-Address-Translation" class="headerlink" title="Fast Address Translation"></a>Fast Address Translation</h3><p><strong>Problem</strong>: Page table in main memory requires 2 memory accesses per data access</p>
+<p><strong>Solution</strong>: TLB (Translation Lookaside Buffer)</p>
+<ul>
+<li>Special cache for recently used page table entries</li>
+<li>TLB access time comparable to cache access time</li>
+<li>Typically 128-256 entries, fully associative or small n-way set associative</li>
+</ul>
+<h3 id="Virtual-Memory-and-Cache-Integration"><a href="#Virtual-Memory-and-Cache-Integration" class="headerlink" title="Virtual Memory and Cache Integration"></a>Virtual Memory and Cache Integration</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/0fa790287690.png"></p>
+<p><strong>Address Translation Process</strong>:</p>
+<ol>
+<li>Virtual address split into virtual page number and page offset</li>
+<li>TLB lookup using virtual page number</li>
+<li>If TLB hit, get physical page number</li>
+<li>Concatenate physical page number with page offset to form physical address</li>
+<li>Use physical address to access cache</li>
+</ol>
+<p>If L1 cache misses, physical address continues to L2 cache access.</p>
+<hr>
+<h2 id="Chapter-Summary"><a href="#Chapter-Summary" class="headerlink" title="Chapter Summary"></a>Chapter Summary</h2><p><strong>Cache Memory</strong>:</p>
+<ul>
+<li>Three mapping methods (fully associative, direct mapping, set associative)</li>
+<li>Physical address to cache address mapping calculation</li>
+<li>Mapping rules, block identification, replacement algorithms, write policies</li>
+<li>Performance calculation and optimization methods</li>
+</ul>
+<p><strong>Performance Optimization</strong>:</p>
+<ul>
+<li>Reduce miss rate: 4 methods</li>
+<li>Reduce miss penalty: 5 methods</li>
+<li>Reduce miss rate&#x2F;penalty via parallelism: 3 methods</li>
+<li>Reduce hit time: 5 methods</li>
+</ul>
+<p><strong>Main Memory</strong>:</p>
+<ul>
+<li>Increase bandwidth: wider memory, interleaved memory</li>
+</ul>
+<p><strong>Virtual Memory</strong>:</p>
+<ul>
+<li>Paged virtual memory</li>
+<li>TLB principles and structure</li>
+<li>Virtual address to physical address translation with virtual-indexed L1 cache</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/06/04/en/UESTC-CA-Notes-4-Memory-System/">https://your-domain.com/2023/06/04/en/UESTC-CA-Notes-4-Memory-System/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/review-notes/">review-notes</a><a class="post-meta__tags" href="/tags/system-architecture/">system-architecture</a><a class="post-meta__tags" href="/tags/memory-system/">memory-system</a><a class="post-meta__tags" href="/tags/cache/">cache</a><a class="post-meta__tags" href="/tags/virtual-memory/">virtual-memory</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/7fae1ba05516.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/06/04/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/" title="电子科技大学计算机系统结构复习笔记（三）：流水线技术"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/16b1d84d8492.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（三）：流水线技术</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（三）：流水线技术📊 5386 阅读 | 👍 14 点赞 | 💬 2 评论 | ⭐ 41 收藏  目录 前言 重点一览 流水线定义 基本概念 流水线分类 流水线特点 流水线时空图 流水线性能分析 流水线特点  经典5段流水线RISC处理器  流水线的三种冒险 冒险分类 停顿流水线 结构冒险 数据冒险 控制冒险 流水线处理机的指令系统 流水线指令系统与格式 流水线各级间的寄存器作用（看图理解） 流水线各级的操作（看图理解）  无相关流水线模型机多条指令执行过程（一例，看图理解）  流水线控制信号 数据前推与load前推  相关（冒险）小结 流水线异常与浮点流水线 流水线异常 异常原因 异常可能的阶段 停止和重新开始执行（MIPS） 精确中断（精确异常） 非精确中断（非精确异常） 精确异常和非精确异常 经典5段流水线扩展浮点流水线 浮点流水线的写冲突 浮点流水线数据相关 异常处理 本章小结  前言本复习笔记基于叶老师的课堂PPT，供自己期末复习与学弟学妹参考用。  重点一览  流水线定义基本概念流水线是利用执行...</div></div></div></a><a class="pagination-related" href="/2023/06/04/en/UESTC-CA-Notes-3-Pipeline/" title="UESTC Computer Architecture Review Notes (3): Pipeline Technology"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/16b1d84d8492.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">UESTC Computer Architecture Review Notes (3): Pipeline Technology</div></div><div class="info-2"><div class="info-item-1">Table of Contents Pipeline DefinitionPipeline HazardsPipeline Processor Instruction SystemPipeline Exceptions and Floating-Point PipelineChapter Summary  Key Points Overview  Pipeline DefinitionBasic ConceptA pipeline is a technique that exploits parallelism among instruction operations to achieve overlapped execution of multiple instructions. Pipeline Classification By stage uniformity: Uniform pipeline Non-uniform pipeline   By data type: Scalar pipeline processor Vector pipeline processor ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/06/04/en/UESTC-CA-Notes-3-Pipeline/" title="UESTC Computer Architecture Review Notes (3): Pipeline Technology"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%8A%80%E6%9C%AF/16b1d84d8492.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-05</div><div class="info-item-2">UESTC Computer Architecture Review Notes (3): Pipeline Technology</div></div><div class="info-2"><div class="info-item-1">Table of Contents Pipeline DefinitionPipeline HazardsPipeline Processor Instruction SystemPipeline Exceptions and Floating-Point PipelineChapter Summary  Key Points Overview  Pipeline DefinitionBasic ConceptA pipeline is a technique that exploits parallelism among instruction operations to achieve overlapped execution of multiple instructions. Pipeline Classification By stage uniformity: Uniform pipeline Non-uniform pipeline   By data type: Scalar pipeline processor Vector pipeline processor ...</div></div></div></a><a class="pagination-related" href="/2023/06/01/en/UESTC-CA-Notes-1-Overview/" title="UESTC Computer Architecture Review Notes (1): Overview"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E8%BF%B0/0e0baf20a0b1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-02</div><div class="info-item-2">UESTC Computer Architecture Review Notes (1): Overview</div></div><div class="info-2"><div class="info-item-1">Table of Contents Computer ClassificationComputer Architecture DefinitionComputer PerformanceQuantitative Design PrinciplesAmdahl’s LawCPU Performance Formula  Key Points Overview  Computer ClassificationFlynn’s TaxonomyDefinition: Computer architecture classification based on instruction stream and data stream quantities. Content:  SISD: Single Instruction, Single Data Example: Serial computers   MISD: Multiple Instruction, Single Data Example: Few real examples exist   SIMD: Single Instruct...</div></div></div></a><a class="pagination-related" href="/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/" title="UESTC Operating System Review Notes (1): Operating System Overview"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-12</div><div class="info-item-2">UESTC Operating System Review Notes (1): Operating System Overview</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceOperating System OverviewGoals and FunctionsDefinitionGoalsFunctionsHistory of Operating SystemsSingle-User SystemsSimple Batch Processing SystemsMultiprogramming Batch SystemsTime-Sharing SystemsPersonal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …Real-Time SystemsBasic CharacteristicsConcurrencySharingVirtualizationNon-determinismSystem ArchitectureUnstructured Operating SystemsModular System StructureLayered System StructureOperating Sy...</div></div></div></a><a class="pagination-related" href="/2023/06/02/en/UESTC-CA-Notes-2-Instruction-Set/" title="UESTC Computer Architecture Review Notes (2): Instruction Set"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/b11fc38cc0a7.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-03</div><div class="info-item-2">UESTC Computer Architecture Review Notes (2): Instruction Set</div></div><div class="info-2"><div class="info-item-1">Table of Contents ISA ClassificationMemory AddressingAddressing ModesOperand Types and Instruction OperationsInstruction EncodingMIPS Architecture  Key Points Overview  Instruction Set Architecture (ISA) ClassificationClassification BasisInternal data storage structure of the processor. Storage StructuresStack, Accumulator, General-Purpose Registers Differences Stack: Operands implicitly at stack top Accumulator: One implicit operand is the accumulator General-Purpose Registers: Operands must...</div></div></div></a><a class="pagination-related" href="/2023/02/26/en/UESTC-SE-Notes-5-Productivity-Measurement/" title="UESTC Software Engineering Review Notes (5): Productivity and Effort Measurement"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E7%94%9F%E4%BA%A7%E7%8E%87%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%BA%A6%E9%87%8F/abaa1253c9cb.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-27</div><div class="info-item-2">UESTC Software Engineering Review Notes (5): Productivity and Effort Measurement</div></div><div class="info-2"><div class="info-item-1">Table of Contents Software Product MetricsTwo Methods for Measuring Software ProductivityLOC-based MeasurementFunction Point Measurement  Key Points Overview This section has less content but involves calculations, so it deserves attention.  Software Product Metrics A quantitative measurement method that enables understanding and grasping software project productivity or required effort. Purpose: Describe projects and processes, evaluate status and quality, predict for planning, improve produ...</div></div></div></a><a class="pagination-related" href="/2023/06/11/en/UESTC-Compiler-Notes-8-Semantic-Analysis/" title="UESTC Compiler Principles Review Notes (8): Semantic Analysis"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89%EF%BC%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/588596378e8b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="info-item-2">UESTC Compiler Principles Review Notes (8): Semantic Analysis</div></div><div class="info-2"><div class="info-item-1">Table of Contents Semantic Analysis OverviewAttribute GrammarsSyntax-Directed TranslationIntermediate Code Generation  Key Points Overview  Semantic Analysis Content       </div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Points-Overview"><span class="toc-number">1.</span> <span class="toc-text">Key Points Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache-Fundamentals"><span class="toc-number">2.</span> <span class="toc-text">Cache Fundamentals</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Three-Mapping-Methods"><span class="toc-number">2.1.</span> <span class="toc-text">Three Mapping Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Physical-Address-to-Cache-Address-Mapping"><span class="toc-number">2.2.</span> <span class="toc-text">Physical Address to Cache Address Mapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-Block-Identification"><span class="toc-number">2.3.</span> <span class="toc-text">Cache Block Identification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-Replacement-Algorithms"><span class="toc-number">2.4.</span> <span class="toc-text">Cache Replacement Algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-Write-Policies"><span class="toc-number">2.5.</span> <span class="toc-text">Cache Write Policies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Split-vs-Unified-Cache"><span class="toc-number">2.6.</span> <span class="toc-text">Split vs Unified Cache</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache-Performance-and-Optimization"><span class="toc-number">3.</span> <span class="toc-text">Cache Performance and Optimization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-Performance-Calculation"><span class="toc-number">3.1.</span> <span class="toc-text">Cache Performance Calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-Performance-Optimization"><span class="toc-number">3.2.</span> <span class="toc-text">Cache Performance Optimization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Miss-Causes-3-C%E2%80%99s"><span class="toc-number">3.3.</span> <span class="toc-text">Miss Causes (3 C’s)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducing-Miss-Rate-Methods"><span class="toc-number">3.4.</span> <span class="toc-text">Reducing Miss Rate Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducing-Miss-Penalty-Methods"><span class="toc-number">3.5.</span> <span class="toc-text">Reducing Miss Penalty Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducing-Hit-Time-Methods"><span class="toc-number">3.6.</span> <span class="toc-text">Reducing Hit Time Methods</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-Memory-and-Virtual-Memory"><span class="toc-number">4.</span> <span class="toc-text">Main Memory and Virtual Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Main-Memory-Performance-Optimization"><span class="toc-number">4.1.</span> <span class="toc-text">Main Memory Performance Optimization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Virtual-Memory"><span class="toc-number">4.2.</span> <span class="toc-text">Virtual Memory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fast-Address-Translation"><span class="toc-number">4.3.</span> <span class="toc-text">Fast Address Translation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Virtual-Memory-and-Cache-Integration"><span class="toc-number">4.4.</span> <span class="toc-text">Virtual Memory and Cache Integration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-Summary"><span class="toc-number">5.</span> <span class="toc-text">Chapter Summary</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

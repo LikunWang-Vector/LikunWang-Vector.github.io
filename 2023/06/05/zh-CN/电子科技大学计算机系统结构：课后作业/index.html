@@ -1,0 +1,739 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>电子科技大学计算机系统结构：课后作业 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构：课后作业📊 2671 阅读 | 👍 17 点赞 | 💬 0 评论 | ⭐ 35 收藏  计算机体系结构作业答案 第一二章作业 1.试述Flynn 分类的4 种计算机系统结构有何特点。 参考答案： Flynn按照指令流和数据流两种不同的组合，把计算机系统的结构分为以下4 类： （1）单指令流单数据流SISD（Single Instr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电子科技大学计算机系统结构：课后作业">
+<meta property="og:url" content="https://your-domain.com/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构：课后作业📊 2671 阅读 | 👍 17 点赞 | 💬 0 评论 | ⭐ 35 收藏  计算机体系结构作业答案 第一二章作业 1.试述Flynn 分类的4 种计算机系统结构有何特点。 参考答案： Flynn按照指令流和数据流两种不同的组合，把计算机系统的结构分为以下4 类： （1）单指令流单数据流SISD（Single Instr">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png">
+<meta property="article:published_time" content="2023-06-05T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-05T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="复习笔记">
+<meta property="article:tag" content="学习资料">
+<meta property="article:tag" content="系统结构">
+<meta property="article:tag" content="课后作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "电子科技大学计算机系统结构：课后作业",
+  "url": "https://your-domain.com/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png",
+  "datePublished": "2023-06-05T15:00:00.000Z",
+  "dateModified": "2023-06-05T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '电子科技大学计算机系统结构：课后作业',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">电子科技大学计算机系统结构：课后作业</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">电子科技大学计算机系统结构：课后作业</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-06-05T15:00:00.000Z" title="Created 2023-06-06 00:00:00">2023-06-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-06-05T15:00:00.000Z" title="Updated 2023-06-06 00:00:00">2023-06-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">复习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>13mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-06-06 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/131062322">电子科技大学计算机系统结构：课后作业</a><br>📊 2671 阅读 | 👍 17 点赞 | 💬 0 评论 | ⭐ 35 收藏</p>
+</blockquote>
+<p><strong><strong>计算机体系结构作业答案</strong></strong></p>
+<p><strong><strong>第一二章作业</strong></strong></p>
+<p>1.试述Flynn 分类的4 种计算机系统结构有何特点。</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>Flynn按照指令流和数据流两种不同的组合，把计算机系统的结构分为以下4 类：</p>
+<p>（1）单指令流单数据流SISD（Single Instruction Stream Single Datastream），SISD 是传统的顺序处理计算机；</p>
+<p>（2）单指令流多数据流SIMD（Single Instruction Stream Multiple Datastream），SIMD 以阵列处理机为代表；</p>
+<p>（3）多指令流单数据流MISD（Multiple Instruction Stream Single Datastream），MISD 实际代表何种计算机，存在着不同的看法；</p>
+<p>（4）多指令流多数据流MIMD（Multiple Instruction Stream Multiple Datastream），多处理机与多计算机系统属于MIMD 结构。</p>
+<p>单指令流单数据流（SingleInstructionStreamSingleDataStream，SISD）</p>
+<p>SISD其实就是传统的顺序执行的单处理器计算机，其指令部件每次只对一条指令进行译码，并只对一个操作部件分配数据。</p>
+<p><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/5580827.htm" title="单指令流多数据流">单指令流多数据流</a>（SingleInstructionStreamMultipleDataStream，SIMD）</p>
+<p><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/188706.htm" title="SIMD">SIMD</a>以并行处理机为代表，结构如图，并行处理机包括多个重复的处理单元PU1～PUn，由单一指令部件控制，按照同一指令流的要求为它们分配各自所需的不同的数据。</p>
+<p>多指令流单数据流（MultipleInstructionStreamSingleDataStream，MISD）</p>
+<p>MISD的结构，它具有n个处理单元，按n条不同指令的要求对同一数据流及其中间结果进行不同的处理。一个处理单元的输出又作为另一个处理单元的输入。</p>
+<p><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/5580829.htm" title="多指令流多数据流">多指令流多数据流</a>（MultipleInstructionStreamMultipleDataStream，MIMD）</p>
+<p>MIMD的结构，它是指能实现作业、任务、指令等各级全面并行的多机系统，<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/2058735.htm" title="多处理机">多处理机</a>就属于MIMD。</p>
+<p>2．假设高速缓存Cache 工作速度为主存的5 倍，且Cache 被访问命中的概率为90%，</p>
+<p>则采用Cache 后，能使整个存储系统获得多高的加速比？</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>加速比 &#x3D; 1&#x2F;(1-0.9 +0.9&#x2F;5) &#x3D; 25&#x2F;7</p>
+<p>3．某工作站采用时钟频率为15 MHz、处理速率为10 MIPS 的处理机来执行一个已知混合程序。假定每次存储器存取为1 个时钟周期延迟，试问：</p>
+<p>（1）此计算机的有效CPI 是多少？CPI时间是多少？</p>
+<p>（2）假定将处理机的时钟提高到30 MHz，但存储器子系统速率不变。这样，每次存储器</p>
+<p>存取需要两个时钟周期。如果30%指令每条只需要一次存储存取，而另外5%每条需要两次存储存取，并假定已知混合程序的指令数不变，并与原工作站兼容，试求改进后计算机的CPI 是多少？CPI时间是多少？</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>（1）CPI &#x3D; 一个程序的CPU 时钟周期数&#x2F; IC &#x3D; 时钟频率&#x2F;MIPS &#x3D;15&#x2F;10 &#x3D; 1.5</p>
+<p>CPI时间是1.5*（1&#x2F;15）us &#x3D; 0.1us</p>
+<p>（2）由第一问可得原始CPI 为1.5 ，改进后一次访存操作需要2 个时钟周期，比改进前每次访存多了1 个时钟周期；</p>
+<p>由于有30% 的指令由于需要1 次访存，所以它们的时钟周期数需要加1；</p>
+<p>有5% 的指令由于需要2 次访存，所以它们的时钟周期数需要加2. </p>
+<p>所以可得 CPI new &#x3D; CPI original + 30%*1 + 5%*2 &#x3D; 1.5 + 0.3 + 0.1 &#x3D; 1.9</p>
+<p>改进后CPI new的时间：1.9 *（1&#x2F;30）us &#x3D; 0.0627us</p>
+<p>4．处理机的时钟30 MHz</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png"></p>
+<p>（1）计算在单处理机上用上述跟踪数据运行程序的平均CPI。</p>
+<p>（2）根据（1）所得CPI，计算相应的MIPS 速率。</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<ol>
+<li><p>平均CPI &#x3D; 1<em>60% + 2</em>18% + 4<em>12 + 8</em>10% &#x3D; 2.24</p>
+</li>
+<li><p>MIPS &#x3D; 时钟周期&#x2F;CPI &#x3D; 30M&#x2F;2.24 &#x3D; 13.4</p>
+</li>
+<li><p>区分指令集系统结构分类（ISA分类）与通用寄存器结构分类。</p>
+</li>
+</ol>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>答：ISA分类是根据CPU内部数据存储类型进行分类：堆栈型、累加器型、通用寄存器型（R-M，R-R）。</p>
+<p>通用寄存器是ISA的一种类型，包括：寄存器-存储器型、寄存器-寄存器型。</p>
+<ol start="6">
+<li>从ISA分类、指令长度、寻址方式、操作数类型、指令操作类型、指令操作码编码、转移控制类指令这几个方面说明CISC的8086指令系统与RISC 的MIPS指令系统的特点。</li>
+</ol>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>8086指令系统特点：属于R-M型ISA，指令长度是变长的，寻址方式有寻址字段（立即数、寄存器、直接寻址、寄存器间接寻址、基址寻址、变址寻址、基址变址寻址、串操作寻址、相对寻址、I&#x2F;O寻址），操作数类型（定点数据类型有字节、16位字、双字、4字，字符串），指令操作类型（传送类、算术运算类、逻辑类、串操作类、程序转移类、处理器控制类），指令操作码编码（1-2个字节编码），转移控制流指令（无条件转移指令直接或间接寻址、条件转移指令和循环控制指令相对寻址、子程序调用与返回指令）。</p>
+<ol>
+<li>MIPS指令系统特点：属于R-R型ISA，指令长度是固定的，寻址方式无专门寻址字段（立即数、位移量寻址、相对寻址），操作数类型（定点数据类型有8位字节、16位半字、32位字和64位双字。浮点数有32位单精度和64位双精度浮点数），指令操作类型（LOAD&#x2F;STORE类、ALU操作类、分支与跳转类、浮点运算类），指令操作码编码（6位操作码加辅助操作码），转移控制流指令（跳转指令拼接地址、分支指令相对寻址、跳转与链接、寄存器跳转与链接、等于零时转换）。</li>
+</ol>
+<p><strong><strong>第三章作业</strong></strong></p>
+<p><strong><strong>作业一</strong></strong></p>
+<p>1.解释第三章PPT中图3-2.28中各控制信号的作用。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/1775db45294c.png"></p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>流水线各级控制信号的定义</p>
+<table>
+<thead>
+<tr>
+<th>流水线级</th>
+<th>控制信号</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IF级</td>
+<td>BTAKEN</td>
+<td>转移发生</td>
+</tr>
+<tr>
+<td>ID级</td>
+<td>SST</td>
+<td>选择store(rd)</td>
+</tr>
+<tr>
+<td>EXE级</td>
+<td>SIMM</td>
+<td>选择立即数</td>
+</tr>
+<tr>
+<td>ALUOP</td>
+<td>ALU操作码</td>
+<td></td>
+</tr>
+<tr>
+<td>WZ</td>
+<td>写Z标志</td>
+<td></td>
+</tr>
+<tr>
+<td>MEM级</td>
+<td>WMEM</td>
+<td>写存储器</td>
+</tr>
+<tr>
+<td>WB级</td>
+<td>SLD</td>
+<td>选择load</td>
+</tr>
+<tr>
+<td>WREG</td>
+<td>写寄存器堆</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>2. 在第四个时钟周期结束时各个流水线寄存器和控制信号的值： 第一条指令进入MEM级，第二条指令进入EXE级，第三条指令进入ID级，第四条指令进入IF级。</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>第四个时钟周期结束，即刚进入第五个周期时，PC输出4，指向第五条指令；IR输出第四条指令add r7，r5，r6；A和B分别输出寄存器r5和r6的内容(第三条指令)；R输出存储器地址(第二条指令)；C输出第一条指令的加法结果。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/d2dd2cc4f8d3.png"></p>
+<p>寄存器：</p>
+<p>IF&#x2F;ID: IR &#x3D; add r7,r5,r6</p>
+<p>ID&#x2F;EXE: d&#x3D;4, A&#x3D;(r5), B&#x3D;(r6), I&#x3D;(null)</p>
+<p>EXE&#x2F;MEM: d&#x3D;2, Z&#x3D;0（不写Z标志）, R&#x3D;(r3)+100, S&#x3D;(null)</p>
+<p>MEM&#x2F;WB: d &#x3D;1, D&#x3D;(null), C&#x3D;4+(r1)</p>
+<p>控制信号：</p>
+<p>BTAKEN&#x3D;0, SST&#x3D;0, SIMM&#x3D;1, ALUOP&#x3D;(add), WZ&#x3D;0, WMEM&#x3D;0, SLD&#x3D;0, WREG&#x3D;0</p>
+<p>3. 在第六个时钟周期结束时各个流水线寄存器和控制信号的值：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/b98b1655ef82.png"></p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>第六个时钟周期结束，即刚进入第七个周期时：PC输出6，指向第七条指令；IR输出第六条指令subi r10，r10，1；A和B分别输出寄存器r9和r8的内容，I送出32位的200(第五条指令)；R输出加法结果(第四条指令)；C输出第三条指令减法操作的结果。</p>
+<p>寄存器：</p>
+<p>IF&#x2F;ID: IR &#x3D; subi r10, r10, 1</p>
+<p>ID&#x2F;EXE: d&#x3D;(null), A&#x3D;(r9), B&#x3D;(r8), I&#x3D;200</p>
+<p>EXE&#x2F;MEM: d&#x3D;7, Z&#x3D;1(写Z标志), R&#x3D;(r5)+(r6), S&#x3D;(null)</p>
+<p>MEM&#x2F;WB: d &#x3D;4, D&#x3D;(null), C&#x3D;(r5)-(r6)</p>
+<p>控制信号：</p>
+<p>BTAKEN&#x3D;0, SST&#x3D;1, SIMM&#x3D;0, ALUOP&#x3D;(add), WZ&#x3D;1, WMEM&#x3D;0, SLD&#x3D;1, WREG&#x3D;1</p>
+<p>4.第五个时钟周期结束，即刚进入第六个周期时：PC输出5指向第六条指令；IR输出第五条指令store r8，200(r9)；A和B分别输出r5和r6的内容(第四条指令)；R输出减法结果(第三条指令)；D输出第二条指令从存储器取来的数据。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/9ed290ef0e32.png"></p>
+<p>1）当第5个时钟周期结束时（即刚进入第6个时钟周期），给出以下流水线寄存器的内容</p>
+<p>(1)IF级的PC内容 &#x3D; __ ，IR的内容是 __ ；</p>
+<p>(2)ID级的A寄存器内容来自寄存器 __ ，B寄存器内容来自寄存器 __ ，d寄存器内容&#x3D; __ ；</p>
+<p>(3)EXE与MEM级之间的R寄存器内容是 __ ， S 寄存器内容&#x3D; <strong>；</strong></p>
+<p>(4)MEM与WB级之间的D寄存器内容是 __ ， d 寄存器内容&#x3D;<strong>；</strong></p>
+<p>2）WB级上指令“add r1, r1, 4”这一级完成的操作和所需要的控制信号。</p>
+<p>3）写出指令“and r1, r2, r3”, “load r1, 10( r2 )”，“store r3, 20( r4 )”, 所需要的控制信号。</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>(1) 5 store r8, 2000(r9)</p>
+<p>(2)r5 r6 7</p>
+<p>(3)(r5)-(r6) null</p>
+<p>(4)(r3+100) 2</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>SLD&#x3D;0, WREG&#x3D;1</p>
+<ol start="3">
+<li></li>
+</ol>
+<p>|  SST |  SIMM |  ALUOP |  WZ |  WMEM |  SLD |  WREG |  BTAKEN<br>—|—|—|—|—|—|—|—|—<br>Add r1, r2, r3 |  0 |  0 |  10 |  1 |  0 |  0 |  1 |  0<br>Load r1, 10(r2) |  0 |  1 |  10 |  0 |  0 |  1 |  1 |  0<br>Store r3, 20(r4) |  1 |  1 |  10 |  0 |  1 |  x |  0 |  0<br>Branch lop |  0 |  0 |  xx |  0 |  0 |  0 |  0 |  1  </p>
+<p><strong><strong>作业二</strong></strong></p>
+<p>1.各流水级存放控制信号的流水线寄存器有何异同？</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>以PPT图1.28为例，</p>
+<ol>
+<li>ID级存控制信号的寄存器存放的是含EXE、MEM、WB级所需的控制信号；</li>
+<li>EXE级存控制信号的寄存器存放的是含MEM、WB级所需的控制信号；</li>
+<li>MEM级存控制信号的寄存器存放的是含WB级所需的控制信号。</li>
+</ol>
+<p>相同之处：都存有WB级控制信号。</p>
+<p>不同之处：前面级的流水线控制信号寄存器包含后面级的控制信号，而后面级的则无前级信号。</p>
+<p>2.设流水线模型机采用load前推和数据前推，按时钟周期画出以下指令序列的时序图，标示出前推示意。</p>
+<p>load r2, 12(r3)</p>
+<p>addi r4, r2, 10</p>
+<p>and r1, r2, r4</p>
+<p>store r1, 10(r5)</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>假设store也采用前推技术：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/8f81502ff5f8.png"></p>
+<p>3、给出第三章PPT中图3-3.39的BDEPEN控制信号的真值表。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/cbd3324fc1c6.png"></p>
+<p>BDEPEN1&#x3D; (ID_rs2&#x3D; &#x3D;EXE_rd)(EXE_WREG&#x3D; &#x3D;1)(ID_rs2IsReg) + ……</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID_rs2 IsReg</td>
+<td>EXE_WREG</td>
+</tr>
+<tr>
+<td>0</td>
+<td>X</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p><strong><strong>第五章作业：</strong></strong></p>
+<p>1.某个计算机系统有128字节的高速缓存。它采用每块有8个字节的4路组相联映射。物理地址大小是32位，最小可寻址单位是1个字节。（1）画图说明高速缓存的组织并指明物理地址与高速缓存地址的关系；（2）可以将地址000010AFH分配给高速缓存的哪一组？（3）假如地址000010AFH和FFFF7AxyH可以同时分配给同一个高速缓存组，地址中的x与y的值为多少？</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>（1）<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/7fe333811b01.png"></p>
+<p>（2）考虑低八位：</p>
+<p>（AF）16 &#x3D; （10101111）2，所以应为01</p>
+<p>（3）同理可得，x &#x3D; （<em><strong>0）2，y&#x3D;（1</strong></em>）2</p>
+<p>2.假设对指令Cache的访问占全部访问的75%，而对数据Cache的访问占全部访问的25%。Cache的命中时间为1个时钟周期，失效开销为50个时钟周期，在混合Cache中一次LOAD或STORE操作访问Cache的命中时间都要增加一个时钟周期，32KB的指令Cache的失效率为0.39%，32 KB的数据Cache的失效率为4.82%，64 KB的混合Cache的失效率为1.35%。又假设采用写直达策略，且有一个写缓冲器，并且忽略写缓冲器引起的等待。试问指令Cache和数据Cache容量均为32 KB的分离Cache和容量为64 KB的混合Cache相比，哪种Cache的失效率更低？两种情况下平均访存时间各是多少？</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p>（1）分离的失效率&#x3D;75%*0.39%+25%*4.82%&#x3D;1.5%</p>
+<p>混合的失效率&#x3D;1.35%，混合更低。</p>
+<p>（2）分离的平均访存时间&#x3D;75%*（1+0.39%<em>50）+25%</em>（1+4.82%*50）&#x3D;1.75</p>
+<p>混合的平均访存时间&#x3D;75%*（1+1.35%<em>50）+25%</em>（1+1+1.35%*50）&#x3D;1.925</p>
+<p>3.给定以下的假设，试计算直接映象Cache和两路组相联Cache的平均访问时间以及CPU的性能。由计算结果能得出什么结论？</p>
+<p>（1）理想Cache情况下的CPI为2.0，时钟周期为2 ns，平均每条指令访存1.2次。</p>
+<p>（2）两者Cache容量均为64KB，块大小都是32B。</p>
+<p>（3）组相联Cache中的多路选择器使CPU的时钟周期增加了10%。</p>
+<p>（4）这两种Cache的失效开销都是80 ns。</p>
+<p>（5）命中时间为1个时钟周期。</p>
+<p>（6）64 KB直接映象Cache的失效率为1.4%，64 KB两路组相联Cache的失效率为1.0%。</p>
+<p><strong><strong>参考答案：</strong></strong></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/87a8fc4a7501.png"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/4b3f02368cd9.png"></p>
+<p>（1）</p>
+<p>直接映象的平均访存时间&#x3D;1*2+1.4%*80&#x3D;3.12</p>
+<p>二路组相连的平均访存时间&#x3D;1*2+1.0%*80&#x3D;3</p>
+<p>（2）</p>
+<p>直接映象的CPU时间&#x3D; IC*（2.0<em>2 + 1.2</em>1.4%*80）&#x3D;5.34IC</p>
+<p>二路组相连的CPU时间 &#x3D; IC*（2.0<em>2.2 + 1.2</em>1.0%*80）&#x3D;5.36IC</p>
+<ol>
+<li>虚拟存储器与cache综合分析题</li>
+</ol>
+<p>如果Cache采用虚拟索引物理标识，假定页式虚拟地址42位，物理地址34位，每页为8KB，块大小64B，Cache大小同一页大小，TLB全相联，Cache直接映像。</p>
+<p>试计算TLB中的标识位数和物理地址位数；以及Cache的索引、块偏移、标识的位数。</p>
+<p>答案：Cache索引7位：8kB&#x2F;64&#x3D;(23*210)&#x2F;26 &#x3D;27</p>
+<p>块偏移6位: 每块64B, 26</p>
+<p>标识: 34-7-6 &#x3D; 21位</p>
+<p>一页地址位数：13位（因为每页8KB），所以页内偏移位：13位</p>
+<p>TLB标识位：42-13&#x3D;29位（虚拟页号），所以物理页号：34-13&#x3D;21位</p>
+<p>补充：如果Cache采用虚拟索引物理标识，假定页式虚拟地址42位，物理地址34位，每页为4KB，块大小64B，Cache大小同一页大小，TLB全相联，Cache直接映像。</p>
+<p>问：计算TLB中的标识位数；以及Cache的索引、块偏移、标识的位数。</p>
+<p>答：Cache大小与页大小相同，4KB，每块64B，共64块，则：</p>
+<p>Cache索引6位: 4KB&#x2F;64B&#x3D;(22*210)&#x2F;26 &#x3D;26</p>
+<p>块偏移6位: 每块64B, 26</p>
+<p>标识: 34-6-6 &#x3D; 22位</p>
+<p>一页地址位数：12位（因为每页4KB），所以页内偏移位：12位</p>
+<p>TLB标识位：42-12&#x3D;30位（虚拟页号），所以物理页号：34-12&#x3D;22位</p>
+<p>另外注意：</p>
+<p>如果给一个虚拟地址，根据上述TLB中的位数，可以推出对应的虚拟页号；查表，可以得到物理页号；将物理页号+页内偏移&#x3D;物理地址；最后对应Cache的索引、块偏移及标识进行分析。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/">https://your-domain.com/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">复习笔记</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/">学习资料</a><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84/">系统结构</a><a class="post-meta__tags" href="/tags/%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/">课后作业</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%EF%BC%9A%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A/259af20c29e6.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/06/10/en/UESTC-Compiler-Notes-7-Bottom-Up-Parsing/" title="UESTC Compiler Principles Review Notes (7): Bottom-Up Syntax Analysis"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%83%EF%BC%89%EF%BC%9A%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/04133bd115fc.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">UESTC Compiler Principles Review Notes (7): Bottom-Up Syntax Analysis</div></div><div class="info-2"><div class="info-item-1">Table of Contents Introduction to Bottom-Up AnalysisOperator Precedence AnalysisLR Analysis MethodLR(0) Item Set Canonical CollectionSLR(1) Analysis Table Construction  Key Points Overview Focus on LR and SLR.  IntroductionBottom-Up AnalysisStarting from the input string, find reduction sequences, gradually reduce until reaching start symbol S. Method: Use a stack, shift-reduce. During shifting, observe whether the stack top forms a candidate of some production.  Use stack, shift input symbol...</div></div></div></a><a class="pagination-related" href="/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%8D%8A%E6%9C%9F%E8%80%83%E8%AF%95%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/" title="电子科技大学计算机系统结构半期考试参考答案"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%8D%8A%E6%9C%9F%E8%80%83%E8%AF%95%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/38045328a057.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">电子科技大学计算机系统结构半期考试参考答案</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构半期考试参考答案📊 1450 阅读 | 👍 3 点赞 | 💬 0 评论 | ⭐ 15 收藏  2023答案-半期试题（15分）**** 1、试分析采用哪种设计方案实现求浮点数乘法FPMUL对系统性能提高更大。假定FPMUL操作占整个测试程序执行时间的10%。 一种设计方案是增加专门的FPMUL硬件，可以将FPMUL操作的速度加快到10倍； 另一种设计方案是提高所有FP运算指令的执行速度，使得FP指令的执行速度加快为原来的1.6倍，设FP运算指令在总执行时间中占50%。（2分） 解： 对这两种设计方案的加速比分别进行计算。 增加专门FPDIV硬件方案：Fe &#x3D; 10% &#x3D; 0.10， Se &#x3D; 10 SFPDIV &#x3D; 1&#x2F;((1-0.10)+0.10&#x2F;10)&#x3D;1&#x2F;0.91 &#x3D; 1.099 提高所有FP运算指令速度方案：Fe &#x3D; 50% &#x3D; 0.5 ， Se &#x3D; 1.6 SFP &#x3D; 1&#x...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/06/01/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E8%BF%B0/" title="电子科技大学计算机系统结构复习笔记（一）：概述"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E8%BF%B0/0e0baf20a0b1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-02</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（一）：概述</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（一）：概述📊 2684 阅读 | 👍 6 点赞 | 💬 1 评论 | ⭐ 33 收藏  目录 前言 重点一览 计算机分类 弗林分类法 市场分类 计算机系统结构定义 实现技术\功耗\成本的趋势\可靠性(了解)  计算机性能 性能评价指标 性能评价方法 计算机设计的量化原则 基本方法 Amdahl‘s 定律 CPU 性能公式 &#x2F; 时间计算 本章小结  前言本复习笔记基于叶老师的课堂PPT和复习提纲，供自己期末复习与学弟学妹参考用。  重点一览  计算机分类弗林分类法定义 ：基于指令流和数据流数量的计算机结构分类 内容 ：  SISD  Single instruction: 在任一时钟周期只有单个指令流在CPU执行 Single data: 在任一时钟周期只有单个数据流用作输入 例子: 串行计算机   MISD  每个处理单元用多个指令流对单个数据进行独立操作 单个数据流进入多个处理单元。 例子: 很少有这类计算机的实例   SIMD  例子: 适用于处理高度规整操作的问题，如图像处理   MIMD...</div></div></div></a><a class="pagination-related" href="/2023/06/02/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/" title="电子科技大学计算机系统结构复习笔记（二）：指令系统"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/b11fc38cc0a7.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-03</div><div class="info-item-2">电子科技大学计算机系统结构复习笔记（二）：指令系统</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构复习笔记（二）：指令系统📊 2199 阅读 | 👍 4 点赞 | 💬 1 评论 | ⭐ 21 收藏  目录 前言 重点一览 指令集系统结构（ISA）的分类 分类依据 存储结构 区别 图示 通用寄存器系统结构分类 存储器寻址 概述 寻址方式 MIPS寻址模式 小结 操作数类型 指令操作 与指令编码 常用操作数类型 常用指令系统的操作 常用指令系统编码方式 MIPS系统结构 概述 MIPS寄存器 MIPS的数据类型 MIPS数据传输的寻址方式 MIPS的指令格式 MIPS操作  了解：谬误与易犯的错误 本章小结  前言本复习笔记基于叶老师的课堂PPT，供自己期末复习与学弟学妹参考用。  重点一览  指令集系统结构（ISA）的分类分类依据处理器内部数据的存储结构 存储结构堆栈、累加器、通用寄存器 区别 堆栈 系统结构中操作数隐含 的位于栈顶 累加器 系统结构中的一个隐含 操作数就是累加器 通用寄存器 结构系统中只能明确 的指定操作数，不是寄存器就是存储器地址  图示  (a)中，栈顶寄存器（TOS）指向堆栈顶部的输入操作...</div></div></div></a><a class="pagination-related" href="/2023/06/11/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89%EF%BC%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/" title="电子科技大学编译原理复习笔记（八）：语义分析"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89%EF%BC%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/588596378e8b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="info-item-2">电子科技大学编译原理复习笔记（八）：语义分析</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学编译原理复习笔记（八）：语义分析📊 667 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 9 收藏          </div></div></div></a><a class="pagination-related" href="/2023/06/05/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%8D%8A%E6%9C%9F%E8%80%83%E8%AF%95%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/" title="电子科技大学计算机系统结构半期考试参考答案"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%8D%8A%E6%9C%9F%E8%80%83%E8%AF%95%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/38045328a057.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-06</div><div class="info-item-2">电子科技大学计算机系统结构半期考试参考答案</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学计算机系统结构半期考试参考答案📊 1450 阅读 | 👍 3 点赞 | 💬 0 评论 | ⭐ 15 收藏  2023答案-半期试题（15分）**** 1、试分析采用哪种设计方案实现求浮点数乘法FPMUL对系统性能提高更大。假定FPMUL操作占整个测试程序执行时间的10%。 一种设计方案是增加专门的FPMUL硬件，可以将FPMUL操作的速度加快到10倍； 另一种设计方案是提高所有FP运算指令的执行速度，使得FP指令的执行速度加快为原来的1.6倍，设FP运算指令在总执行时间中占50%。（2分） 解： 对这两种设计方案的加速比分别进行计算。 增加专门FPDIV硬件方案：Fe &#x3D; 10% &#x3D; 0.10， Se &#x3D; 10 SFPDIV &#x3D; 1&#x2F;((1-0.10)+0.10&#x2F;10)&#x3D;1&#x2F;0.91 &#x3D; 1.099 提高所有FP运算指令速度方案：Fe &#x3D; 50% &#x3D; 0.5 ， Se &#x3D; 1.6 SFP &#x3D; 1&#x...</div></div></div></a><a class="pagination-related" href="/2023/05/28/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89%EF%BC%9A%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" title="电子科技大学编译原理复习笔记（六）：自上而下的语法分析"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89%EF%BC%9A%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/62b5a5f1f1f4.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-29</div><div class="info-item-2">电子科技大学编译原理复习笔记（六）：自上而下的语法分析</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学编译原理复习笔记（六）：自上而下的语法分析📊 1734 阅读 | 👍 5 点赞 | 💬 0 评论 | ⭐ 20 收藏  目录 前言 重点一览 引言 语法分析的功能 语法分析的分类 自上而下分析方法 回溯分析法 回溯分析法例子 方法 存在的问题 产生的原因 特点 解决缺陷 消除回溯（重点）  递归下降分析器  递归下降分析法 递归过程的构造 扩充BNF 改进的递归下降分析法  预测分析法 预测分析表 ⭐分析方法（重点） ⭐构造预测分析表（重点） 本章小结  前言本复习笔记基于张老师的课堂PPT，供自己期末复习与学弟学妹参考用。  重点一览   引言语法分析的功能 语法分析的分类自上而下：从文法开始符出发，能否找到一个最左推导序列， 使得S&#x3D;&gt;*w ？ 自下而上：从w出发，能否找到一个最左规约（最右推导的逆过程）序列，逐步向上规约，直至文法的开始符S？ 自上而下分析方法不确定 的分析的方法：回溯分析法 确定的 分析方法：递归下降分析法  回溯分析法回溯分析法例子  方法   从文法的开始符号S出发；    选取S...</div></div></div></a><a class="pagination-related" href="/2023/06/11/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E8%AF%BEPPT/" title="电子科技大学编译原理复习课PPT"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%E8%AF%BEPPT/9d0c09449da5.jpeg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="info-item-2">电子科技大学编译原理复习课PPT</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学编译原理复习课PPT📊 675 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 17 收藏   </div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

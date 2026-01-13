@@ -1,0 +1,924 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS Borders, Margins, and Outlines - Complete Guide | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents CSS BordersCSS Border PropertiesCSS Border StyleCSS Border WidthCSS Border ColorCSS Border - Individual SidesCSS Border - Shorthand PropertyCSS Rounded BordersCSS MarginsMargin - Ind">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Borders, Margins, and Outlines - Complete Guide">
+<meta property="og:url" content="https://your-domain.com/2023/01/23/en/CSS-Borders-Margins-Outlines/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents CSS BordersCSS Border PropertiesCSS Border StyleCSS Border WidthCSS Border ColorCSS Border - Individual SidesCSS Border - Shorthand PropertyCSS Rounded BordersCSS MarginsMargin - Ind">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png">
+<meta property="article:published_time" content="2023-01-23T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-23T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS Borders, Margins, and Outlines - Complete Guide",
+  "url": "https://your-domain.com/2023/01/23/en/CSS-Borders-Margins-Outlines/",
+  "image": "https://your-domain.com/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png",
+  "datePublished": "2023-01-23T15:00:00.000Z",
+  "dateModified": "2023-01-23T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/23/en/CSS-Borders-Margins-Outlines/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS Borders, Margins, and Outlines - Complete Guide',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS Borders, Margins, and Outlines - Complete Guide</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS Borders, Margins, and Outlines - Complete Guide</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-23T15:00:00.000Z" title="Created 2023-01-24 00:00:00">2023-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-23T15:00:00.000Z" title="Updated 2023-01-24 00:00:00">2023-01-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS-Beginner-to-Advanced/">CSS Beginner to Advanced</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>15mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-24 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>CSS Borders<br>CSS Border Properties<br>CSS Border Style<br>CSS Border Width<br>CSS Border Color<br>CSS Border - Individual Sides<br>CSS Border - Shorthand Property<br>CSS Rounded Borders<br>CSS Margins<br>Margin - Individual Sides<br>Margin - Shorthand Property<br>Margin Collapse<br>CSS Padding<br>Padding - Individual Sides<br>Padding - Shorthand Property<br>Padding and Element Width<br>CSS Height and Width<br>CSS Box Model<br>CSS Outline<br>CSS Outline Style<br>CSS Outline Width<br>CSS Outline Color<br>CSS Outline - Shorthand Property<br>CSS Outline Offset</p>
+<hr>
+<h2 id="CSS-Borders"><a href="#CSS-Borders" class="headerlink" title="CSS Borders"></a>CSS Borders</h2><h3 id="CSS-Border-Properties"><a href="#CSS-Border-Properties" class="headerlink" title="CSS Border Properties"></a>CSS Border Properties</h3><p>The CSS <code>border</code> property allows you to specify the style, width, and color of an element’s border.</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png"></p>
+<hr>
+<h3 id="CSS-Border-Style"><a href="#CSS-Border-Style" class="headerlink" title="CSS Border Style"></a>CSS Border Style</h3><p>The <code>border-style</code> property specifies what kind of border to display.</p>
+<p>The following values are allowed:</p>
+<ul>
+<li><code>dotted</code> - Defines a dotted border</li>
+<li><code>dashed</code> - Defines a dashed border</li>
+<li><code>solid</code> - Defines a solid border</li>
+<li><code>double</code> - Defines a double border</li>
+<li><code>groove</code> - Defines a 3D grooved border (effect depends on border-color value)</li>
+<li><code>ridge</code> - Defines a 3D ridged border (effect depends on border-color value)</li>
+<li><code>inset</code> - Defines a 3D inset border (effect depends on border-color value)</li>
+<li><code>outset</code> - Defines a 3D outset border (effect depends on border-color value)</li>
+<li><code>none</code> - Defines no border</li>
+<li><code>hidden</code> - Defines a hidden border</li>
+</ul>
+<p>The <code>border-style</code> property can have one to four values (for top, right, bottom, and left borders).</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.dotted</span> &#123;<span class="attribute">border-style</span>: dotted;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.dashed</span> &#123;<span class="attribute">border-style</span>: dashed;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.solid</span> &#123;<span class="attribute">border-style</span>: solid;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.double</span> &#123;<span class="attribute">border-style</span>: double;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.groove</span> &#123;<span class="attribute">border-style</span>: groove;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ridge</span> &#123;<span class="attribute">border-style</span>: ridge;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.inset</span> &#123;<span class="attribute">border-style</span>: inset;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.outset</span> &#123;<span class="attribute">border-style</span>: outset;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.none</span> &#123;<span class="attribute">border-style</span>: none;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.hidden</span> &#123;<span class="attribute">border-style</span>: hidden;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.mix</span> &#123;<span class="attribute">border-style</span>: dotted dashed solid double;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong> None of the other CSS border properties will have any effect unless the <code>border-style</code> property is set!</p>
+<hr>
+<h3 id="CSS-Border-Width"><a href="#CSS-Border-Width" class="headerlink" title="CSS Border Width"></a>CSS Border Width</h3><p>The <code>border-width</code> property specifies the width of the four borders.</p>
+<p>The width can be set as a specific size (in px, pt, cm, em, etc.) or by using one of three predefined values: thin, medium, or thick.</p>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.one</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.two</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-width</span>: medium;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.three</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: dotted;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Specific-Side-Widths"><a href="#Specific-Side-Widths" class="headerlink" title="Specific Side Widths"></a>Specific Side Widths</h4><p>The <code>border-width</code> property can have one to four values (for top, right, bottom, and left borders):</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.one</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">5px</span> <span class="number">20px</span>; <span class="comment">/* 5px top and bottom, 20px on the sides */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.two</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">25px</span> <span class="number">10px</span> <span class="number">4px</span> <span class="number">35px</span>; <span class="comment">/* 25px top, 10px right, 4px bottom, 35px left */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Border-Color"><a href="#CSS-Border-Color" class="headerlink" title="CSS Border Color"></a>CSS Border Color</h3><p>The <code>border-color</code> property is used to set the color of the four borders.</p>
+<p>The color can be set by:</p>
+<ul>
+<li>name - specify a color name, like “red”</li>
+<li>HEX - specify a HEX value, like “#ff0000”</li>
+<li>RGB - specify an RGB value, like “rgb(255,0,0)”</li>
+<li>HSL - specify an HSL value, like “hsl(0, 100%, 50%)”</li>
+<li>transparent</li>
+</ul>
+<p><strong>Note:</strong> If <code>border-color</code> is not set, it inherits the color of the element.</p>
+<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.one</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.two</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.three</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-color</span>: red green blue yellow; <span class="comment">/* top red, right green, bottom blue, left yellow */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Border-Individual-Sides"><a href="#CSS-Border-Individual-Sides" class="headerlink" title="CSS Border - Individual Sides"></a>CSS Border - Individual Sides</h3><p>In CSS, there are properties for specifying each border (top, right, bottom, and left):</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">border-top-style</span>: dotted;</span><br><span class="line">  <span class="attribute">border-right-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-bottom-style</span>: dotted;</span><br><span class="line">  <span class="attribute">border-left-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This is equivalent to:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: dotted solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="How-It-Works"><a href="#How-It-Works" class="headerlink" title="How It Works"></a>How It Works</h4><p>If <code>border-style</code> has four values:</p>
+<ul>
+<li><code>border-style: dotted solid double dashed;</code><ul>
+<li>top border is dotted</li>
+<li>right border is solid</li>
+<li>bottom border is double</li>
+<li>left border is dashed</li>
+</ul>
+</li>
+</ul>
+<p>If <code>border-style</code> has three values:</p>
+<ul>
+<li><code>border-style: dotted solid double;</code><ul>
+<li>top border is dotted</li>
+<li>right and left borders are solid</li>
+<li>bottom border is double</li>
+</ul>
+</li>
+</ul>
+<p>If <code>border-style</code> has two values:</p>
+<ul>
+<li><code>border-style: dotted solid;</code><ul>
+<li>top and bottom borders are dotted</li>
+<li>right and left borders are solid</li>
+</ul>
+</li>
+</ul>
+<p>If <code>border-style</code> has one value:</p>
+<ul>
+<li><code>border-style: dotted;</code><ul>
+<li>all four borders are dotted</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="CSS-Border-Shorthand-Property"><a href="#CSS-Border-Shorthand-Property" class="headerlink" title="CSS Border - Shorthand Property"></a>CSS Border - Shorthand Property</h3><p>The <code>border</code> property is a shorthand property for:</p>
+<ul>
+<li><code>border-width</code></li>
+<li><code>border-style</code> (required)</li>
+<li><code>border-color</code></li>
+</ul>
+<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">5px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can also specify all the individual border properties for just one side:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">6px</span> solid red;</span><br><span class="line">  <span class="attribute">background-color</span>: lightgrey;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">6px</span> solid red;</span><br><span class="line">  <span class="attribute">background-color</span>: lightgrey;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Rounded-Borders"><a href="#CSS-Rounded-Borders" class="headerlink" title="CSS Rounded Borders"></a>CSS Rounded Borders</h3><p>The <code>border-radius</code> property is used to add rounded borders to an element:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="All-CSS-Border-Properties"><a href="#All-CSS-Border-Properties" class="headerlink" title="All CSS Border Properties"></a>All CSS Border Properties</h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>border</td>
+<td>Shorthand property for setting all border properties in one declaration</td>
+</tr>
+<tr>
+<td>border-color</td>
+<td>Shorthand property for setting the color of all four borders</td>
+</tr>
+<tr>
+<td>border-radius</td>
+<td>Shorthand property for setting all four border-*-radius properties</td>
+</tr>
+<tr>
+<td>border-style</td>
+<td>Shorthand property for setting the style of all four borders</td>
+</tr>
+<tr>
+<td>border-width</td>
+<td>Shorthand property for setting the width of all four borders</td>
+</tr>
+<tr>
+<td>border-bottom</td>
+<td>Shorthand property for setting all bottom border properties</td>
+</tr>
+<tr>
+<td>border-left</td>
+<td>Shorthand property for setting all left border properties</td>
+</tr>
+<tr>
+<td>border-right</td>
+<td>Shorthand property for setting all right border properties</td>
+</tr>
+<tr>
+<td>border-top</td>
+<td>Shorthand property for setting all top border properties</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="CSS-Margins"><a href="#CSS-Margins" class="headerlink" title="CSS Margins"></a>CSS Margins</h2><p>The CSS <code>margin</code> property is used to create space around elements, outside of any defined borders.</p>
+<h3 id="Margin-Individual-Sides"><a href="#Margin-Individual-Sides" class="headerlink" title="Margin - Individual Sides"></a>Margin - Individual Sides</h3><p>CSS has properties for specifying the margin for each side of an element:</p>
+<ul>
+<li><code>margin-top</code></li>
+<li><code>margin-right</code></li>
+<li><code>margin-bottom</code></li>
+<li><code>margin-left</code></li>
+</ul>
+<p>All margin properties can have the following values:</p>
+<ul>
+<li>auto - the browser calculates the margin</li>
+<li>length - specifies a margin in px, pt, cm, etc.</li>
+<li>% - specifies a margin in percent of the width of the containing element</li>
+<li>inherit - specifies that the margin should be inherited from the parent element</li>
+</ul>
+<p><strong>Tip:</strong> Negative values are allowed.</p>
+<h4 id="Example-4"><a href="#Example-4" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">80px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Margin-Shorthand-Property"><a href="#Margin-Shorthand-Property" class="headerlink" title="Margin - Shorthand Property"></a>Margin - Shorthand Property</h3><p>The <code>margin</code> property is a shorthand property for:</p>
+<ul>
+<li><code>margin-top</code></li>
+<li><code>margin-right</code></li>
+<li><code>margin-bottom</code></li>
+<li><code>margin-left</code></li>
+</ul>
+<h4 id="How-It-Works-1"><a href="#How-It-Works-1" class="headerlink" title="How It Works"></a>How It Works</h4><p>If <code>margin</code> has four values:</p>
+<ul>
+<li><code>margin: 25px 50px 75px 100px;</code><ul>
+<li>top margin is 25px</li>
+<li>right margin is 50px</li>
+<li>bottom margin is 75px</li>
+<li>left margin is 100px</li>
+</ul>
+</li>
+</ul>
+<p>If <code>margin</code> has three values:</p>
+<ul>
+<li><code>margin: 25px 50px 75px;</code><ul>
+<li>top margin is 25px</li>
+<li>right and left margins are 50px</li>
+<li>bottom margin is 75px</li>
+</ul>
+</li>
+</ul>
+<p>If <code>margin</code> has two values:</p>
+<ul>
+<li><code>margin: 25px 50px;</code><ul>
+<li>top and bottom margins are 25px</li>
+<li>right and left margins are 50px</li>
+</ul>
+</li>
+</ul>
+<p>If <code>margin</code> has one value:</p>
+<ul>
+<li><code>margin: 25px;</code><ul>
+<li>all four margins are 25px</li>
+</ul>
+</li>
+</ul>
+<h4 id="The-auto-Value"><a href="#The-auto-Value" class="headerlink" title="The auto Value"></a>The auto Value</h4><p>You can set the margin property to <code>auto</code> to horizontally center the element within its container:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Margin-Collapse"><a href="#Margin-Collapse" class="headerlink" title="Margin Collapse"></a>Margin Collapse</h3><p>Top and bottom margins of elements are sometimes collapsed into a single margin that is equal to the largest of the two margins.</p>
+<p>This does not happen on left and right margins! Only top and bottom margins!</p>
+<p>When two vertical margins meet, they will form a single margin. The height of the merged margin equals the larger of the two margins.</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/1bfc183ce442.gif"></p>
+<p><strong>Note:</strong> Margin collapse only occurs with normal flow block boxes. Margins of inline boxes, floated boxes, or absolutely positioned boxes do not collapse.</p>
+<hr>
+<h3 id="All-CSS-Margin-Properties"><a href="#All-CSS-Margin-Properties" class="headerlink" title="All CSS Margin Properties"></a>All CSS Margin Properties</h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>margin</td>
+<td>Shorthand property for setting all margin properties in one declaration</td>
+</tr>
+<tr>
+<td>margin-bottom</td>
+<td>Sets the bottom margin of an element</td>
+</tr>
+<tr>
+<td>margin-left</td>
+<td>Sets the left margin of an element</td>
+</tr>
+<tr>
+<td>margin-right</td>
+<td>Sets the right margin of an element</td>
+</tr>
+<tr>
+<td>margin-top</td>
+<td>Sets the top margin of an element</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="CSS-Padding"><a href="#CSS-Padding" class="headerlink" title="CSS Padding"></a>CSS Padding</h2><p>The CSS <code>padding</code> property is used to generate space around an element’s content, inside of any defined borders.</p>
+<h3 id="Padding-Individual-Sides"><a href="#Padding-Individual-Sides" class="headerlink" title="Padding - Individual Sides"></a>Padding - Individual Sides</h3><p>CSS has properties for specifying the padding for each side of an element:</p>
+<ul>
+<li><code>padding-top</code></li>
+<li><code>padding-right</code></li>
+<li><code>padding-bottom</code></li>
+<li><code>padding-left</code></li>
+</ul>
+<p>All padding properties can have the following values:</p>
+<ul>
+<li>length - specifies a padding in px, pt, cm, etc.</li>
+<li>% - specifies a padding in percent of the width of the containing element</li>
+<li>inherit - specifies that the padding should be inherited from the parent element</li>
+</ul>
+<p><strong>Tip:</strong> Negative values are <strong>not allowed</strong>.</p>
+<h4 id="Example-5"><a href="#Example-5" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">80px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Padding-Shorthand-Property"><a href="#Padding-Shorthand-Property" class="headerlink" title="Padding - Shorthand Property"></a>Padding - Shorthand Property</h3><p>The <code>padding</code> property is a shorthand property for:</p>
+<ul>
+<li><code>padding-top</code></li>
+<li><code>padding-right</code></li>
+<li><code>padding-bottom</code></li>
+<li><code>padding-left</code></li>
+</ul>
+<h4 id="How-It-Works-2"><a href="#How-It-Works-2" class="headerlink" title="How It Works"></a>How It Works</h4><p>If <code>padding</code> has four values:</p>
+<ul>
+<li><code>padding: 25px 50px 75px 100px;</code><ul>
+<li>top padding is 25px</li>
+<li>right padding is 50px</li>
+<li>bottom padding is 75px</li>
+<li>left padding is 100px</li>
+</ul>
+</li>
+</ul>
+<p>If <code>padding</code> has three values:</p>
+<ul>
+<li><code>padding: 25px 50px 75px;</code><ul>
+<li>top padding is 25px</li>
+<li>right and left padding are 50px</li>
+<li>bottom padding is 75px</li>
+</ul>
+</li>
+</ul>
+<p>If <code>padding</code> has two values:</p>
+<ul>
+<li><code>padding: 25px 50px;</code><ul>
+<li>top and bottom padding are 25px</li>
+<li>right and left padding are 50px</li>
+</ul>
+</li>
+</ul>
+<p>If <code>padding</code> has one value:</p>
+<ul>
+<li><code>padding: 25px;</code><ul>
+<li>all four paddings are 25px</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Padding-and-Element-Width"><a href="#Padding-and-Element-Width" class="headerlink" title="Padding and Element Width"></a>Padding and Element Width</h3><p>The CSS <code>width</code> property specifies the width of the element’s content area. The content area is the portion inside the padding, border, and margin of an element.</p>
+<p>So, if an element has a specified width, the padding added to that element will be added to the total width of the element. This is often an undesirable result.</p>
+<h4 id="Example-6"><a href="#Example-6" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">25px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Here, the <code>&lt;div&gt;</code> element is given a width of 300px. However, the actual width of the <code>&lt;div&gt;</code> element will be 350px (300px + 25px left padding + 25px right padding).</p>
+<p>To keep the width at 300px regardless of padding, you can use the <code>box-sizing</code> property:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">25px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="All-CSS-Padding-Properties"><a href="#All-CSS-Padding-Properties" class="headerlink" title="All CSS Padding Properties"></a>All CSS Padding Properties</h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>padding</td>
+<td>Shorthand property for setting all padding properties in one declaration</td>
+</tr>
+<tr>
+<td>padding-bottom</td>
+<td>Sets the bottom padding of an element</td>
+</tr>
+<tr>
+<td>padding-left</td>
+<td>Sets the left padding of an element</td>
+</tr>
+<tr>
+<td>padding-right</td>
+<td>Sets the right padding of an element</td>
+</tr>
+<tr>
+<td>padding-top</td>
+<td>Sets the top padding of an element</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="CSS-Height-and-Width"><a href="#CSS-Height-and-Width" class="headerlink" title="CSS Height and Width"></a>CSS Height and Width</h2><p>The <code>height</code> and <code>width</code> properties are used to set the height and width of an element.</p>
+<p>The height and width properties do not include padding, borders, or margins. They set the height&#x2F;width of the area inside the padding, border, and margin of the element.</p>
+<h3 id="CSS-Height-and-Width-Values"><a href="#CSS-Height-and-Width-Values" class="headerlink" title="CSS Height and Width Values"></a>CSS Height and Width Values</h3><p>The <code>height</code> and <code>width</code> properties may have the following values:</p>
+<ul>
+<li><code>auto</code> - Default. The browser calculates the height and width</li>
+<li><code>length</code> - Defines the height&#x2F;width in px, cm, etc.</li>
+<li><code>%</code> - Defines the height&#x2F;width in percent of the containing block</li>
+<li><code>initial</code> - Sets the height&#x2F;width to its default value</li>
+<li><code>inherit</code> - The height&#x2F;width will be inherited from its parent value</li>
+</ul>
+<h4 id="Example-7"><a href="#Example-7" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: powderblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Setting-max-width"><a href="#Setting-max-width" class="headerlink" title="Setting max-width"></a>Setting max-width</h3><p>The <code>max-width</code> property is used to set the maximum width of an element.</p>
+<p><strong>Note:</strong> The value of the <code>max-width</code> property overrides <code>width</code>.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: powderblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="CSS-Box-Model"><a href="#CSS-Box-Model" class="headerlink" title="CSS Box Model"></a>CSS Box Model</h2><p>All HTML elements can be considered as boxes. In CSS, the term “box model” is used when talking about design and layout.</p>
+<p>The CSS box model is essentially a box that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content.</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/ea754c059940.gif"></p>
+<ul>
+<li><strong>Content</strong> - The content of the box, where text and images appear</li>
+<li><strong>Padding</strong> - Clears an area around the content. The padding is transparent</li>
+<li><strong>Border</strong> - A border that goes around the padding and content</li>
+<li><strong>Margin</strong> - Clears an area outside the border. The margin is transparent</li>
+</ul>
+<h3 id="Width-and-Height-of-an-Element"><a href="#Width-and-Height-of-an-Element" class="headerlink" title="Width and Height of an Element"></a>Width and Height of an Element</h3><p>When you set the width and height properties of an element with CSS, you just set the width and height of the content area. To calculate the full size of an element, you must also add padding, borders, and margins.</p>
+<h4 id="Example-8"><a href="#Example-8" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">320px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">5px</span> solid gray;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Total element width &#x3D; 320px + 20px (left + right padding) + 10px (left + right border) + 0px (left + right margin) &#x3D; <strong>350px</strong></p>
+<p><strong>Total element width</strong> &#x3D; width + left padding + right padding + left border + right border + left margin + right margin</p>
+<p><strong>Total element height</strong> &#x3D; height + top padding + bottom padding + top border + bottom border + top margin + bottom margin</p>
+<hr>
+<h2 id="CSS-Outline"><a href="#CSS-Outline" class="headerlink" title="CSS Outline"></a>CSS Outline</h2><p>An outline is a line drawn around elements, outside the borders, to make the element “stand out”.</p>
+<p>CSS has the following outline properties:</p>
+<ul>
+<li><code>outline-style</code></li>
+<li><code>outline-color</code></li>
+<li><code>outline-width</code></li>
+<li><code>outline-offset</code></li>
+<li><code>outline</code></li>
+</ul>
+<p><strong>Note:</strong> Outline differs from borders! Unlike border, the outline is drawn outside the element’s border, and may overlap other content. Also, the outline is NOT a part of the element’s dimensions; the element’s total width and height is not affected by the width of the outline.</p>
+<hr>
+<h3 id="CSS-Outline-Style"><a href="#CSS-Outline-Style" class="headerlink" title="CSS Outline Style"></a>CSS Outline Style</h3><p>The <code>outline-style</code> property specifies the style of the outline, and can have one of the following values:</p>
+<ul>
+<li><code>dotted</code> - Defines a dotted outline</li>
+<li><code>dashed</code> - Defines a dashed outline</li>
+<li><code>solid</code> - Defines a solid outline</li>
+<li><code>double</code> - Defines a double outline</li>
+<li><code>groove</code> - Defines a 3D grooved outline</li>
+<li><code>ridge</code> - Defines a 3D ridged outline</li>
+<li><code>inset</code> - Defines a 3D inset outline</li>
+<li><code>outset</code> - Defines a 3D outset outline</li>
+<li><code>none</code> - Defines no outline</li>
+<li><code>hidden</code> - Defines a hidden outline</li>
+</ul>
+<h4 id="Example-9"><a href="#Example-9" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.dotted</span> &#123;<span class="attribute">outline-style</span>: dotted;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.dashed</span> &#123;<span class="attribute">outline-style</span>: dashed;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.solid</span> &#123;<span class="attribute">outline-style</span>: solid;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.double</span> &#123;<span class="attribute">outline-style</span>: double;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.groove</span> &#123;<span class="attribute">outline-style</span>: groove;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ridge</span> &#123;<span class="attribute">outline-style</span>: ridge;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.inset</span> &#123;<span class="attribute">outline-style</span>: inset;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.outset</span> &#123;<span class="attribute">outline-style</span>: outset;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong> None of the other outline properties will have any effect unless the <code>outline-style</code> property is set!</p>
+<hr>
+<h3 id="CSS-Outline-Width"><a href="#CSS-Outline-Width" class="headerlink" title="CSS Outline Width"></a>CSS Outline Width</h3><p>The <code>outline-width</code> property specifies the width of the outline, and can have one of the following values:</p>
+<ul>
+<li>thin (typically 1px)</li>
+<li>medium (typically 3px)</li>
+<li>thick (typically 5px)</li>
+<li>A specific size (in px, pt, cm, em, etc.)</li>
+</ul>
+<h4 id="Example-10"><a href="#Example-10" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex1</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">outline-style</span>: solid;</span><br><span class="line">  <span class="attribute">outline-color</span>: red;</span><br><span class="line">  <span class="attribute">outline-width</span>: thin;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex2</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">outline-style</span>: solid;</span><br><span class="line">  <span class="attribute">outline-color</span>: red;</span><br><span class="line">  <span class="attribute">outline-width</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Outline-Color"><a href="#CSS-Outline-Color" class="headerlink" title="CSS Outline Color"></a>CSS Outline Color</h3><p>The <code>outline-color</code> property is used to set the color of the outline.</p>
+<p>The color can be set by:</p>
+<ul>
+<li>name - specify a color name, like “red”</li>
+<li>HEX - specify a hex value, like “#ff0000”</li>
+<li>RGB - specify an RGB value, like “rgb(255,0,0)”</li>
+<li>HSL - specify an HSL value, like “hsl(0, 100%, 50%)”</li>
+<li>invert - performs a color inversion (ensures the outline is visible regardless of background color)</li>
+</ul>
+<h4 id="Example-11"><a href="#Example-11" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex1</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid black;</span><br><span class="line">  <span class="attribute">outline-style</span>: solid;</span><br><span class="line">  <span class="attribute">outline-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex2</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid black;</span><br><span class="line">  <span class="attribute">outline-style</span>: dotted;</span><br><span class="line">  <span class="attribute">outline-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Outline-Shorthand-Property"><a href="#CSS-Outline-Shorthand-Property" class="headerlink" title="CSS Outline - Shorthand Property"></a>CSS Outline - Shorthand Property</h3><p>The <code>outline</code> property is a shorthand property for setting the following individual outline properties:</p>
+<ul>
+<li><code>outline-width</code></li>
+<li><code>outline-style</code> (required)</li>
+<li><code>outline-color</code></li>
+</ul>
+<h4 id="Example-12"><a href="#Example-12" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex1</span> &#123;<span class="attribute">outline</span>: dashed;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex2</span> &#123;<span class="attribute">outline</span>: dotted red;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex3</span> &#123;<span class="attribute">outline</span>: <span class="number">5px</span> solid yellow;&#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.ex4</span> &#123;<span class="attribute">outline</span>: thick ridge pink;&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Outline-Offset"><a href="#CSS-Outline-Offset" class="headerlink" title="CSS Outline Offset"></a>CSS Outline Offset</h3><p>The <code>outline-offset</code> property adds space between an outline and the edge&#x2F;border of an element. The space between an element and its outline is transparent.</p>
+<h4 id="Example-13"><a href="#Example-13" class="headerlink" title="Example"></a>Example</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">outline</span>: <span class="number">1px</span> solid red;</span><br><span class="line">  <span class="attribute">outline-offset</span>: <span class="number">25px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="All-CSS-Outline-Properties"><a href="#All-CSS-Outline-Properties" class="headerlink" title="All CSS Outline Properties"></a>All CSS Outline Properties</h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>outline</td>
+<td>Shorthand property for setting outline-width, outline-style, and outline-color in one declaration</td>
+</tr>
+<tr>
+<td>outline-color</td>
+<td>Sets the color of an outline</td>
+</tr>
+<tr>
+<td>outline-offset</td>
+<td>Specifies the space between an outline and the edge or border of an element</td>
+</tr>
+<tr>
+<td>outline-style</td>
+<td>Sets the style of an outline</td>
+</tr>
+<tr>
+<td>outline-width</td>
+<td>Sets the width of an outline</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/23/en/CSS-Borders-Margins-Outlines/">https://your-domain.com/2023/01/23/en/CSS-Borders-Margins-Outlines/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/css/">css</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/CSS%E8%BE%B9%E6%A1%86%E3%80%81%E8%BE%B9%E8%B7%9D%E3%80%81%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%E5%AE%BD%E5%BA%A6%E9%A2%9C%E8%89%B2%E5%90%84%E8%BE%B9%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86%E5%86%85%E5%A4%96/236d3a4575f9.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/23/en/CSS-Text-and-Fonts/" title="CSS Text and Fonts (Formatting, Alignment, Decoration, Transform, Spacing, Shadow)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E6%96%87%E6%9C%AC%E4%B8%8E%E5%AD%97%E4%BD%93(%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AF%B9%E9%BD%90%E8%A3%85%E9%A5%B0%E8%BD%AC%E6%8D%A2%E9%97%B4%E8%B7%9D%E9%98%B4%E5%BD%B1%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F%E5%A4%A7%E5%B0%8F/cea5aabda2c0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">CSS Text and Fonts (Formatting, Alignment, Decoration, Transform, Spacing, Shadow)</div></div><div class="info-2"><div class="info-item-1">Table of Contents Text Color Text Alignment Text Direction Vertical Alignment Text Decoration Text Transform Text Indentation Letter Spacing Line Height Word Spacing White Space Text Shadow Font Family Font Style Font Weight Font Size Google Fonts Font Shorthand Property  Text ColorThe color property is used to set the color of the text. The color is specified by:  A color name - like “red” A HEX value - like “#ff0000” An RGB value - like “rgb(255,0,0)”  Example1234567body &#123;  color: blue...</div></div></div></a><a class="pagination-related" href="/2023/01/21/zh-CN/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93%EF%BC%89/" title="CSS颜色：RGB颜色/HEX颜色/HSL颜色（网页颜色完全总结）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93/42095f67e483.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">CSS颜色：RGB颜色/HEX颜色/HSL颜色（网页颜色完全总结）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS颜色：RGB颜色&#x2F;HEX颜色&#x2F;HSL颜色（网页颜色完全总结）📊 2611 阅读 | 👍 5 点赞 | 💬 1 评论 | ⭐ 10 收藏  目录 CSS 颜色名 CSS 背景色 实例 CSS 文本颜色 ​编辑 实例 CSS 边框颜色 实例 CSS 颜色值 实例 RGB 值 rgb(red, green, blue) 实例 实例 RGBA 值 rgba(red, green, blue, alpha) 实例 HEX 值 #rrggbb 实例 实例 HSL 值 hsla(hue, saturation, lightness) 实例 饱和度 实例 亮度 实例 实例 HSLA 值 hsla(hue, saturation, lightness, alpha) 实例  指定颜色是通过使用预定义的颜色名称，或 RGB、HEX、HSL、RGBA、HSLA 值。  CSS 颜色名在 CSS 中，可以使用颜色名称来指定颜色：  亲自试一试 CSS&#x2F;HTML 支持 140 种标准颜色名。  CSS 背景色您可以为 HTML 元...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/25/en/HTML-Classes/" title="HTML Classes"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML Classes</div></div><div class="info-2"><div class="info-item-1">Table of Contents Example Classifying Block Elements Classifying Inline Elements A Complete Example  Classifying HTML elements (setting classes) allows us to define CSS styles for element classes. Set the same style for the same class, or different styles for different classes.  Example12345678910111213141516171819202122232425&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;.cities &#123;  background-color: black;  color: white;  margin: 20px;  padding: 20px;&#125;&lt;/style&gt;&lt;/...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Paragraphs/" title="HTML Paragraphs"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Paragraphs</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: HTML段落📊 146 views | 👍 1 like | 💬 1 comment | ⭐ 2 favorites   HTML documents can be divided into paragraphs.  HTML ParagraphsParagraphs are defined with the &lt;p&gt; tag. Example12&lt;p&gt;This is a paragraph&lt;/p&gt;&lt;p&gt;This is another paragraph&lt;/p&gt;  Note: Browsers automatically add blank lines before and after paragraphs. (&lt;p&gt; is a block-level element) Tip: Using empty paragraph tags &lt;p&gt;&lt;/p&gt; to inse...</div></div></div></a><a class="pagination-related" href="/2022/12/26/en/HTML-Entities/" title="HTML Entities and Reserved Characters"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML Entities and Reserved Characters</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Entities Non-breaking Space HTML Example Useful Character Entities in HTML  Reserved characters in HTML must be replaced with character entities.  HTML EntitiesSome characters are reserved in HTML. In HTML, you cannot use the less than sign (&lt;) and greater than sign (&gt;) because the browser will mistake them for tags. If we want to correctly display reserved characters, we must use character entities in the HTML source code. A character entity looks like this: 1&am...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-Styles/" title="HTML Styles"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML Styles</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: HTML样式📊 114 views | 👍 1 like | 💬 1 comment | ⭐ 2 favorites   The style attribute is used to change the style of HTML elements.  12345678910&lt;html&gt;&lt;body style=&quot;background-color:PowderBlue;&quot;&gt;&lt;h1&gt;Look! Styles and colors&lt;/h1&gt;&lt;p style=&quot;font-family:verdana;color:red&quot;&gt;This text is in Verdana and red&lt;/p&gt;&lt;p style=&quot;font-family:times;color:green&quot;&gt;This text is in Times and...</div></div></div></a><a class="pagination-related" href="/2023/01/20/en/29-CSS-Introduction-Preparation-for-PyQuery/" title="29. CSS Introduction: Preparation for PyQuery Module"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">29. CSS Introduction: Preparation for PyQuery Module</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 29. CSS简介：PyQuery模块的铺垫📊 708 views | 👍 4 likes | 💬 1 comment | ⭐ 4 favorites   Table of Contents What is CSS? CSS Demo - One HTML Page with Multiple Styles! Why Use CSS? CSS Example CSS Solved a Big Problem CSS Saves a Lot of Work! Simple Explanation CSS Selectors CSS Element Selector CSS ID Selector CSS Class Selector CSS Universal Selector CSS Grouping Selector All Simple CSS Selectors Further Reading  What is CSS? CSS stands for...</div></div></div></a><a class="pagination-related" href="/2022/12/24/en/HTML-CSS/" title="HTML CSS"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML CSS</div></div><div class="info-2"><div class="info-item-1">Table of Contents Examples How to Use Styles External Style Sheet Internal Style Sheet Inline Styles  All formatting code can be moved out of the HTML document and into a separate style sheet.  Examples Styles in HTML - Demonstrates how to format HTML using style information added to the &lt;head&gt; section. Links without underlines - Demonstrates how to use the style attribute to create a link without underlines. Link to an external style sheet - Demonstrates how to use the &lt;link&gt; tag...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Borders"><span class="toc-number">1.</span> <span class="toc-text">CSS Borders</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Properties"><span class="toc-number">1.1.</span> <span class="toc-text">CSS Border Properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Style"><span class="toc-number">1.2.</span> <span class="toc-text">CSS Border Style</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Width"><span class="toc-number">1.3.</span> <span class="toc-text">CSS Border Width</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specific-Side-Widths"><span class="toc-number">1.3.2.</span> <span class="toc-text">Specific Side Widths</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Color"><span class="toc-number">1.4.</span> <span class="toc-text">CSS Border Color</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2"><span class="toc-number">1.4.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Individual-Sides"><span class="toc-number">1.5.</span> <span class="toc-text">CSS Border - Individual Sides</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#How-It-Works"><span class="toc-number">1.5.1.</span> <span class="toc-text">How It Works</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Shorthand-Property"><span class="toc-number">1.6.</span> <span class="toc-text">CSS Border - Shorthand Property</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-3"><span class="toc-number">1.6.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Rounded-Borders"><span class="toc-number">1.7.</span> <span class="toc-text">CSS Rounded Borders</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#All-CSS-Border-Properties"><span class="toc-number">1.8.</span> <span class="toc-text">All CSS Border Properties</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Margins"><span class="toc-number">2.</span> <span class="toc-text">CSS Margins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Margin-Individual-Sides"><span class="toc-number">2.1.</span> <span class="toc-text">Margin - Individual Sides</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-4"><span class="toc-number">2.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Margin-Shorthand-Property"><span class="toc-number">2.2.</span> <span class="toc-text">Margin - Shorthand Property</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#How-It-Works-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">How It Works</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-auto-Value"><span class="toc-number">2.2.2.</span> <span class="toc-text">The auto Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Margin-Collapse"><span class="toc-number">2.3.</span> <span class="toc-text">Margin Collapse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#All-CSS-Margin-Properties"><span class="toc-number">2.4.</span> <span class="toc-text">All CSS Margin Properties</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Padding"><span class="toc-number">3.</span> <span class="toc-text">CSS Padding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Padding-Individual-Sides"><span class="toc-number">3.1.</span> <span class="toc-text">Padding - Individual Sides</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-5"><span class="toc-number">3.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Padding-Shorthand-Property"><span class="toc-number">3.2.</span> <span class="toc-text">Padding - Shorthand Property</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#How-It-Works-2"><span class="toc-number">3.2.1.</span> <span class="toc-text">How It Works</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Padding-and-Element-Width"><span class="toc-number">3.3.</span> <span class="toc-text">Padding and Element Width</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-6"><span class="toc-number">3.3.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#All-CSS-Padding-Properties"><span class="toc-number">3.4.</span> <span class="toc-text">All CSS Padding Properties</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Height-and-Width"><span class="toc-number">4.</span> <span class="toc-text">CSS Height and Width</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Height-and-Width-Values"><span class="toc-number">4.1.</span> <span class="toc-text">CSS Height and Width Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-7"><span class="toc-number">4.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-max-width"><span class="toc-number">4.2.</span> <span class="toc-text">Setting max-width</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Box-Model"><span class="toc-number">5.</span> <span class="toc-text">CSS Box Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Width-and-Height-of-an-Element"><span class="toc-number">5.1.</span> <span class="toc-text">Width and Height of an Element</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-8"><span class="toc-number">5.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Outline"><span class="toc-number">6.</span> <span class="toc-text">CSS Outline</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Outline-Style"><span class="toc-number">6.1.</span> <span class="toc-text">CSS Outline Style</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-9"><span class="toc-number">6.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Outline-Width"><span class="toc-number">6.2.</span> <span class="toc-text">CSS Outline Width</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-10"><span class="toc-number">6.2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Outline-Color"><span class="toc-number">6.3.</span> <span class="toc-text">CSS Outline Color</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-11"><span class="toc-number">6.3.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Outline-Shorthand-Property"><span class="toc-number">6.4.</span> <span class="toc-text">CSS Outline - Shorthand Property</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-12"><span class="toc-number">6.4.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Outline-Offset"><span class="toc-number">6.5.</span> <span class="toc-text">CSS Outline Offset</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-13"><span class="toc-number">6.5.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#All-CSS-Outline-Properties"><span class="toc-number">6.6.</span> <span class="toc-text">All CSS Outline Properties</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

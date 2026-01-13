@@ -1,0 +1,957 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Summary for Packaging and Assembly Technologies for Integrated Systems | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：Summary for Packaging and Assembly Technologies for Integrated Systems📊 1035 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 25 收藏  目录   Introduction Type of Packages: Packaging of integrated devices Qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Summary for Packaging and Assembly Technologies for Integrated Systems">
+<meta property="og:url" content="https://your-domain.com/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：Summary for Packaging and Assembly Technologies for Integrated Systems📊 1035 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 25 收藏  目录   Introduction Type of Packages: Packaging of integrated devices Qu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png">
+<meta property="article:published_time" content="2024-01-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="pcb工艺">
+<meta property="article:tag" content="可用性测试">
+<meta property="article:tag" content="复习资料">
+<meta property="article:tag" content="硬件架构">
+<meta property="article:tag" content="集成测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Summary for Packaging and Assembly Technologies for Integrated Systems",
+  "url": "https://your-domain.com/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/",
+  "image": "https://your-domain.com/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png",
+  "datePublished": "2024-01-18T15:00:00.000Z",
+  "dateModified": "2024-01-18T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Summary for Packaging and Assembly Technologies for Integrated Systems',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">Summary for Packaging and Assembly Technologies for Integrated Systems</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Summary for Packaging and Assembly Technologies for Integrated Systems</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-18T15:00:00.000Z" title="Created 2024-01-19 00:00:00">2024-01-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-18T15:00:00.000Z" title="Updated 2024-01-19 00:00:00">2024-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/General/">General</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">6.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>41mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2024-01-19 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/135671098">Summary for Packaging and Assembly Technologies for Integrated Systems</a><br>📊 1035 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 25 收藏</p>
+</blockquote>
+<p><strong>目录</strong>  </p>
+<p>Introduction</p>
+<p>Type of Packages:</p>
+<p>Packaging of integrated devices</p>
+<p>Question 1:</p>
+<p>Question 2:</p>
+<p>Question 3:</p>
+<p>Question 4:</p>
+<p>Question 5:</p>
+<p>Report 1:</p>
+<p>Front-end and back-end process</p>
+<p>Question 6:</p>
+<p>Question 7:</p>
+<p>Inspection Process</p>
+<p>Report 2:</p>
+<p>Prototyping and mass production</p>
+<p>Question 8:</p>
+<p>Question 9:</p>
+<p>Question 10: </p>
+<p>Question 11:</p>
+<p>Report 3:</p>
+<p>Printed circuit boards (PCBs)</p>
+<p>What is PCB?</p>
+<p>Question 12:</p>
+<p>Question 13:</p>
+<p>Question 14:</p>
+<p>Characteristics required for PCBs</p>
+<p>Electrical characteristics of PCBs</p>
+<p>Question 15:</p>
+<p>Question 16:</p>
+<p>Mechanical characteristics of PCBs</p>
+<p>Question 17:</p>
+<p>Report 4:</p>
+<p>Assembling integrated systems</p>
+<p>Question 18:</p>
+<p>Question 19:</p>
+<p>Classification of solder joint methods</p>
+<p>Question 20:</p>
+<p>Report 5:</p>
+<p>Reliability evaluation for integrated systems</p>
+<p>Reliability of integrated devices ​编辑</p>
+<p>Question 21:</p>
+<p>Reliability of bare PCBs</p>
+<p>Question 22:</p>
+<p>Question 23:</p>
+<p>Reliability of integrated systems</p>
+<p>Question 24:</p>
+<p>Report 6:</p>
+<p>Evaluation technologies by numerical analysis</p>
+<p>The necessity if numerical analysis</p>
+<p>Question 25:</p>
+<p>Question 26:</p>
+<p>Summary</p>
+<hr>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Packaging and assembly level:</strong></p>
+<blockquote>
+<ol>
+<li>Bare chip level: Bare chips of transistors, diodes, resistors, capacitors (discrete components), and Integrated Circuits(ICs).</li>
+<li>Package level: Packaged devices of the first level bare chps.</li>
+<li>Printed circuit board level: Printed circuit boards on which two or more packaged devices of the second level are connected.</li>
+<li>Total system level: Total systems including multiple printed circuit boards of the third level in their housings.</li>
+</ol>
+</blockquote>
+<p><strong>Topics to be discussed:</strong></p>
+<ul>
+<li>Packaging technologies for Integrated devices</li>
+<li>Technologies for circuit boards</li>
+<li>Assembly technologies</li>
+<li>Reliability evaluation technologies</li>
+<li>Evaluation technologies by numerical analysis</li>
+</ul>
+<h3 id="Type-of-Packages"><a href="#Type-of-Packages" class="headerlink" title="Type of Packages:"></a>Type of Packages:</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png"></p>
+<hr>
+<h2 id="Packaging-of-integrated-devices"><a href="#Packaging-of-integrated-devices" class="headerlink" title="Packaging of integrated devices"></a>Packaging of integrated devices</h2><h3 id="Question-1"><a href="#Question-1" class="headerlink" title="Question 1:"></a>Question 1:</h3><p>Answer the following questions for package types of SIP, ZIP, and DIP.</p>
+<p><strong>1. What are the advantage and disadvantage of SIP when compared with ZIP?</strong></p>
+<blockquote>
+<p><strong>Advantage of SIP:</strong></p>
+<p>Structure is simpler than ZIP, so the manufacturing cost is low and it is more reliable.</p>
+<p><strong>Disadvantage of SIP:</strong></p>
+<p>Mounting density is lower than that of ZIP</p>
+</blockquote>
+<p><strong>2. What are the advantage and disadvantage of SIP when compared with DIP?</strong></p>
+<blockquote>
+<p><strong>Advantage of SIP:</strong></p>
+<p>Structure is simpler than DIP, so the manufacturing cost is low and it is more reliable.</p>
+<p><strong>Disadvantage of SIP:</strong></p>
+<p>Mounting density is lower than that of DIP.</p>
+</blockquote>
+<h3 id="Question-2"><a href="#Question-2" class="headerlink" title="Question 2:"></a>Question 2:</h3><p>Answer the following questions for package types of SOP, SOJ, and SON.</p>
+<p><strong>1. What are the advantage and disadvantage of SOP when compared with SOJ?</strong></p>
+<blockquote>
+<p><strong>Advantage of SOP:</strong></p>
+<p>It is easy to process because the leads do not need to be bent inward.</p>
+<p><strong>Disadvantage of SOP:</strong></p>
+<p>The leads of SOP are easier to deform than the J-shaped leads of SOJ.</p>
+</blockquote>
+<p><strong>2. What are the advantage and disadvantage of SOP when compared with SON?</strong></p>
+<blockquote>
+<p><strong>Advantage of SOP:</strong></p>
+<p>As much mounting area is required, SOP is easier to mount on circuit board than SON.</p>
+<p><strong>Disadvantage of SOP:</strong></p>
+<p>Mounting area is relatively large because the leads protrude to the outside. (resulting in low mounting density, I think)</p>
+</blockquote>
+<h3 id="Question-3"><a href="#Question-3" class="headerlink" title="Question 3:"></a>Question 3:</h3><p><strong>Describe an advantage and an disadvantage of the four-sized surface mount packages (QFP, QFJ, QFN) when compared to the two-sized surface mount packages (SOP, SOJ, SON).</strong></p>
+<blockquote>
+<p><strong>Advantage of the four-sized surface mount packages</strong></p>
+<p>Because the leads can protrude from the four sides, the mounting density can be increased compared to that of a two-sized package.</p>
+<p><strong>Disadvantage of the four-sized surface mount packages</strong></p>
+<p>Although the mounting density can be increased, processing is difficult in the package manufacturing process. </p>
+</blockquote>
+<h3 id="Question-4"><a href="#Question-4" class="headerlink" title="Question 4:"></a>Question 4:</h3><p><strong>In the die cutting process, a die cutting blade rotating at high speed is used to cut a silicon wafer. Answer at least one problem that may arise in this manufacturing process and your solution.</strong></p>
+<blockquote>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>Because the die cutting blade is rotated at high speed to cut the silicon wafer, cracks may occur in the silicon wafer during die cutting.</li>
+<li>During cutting, silicon shavings may scatter and fall on bare chips.</li>
+<li>Friction between the die cutting blade and the silicon wafer generates heat, which may thermally destroy bare chips.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Decrease the approaching speed of the die cutting blade to the silicon wafer (do not cut at once).</li>
+<li>Blow air during cutting to prevent silicon shavings from dropping onto the silicon wafer.</li>
+<li>Move the die cutting blade as quickly as possible to make it difficult for heat to remain on the silicon wafer.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>The first and third solutions seem to contradict each other, but it is necessary to determine the machining conditions while maintaining a balance within the allowance range of both.</strong></p>
+</blockquote>
+<h3 id="Question-5"><a href="#Question-5" class="headerlink" title="Question 5:"></a>Question 5:</h3><p><strong>In the die bonding process, a resin paste (adhesive) is applied to a predetermined position on the lead frame, a bare chip is moved from the silicon wafer onto the resin paste using a collet, and the bare chip is pressed to the resin paste by a pressure load. Answer at least one problem that may arise in this manufacturing process and your solution.</strong></p>
+<blockquote>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>When the collet sucks the bare chip, the impact may break the bare chip.</li>
+<li>When the collet pressure-bonds the bare chip to the resin paste, the bare chip may be broken by the impact. </li>
+<li>If the amount of resin paste applied is small, it cause poor electric conduction.</li>
+<li>Poor positioning accuracy of the resin paste and the bare chip prevents proper pressure bonding.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Slow down the approaching speed of the collet to the bare chip when the collet sucks the bare chip.</li>
+<li>Extend the adhesion time when the collet to the bare chip when the collet sucks the bare chip when the collet pressure-bonds the bare chip to the resin paste.</li>
+<li>Increase the standard amount of resin data. </li>
+<li>Replace the positioning motor in the equipment with a high-precision one. Decrease the operating speed to enable reliable positioning.</li>
+</ul>
+</blockquote>
+<h3 id="Report-1"><a href="#Report-1" class="headerlink" title="Report 1:"></a>Report 1:</h3><p><strong>Investigate the functions that are common to all the packages introduced in today’s lecture, that is, the functions that are absolutely required for integrated device packages, and describe them.</strong></p>
+<blockquote>
+<p>The basic function of integrated device packages is to protect the bare chip from external stimuli such as dust, dirt, impact, and heat. Also, if the bare chip is simply covered with a protective material, it will not be possible to transmit electrical signals between the bare chip and the outside. Therefore, <strong>the function for transmitting electrical signals between the outside and the bare chip</strong> is required. For this reason, the package always have conductors such as lead terminals for transmitting electrical signals.</p>
+<p>In addition, the heat dissipation function is also required if bare chips generate a particularly large amount of heat. In order to realize the heat dissipation function, it is common to equip a heat dissipation function, it is common to equip a heat dissipation plate. </p>
+</blockquote>
+<h3 id="Front-end-and-back-end-process"><a href="#Front-end-and-back-end-process" class="headerlink" title="Front-end and back-end process"></a>Front-end and back-end process</h3><blockquote>
+<p><strong>Front-end process:</strong></p>
+<p>Processes of fabricating transistors and integrated circuits on silicon wafers</p>
+<p><strong>Back-end process: --&gt; Packaging process for integrated devices</strong></p>
+<p>Processes in which a bare chip is cut out from a silicon wafer, placed on a lead frame, wire-connected between the lead and the element, and the bare chip is sealed with a package material such as mold resin. The inspection process to check whether the product works normally is included as the back-end process.</p>
+</blockquote>
+<h3 id="Question-6"><a href="#Question-6" class="headerlink" title="Question 6:"></a>Question 6:</h3><p><strong>In the wire bonding process, the gold wire is held by the capillary, a gold ball is formed at the tip of the wire, the gold ball is moved to the electrode of the bare chip and pressed. After that, the gold wire is loosened in the capillary, the capillary is moved to the lead terminal side, the gold wire is press-contacted to a predetermined position of the lead terminal, and then the gold wire is cut with a cutter attatched to the capillary.</strong></p>
+<p><strong>Answer problems that may arise in this manufacturing process and your solution.</strong></p>
+<blockquote>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>When the gold wire is held by the capillary, the holding force is too strong and the gold wire is cut.</li>
+<li>When the gold wire is held by the capillary, the holding force is too weak and the capillary fails to grip the gold wire.</li>
+<li>Poor positioning accuracy of the capillary prevents the gold ball from hitting the correct location.</li>
+<li>When the gold ball is pressed to the electrode of the bare chip, the pressing force is too strong and the bare chip is destroyed.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Properly adjust the clumping force of the capillary to the gold wire.</li>
+<li>Properly adjust the clumping force of the capillary to the gold wire.</li>
+<li>Decrease the movement speed of the capillary to increase the positioning accuracy.</li>
+<li>Reduce the load on the bare chip by lowering the pressing force and taking a long pressing time.</li>
+</ul>
+</blockquote>
+<h3 id="Question-7"><a href="#Question-7" class="headerlink" title="Question 7:"></a>Question 7:</h3><p><strong>In the mold resin sealing process, the set of the bare chip, the lead frame, and the lead terminal connected by gold wires is transferred onto an open mold, the upper mold is lowered and fixed, and the melted resin is injected to fill the cavity without gaps. After that, the resin is cooled and solidified, the upper mold is raised, and the packaged molded product is taken out.</strong></p>
+<p><strong>Answer problems that may arise in this manufacturing process and your solution.</strong></p>
+<blockquote>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>When the set of the bare chip, the lead frame, and the lead terminal connected by gold wires is transferred onto an open mold, the positioning accuracy is poor and the mold resin is not properly enclosed around the set.</li>
+<li>If the flow of melted resin is not smooth, cavaties may be generated inside the package.</li>
+<li>When melted resin flows, it may push away the mechanically weak gold wire. Because of this, the gold wire may be broken.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Improve the positioning accuracy of the transport by changing the transport motor.</li>
+<li>Confirm how the melted resin flows by the resin flow simulation, and change the mold so that the melted resin flows slowly.</li>
+<li>Confirm how the melted resin flows by the resin flow simulation, and change the mold to reduce the force pushing the gold wire away.</li>
+</ul>
+</blockquote>
+<h3 id="Inspection-Process"><a href="#Inspection-Process" class="headerlink" title="Inspection Process"></a>Inspection Process</h3><p>Inspection is necessary to prevent defective products from reaching the market. The inspection process can be roughly divided into:</p>
+<p><strong>Electrical property inspection:</strong></p>
+<blockquote>
+<p>A packaged integrated device is inspected concerning <strong>electrical characteristics</strong></p>
+</blockquote>
+<p><strong>Visual inspection:</strong></p>
+<blockquote>
+<p>A packaged integrated device is inspected for <strong>external defects (cracks of mold resin).</strong> Products with defects in appearance are highly likely to cause <strong>mechanical damage</strong> from the <strong>defected point</strong> , so they must be rejected as well.</p>
+</blockquote>
+<h3 id="Report-2"><a href="#Report-2" class="headerlink" title="Report 2:"></a>Report 2:</h3><p><strong>I introduced the inspection process. Describe why the inspection process is important and what kind of disadvantages a manufacturing company may suffer if there are problems in the inspection process and defective products are released to the market.</strong></p>
+<blockquote>
+<p>The inspection process is needed to prevent defective products from being released to the market. Recently, integrated devices have been installed not only in personal computers and smartphones but also in various machines, such as automobiles and aircraft.</p>
+<p>In particular, in applications such as automobiles and aircraft, where failures in electrical systems directly endanger human lives, integrated devices are also required to have high reliability. In particular, in the case of integrated devices for automobiles, if there is a defect in the inspection process and defective products are released on the market, a large-scale recall of automobiles is needed, which requires huge costs.</p>
+<p>The cost have to be covered by the integrated device manufacturer (depending on the sales contract), and in the worst case, the company will be in danger of bankruptcy.</p>
+</blockquote>
+<h3 id="Prototyping-and-mass-production"><a href="#Prototyping-and-mass-production" class="headerlink" title="Prototyping and mass production"></a>Prototyping and mass production</h3><blockquote>
+<ul>
+<li>Mass production at companies is a race against<strong>time</strong>.</li>
+<li>Persuit of production speed leads to a sharp increase in the <strong>defective product rate</strong>.</li>
+<li>Consider manners to “increase production speed and reduce defect rate”.</li>
+<li>Consider defect modes in each production process.</li>
+</ul>
+</blockquote>
+<h3 id="Question-8"><a href="#Question-8" class="headerlink" title="Question 8:"></a>Question 8:</h3><p><strong>Answer failure modes that can occur in the die cutting process when the die cutting blade is moved at high speed to increase the wafer cutting speed.</strong></p>
+<blockquote>
+<ul>
+<li>When the die cutting blade is moved at high speed to increase the wafer cutting speed, cracking and chipping of bare chips are more likely to occur due to the high speed operation.</li>
+<li>As the processing speed increases, processing accuracy tends to decrease and processing errors increase.</li>
+</ul>
+</blockquote>
+<h3 id="Question-9"><a href="#Question-9" class="headerlink" title="Question 9:"></a>Question 9:</h3><p><strong>Answer failure modes that can occur when production speed is increased in the die bonding process.</strong></p>
+<blockquote>
+<ul>
+<li>If the transfer speed of the lead frame is made too fast, the lead frame will move out of position.</li>
+<li>When a bare chip is vacuum-sucked with a collet, increasing the speed may break the bare chip.</li>
+<li>When a bare chip is pressure-bonded to resin paste, shortening the time may break the bare chip.</li>
+<li>If the heat curing time of the resin paste is too short, adhesion failure may occur.</li>
+</ul>
+</blockquote>
+<h3 id="Question-10"><a href="#Question-10" class="headerlink" title="Question 10:"></a>Question 10:</h3><p><strong>Answer failure modes that can occur when production speed is increased in the wire bonding process.</strong></p>
+<blockquote>
+<ul>
+<li>When a gold ball is formed at the tip of the wire, the gold ball may lose its shape if the time is reduced.</li>
+<li>When a gold ball is pressure-welded into an electrode of a bare chip, shortening the time may result in insufficient adhesion.</li>
+<li>When a gold wire is pressure-welded into a place on a lead terminal, shortening the time may result in insufficient adhesion.</li>
+<li>When cutting a gold wire, shortening the time may result in incomplete cutting.</li>
+</ul>
+</blockquote>
+<h3 id="Question-11"><a href="#Question-11" class="headerlink" title="Question 11:"></a>Question 11:</h3><p><strong>Answer failure modes that can occur when production speed is increased in the mold resin sealing process.</strong></p>
+<blockquote>
+<ul>
+<li>When a set of a bare chip, a lead frame, an lead terminals is transferred onto an open mold, increasing the transfer speed increases the possibility that the set will shift out of position.</li>
+<li>When melted resin is injected into a mold, increasing the injection speed increases the possibility that a resin will not be fully spread and cavaties will occur.</li>
+<li>Shortening the time to cool the melted resin, for example, by forced air cooling increases the load on the resin due to thermal shock and increases the possibility of breaking.</li>
+<li>Increasing the speed, at which the molded product is removed from the mold, increases the shock on the molded product during removal. It increases the possibility of damage to the molded product.</li>
+</ul>
+</blockquote>
+<h3 id="Report-3"><a href="#Report-3" class="headerlink" title="Report 3:"></a>Report 3:</h3><p>I explained possible failure modes in the die cutting, die bonding, wire bonding, and mold resin sealing processes. <strong>Describe whether these defect modes should be detected by electrical characristics inspection, visual inspection, or combination of two. Give reasons as well.</strong></p>
+<blockquote>
+<p>Various failure modes occur in the die cutting, die bonding, wire bonding, and mold resin sealing processes. Among these,<strong>there exist defective modes that can only be detected by the electrical characteristics inspection and those that can only be detected by the visual inspection.</strong></p>
+<p>For example, <strong>poor adhesion</strong> between the gold wire and the electrode of the bare chip during the wire bonding process is extremely difficult to detect by the visual inspection. This is because that the adhesive part is hidden under the gold wire, so the electrical characteristic inspection is required.</p>
+<p>On the other hand, <strong>cracks in the bare chip</strong> during the die cutting process, for example, cannot be detected by the electrical characteristic inspection because even if the edge is slightly chipped, it does not immediately affect the electrical characteristics. However, the defects expand starting from the cracks of the bare chip and cause electrical failures <strong>over time</strong>. Therefore, cracks of the bare chip must be detected, thus requiring the visual inspection.</p>
+<p>For these reasons, <strong>a combination of both</strong> should be used to detect defects. </p>
+</blockquote>
+<hr>
+<h2 id="Printed-circuit-boards-PCBs"><a href="#Printed-circuit-boards-PCBs" class="headerlink" title="Printed circuit boards (PCBs)"></a>Printed circuit boards (PCBs)</h2><h3 id="What-is-PCB"><a href="#What-is-PCB" class="headerlink" title="What is PCB?"></a>What is PCB?</h3><blockquote>
+<ul>
+<li>In a <strong>narrow sense</strong> : <ul>
+<li>Refers only to boards that <strong>do not contain</strong> electronic components</li>
+</ul>
+</li>
+<li>In a <strong>broad sense</strong> : <ul>
+<li>Refers to boards that <strong>include</strong> mounted electronic components</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/67bd1bc8be98.png"></p>
+</blockquote>
+<h3 id="Question-12"><a href="#Question-12" class="headerlink" title="Question 12:"></a>Question 12:</h3><p><strong>Describe your thoughts on how electrical circuits would be assembled if PCBs did not exist in this world, and what problems might arise in such cases.</strong></p>
+<blockquote>
+<p>If PCBs did not exist in this world, electrical circuits would be assembled using different methods in complex ways in the past. Some of the problems that might arise in such cases are: (not the given best answer)</p>
+<ul>
+<li>Without PCBs, circuits would be more<strong>complex to design</strong> , manufacture, and assemble. Thus cost more in production. </li>
+<li>Without PCBs, it would be more <strong>prone to errors</strong> , failures, and interference for designed circuits .</li>
+<li>Without PCBs, circuits would be<strong>less adaptable and scalable</strong> to the various needs and demands of consumers.</li>
+</ul>
+</blockquote>
+<h3 id="Question-13"><a href="#Question-13" class="headerlink" title="Question 13:"></a>Question 13:</h3><p><strong>Based on the difference between the rigid and flexible boards, describe the appropriate usage for each boards and the reason why they are appropriate usage.</strong></p>
+<blockquote>
+<p>Rigid boards are widely used as the most basic and common circuit boards because they can <strong>hold electrical circuit stably</strong>.</p>
+<p>In contrast, flexible boards are characterized by their ability to be <strong>flexibly bent</strong>. Taking advantage of this feature, they are used when boards need to be bent due to space constraints. For this reason, they are often used in small and thin electronic devices. In addition, because flexible boards can flexibly deform, they are used in machines that consist of fixed and movable parts, where the fixed and movable parts need to be electrically connected. On this direction, printers are representative. </p>
+</blockquote>
+<h3 id="Question-14"><a href="#Question-14" class="headerlink" title="Question 14:"></a>Question 14:</h3><p>Answer the following questions about single-sided, double-sided, and multilayer PCBs.</p>
+<p><strong>1. Describe the advantages and disadvantages of double-sided PCBs when compared with single-sided PCBs.</strong></p>
+<blockquote>
+<p><strong>Advantage of double-sided PCBs:</strong></p>
+<p>Because the mounting surface is double when compared with the single-sided PCB, more electrical components can be mounted per area.</p>
+<p><strong>Disadvantage of double-sided PCBs:</strong></p>
+<p>For <strong>electrically connecting the front and back surfaces</strong> , it is necessary to drill through holes and plating there. So, the manufacturing cost will increase.</p>
+</blockquote>
+<p><strong>2. Describe the advantages and disadvantages of multilayer PCBs when compared with double-sided PCBs.</strong></p>
+<blockquote>
+<p><strong>Advantage of multilayer PCBs:</strong></p>
+<p>By adding conductor layers in the middle and laying out conductors in the conductor layers, multilayer PCBs allow more complex conductor routing than double-sided PCBs.</p>
+<p><strong>Disadvantage of multilayer PCBs:</strong></p>
+<p>Because conductor layers are added in the middle, the manufacturing cost is even higher than for double-sided PCBs. In addition, because electrical components cannot be mounted on the conductor layer, the mounting density is not significantly higher than that of double-sided PCBs.</p>
+</blockquote>
+<h3 id="Characteristics-required-for-PCBs"><a href="#Characteristics-required-for-PCBs" class="headerlink" title="Characteristics required for PCBs"></a>Characteristics required for PCBs</h3><p><strong>Electrical characristics:</strong></p>
+<blockquote>
+<p>Characteristics related to the electrical behavior of PCBs when electronic components are electrically connected <strong>as a single electrical circuit</strong>.</p>
+</blockquote>
+<p><strong>Mechanical characristics:</strong></p>
+<blockquote>
+<p>Characteristics related to the strength of PCBs, where electronic components are mounted, to<strong>external loads, impacts, and thermal loads.</strong></p>
+</blockquote>
+<p><strong>Chemical characristics:</strong></p>
+<blockquote>
+<p>Characteristics related to the strength of PCBs against <strong>corrosion and damage caused by chemicals</strong> used during the electronic component mounting process. </p>
+</blockquote>
+<h3 id="Electrical-characteristics-of-PCBs"><a href="#Electrical-characteristics-of-PCBs" class="headerlink" title="Electrical characteristics of PCBs"></a>Electrical characteristics of PCBs</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/bf57518c5acc.png"></p>
+<h3 id="Question-15"><a href="#Question-15" class="headerlink" title="Question 15:"></a>Question 15:</h3><p><strong>Answer what kind of problems can occur when the resistivity of the conductor used in a PCB is high.</strong></p>
+<blockquote>
+<p><strong>High resistance</strong> of conductor wires causes voltage drop and heat generation.</p>
+<p>On the other hand, the rated voltage is determined for electrical components to be mounted on PCBs, that is, the range of voltage and current for normal operation is determined. Therefore, if the voltage drop becomes large, the voltage imposed on an electrical component may fall below its rated voltage. In such case, the electrical component may not operate properly. In addition, if heat generated from conductor wires exceeds the heat dissipation capacity of the PCB, the conductor wires may burn out or, in the worst case, the PCB may catch fire.</p>
+</blockquote>
+<h3 id="Question-16"><a href="#Question-16" class="headerlink" title="Question 16:"></a>Question 16:</h3><p><strong>Crosstalk is likely to occur if two conductors wires are long and parallel, whether in the forward or backward transmission. Consider how to layout the conductor wires in such a way that crosstalk is less likely to occur.</strong></p>
+<blockquote>
+<p>The basic solution is to *<em>shorten the distance of parallel conductor wires *<em>as much as possible. However, when the mounting density of electrical components is high, there are many cases where the distance of the parallel conductor wires connot be shortened on a single-sided or double-sided PCB because there is little flexibility in wiring routing. In such cases, <strong>the use of</strong></em>*multilayer PCBs</em>* is one means to consider.</p>
+<p>Also, because the <strong>ground pattern</strong> has a large electrical capacitance and <strong>absorbs noise easily</strong> , it is often used to surpress crosstalk by locating a ground pattern between two parallel transmission lines.</p>
+</blockquote>
+<h3 id="Mechanical-characteristics-of-PCBs"><a href="#Mechanical-characteristics-of-PCBs" class="headerlink" title="Mechanical characteristics of PCBs"></a>Mechanical characteristics of PCBs</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/3c1a2b3efcf3.png"></p>
+<h3 id="Question-17"><a href="#Question-17" class="headerlink" title="Question 17:"></a>Question 17:</h3><p><strong>The mechanical characteristics required of PCBs can be largely classified as strength against external loads (impact) and reliability against heat. Assuming actual use of integrated systems, describe to the best of your knowledge the type of loads (impacts) and heat that may apply on a PCB.</strong></p>
+<blockquote>
+<p><strong>Loads (impacts) that may apply on PCBs</strong></p>
+<ul>
+<li><strong>Drop impact</strong> when a portable electronic device, such as a smartphone, is dropped.</li>
+<li>Shock when<strong>something is dropped on</strong> an electronic device.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Heat that may apply on PCBs</strong></p>
+<ul>
+<li>For PCBs installed in automobiles, for example, the temperature inside the automobile may exceed 50℃ during <strong>the day in mid-summer</strong>. PCBs for automotive use must withstand such heat.</li>
+<li>When conductor wires on a PCB are long and thin and a large current flows through them, the<strong>high conductor resistivity of the conductor wires</strong> may generate heat.</li>
+<li><strong>CPUs with high power consumption</strong> are usually equipped with cooling fans, but the cooling capacity of the fans decreases after prolonged use. In this case,<strong>the CPU cannot be cooled sufficiently</strong> , and the heat generated by the CPU may be transferred to the PCB, causing adverse effects.</li>
+</ul>
+</blockquote>
+<h3 id="Report-4"><a href="#Report-4" class="headerlink" title="Report 4:"></a>Report 4:</h3><p><strong>Chemical characteristics are also important for PCBs. Investigate chemical characteristics required for printed circuit boards and describe the results as a report.</strong></p>
+<blockquote>
+<p>Chemical characteristics required for PCBs mainly include resistance to plating, etching, solvents, and migration.</p>
+<p>Plating resistance is a property that prevents a PCB from being corroded or destroyed <strong>when the PCB is plated.</strong></p>
+<p>Etching resistance is a property that prevents a PCB from being corroded or destroyed by etching solution <strong>during the fabrication of copper wiring patterns</strong>.</p>
+<p>Solvent resistance is a property that prevents a PCB from being corroded or destroyed by <strong>organic solvents</strong> used in the manufacturing process of the PCB and the mounting process of integrated devices.</p>
+</blockquote>
+<hr>
+<h2 id="Assembling-integrated-systems"><a href="#Assembling-integrated-systems" class="headerlink" title="Assembling integrated systems"></a>Assembling integrated systems</h2><h3 id="Question-18"><a href="#Question-18" class="headerlink" title="Question 18:"></a>Question 18:</h3><p>The lead-free solder has a melting point about 34 ℃ higher than the lead solder. Therefore, the lead-free solder must be heated to a higher temperature in the solder joint process. Based on this, <strong>describe as many defects as you can think that may occur when integrated devices and a PCB are soldered using the lead-free solder, compared to the case where the lead solder is used.</strong></p>
+<blockquote>
+<p>When the lead-free solder is used, the integrated device and the PCB are exposed to a hotter environment that whem the lead solder is used. There are many possible problems that can occur by this. For example, …</p>
+<ul>
+<li><strong>More heat</strong> is transferred from the lead terminals of the integrated device. This causes thermal damage to the bare chip, resulting in <strong>malfunction</strong>.</li>
+<li><strong>More heat</strong> is transferred from the lead terminals of the integrated device. As a result, thermal stress at the junction between the gold wire and the bare chip increases. Therefore, the gold wire and the bare chip seperate, resulting <strong>poor electrical conductivity.</strong></li>
+<li>The amount of <strong>warpage due to heating</strong> of the PCB increases. This causes a larger misalignment of the lead terminals of the integrated device with the electrodes of the PCB. This makes the <strong>solder joint failure</strong> more likely to occur.</li>
+<li>In the PCB, the<strong>adhesive</strong> between the conductors and the base substrate <strong>melts</strong>. This causes the conductors to <strong>easily pull away</strong> from the base substrate.</li>
+</ul>
+</blockquote>
+<h3 id="Question-19"><a href="#Question-19" class="headerlink" title="Question 19:"></a>Question 19:</h3><p><strong>Consider and answer why the solder wettability is an important property for the solder.</strong></p>
+<blockquote>
+<p>Poor solder wettability means that the solder is <strong>easily repelled by other metals</strong>. It means that poor solder wettability cause a weak bond between an integrated device and a PCB. Therefore, using solder with poor wettability makes it difficult to acheive the main purpose of solder joints, which is to sufficiently bond lead terminals of integrated devices to electrode pads of PCBs.</p>
+<p>The lead-free solder has a higher melting point and poorer solder wettability than the lead solder. Therefore, <strong>the lead-free solder is difficult</strong> for manufacturing engineers <strong>to handle</strong>. Furthermore, the lead-free solder is generally <strong>more expensive</strong> than the lead solder because silver and copper are more expensive than lead.</p>
+<p>Thus, the lead-free solder has various disadvantages compared to the lead solder. However, <strong>the use of lead is restricted worldwide</strong> , so the lead-free solder has to be used. </p>
+<p>As previously mentioned, the lead-free solder consisting of 96.5% tin, 3% silver, and 0.5% copper is currently in common use. But as mentioned above, it has many disadvantages. For this reason, research on lead-free solders with <strong>new composition</strong> is proceeding. </p>
+</blockquote>
+<h3 id="Classification-of-solder-joint-methods"><a href="#Classification-of-solder-joint-methods" class="headerlink" title="Classification of solder joint methods"></a>Classification of solder joint methods</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/2c77525a2bec.png"></p>
+<h3 id="Question-20"><a href="#Question-20" class="headerlink" title="Question 20:"></a>Question 20:</h3><p>The dipping and flow solder joints are mainly used for solder joints of insertion mount packages. On the other hand, the reflow solder joint is mainly used for solder joints of surface mount packages.<strong>Describe the problems that can occur when soldering surface mount packages to a PCB by the dipping and flow solder joints, as opposite to the normal case. Similarly, describe the problems that can occur when soldering an insertion mount packages to a PCB by the reflow solder joint.</strong></p>
+<blockquote>
+<p>When attempting to solder surface mount packages to a PCB by the dipping or flow solder joint, the <strong>size of lead terminals</strong> of surface mount packages becomes a major problem. The lead terminals are small and the distance between adjacent lead terminals. But in the case of the dipping solder joint, integrated devices and a PCB are dipped together in a solder bath. Therefore, it is difficult to prevent electrical shorts. Also in the case of the flow solder joint, melted solder is sprayed onto the integrated devices and the PCB. So, it is difficult to hold the surface mount packages so that it is not moved away by the melted solder. It is also difficult to accurately control the jet flow to prevent <strong>electrical shorts</strong>.</p>
+<p>When soldering insertion mount packages and a PCB by the reflow solder joint, it is necessary to prepare <strong>a large amount of solder paste</strong> because insertion mount packages are generally large. So, the manufacturing cost increases. In addition, the mold resin of the insertion mount package is generally <strong>weak against heat</strong>. So, if the entire package is heated in a reflow furnace, the mold resin may melt. It makes the reflow solder joint difficult.</p>
+</blockquote>
+<h3 id="Report-5"><a href="#Report-5" class="headerlink" title="Report 5:"></a>Report 5:</h3><p><strong>Investigate and consider an assembly method for the case where insertion mount packages are soldered to the front side of a PCB and surface mount packages are soldered to the front side of a PCB and surface mount packages are soldered to the back side of the PCB. Describe the results in a report.</strong> (Manual soldering should not be used)</p>
+<blockquote>
+<p>In the case of this problem, the following processes enable solder joints of surface mount packages and insertion mount packages on the same PCB.</p>
+<ol>
+<li><strong>Applying solder pastes</strong></li>
+<li><strong>Placing integral devices</strong></li>
+<li><strong>Solder joints in a reflow furnace</strong></li>
+<li><strong>Turning the PCB over</strong></li>
+<li><strong>Covering the surface mount section by a flow pallet</strong></li>
+<li><strong>Inserting integrated devices</strong></li>
+<li><strong>Applying flux</strong></li>
+<li><strong>Solder joints in a solder bath</strong></li>
+<li><strong>Flux is cleaned and finished</strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/e6c20b5d708e.png"></p>
+</blockquote>
+<hr>
+<h2 id="Reliability-evaluation-for-integrated-systems"><a href="#Reliability-evaluation-for-integrated-systems" class="headerlink" title="Reliability evaluation for integrated systems"></a>Reliability evaluation for integrated systems</h2><blockquote>
+<ul>
+<li>Reliability at the integrated device (electronic component) level</li>
+<li>Reliability at the bare PCB level</li>
+<li>Reliability at the integrated device level, in which integrated devices mounted on a PCB</li>
+</ul>
+</blockquote>
+<h3 id="Reliability-of-integrated-devices"><a href="#Reliability-of-integrated-devices" class="headerlink" title="Reliability of integrated devices "></a>Reliability of integrated devices <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/2779594af3fa.png"></h3><blockquote>
+<ul>
+<li><strong>Burn-in inspection:</strong> Burn-in inspection is a final electrical check for integrated devices. It involves operating devices under high temperature and voltage to detect defects that might rapidly progress. This acceleration test helps identify initial defects in a short period, ensuring high product reliability by testing in harsher conditions than the manufacturer’s specifications.<ul>
+<li>(Summerized by ChatGPT)</li>
+</ul>
+</li>
+<li><strong>Package inspection:</strong> After passing burn-in inspection, integrated devices undergo package inspection using testers and handlers. Testers measure electrical characteristics under varying conditions, while handlers transport devices to testers. Unlike burn-in, this inspection simulates expected usage conditions. <ul>
+<li>(Summerized by ChatGPT)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="Question-21"><a href="#Question-21" class="headerlink" title="Question 21:"></a>Question 21:</h3><p>When a certain product is operated in an environment with a significantly higher burden (high temperature, high humidity, high voltage, etc.) than the normal operating environment, a defective mode will appear after a long period of time. Tests that utilize this phenomenon to find defective products are collectively called the acceleration test. <strong>Describe the merits and cautions of the acceleration test.</strong></p>
+<blockquote>
+<p><strong>[Merits]</strong></p>
+<p>The major advantage of the acceleration test is that it can detect defective products in a relatively short period of time, even if the defective modes normally do not appear until a long time has passed. Some defective modes may take more than a decade to appear, and it is unrealistic to detect products with these defetive modes in real-time scale testing before the shipment. The acceleration test is almost the only way to detect such failure modes. </p>
+<p><strong>[Cautions]</strong></p>
+<p>The basic idea of the acceleration test is to accelerate degradation of the test object in a harsh environment, so that degradation that normally occurs over a long period of time can occur in a short period of time. However, <strong>a long period of time in a standard environment and a short period of time in a harsh environment are essentially different</strong> , and not all failure modes related to aging can be detected in the acceleration test. In other words, it is necessary to know in advance <strong>which failure modes can be detected in the acceleration test to be conducted</strong>. This point hsould be taken into account when conducting the acceleration test. </p>
+<p>In particular, it is<strong>difficult to assume all situations</strong> regarding mechanical and electrical influences received from surrounding mechanical equipment during prolonged use, and the acceleration test is basically a test of the product alone. </p>
+</blockquote>
+<h3 id="Reliability-of-bare-PCBs"><a href="#Reliability-of-bare-PCBs" class="headerlink" title="Reliability of bare PCBs"></a>Reliability of bare PCBs</h3><blockquote>
+<p>The following inspections are performed at the final stage of PCB manufacturing. </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/32c135aa370c.png"></p>
+</blockquote>
+<h3 id="Question-22"><a href="#Question-22" class="headerlink" title="Question 22:"></a>Question 22:</h3><p><strong>Describe the adantage and disadvantage of the flying prober method compared to the method of making a dedicated jig for each type of PCB in the short-open test. Also, based on this, describe the situation in which the method of making a dedicated jig for each type of PCB is advantageous, and conversely, the situations in which the flying prober is advantageous.</strong></p>
+<blockquote>
+<p><strong>[Advantage of the flying prober method]</strong></p>
+<p>The main advantage of the flying prober method is its flexibility. In the method of making a dedicated jig for each type of PCB, a dedicated jig must be made each time when the conductor layout of the PCB changes. On the other hand, in the flying prober method, the probe trajectory can be flexibly programmed to perform the short-open test to PCBs having various conductor layouts.</p>
+<p><strong>[Disadvantage of the flying prober method]</strong></p>
+<p>The main disadvantage of the flying prober method is that it requires some time for the short-open test. In the method of making a dedicated jig for each type of PCB, the time required for inspection is short because the inspection for electrical conductivity, disconnection, and short-circuit can be performed for all electrodes on the PCB at one time. In contrast, the flying prober method requires more time for the inspection due to the time needed to move the probe.</p>
+<p>Which method is actually more advantageous depends on the production volume of PCBs to be inspected. For <strong>mass</strong> production, the method of<strong>making a dedicated jig for each type</strong> of PCB is more efficient, while the<strong>flying prober method</strong> is more efficient for <strong>low-volume</strong> production.</p>
+</blockquote>
+<h3 id="Question-23"><a href="#Question-23" class="headerlink" title="Question 23:"></a>Question 23:</h3><p>The visual inspection is performed on PCBs to detect defects such as partially missing conductor, partial leakage of conductor material, etc. <strong>Why are these defects inspected even though they do not directly affect the electric conductivity, disconnection, or shorts between electrodes? Consider and describe the reasons why.</strong></p>
+<blockquote>
+<p>Although defects such as partially missing conductor or partial leakage of conductor material are <strong>unlikely to immediately cause</strong> the PCB to malfunction, there is <strong>a risk of malfunction over a long period of use.</strong> For example, if a conductor is partially missing, electric current will be generated. Then, there is a possibility that this part may burn out. Also, if some of the conductor materials leaks out, an unexpectedly high electric potential is generated between the conductor and other conductors in the neighborhood, which may cause degradation of the neighboring parts. </p>
+<p>Similar to the case of integrated devices, even if visual defects do not affect the immediate electrical behavior, they include the risk of unexpected failures after a long period of use, as described above. Therefore, the <strong>visual inspection is mandatory.</strong></p>
+</blockquote>
+<h3 id="Reliability-of-integrated-systems"><a href="#Reliability-of-integrated-systems" class="headerlink" title="Reliability of integrated systems"></a>Reliability of integrated systems</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/3ca2672db789.png"></p>
+<h3 id="Question-24"><a href="#Question-24" class="headerlink" title="Question 24:"></a>Question 24:</h3><p>We would like to inspect whether a final product of an integrated system is a good product or not by combining the function test, in-circuit test, and boundary scan test. Furthermore, if the product is defective, we would like to identify the location of the defective part. <strong>Please show the procedure for doing so. Here, it is assumed that the test program for the function test has already been developed.</strong></p>
+<blockquote>
+<p>If a test program for the function test has already been prepared, it is possible to determine whether the final product of an integrated system is (electrically) defective or not by conducting the function test. When identifying defective parts of an defective final product, this defective product should be divided into several parts, and the in-circuit test should be conducted for the parts that can be probed, and the boundary scan test should be conducted for the parts where the boundary scan can be conducted. In this way, the defects are identified. Summerize the above, </p>
+<ol>
+<li><strong>Perform the function test.</strong> If the result is good, end there. If the result is defective, proceed to Step 2.</li>
+<li>The integrated system is divided into several part (N locations): if the i-th part (i&#x3D;1,…,N) can be probed, the<strong>in-circuit test</strong> is performed to check for defects at that part. If it is not possible, the <strong>boundary scan test</strong> is performed to check for defects at the part.</li>
+<li>The procedure of step 2 is performed for all i (i&#x3D;1,…,N) to identify all defective parts and terminate.</li>
+</ol>
+</blockquote>
+<h3 id="Report-6"><a href="#Report-6" class="headerlink" title="Report 6:"></a>Report 6:</h3><p><strong>Regarding the inspections for integrated systems, investigate what ingenuity in designing could be considered to facilitate the inspection. Summerize them in a report.</strong></p>
+<blockquote>
+<p>In the boundary scan test, circuits for testing are embedded inside an LSI in advance, and an integrated system is tested for conductivity and short-circuit in the test mode without using probes. The boundary scan test itself is an ingenuity in designing that facilitates testing. Therefore, it can be said that boundary scan testing itself is a test facilitation design.</p>
+<p>The in-circuit test <strong>uses probes</strong> to conduct electrical inspections. Preparation of test electrodes for probes at the time of conductor layout design of PCBs can also be considered as a test facilitation design. </p>
+<p>The use of <strong>mold resin with high X-ray transmittance and solder material with low X-ray transmittance</strong> is a test facilitation design that assumes that X-ray inspection.</p>
+<p>Various inspections are needed to ensure the reliability of the integrated system. Therefore, design considerations for the smooth execution of these inspection are strongly required.</p>
+</blockquote>
+<hr>
+<h2 id="Evaluation-technologies-by-numerical-analysis"><a href="#Evaluation-technologies-by-numerical-analysis" class="headerlink" title="Evaluation technologies by numerical analysis"></a>Evaluation technologies by numerical analysis</h2><p><strong>Because prototyping is costly and time-consuming, we introduce evaluation by numerical analysis when designing integrated devices and systems.</strong></p>
+<h3 id="The-necessity-if-numerical-analysis"><a href="#The-necessity-if-numerical-analysis" class="headerlink" title="The necessity if numerical analysis"></a>The necessity if numerical analysis</h3><blockquote>
+<ul>
+<li>In designing integrated devices, PCBs, and systems, decisions on <strong>dimensions, lead frame shape, wire bonding, and mold resin material</strong> are crucial. Improper design can lead to various failures in mass production. Design evaluation methods include <strong>prototype manufacturing and numerical analysis</strong>. Numerical analysis involves solving equations on a computer to assess the design’s validity without the need for physical prototypes.</li>
+<li>Numerical analysis extends beyond the design phase and is employed for quality assurance in integrated devices, PCBs, and systems. Manufacturers aim to assure product quality for customers through various tests and inspections, often supplemented by numerical analysis results. This approach can significantly reduce costs by replacing time-consuming and expensive tests. Additionally, numerical analysis helps identify the causes of defects in integrated systems and devices, allowing a more efficient and cost-effective quality assurance process.</li>
+</ul>
+</blockquote>
+<h3 id="Question-25"><a href="#Question-25" class="headerlink" title="Question 25:"></a>Question 25:</h3><p>Product prototyping and numerical analysis exist as means when considering the appropriateness of the design of integrated systems, etc. <strong>Describe the advantages and disadvantages of the numerical analysis compared to the product prototyping.</strong></p>
+<blockquote>
+<p><strong>Advantages of numerial analysis</strong></p>
+<p>In the case of the product prototyping, it is generally expensive and time-consuming to actually fabricate a prototype and conduct various tests on it. In contrast, the numerical analysis requires only calculations on a computer, so in many cases it is<strong>less expensive and time-consuming</strong> than the product prototyping. This is a major advantage of the numerical analysis.</p>
+<p><strong>Disadvantages of numerial analysis</strong></p>
+<p>In the numerical analysis, the governing equation, which is obtained by <strong>abstracting real phenomenon</strong> to be evaluated is <strong>not correctly reflected in the governing equation</strong> , it is impossible to correctly evaluate whether the design is appropriate or not. For example, when heat generation is a problem in LSI package design, the main modes of heat transfer are heat transfer to the PCB through the lead frame and heat transfer from the package.</p>
+</blockquote>
+<h3 id="Question-26"><a href="#Question-26" class="headerlink" title="Question 26:"></a>Question 26:</h3><p>Consider specific examples of how the numerical analysis can be used to save time and cost in the quality assurance of integrated devices and integrated systems.</p>
+<blockquote>
+<p>For example, the following cases can be considered:</p>
+<ul>
+<li><strong>Thermal conductivity analysis of an LED package</strong><ul>
+<li>In LEDs, heat generation from the bare chip can be a major problem, and contermeasures need to be considered in the event of a recall due to thermal runaway of the LEDs. In this case, the thermal conductivity analysis can be used to predict how much heat can be dissipated by using package materials with different thermal conductivity. Numerical analysis is an effective tool because claims must be addressed promptly.</li>
+</ul>
+</li>
+<li><strong>Thermal stress analysis of solder joints of a diode</strong><ul>
+<li>When a diode is soldered to a PCB, the residual thermal stress is generated during the cooling process of the melted solder. The residual thermal stress is a cause of internal cracks, so the level of the residual thermal stress is high, the solder material or the package shape should be changed to reduce the residual thermal stress. Because it is extremely difficult, time-consuming, and expensive to measure the residual thermal stress experimentally, the numerical analysis is effective in this situation.</li>
+</ul>
+</li>
+<li><strong>Thermal stress analysis of solder balls of a BGA package</strong><ul>
+<li>A BGA package is soldered to a PCB with solder balls. The solder balls are particularly vulnerable to wraping of the PCB due to thermal deformation and are prone to problems such as the solder delamination. The numerical analysis is used to evaluate the thermal stress generated in the solder balls and to predict in advance whether the balls can withstand the expected thermal deformation. This prevents the occurance of defects and avoids unnecessary time-consuming and additional cost.</li>
+</ul>
+</li>
+<li><strong>Thermal stress analysis of a wire of an LED</strong><ul>
+<li>The LED is a type of diode, and in LED packages, the bare chip and lead frame are electrically connected by a wire. Because the root of the wire on the bare chip side bends greatly, it can easily break when the entire LED package is heated. The numerical analysis, rather than the prototyping test, is used to confirm the appropeiateness of countermeasures in the event of such a failure, or to prevent the occurrence of such a failure. This will reduce time and money for the queality assurance.</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/a4c598924c80.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/">https://your-domain.com/2024/01/18/en/Summary-for-Packaging-and-Assembly-Technologies-for-Integrated-Systems/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pcb%E5%B7%A5%E8%89%BA/">pcb工艺</a><a class="post-meta__tags" href="/tags/%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84/">硬件架构</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E7%94%A8%E6%80%A7%E6%B5%8B%E8%AF%95/">可用性测试</a><a class="post-meta__tags" href="/tags/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95/">集成测试</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">复习资料</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" title="集成系统封装与组装技术总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">集成系统封装与组装技术总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summary for Packaging and Assembly Technologies for Integrated Systems  引言封装与组装层级：   裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片 封装层级：第一层级裸芯片的封装器件 印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板 整体系统层级：包含多个第三层级印刷电路板及其外壳的完整系统   讨论主题：  集成器件的封装技术 电路板技术 组装技术 可靠性评估技术 数值分析评估技术  封装类型  集成器件的封装问题1：回答关于SIP、ZIP和DIP封装类型的以下问题。 1. 与ZIP相比，SIP的优缺点是什么？  SIP的优点：结构比ZIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于ZIP。  2. 与DIP相比，SIP的优缺点是什么？  SIP的优点：结构比DIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于DIP。  问题2：回答关于SOP、SOJ和SON封装类型的以下问题。 1. 与SOJ相比，SO...</div></div></div></a><a class="pagination-related" href="/2023/11/12/zh-CN/py%E6%96%87%E4%BB%B6%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E6%88%90exe%EF%BC%9F%E5%A6%82%E4%BD%95%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%EF%BC%9F/" title="py文件如何打包成exe？如何压缩文件大小？"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">py文件如何打包成exe？如何压缩文件大小？</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：py文件如何打包成exe？如何压缩文件大小？📊 550 阅读 | 👍 4 点赞 | 💬 0 评论 | ⭐ 1 收藏  打包要将 Python 文件打包成可执行文件，您可以使用 PyInstaller 这个工具。以下是具体步骤：  首先，确保您已经安装了 PyInstaller 。如果没有安装，可以使用以下命令安装：  pip install pyinstaller  2. 进入您的 Python 程序所在的目录，然后运行以下命令： pyinstaller yourprogram.py  这将在一个名为 dist 的子目录中生成一个可执行文件。如果您希望生成只包含一个单独可执行文件的捆绑包，可以使用 --onefile 参数： pyinstaller --onefile yourprogram.py  这样，您就会得到一个独立的可执行文件，用户无需安装 Python 或其他依赖即可运行您的程序。  如果您的程序需要接收用户传递的参数，您可以在代码中使用以下方法之一来获取这些参数：  使用 input() 函数从控制台读取输入。 使用配置文件来...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/01/18/zh-CN/%E9%9B%86%E6%88%90%E7%B3%BB%E7%BB%9F%E5%B0%81%E8%A3%85%E4%B8%8E%E7%BB%84%E8%A3%85%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" title="集成系统封装与组装技术总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summary-for-Packaging-and-Asse/8871f973cd33.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-19</div><div class="info-item-2">集成系统封装与组装技术总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summary for Packaging and Assembly Technologies for Integrated Systems  引言封装与组装层级：   裸芯片层级：晶体管、二极管、电阻、电容（分立元件）和集成电路（IC）的裸芯片 封装层级：第一层级裸芯片的封装器件 印刷电路板层级：连接两个或更多第二层级封装器件的印刷电路板 整体系统层级：包含多个第三层级印刷电路板及其外壳的完整系统   讨论主题：  集成器件的封装技术 电路板技术 组装技术 可靠性评估技术 数值分析评估技术  封装类型  集成器件的封装问题1：回答关于SIP、ZIP和DIP封装类型的以下问题。 1. 与ZIP相比，SIP的优缺点是什么？  SIP的优点：结构比ZIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于ZIP。  2. 与DIP相比，SIP的优缺点是什么？  SIP的优点：结构比DIP简单，因此制造成本低且更可靠。 SIP的缺点：安装密度低于DIP。  问题2：回答关于SOP、SOJ和SON封装类型的以下问题。 1. 与SOJ相比，SO...</div></div></div></a><a class="pagination-related" href="/2024/01/20/zh-CN/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E4%B8%8EChatGPT%E6%80%BB%E7%BB%93/" title="生物信息学与ChatGPT总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="info-item-2">生物信息学与ChatGPT总结</div></div><div class="info-2"><div class="info-item-1"> 本文为英文原文的中文翻译版本英文原文：Summerize for Bioinformatics with ChatGPT  基础介绍历史事件生物信息学 vs. 计算生物学 生物信息学 &#x3D; 创建解决问题的工具（算法、数据库）。目标是构建处理生物数据的有用工具。这是关于工程的。 计算生物学 &#x3D; 使用计算技术研究生物学。目标是学习关于生命系统的新生物学知识。这是关于发现的。  生物信息学和计算生物学的层级 第0级：为建模而建模 第1级（入门）：使用已发布的工具分析数据并为实验人员生成假设 第2级（生物信息学）：为新技术、数据集成和重用开发算法和数据库进行数据分析 第3级（计算生物学）：从公共数据集成和建模中做出生物学发现 第X级：来自大型联盟的综合研究   分子生物学入门 所有生命依赖于3种关键分子  DNA 保存细胞如何工作的信息   RNA 将短片段信息传递到细胞的不同部分 提供合成蛋白质的模板   蛋白质 形成向其他细胞发送信号并调节基因活动的酶 形成身体的主要成分（如头发、皮肤等） 蛋白质在生命系统中的重要作用： 催化作用 载体和运输 调节        ...</div></div></div></a><a class="pagination-related" href="/2024/01/20/en/Summerize-for-Bioinformatics-with-ChatGPT/" title="Summerize for Bioinformatics with ChatGPT"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/Summerize-for-Bioinformatics-w/517441f24ba6.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="info-item-2">Summerize for Bioinformatics with ChatGPT</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：Summerize for Bioinformatics with ChatGPT📊 971 阅读 | 👍 22 点赞 | 💬 0 评论 | ⭐ 13 收藏   目录 Basic Introduction Historical Events Bioinformatics vs. Computational Biology Levels of Bioinfo &amp; CompBio Molecular Biology Primer Homework 1 A brief Introduction to DNA &amp; RNA A brief Introduction to Protein Sequencing Technologies Sequence Alignment Pairwise sequence alignment Basic notions Goal of Pairwise Alignment: Algorithms for G&amp;L Alignments Homework 2 Database similarity...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-of-Packages"><span class="toc-number">1.1.</span> <span class="toc-text">Type of Packages:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Packaging-of-integrated-devices"><span class="toc-number">2.</span> <span class="toc-text">Packaging of integrated devices</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-1"><span class="toc-number">2.1.</span> <span class="toc-text">Question 1:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-2"><span class="toc-number">2.2.</span> <span class="toc-text">Question 2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-3"><span class="toc-number">2.3.</span> <span class="toc-text">Question 3:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-4"><span class="toc-number">2.4.</span> <span class="toc-text">Question 4:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-5"><span class="toc-number">2.5.</span> <span class="toc-text">Question 5:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Report-1"><span class="toc-number">2.6.</span> <span class="toc-text">Report 1:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Front-end-and-back-end-process"><span class="toc-number">2.7.</span> <span class="toc-text">Front-end and back-end process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-6"><span class="toc-number">2.8.</span> <span class="toc-text">Question 6:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-7"><span class="toc-number">2.9.</span> <span class="toc-text">Question 7:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inspection-Process"><span class="toc-number">2.10.</span> <span class="toc-text">Inspection Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Report-2"><span class="toc-number">2.11.</span> <span class="toc-text">Report 2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prototyping-and-mass-production"><span class="toc-number">2.12.</span> <span class="toc-text">Prototyping and mass production</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-8"><span class="toc-number">2.13.</span> <span class="toc-text">Question 8:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-9"><span class="toc-number">2.14.</span> <span class="toc-text">Question 9:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-10"><span class="toc-number">2.15.</span> <span class="toc-text">Question 10:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-11"><span class="toc-number">2.16.</span> <span class="toc-text">Question 11:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Report-3"><span class="toc-number">2.17.</span> <span class="toc-text">Report 3:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Printed-circuit-boards-PCBs"><span class="toc-number">3.</span> <span class="toc-text">Printed circuit boards (PCBs)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-PCB"><span class="toc-number">3.1.</span> <span class="toc-text">What is PCB?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-12"><span class="toc-number">3.2.</span> <span class="toc-text">Question 12:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-13"><span class="toc-number">3.3.</span> <span class="toc-text">Question 13:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-14"><span class="toc-number">3.4.</span> <span class="toc-text">Question 14:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Characteristics-required-for-PCBs"><span class="toc-number">3.5.</span> <span class="toc-text">Characteristics required for PCBs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Electrical-characteristics-of-PCBs"><span class="toc-number">3.6.</span> <span class="toc-text">Electrical characteristics of PCBs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-15"><span class="toc-number">3.7.</span> <span class="toc-text">Question 15:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-16"><span class="toc-number">3.8.</span> <span class="toc-text">Question 16:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mechanical-characteristics-of-PCBs"><span class="toc-number">3.9.</span> <span class="toc-text">Mechanical characteristics of PCBs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-17"><span class="toc-number">3.10.</span> <span class="toc-text">Question 17:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Report-4"><span class="toc-number">3.11.</span> <span class="toc-text">Report 4:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Assembling-integrated-systems"><span class="toc-number">4.</span> <span class="toc-text">Assembling integrated systems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-18"><span class="toc-number">4.1.</span> <span class="toc-text">Question 18:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-19"><span class="toc-number">4.2.</span> <span class="toc-text">Question 19:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Classification-of-solder-joint-methods"><span class="toc-number">4.3.</span> <span class="toc-text">Classification of solder joint methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-20"><span class="toc-number">4.4.</span> <span class="toc-text">Question 20:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Report-5"><span class="toc-number">4.5.</span> <span class="toc-text">Report 5:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reliability-evaluation-for-integrated-systems"><span class="toc-number">5.</span> <span class="toc-text">Reliability evaluation for integrated systems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reliability-of-integrated-devices"><span class="toc-number">5.1.</span> <span class="toc-text">Reliability of integrated devices </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-21"><span class="toc-number">5.2.</span> <span class="toc-text">Question 21:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reliability-of-bare-PCBs"><span class="toc-number">5.3.</span> <span class="toc-text">Reliability of bare PCBs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-22"><span class="toc-number">5.4.</span> <span class="toc-text">Question 22:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-23"><span class="toc-number">5.5.</span> <span class="toc-text">Question 23:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reliability-of-integrated-systems"><span class="toc-number">5.6.</span> <span class="toc-text">Reliability of integrated systems</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-24"><span class="toc-number">5.7.</span> <span class="toc-text">Question 24:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Report-6"><span class="toc-number">5.8.</span> <span class="toc-text">Report 6:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation-technologies-by-numerical-analysis"><span class="toc-number">6.</span> <span class="toc-text">Evaluation technologies by numerical analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-necessity-if-numerical-analysis"><span class="toc-number">6.1.</span> <span class="toc-text">The necessity if numerical analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-25"><span class="toc-number">6.2.</span> <span class="toc-text">Question 25:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Question-26"><span class="toc-number">6.3.</span> <span class="toc-text">Question 26:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">7.</span> <span class="toc-text">Summary</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML图像 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：HTML图像📊 230 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 图像标签（）和源属性（Src） 替换文本属性（Alt） 基本的注意事项 - 有用的提示： 更多实例 图像标签 一个完整的实例 本例涉及的资源 eg_background.jpg ​编辑  eg_mouse.jpg eg_cute.gif eg_goleft.gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML图像">
+<meta property="og:url" content="https://your-domain.com/2022/12/25/zh-CN/HTML%E5%9B%BE%E5%83%8F/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：HTML图像📊 230 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 图像标签（）和源属性（Src） 替换文本属性（Alt） 基本的注意事项 - 有用的提示： 更多实例 图像标签 一个完整的实例 本例涉及的资源 eg_background.jpg ​编辑  eg_mouse.jpg eg_cute.gif eg_goleft.gi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/HTML%E5%9B%BE%E5%83%8F/439899749d26.jpeg">
+<meta property="article:published_time" content="2022-12-25T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-25T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="前端框架">
+<meta property="article:tag" content="开发语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/HTML%E5%9B%BE%E5%83%8F/439899749d26.jpeg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML图像",
+  "url": "https://your-domain.com/2022/12/25/zh-CN/HTML%E5%9B%BE%E5%83%8F/",
+  "image": "https://your-domain.com/images/posts/HTML%E5%9B%BE%E5%83%8F/439899749d26.jpeg",
+  "datePublished": "2022-12-25T15:00:00.000Z",
+  "dateModified": "2022-12-25T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2022/12/25/zh-CN/HTML%E5%9B%BE%E5%83%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML图像',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/HTML%E5%9B%BE%E5%83%8F/439899749d26.jpeg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML图像</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML图像</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-25T15:00:00.000Z" title="Created 2022-12-26 00:00:00">2022-12-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-25T15:00:00.000Z" title="Updated 2022-12-26 00:00:00">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">HTML入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>9mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2022-12-26 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128440303">HTML图像</a><br>📊 230 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>实例</p>
+<p>图像标签（）和源属性（Src）</p>
+<p>替换文本属性（Alt）</p>
+<p>基本的注意事项 - 有用的提示：</p>
+<p>更多实例</p>
+<p>图像标签</p>
+<p>一个完整的实例</p>
+<p>本例涉及的资源</p>
+<p>eg_background.jpg</p>
+<p>​编辑 </p>
+<p>eg_mouse.jpg</p>
+<p>eg_cute.gif</p>
+<p>eg_goleft.gif</p>
+<p>eg_planets.jpg</p>
+<p>venus.html</p>
+<p>mercury.html</p>
+<p>sun.html</p>
+<p>eg_venus.gif</p>
+<p>eg_mercury.gif</p>
+<p>eg_sun.gif</p>
+<p>文件资源分布位置（也可以在源代码的src位置自行调整） </p>
+<hr>
+<p><strong>通过使用 HTML，可以在文档中显示图像。</strong></p>
+<hr>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image" title="插入图像">插入图像</a></p>
+<p>本例演示如何在网页中显示图像。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image2" title="从不同的位置插入图片">从不同的位置插入图片</a></p>
+<p>本例演示如何将其他文件夹或服务器的图片显示到网页中。</p>
+<p>（<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/html/html_images.asp#more_examples" title="可以在本页底端找到更多实例">可以在本页底端找到更多实例</a>。）</p>
+<hr>
+<h3 id="图像标签（）和源属性（Src）"><a href="#图像标签（）和源属性（Src）" class="headerlink" title="图像标签（）和源属性（Src）"></a>图像标签（<img>）和源属性（Src）</h3><p>在 HTML 中，图像由 <img> 标签定义。</p>
+<p><img> 是空标签，意思是说，它只包含属性，并且没有闭合标签。</p>
+<p>要在页面上显示图像，你需要使用源属性（src）。src 指 “source”。源属性的值是图像的 URL 地址。</p>
+<p>定义图像的语法是：</p>
+<pre><code>&lt;img src=&quot;url&quot; /&gt;
+</code></pre>
+<p>URL 指存储图像的位置。如果名为 “boat.gif” 的图像位于 <a target="_blank" rel="noopener" href="http://www.w3school.com.cn/">www.w3school.com.cn</a> 的 images 目录中，那么其 URL 为 <a target="_blank" rel="noopener" href="http://www.w3school.com.cn/images/boat.gif%E3%80%82">http://www.w3school.com.cn/images/boat.gif。</a></p>
+<p>浏览器将图像显示在文档中图像标签出现的地方。如果你将图像标签置于两个段落之间，那么浏览器会首先显示第一个段落，然后显示图片，最后显示第二段。</p>
+<hr>
+<h3 id="替换文本属性（Alt）"><a href="#替换文本属性（Alt）" class="headerlink" title="替换文本属性（Alt）"></a>替换文本属性（Alt）</h3><p>alt 属性用来为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的。</p>
+<pre><code>&lt;img src=&quot;boat.gif&quot; alt=&quot;Big Boat&quot;&gt;
+</code></pre>
+<p>当浏览器无法载入图像时，替换文本属性可告诉读者他们失去的信息。此时，浏览器将显示这个替代性的文本而不是图像。为页面上的图像都加上替换文本属性是个好习惯，这样有助于更好的显示信息，并且对于那些使用纯文本浏览器的人来说是非常有用的。</p>
+<hr>
+<h3 id="基本的注意事项-有用的提示："><a href="#基本的注意事项-有用的提示：" class="headerlink" title="基本的注意事项 - 有用的提示："></a>基本的注意事项 - 有用的提示：</h3><p>假如某个 HTML 文件包含十个图像，那么为了正确显示这个页面，需要加载 11 个文件。加载图片是需要时间的，所以我们的建议是：慎用图片。</p>
+<h3 id="更多实例"><a href="#更多实例" class="headerlink" title="更多实例"></a>更多实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_backgroundimage" title="背景图片">背景图片</a></p>
+<p>本例演示如何向 HTML 页面添加背景图片。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image_align" title="排列图片">排列图片</a></p>
+<p>本例演示如何在文字中排列图像。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image_float" title="浮动图像">浮动图像</a></p>
+<p>本例演示如何使图片浮动至段落的左边或右边。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image_size" title="调整图像尺寸">调整图像尺寸</a></p>
+<p>本例演示如何将图片调整到不同的尺寸。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image_alt" title="为图片显示替换文本">为图片显示替换文本</a></p>
+<p>本例演示如何为图片显示替换文本。在浏览器无法载入图像时，替换文本属性告诉读者们失去的信息。为页面上的图像都加上替换文本属性是个好习惯。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_image_link" title="制作图像链接">制作图像链接</a></p>
+<p>本例演示如何将图像作为一个链接使用。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_areamap" title="创建图像映射">创建图像映射</a></p>
+<p>本例显示如何创建带有可供点击区域的图像地图。其中的每个区域都是一个超级链接。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_ismap" title="把图像转换为图像映射">把图像转换为图像映射</a></p>
+<p>本例显示如何把一幅普通的图像设置为图像映射。</p>
+<hr>
+<h3 id="图像标签"><a href="#图像标签" class="headerlink" title="图像标签"></a>图像标签</h3><table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_img.asp" title="&lt;img&gt;"><img></a></td>
+<td>定义图像。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_map.asp" title="&lt;map&gt;"><map></a></td>
+<td>定义图像地图。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_area.asp" title="&lt;area&gt;"><area></a></td>
+<td>定义图像地图中的可点击区域。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="一个完整的实例"><a href="#一个完整的实例" class="headerlink" title="一个完整的实例"></a>一个完整的实例</h3><p><code>&lt;!DOCTYPE HTML&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Image&lt;/title&gt; &lt;/head&gt; &lt;body background=&quot;./src/img/eg_background.jpg&quot;&gt; &lt;p&gt; 一幅图像： &lt;img src=&quot;./src/img/eg_mouse.jpg&quot; width=&quot;128&quot; height=&quot;128&quot; /&gt; &lt;/p&gt; &lt;p&gt; 一幅动画图像： &lt;img src=&quot;./src/img/eg_cute.gif&quot; width=&quot;50&quot; height=&quot;50&quot; /&gt; &lt;/p&gt; &lt;p&gt;请注意，插入动画图像的语法与插入普通图像的语法没有区别。&lt;/p&gt; &lt;p&gt; 来自 W3School.com.cn 的图像： &lt;img src=&quot;http://www.w3school.com.cn/i/w3school_logo_white.gif&quot; /&gt; &lt;/p&gt; &lt;!--在 HTML 中，图像由 &lt;img&gt; 标签定义。--&gt; &lt;!--&lt;img&gt; 是空标签，意思是说，它只包含属性，并且没有闭合标签。--&gt; &lt;!--要在页面上显示图像，你需要使用源属性（src）。src 指 &quot;source&quot;。源属性的值是图像的 URL 地址。--&gt; &lt;!--定义图像的语法是：--&gt; &lt;img src=&quot;url&quot; /&gt; &lt;!--alt 属性用来为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的。--&gt; &lt;img src=&quot;./src/img/eg_empty.gif&quot; alt=&quot;Empty Heart Missing&quot;&gt; &lt;!--当浏览器无法载入图像时，替换文本属性可告诉读者他们失去的信息。 此时，浏览器将显示这个替代性的文本而不是图像。 为页面上的图像都加上替换文本属性是个好习惯，这样有助于更好地显示信息，并且对于那些使用纯文本浏览器的人来说是非常有用的。--&gt; &lt;!--假如某个 HTML 文件包含十个图像，那么为了正确显示这个页面，需要加载 11 个文件。加载图片是需要时间的，所以我们的建议是：慎用图片。--&gt; &lt;h3&gt;图像背景&lt;/h3&gt; &lt;p&gt;gif 和 jpg 文件均可用作 HTML 背景。&lt;/p&gt; &lt;p&gt;如果图像小于页面，图像会进行重复。&lt;/p&gt; &lt;h2&gt;未设置对齐方式的图像：&lt;/h2&gt; &lt;p&gt;图像 &lt;img src =&quot;./src/img/eg_cute.gif&quot;&gt; 在文本中&lt;/p&gt; &lt;h2&gt;已设置对齐方式的图像：&lt;/h2&gt; &lt;p&gt;图像 &lt;img src=&quot;./src/img/eg_cute.gif&quot; align=&quot;bottom&quot;&gt; 在文本中&lt;/p&gt; &lt;p&gt;图像 &lt;img src =&quot;./src/img/eg_cute.gif&quot; align=&quot;middle&quot;&gt; 在文本中&lt;/p&gt; &lt;p&gt;图像 &lt;img src =&quot;./src/img/eg_cute.gif&quot; align=&quot;top&quot;&gt; 在文本中&lt;/p&gt; &lt;p&gt;请注意，bottom 对齐方式是默认的对齐方式。&lt;/p&gt; &lt;p&gt; &lt;img src =&quot;./src/img//eg_cute.gif&quot; align =&quot;left&quot;&gt; 带有图像的一个段落。图像的 align 属性设置为 &quot;left&quot;。图像将浮动到文本的左侧。 &lt;/p&gt; &lt;p&gt; &lt;img src =&quot;./src/img//eg_cute.gif&quot; align =&quot;right&quot;&gt; 带有图像的一个段落。图像的 align 属性设置为 &quot;right&quot;。图像将浮动到文本的右侧。 &lt;/p&gt; &lt;img src=&quot;./src/img/eg_mouse.jpg&quot; width=&quot;50&quot; height=&quot;50&quot;&gt; &lt;br /&gt; &lt;img src=&quot;./src/img/eg_mouse.jpg&quot; width=&quot;100&quot; height=&quot;100&quot;&gt; &lt;br /&gt; &lt;img src=&quot;./src/img/eg_mouse.jpg&quot; width=&quot;200&quot; height=&quot;200&quot;&gt; &lt;p&gt;通过改变 img 标签的 &quot;height&quot; 和 &quot;width&quot; 属性的值，您可以放大或缩小图像。&lt;/p&gt; &lt;p&gt;仅支持文本的浏览器无法显示图像，仅仅能够显示在图像的 &quot;alt&quot; 属性中指定的文本。在这里，&quot;alt&quot; 的文本是“向左转”。&lt;/p&gt; &lt;p&gt;请注意，如果您把鼠标指针移动到图像上，大多数浏览器会显示 &quot;alt&quot; 文本。&lt;/p&gt; &lt;img src=&quot;./src/img/eg_goleft.gif&quot; alt=&quot;向左转&quot; /&gt; &lt;p&gt;如果无法显示图像，将显示 &quot;alt&quot; 属性中的文本：&lt;/p&gt; &lt;img src=&quot;./src/img/eg_goleft123.gif&quot; alt=&quot;向左转&quot; /&gt; &lt;p&gt;请点击图像上的星球，把它们放大。&lt;/p&gt; &lt;img src=&quot;./src/img/eg_planets.jpg&quot; border=&quot;0&quot; usemap=&quot;#planetmap&quot; alt=&quot;Planets&quot; /&gt; &lt;map name=&quot;planetmap&quot; id=&quot;planetmap&quot;&gt; &lt;area shape=&quot;circle&quot; coords=&quot;180,139,14&quot; href =&quot;./src/web/venus.html&quot; target =&quot;_blank&quot; alt=&quot;Venus&quot; /&gt; &lt;area shape=&quot;circle&quot; coords=&quot;129,161,10&quot; href =&quot;./src/web/mercury.html&quot; target =&quot;_blank&quot; alt=&quot;Mercury&quot; /&gt; &lt;area shape=&quot;rect&quot; coords=&quot;0,0,110,260&quot; href =&quot;./src/web/sun.html&quot; target =&quot;_blank&quot; alt=&quot;Sun&quot; /&gt; &lt;/map&gt; &lt;p&gt;&lt;b&gt;注释：&lt;/b&gt;img 元素中的 &quot;usemap&quot; 属性引用 map 元素中的 &quot;id&quot; 或 &quot;name&quot; 属性（根据浏览器）， 所以我们同时向 map 元素添加了 &quot;id&quot; 和 &quot;name&quot; 属性。&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<hr>
+<h3 id="本例涉及的资源"><a href="#本例涉及的资源" class="headerlink" title="本例涉及的资源"></a>本例涉及的资源</h3><h4 id="eg-background-jpg"><a href="#eg-background-jpg" class="headerlink" title="eg_background.jpg"></a>eg_background.jpg</h4><h4 id=""><a href="#" class="headerlink" title=""></a><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/439899749d26.jpeg"></h4><h4 id="eg-mouse-jpg"><a href="#eg-mouse-jpg" class="headerlink" title="eg_mouse.jpg"></a>eg_mouse.jpg</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/c5959f4b2eb8.jpeg"></p>
+<h4 id="eg-cute-gif"><a href="#eg-cute-gif" class="headerlink" title="eg_cute.gif"></a>eg_cute.gif</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/fb1b5f1a08bc.gif"></p>
+<h4 id="eg-goleft-gif"><a href="#eg-goleft-gif" class="headerlink" title="eg_goleft.gif"></a>eg_goleft.gif</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/5037e4a2e884.gif"></p>
+<h4 id="eg-planets-jpg"><a href="#eg-planets-jpg" class="headerlink" title="eg_planets.jpg"></a>eg_planets.jpg</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/abd553f89b30.jpeg"></p>
+<h4 id="venus-html"><a href="#venus-html" class="headerlink" title="venus.html"></a>venus.html</h4><p><code>&lt;!DOCTYPE HTML&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Venus&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;img src=&quot;../img/eg_venus.gif&quot;&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<h4 id="mercury-html"><a href="#mercury-html" class="headerlink" title="mercury.html"></a>mercury.html</h4><p><code>&lt;!DOCTYPE HTML&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Mercury&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;img src=&quot;../img/eg_mercury.gif&quot;&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<h4 id="sun-html"><a href="#sun-html" class="headerlink" title="sun.html"></a>sun.html</h4><p><code>&lt;!DOCTYPE HTML&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Sun&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;img src=&quot;../img/eg_sun.gif&quot;&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+<h4 id="eg-venus-gif"><a href="#eg-venus-gif" class="headerlink" title="eg_venus.gif"></a>eg_venus.gif</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/7640b8ac375d.gif"></p>
+<h4 id="eg-mercury-gif"><a href="#eg-mercury-gif" class="headerlink" title="eg_mercury.gif"></a>eg_mercury.gif</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/748025716921.gif"></p>
+<h4 id="eg-sun-gif"><a href="#eg-sun-gif" class="headerlink" title="eg_sun.gif"></a>eg_sun.gif</h4><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/024f3bb1fd4e.gif"></p>
+<hr>
+<h3 id="文件资源分布位置（也可以在源代码的src位置自行调整）"><a href="#文件资源分布位置（也可以在源代码的src位置自行调整）" class="headerlink" title="文件资源分布位置（也可以在源代码的src位置自行调整）"></a>文件资源分布位置（也可以在源代码的src位置自行调整）</h3><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E5%9B%BE%E5%83%8F/0c53744a2b65.png"></p>
+<p>其中，src文件夹和html文件为同级，img和web为src的子文件夹，img下存放图片资源，web下存放子页面资源。 </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2022/12/25/zh-CN/HTML%E5%9B%BE%E5%83%8F/">https://your-domain.com/2022/12/25/zh-CN/HTML%E5%9B%BE%E5%83%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/html5/">html5</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">前端框架</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/HTML%E5%9B%BE%E5%83%8F/439899749d26.jpeg" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E5%9D%97%E5%85%83%E7%B4%A0/" title="HTML块元素"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">HTML块元素</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML块元素📊 203 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 块元素 HTML 内联元素 HTML  元素 HTML 元素 HTML 分组标签 一个完整的实例  可以通过  和  将 HTML 元素组合起来。  HTML 块元素大多数 HTML 元素被定义为块级元素或内联元素。 注：“块级元素”译为 block level element，“内联元素”译为 inline element。 块级元素在浏览器显示时，通常会以新行来开始（和结束）。 例子：, , ,   HTML 内联元素内联元素在显示时通常不会以新行开始。 例子：, , ,   HTML  元素HTML  元素是块级元素，它是可用于组合其他 HTML 元素的容器。  元素没有特定的含义。除此之外，由于它属于块级元素，浏览器会在其前后显示折行。  如果与 CSS 一同使用， 元素可用于对大的内容块设置样式属性。  元素的另一个常见的用途是文档布局。它取代了使用表格定义布局的老式方法。使用  元素进行文档布局不是表格的正确用法。 元素的作用...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E5%88%97%E8%A1%A8/" title="HTML列表"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">HTML列表</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML列表📊 138 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 无序列表 有序列表 定义列表 更多实例 列表标签 一个完整的实例  HTML 支持有序、无序和定义列表  实例无序列表 本例演示无序列表。 有序列表 本例演示有序列表。 （可以在本页底端找到更多实例。）  无序列表无序列表是一个项目的列表，此列项目使用粗体圆点（典型的小黑圆圈）进行标记。 无序列表始于  标签。每个列表项始于 。 &lt;ul&gt; &lt;li&gt;Coffee&lt;/li&gt; &lt;li&gt;Milk&lt;/li&gt; &lt;/ul&gt;  浏览器显示如下：  Coffee Milk  列表项内部可以使用段落、换行符、图片、链接以及其他列表等等。  有序列表同样，有序列表也是一列项目，列表项目使用数字进行标记。 有序列表始于  标签。每个列表项始于  标签。 &lt;ol&gt; &lt;li&gt;Coffee&lt;/li&gt; &lt;li&gt;Milk&lt;/li&gt; &lt;/ol&...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/25/zh-CN/HTML-JavaScript/" title="HTML JavaScript"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML JavaScript</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML JavaScript📊 172 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  JavaScript 使 HTML 页面更具动态性和交互性实例我的第一段 JavaScript &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;h1&gt;我的第一段 JavaScript&lt;/h1&gt; &lt;button type=&quot;button&quot; onclick=&quot;document.getElementById(&#39;demo&#39;).innerHTML = Date()&quot;&gt; 点击我来显示日期和时间 &lt;/button&gt; &lt;p id=&quot;demo&quot;&gt;&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;  亲自试一试  HTML  标签HTML &lt;script&gt; 标签用于定义客户端脚本（JavaScript）。 &lt;script&gt; 元...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E4%B8%8EEmoji/" title="HTML与Emoji"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML与Emoji</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML与Emoji📊 816 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 什么是 Emoji？ HTML charset 属性 UTF-8 字符 实例 例子解释 Emoji 字符 实例 实例 UTF-8 中的一些 Emoji 符号 一个完整的实例  表情符号（Emoji）是来自 UTF-8 字符集的字符：😄 😍 💗  什么是 Emoji？表情符号（Emoji）类似图像或图标，但它们并不是。 它们是来自 UTF-8 (Unicode) 字符集的字母（字符）。 提示：UTF-8 几乎涵盖世界上所有字符和符号。  HTML charset 属性为了正确显示 HTML 页面，Web 浏览器必须知道页面中使用的字符集。 这是在 &lt;meta&gt; 标签中规定的： &lt;meta charset=&quot;UTF-8&quot;&gt;  提示：如果未规定，UTF-8 则是 HTML 中的默认字符集。  UTF-8 字符很多 UTF-8 字符无法在键盘上键入，但始终可以使用数字（被称为实体编号）来显示它们：  ...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E5%BC%95%E7%94%A8/" title="HTML引用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML引用</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML引用📊 709 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录  引用（Quotation） HTML 用于短的引用 实例 用于长引用的 HTML 实例 用于缩略词的 HTML  实例 用于定义的 HTML  实例 实例 实例 用于联系信息的 HTML  实例 用于著作标题的 HTML  实例 用于双向重写的 HTML  实例 HTML 引文、引用和定义元素 一个完整的实例   引用（Quotation）这是摘自 WWF 网站的引文：  五十年来，WWF 一直致力于保护自然界的未来。 世界领先的环保组织，WWF 工作于 100 个国家，并得到美国一百二十万会员及全球近五百万会员的支持。    HTML  用于短的引用HTML  &lt; q&gt; 元素定义 短的引用 。 浏览器通常会为  元素包围 引号 。 实例&lt;p&gt;WWF 的目标是：&lt;q&gt;构建人与自然和谐共存的世界。&lt;/q&gt;&lt;/p&gt;  亲自试一试  用于长引用的 HTML HTML  &lt; blockquo...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%A0%B7%E5%BC%8F/" title="HTML样式"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML样式</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML样式📊 114 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 的 style 属性 不赞成使用的标签和属性 应该避免使用下面这些标签和属性： HTML 样式实例 - 背景颜色 HTML 样式实例 - 字体、颜色和尺寸 HTML 样式实例 - 文本对齐 一个完整的实例  style 属性用于改变 HTML 元素的样式。  &lt;html&gt; &lt;body style=&quot;background-color:PowderBlue;&quot;&gt; &lt;h1&gt;Look! Styles and colors&lt;/h1&gt; &lt;p style=&quot;font-family:verdana;color:red&quot;&gt; This text is in Verdana and red&lt;/p&gt; &lt;p style=&quot;font-family:times;color:green&quot;&gt; This text is in Time...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E5%93%8D%E5%BA%94%E5%BC%8FWeb%E8%AE%BE%E8%AE%A1/" title="HTML响应式Web设计"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML响应式Web设计</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML响应式Web设计📊 142 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 什么是响应式 Web 设计？ 创建自己的响应式设计 使用 Bootstrap  什么是响应式 Web 设计？ RWD 指的是响应式 Web 设计（Responsive Web Design） RWD 能够以可变尺寸传递网页 RWD 对于平板和移动设备是必需的   创建自己的响应式设计创建响应式设计的一个方法，是自己来创建它： &lt;!DOCTYPE html&gt; &lt;html lang=&quot;en-US&quot;&gt; &lt;head&gt; &lt;style&gt; .city { float: left; margin: 5px; padding: 15px; width: 300px; height: 300px; border: 1px solid black; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Responsive Demo&lt;...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96/" title="HTML文本格式化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML文本格式化</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML文本格式化📊 545 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 HTML 文本格式化实例 如何查看 HTML 源码 文本格式化标签 “计算机输出”标签 引用、引用和术语定义 延伸阅读： 一个完整的实例  HTML 可定义很多供格式化输出的元素，比如粗体和斜体字。 下面有很多例子，可以亲自试试：  HTML 文本格式化实例文本格式化 此例演示如何在一个 HTML 文件中对文本进行格式化 预格式文本 此例演示如何使用 pre 标签对空行和空格进行控制。 “计算机输出”标签 此例演示不同的“计算机输出”标签的显示效果。 地址 此例演示如何在 HTML 文件中写地址。 缩写和首字母缩写 此例演示如何实现缩写或首字母缩写。 文字方向 此例演示如何改变文字的方向。 块引用 此例演示如何实现长短不一的引用语。 删除字效果和插入字效果 此例演示如何标记删除文本和插入文本。  如何查看 HTML 源码当你看到一个很棒的站点，你会不会很想知道开发人员是如何将它实现的？ 你有没有看过一些网页，并且想知道它是如何做出来的呢？ 要揭...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%A0%87%E7%AD%BE%EF%BC%88%EF%BC%89%E5%92%8C%E6%BA%90%E5%B1%9E%E6%80%A7%EF%BC%88Src%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">图像标签（）和源属性（Src）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7%EF%BC%88Alt%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">替换文本属性（Alt）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-%E6%9C%89%E7%94%A8%E7%9A%84%E6%8F%90%E7%A4%BA%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">基本的注意事项 - 有用的提示：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">更多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%A0%87%E7%AD%BE"><span class="toc-number">6.</span> <span class="toc-text">图像标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">7.</span> <span class="toc-text">一个完整的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E4%BE%8B%E6%B6%89%E5%8F%8A%E7%9A%84%E8%B5%84%E6%BA%90"><span class="toc-number">8.</span> <span class="toc-text">本例涉及的资源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-background-jpg"><span class="toc-number">8.1.</span> <span class="toc-text">eg_background.jpg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">8.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-mouse-jpg"><span class="toc-number">8.3.</span> <span class="toc-text">eg_mouse.jpg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-cute-gif"><span class="toc-number">8.4.</span> <span class="toc-text">eg_cute.gif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-goleft-gif"><span class="toc-number">8.5.</span> <span class="toc-text">eg_goleft.gif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-planets-jpg"><span class="toc-number">8.6.</span> <span class="toc-text">eg_planets.jpg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#venus-html"><span class="toc-number">8.7.</span> <span class="toc-text">venus.html</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mercury-html"><span class="toc-number">8.8.</span> <span class="toc-text">mercury.html</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sun-html"><span class="toc-number">8.9.</span> <span class="toc-text">sun.html</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-venus-gif"><span class="toc-number">8.10.</span> <span class="toc-text">eg_venus.gif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-mercury-gif"><span class="toc-number">8.11.</span> <span class="toc-text">eg_mercury.gif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eg-sun-gif"><span class="toc-number">8.12.</span> <span class="toc-text">eg_sun.gif</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%B5%84%E6%BA%90%E5%88%86%E5%B8%83%E4%BD%8D%E7%BD%AE%EF%BC%88%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%9C%A8%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9A%84src%E4%BD%8D%E7%BD%AE%E8%87%AA%E8%A1%8C%E8%B0%83%E6%95%B4%EF%BC%89"><span class="toc-number">9.</span> <span class="toc-text">文件资源分布位置（也可以在源代码的src位置自行调整）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

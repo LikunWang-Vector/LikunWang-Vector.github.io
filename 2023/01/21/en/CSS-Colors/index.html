@@ -1,0 +1,546 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS Colors: RGB, HEX, and HSL (Complete Guide) | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents CSS Color Names CSS Background Color CSS Text Color CSS Border Color CSS Color Values RGB Values RGBA Values HEX Values HSL Values Saturation Lightness HSLA Values  Colors are specif">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Colors: RGB, HEX, and HSL (Complete Guide)">
+<meta property="og:url" content="https://your-domain.com/2023/01/21/en/CSS-Colors/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents CSS Color Names CSS Background Color CSS Text Color CSS Border Color CSS Color Values RGB Values RGBA Values HEX Values HSL Values Saturation Lightness HSLA Values  Colors are specif">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93/42095f67e483.png">
+<meta property="article:published_time" content="2023-01-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-21T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="css3">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93/42095f67e483.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS Colors: RGB, HEX, and HSL (Complete Guide)",
+  "url": "https://your-domain.com/2023/01/21/en/CSS-Colors/",
+  "image": "https://your-domain.com/images/posts/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93/42095f67e483.png",
+  "datePublished": "2023-01-21T15:00:00.000Z",
+  "dateModified": "2023-01-21T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/01/21/en/CSS-Colors/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS Colors: RGB, HEX, and HSL (Complete Guide)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93/42095f67e483.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS Colors: RGB, HEX, and HSL (Complete Guide)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS Colors: RGB, HEX, and HSL (Complete Guide)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-21T15:00:00.000Z" title="Created 2023-01-22 00:00:00">2023-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-21T15:00:00.000Z" title="Updated 2023-01-22 00:00:00">2023-01-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CSS-Beginner-to-Advanced/">CSS Beginner to Advanced</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">831</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-01-22 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>CSS Color Names</p>
+<p>CSS Background Color</p>
+<p>CSS Text Color</p>
+<p>CSS Border Color</p>
+<p>CSS Color Values</p>
+<p>RGB Values</p>
+<p>RGBA Values</p>
+<p>HEX Values</p>
+<p>HSL Values</p>
+<p>Saturation</p>
+<p>Lightness</p>
+<p>HSLA Values</p>
+<hr>
+<p>Colors are specified using predefined color names, or RGB, HEX, HSL, RGBA, HSLA values.</p>
+<hr>
+<h3 id="CSS-Color-Names"><a href="#CSS-Color-Names" class="headerlink" title="CSS Color Names"></a>CSS Color Names</h3><p>In CSS, a color can be specified by using a color name:</p>
+<p>CSS&#x2F;HTML supports 140 standard color names.</p>
+<hr>
+<h3 id="CSS-Background-Color"><a href="#CSS-Background-Color" class="headerlink" title="CSS Background Color"></a>CSS Background Color</h3><p>You can set the background color for HTML elements:</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;background-color:DodgerBlue;&quot;</span>&gt;</span>China<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;background-color:Tomato;&quot;</span>&gt;</span>China is a great country!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Text-Color"><a href="#CSS-Text-Color" class="headerlink" title="CSS Text Color"></a>CSS Text Color</h3><p>You can set the color of text:</p>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color:Tomato;&quot;</span>&gt;</span>China<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:DodgerBlue;&quot;</span>&gt;</span>China is a great country!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:MediumSeaGreen;&quot;</span>&gt;</span>China, officially the People&#x27;s Republic of China...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Border-Color"><a href="#CSS-Border-Color" class="headerlink" title="CSS Border Color"></a>CSS Border Color</h3><p>You can set the color of borders:</p>
+<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;border:2px solid Tomato;&quot;</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;border:2px solid DodgerBlue;&quot;</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;border:2px solid Violet;&quot;</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CSS-Color-Values"><a href="#CSS-Color-Values" class="headerlink" title="CSS Color Values"></a>CSS Color Values</h3><p>In CSS, colors can also be specified using RGB values, HEX values, HSL values, RGBA values, or HSLA values:</p>
+<p>Equivalent to the color name “Tomato”:</p>
+<ul>
+<li>rgb(255, 99, 71)</li>
+<li>#ff6347</li>
+<li>hsl(9, 100%, 64%)</li>
+</ul>
+<p>Equivalent to “Tomato” but with 50% transparency:</p>
+<ul>
+<li>rgba(255, 99, 71, 0.5)</li>
+<li>hsla(9, 100%, 64%, 0.5)</li>
+</ul>
+<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;background-color:rgb(255, 99, 71);&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;background-color:#ff6347;&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;background-color:hsl(9, 100%, 64%);&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;background-color:rgba(255, 99, 71, 0.5);&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;background-color:hsla(9, 100%, 64%, 0.5);&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="RGB-Values"><a href="#RGB-Values" class="headerlink" title="RGB Values"></a>RGB Values</h3><p>In CSS, a color can be specified as an RGB value using this formula:</p>
+<blockquote>
+<h4 id="rgb-red-green-blue"><a href="#rgb-red-green-blue" class="headerlink" title="rgb(red, green, blue)"></a>rgb(red, green, blue)</h4><p>Each parameter (red, green, and blue) defines the intensity of the color between 0 and 255.</p>
+</blockquote>
+<p>For example, rgb(255, 0, 0) is displayed as red, because red is set to its highest value (255) and the others are set to 0.</p>
+<p>To display black, set all color parameters to 0, like this: rgb(0, 0, 0).</p>
+<p>To display white, set all color parameters to 255, like this: rgb(255, 255, 255).</p>
+<p>Shades of gray are often defined using equal values for all 3 parameters.</p>
+<hr>
+<h3 id="RGBA-Values"><a href="#RGBA-Values" class="headerlink" title="RGBA Values"></a>RGBA Values</h3><blockquote>
+<p>RGBA color values are an extension of RGB color values with an <strong>alpha channel</strong> - which specifies the <strong>opacity</strong> for a color.</p>
+</blockquote>
+<p>An RGBA color value is specified with:</p>
+<h4 id="rgba-red-green-blue-alpha"><a href="#rgba-red-green-blue-alpha" class="headerlink" title="rgba(red, green, blue, alpha)"></a>rgba(red, green, blue, alpha)</h4><p>The <em>alpha</em> parameter is a number between 0.0 (fully transparent) and 1.0 (fully opaque).</p>
+<hr>
+<h3 id="HEX-Values"><a href="#HEX-Values" class="headerlink" title="HEX Values"></a>HEX Values</h3><p>In CSS, a color can be specified using a <strong>hexadecimal value</strong> in the form:</p>
+<h4 id="rrggbb"><a href="#rrggbb" class="headerlink" title="#rrggbb"></a>#rrggbb</h4><blockquote>
+<p>Where <strong>rr (red), gg (green) and bb (blue)</strong> are hexadecimal values <strong>between 00 and ff</strong> (same as decimal 0-255).</p>
+</blockquote>
+<p>For example, #ff0000 is displayed as red, because red is set to its highest value (ff) and the others are set to the lowest value (00).</p>
+<p>Shades of gray are often defined using equal values for all 3 parameters.</p>
+<hr>
+<h3 id="HSL-Values"><a href="#HSL-Values" class="headerlink" title="HSL Values"></a>HSL Values</h3><p>In CSS, a color can be specified using hue, saturation, and lightness (HSL) in the form:</p>
+<h4 id="hsl-hue-saturation-lightness"><a href="#hsl-hue-saturation-lightness" class="headerlink" title="hsl(hue, saturation, lightness)"></a>hsl(hue, saturation, lightness)</h4><blockquote>
+<p><strong>Hue</strong> is a degree on the color wheel from <strong>0 to 360</strong>. <strong>0 is red, 120 is green, and 240 is blue.</strong></p>
+<p><strong>Saturation</strong> is a percentage value, <strong>0% means a shade of gray, and 100% is the full color.</strong></p>
+<p><strong>Lightness</strong> is also a percentage, <strong>0% is black, 50% is neither light nor dark, 100% is white.</strong></p>
+</blockquote>
+<hr>
+<h3 id="Saturation"><a href="#Saturation" class="headerlink" title="Saturation"></a>Saturation</h3><p>Saturation can be described as the intensity of a color.</p>
+<ul>
+<li>100% is pure color, no shades of gray</li>
+<li>50% is 50% gray, but you can still see the color</li>
+<li>0% is completely gray, you can no longer see the color</li>
+</ul>
+<hr>
+<h3 id="Lightness"><a href="#Lightness" class="headerlink" title="Lightness"></a>Lightness</h3><p>The lightness of a color can be described as how much light you want to give the color, where 0% means no light (black), 50% means 50% light (neither dark nor light), and 100% means full lightness (white).</p>
+<p>Shades of gray are often defined by setting the hue and saturation to 0, and adjusting the lightness from 0% to 100% to get darker&#x2F;lighter shades.</p>
+<hr>
+<h3 id="HSLA-Values"><a href="#HSLA-Values" class="headerlink" title="HSLA Values"></a>HSLA Values</h3><p>HSLA color values are an extension of HSL color values with an Alpha channel - which specifies the opacity for a color.</p>
+<p>An HSLA color value is specified with:</p>
+<h4 id="hsla-hue-saturation-lightness-alpha"><a href="#hsla-hue-saturation-lightness-alpha" class="headerlink" title="hsla(hue, saturation, lightness, alpha)"></a>hsla(hue, saturation, lightness, alpha)</h4><p>The <em>alpha</em> parameter is a number between 0.0 (fully transparent) and 1.0 (fully opaque).</p>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>This article covered RGB, HEX, and HSL colors, familiarizing you with various color representation methods.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/01/21/en/CSS-Colors/">https://your-domain.com/2023/01/21/en/CSS-Colors/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/css/">css</a><a class="post-meta__tags" href="/tags/css3/">css3</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/CSS%E9%A2%9C%E8%89%B2%EF%BC%9ARGB%E9%A2%9C%E8%89%B2HEX%E9%A2%9C%E8%89%B2HSL%E9%A2%9C%E8%89%B2%EF%BC%88%E7%BD%91%E9%A1%B5%E9%A2%9C%E8%89%B2%E5%AE%8C%E5%85%A8%E6%80%BB%E7%BB%93/42095f67e483.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/01/21/zh-CN/CSS%E8%83%8C%E6%99%AF%EF%BC%9A%E8%83%8C%E6%99%AF%E8%89%B2%E8%83%8C%E6%99%AF%E5%9B%BE%E5%83%8F%E8%83%8C%E6%99%AF%E9%87%8D%E5%A4%8D%E8%83%8C%E6%99%AF%E9%99%84%E7%9D%80%E7%AE%80%E5%86%99%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7%EF%BC%88%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82%EF%BC%89/" title="CSS背景：背景色/背景图像/背景重复/背景附着/简写背景属性（一文搞懂）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%83%8C%E6%99%AF%EF%BC%9A%E8%83%8C%E6%99%AF%E8%89%B2%E8%83%8C%E6%99%AF%E5%9B%BE%E5%83%8F%E8%83%8C%E6%99%AF%E9%87%8D%E5%A4%8D%E8%83%8C%E6%99%AF%E9%99%84%E7%9D%80%E7%AE%80%E5%86%99%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7%EF%BC%88%E4%B8%80%E6%96%87/c40f39ce08a4.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">CSS背景：背景色/背景图像/背景重复/背景附着/简写背景属性（一文搞懂）</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：CSS背景：背景色&#x2F;背景图像&#x2F;背景重复&#x2F;背景附着&#x2F;简写背景属性（一文搞懂）📊 1167 阅读 | 👍 3 点赞 | 💬 1 评论 | ⭐ 4 收藏  目录 CSS背景 CSS 背景色 实例 其他元素 实例 不透明度 &#x2F; 透明度 实例 使用 RGBA 的透明度 实例 CSS 背景图像 实例 实例 实例 CSS 背景重复 实例 实例 CSS background-repeat: no-repeat 实例 CSS background-position 实例 CSS 背景附着 实例 实例 CSS 简写背景属性 实例 所有 CSS 背景属性 总结   CSS背景CSS 背景属性用于定义元素的背景效果。 我们将学习如下 CSS 背景属性：  background-color background-image background-repeat background-attachment background-position   CSS 背景色background-color 属性指定元素的背景色。 ...</div></div></div></a><a class="pagination-related" href="/2023/01/21/en/CSS-Backgrounds/" title="CSS Backgrounds: Color, Image, Repeat, Attachment, and Shorthand"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%83%8C%E6%99%AF%EF%BC%9A%E8%83%8C%E6%99%AF%E8%89%B2%E8%83%8C%E6%99%AF%E5%9B%BE%E5%83%8F%E8%83%8C%E6%99%AF%E9%87%8D%E5%A4%8D%E8%83%8C%E6%99%AF%E9%99%84%E7%9D%80%E7%AE%80%E5%86%99%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7%EF%BC%88%E4%B8%80%E6%96%87/c40f39ce08a4.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">CSS Backgrounds: Color, Image, Repeat, Attachment, and Shorthand</div></div><div class="info-2"><div class="info-item-1">Table of Contents CSS Backgrounds CSS Background Color Opacity &#x2F; Transparency Using RGBA for Transparency CSS Background Image CSS Background Repeat CSS background-repeat: no-repeat CSS background-position CSS Background Attachment CSS Background Shorthand Property All CSS Background Properties  CSS BackgroundsThe CSS background properties are used to define the background effects for elements. We will learn about the following CSS background properties:  background-color background-imag...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/24/en/HTML-CSS/" title="HTML CSS"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML CSS</div></div><div class="info-2"><div class="info-item-1">Table of Contents Examples How to Use Styles External Style Sheet Internal Style Sheet Inline Styles  All formatting code can be moved out of the HTML document and into a separate style sheet.  Examples Styles in HTML - Demonstrates how to format HTML using style information added to the &lt;head&gt; section. Links without underlines - Demonstrates how to use the style attribute to create a link without underlines. Link to an external style sheet - Demonstrates how to use the &lt;link&gt; tag...</div></div></div></a><a class="pagination-related" href="/2023/01/20/en/29-CSS-Introduction-Preparation-for-PyQuery/" title="29. CSS Introduction: Preparation for PyQuery Module"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">29. CSS Introduction: Preparation for PyQuery Module</div></div><div class="info-2"><div class="info-item-1"> This article is translated from my CSDN blogOriginal link: 29. CSS简介：PyQuery模块的铺垫📊 708 views | 👍 4 likes | 💬 1 comment | ⭐ 4 favorites   Table of Contents What is CSS? CSS Demo - One HTML Page with Multiple Styles! Why Use CSS? CSS Example CSS Solved a Big Problem CSS Saves a Lot of Work! Simple Explanation CSS Selectors CSS Element Selector CSS ID Selector CSS Class Selector CSS Universal Selector CSS Grouping Selector All Simple CSS Selectors Further Reading  What is CSS? CSS stands for...</div></div></div></a><a class="pagination-related" href="/2022/12/30/en/HTML-Quick-Reference/" title="HTML Quick Reference Guide"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="info-item-2">HTML Quick Reference Guide</div></div><div class="info-2"><div class="info-item-1">Table of Contents HTML Basic Document Text Elements Logical Styles Physical Styles Links, Anchors, Image Elements Unordered List Ordered List Definition List Tables Frames Forms Entities Other Elements  HTML Basic Document12345678&lt;html&gt;&lt;head&gt;&lt;title&gt;Document name goes here&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Visible text goes here&lt;/body&gt;&lt;/html&gt;   Text Elements1234&lt;p&gt;This is a paragraph&lt;/p&gt;&lt;br&gt; (line break)&lt;hr&gt; (horizontal rule)&lt;pre&gt;...</div></div></div></a><a class="pagination-related" href="/2023/01/20/zh-CN/29.-CSS%E7%AE%80%E4%BB%8B%EF%BC%9APyQuery%E6%A8%A1%E5%9D%97%E7%9A%84%E9%93%BA%E5%9E%AB/" title="29. CSS简介：PyQuery模块的铺垫"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">29. CSS简介：PyQuery模块的铺垫</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：29. CSS简介：PyQuery模块的铺垫📊 708 阅读 | 👍 4 点赞 | 💬 1 评论 | ⭐ 4 收藏   目录 什么是 CSS？ CSS 演示 - 一张 HTML 页面 - 多个样式！ 为何使用 CSS？ CSS 实例 CSS 解决了一个大问题 CSS 节省了大量工作！ 通俗的解释 CSS 选择器 CSS 元素选择器 实例 CSS id 选择器 实例 CSS 类选择器 实例 实例 实例 CSS 通用选择器 实例 CSS 分组选择器 实例 所有简单的 CSS 选择器 延伸阅读  什么是 CSS？ CSS 指的是层叠样式表* (C ascading ** S** tyle ** S** heets) CSS 描述了** 如何在屏幕、纸张或其他媒体上显示 HTML 元素** CSS  节省了大量工作 。它可以同时控制多张网页的布局 外部样式表存储在 ** CSS 文件** 中  注：也称级联样式表。  CSS 演示 - 一张 HTML 页面 - 多个样式！下面是一张提供了四个不同样式表的 HTML 页面。可以查看不同的样式： htm...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML-CSS/" title="HTML CSS"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML CSS</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML CSS📊 109 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 如何使用样式 外部样式表 内部样式表 内联样式 一个完整的实例  所有的格式化代码均可移出 HTML 文档，然后移入一个独立的样式表。  实例HTML中的样式 本例演示如何使用添加到  部分的样式信息对 HTML 进行格式化。 没有下划线的链接 本例演示如何使用样式属性做一个没有下划线的链接。 链接到一个外部样式表 本例演示如何  标签链接到一个外部样式表。  如何使用样式当浏览器读到一个样式表，它就会按照这个样式表来对文档进行格式化。有以下三种方式来插入样式表： 外部样式表当样式需要被应用到很多页面的时候，外部样式表将是理想的选择。使用外部样式表，你就可以通过更改一个文件来改变整个站点的外观。 &lt;head&gt; &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;mystyle.css&quot;&gt; &lt;/head&gt;  内...</div></div></div></a><a class="pagination-related" href="/2023/01/20/en/CSS-Syntax-and-Selectors/" title="CSS Syntax and Selectors"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/CSS%E8%AF%AD%E6%B3%95%E4%B8%8ECSS%E9%80%89%E6%8B%A9%E5%99%A8/57773b3eff3e.gif" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="info-item-2">CSS Syntax and Selectors</div></div><div class="info-2"><div class="info-item-1">Table of Contents CSS Syntax CSS Selectors CSS Element Selector CSS ID Selector CSS Class Selector CSS Universal Selector CSS Grouping Selector All Simple CSS Selectors Further Reading  CSS SyntaxA CSS rule-set consists of a selector and a declaration block:  The selector points to the HTML element you want to style. The declaration block contains one or more declarations separated by semicolons. Each declaration includes a CSS property name and a value, separated by a colon. Multiple CSS dec...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Color-Names"><span class="toc-number">1.</span> <span class="toc-text">CSS Color Names</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Background-Color"><span class="toc-number">2.</span> <span class="toc-text">CSS Background Color</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Text-Color"><span class="toc-number">3.</span> <span class="toc-text">CSS Text Color</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">3.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Border-Color"><span class="toc-number">4.</span> <span class="toc-text">CSS Border Color</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2"><span class="toc-number">4.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Color-Values"><span class="toc-number">5.</span> <span class="toc-text">CSS Color Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-3"><span class="toc-number">5.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGB-Values"><span class="toc-number">6.</span> <span class="toc-text">RGB Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rgb-red-green-blue"><span class="toc-number">6.1.</span> <span class="toc-text">rgb(red, green, blue)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGBA-Values"><span class="toc-number">7.</span> <span class="toc-text">RGBA Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rgba-red-green-blue-alpha"><span class="toc-number">7.1.</span> <span class="toc-text">rgba(red, green, blue, alpha)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEX-Values"><span class="toc-number">8.</span> <span class="toc-text">HEX Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rrggbb"><span class="toc-number">8.1.</span> <span class="toc-text">#rrggbb</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HSL-Values"><span class="toc-number">9.</span> <span class="toc-text">HSL Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hsl-hue-saturation-lightness"><span class="toc-number">9.1.</span> <span class="toc-text">hsl(hue, saturation, lightness)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Saturation"><span class="toc-number">10.</span> <span class="toc-text">Saturation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lightness"><span class="toc-number">11.</span> <span class="toc-text">Lightness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HSLA-Values"><span class="toc-number">12.</span> <span class="toc-text">HSLA Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hsla-hue-saturation-lightness-alpha"><span class="toc-number">12.1.</span> <span class="toc-text">hsla(hue, saturation, lightness, alpha)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">13.</span> <span class="toc-text">Summary</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

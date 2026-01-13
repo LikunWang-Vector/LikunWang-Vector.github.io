@@ -1,0 +1,552 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML链接 | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文迁移自CSDN博客原文链接：HTML链接📊 891 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 HTML 超链接（链接） HTML 链接语法 实例 HTML 链接 - target 属性 HTML 链接 - name 属性 命名锚的语法： 实例 基本的注意事项-有用的提示： 更多实例 HTML 链接标签 一个完整的实例  HTML 使用超级链接与网络上的另">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML链接">
+<meta property="og:url" content="https://your-domain.com/2022/12/24/zh-CN/HTML%E9%93%BE%E6%8E%A5/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="本文迁移自CSDN博客原文链接：HTML链接📊 891 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 HTML 超链接（链接） HTML 链接语法 实例 HTML 链接 - target 属性 HTML 链接 - name 属性 命名锚的语法： 实例 基本的注意事项-有用的提示： 更多实例 HTML 链接标签 一个完整的实例  HTML 使用超级链接与网络上的另">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2022-12-24T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-24T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="前端框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML链接",
+  "url": "https://your-domain.com/2022/12/24/zh-CN/HTML%E9%93%BE%E6%8E%A5/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2022-12-24T15:00:00.000Z",
+  "dateModified": "2022-12-24T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2022/12/24/zh-CN/HTML%E9%93%BE%E6%8E%A5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML链接',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML链接</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML链接</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-24T15:00:00.000Z" title="Created 2022-12-25 00:00:00">2022-12-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-24T15:00:00.000Z" title="Updated 2022-12-25 00:00:00">2022-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML%E5%85%A5%E9%97%A8%E3%80%81%E8%BF%9B%E9%98%B6%E4%B8%8E%E5%AE%9E%E6%88%98/">HTML入门、进阶与实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>8mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2022-12-25 00:00:00&quot;}" hidden></div><blockquote>
+<p>本文迁移自CSDN博客<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59180666/article/details/128436648">HTML链接</a><br>📊 891 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏</p>
+</blockquote>
+<p><strong>目录</strong></p>
+<p>实例</p>
+<p>HTML 超链接（链接）</p>
+<p>HTML 链接语法</p>
+<p>实例</p>
+<p>HTML 链接 - target 属性</p>
+<p>HTML 链接 - name 属性</p>
+<p>命名锚的语法：</p>
+<p>实例</p>
+<p>基本的注意事项-有用的提示：</p>
+<p>更多实例</p>
+<p>HTML 链接标签</p>
+<p>一个完整的实例</p>
+<hr>
+<p><strong>HTML 使用超级链接与网络上的另一个文档相连。</strong></p>
+<p><strong>几乎可以在所有的网页中找到链接。点击链接可以从一张页面跳转到另一张页面。</strong></p>
+<hr>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_links" title="创建超级链接">创建超级链接</a></p>
+<p>本例演示如何在 HTML 文档中创建链接。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_imglink" title="将图像作为链接">将图像作为链接</a></p>
+<p>本例演示如何使用图像作为链接。</p>
+<p>（<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/html/html_links.asp#more_examples" title="可以在本页底端找到更多实例">可以在本页底端找到更多实例</a>）</p>
+<hr>
+<h3 id="HTML-超链接（链接）"><a href="#HTML-超链接（链接）" class="headerlink" title="HTML 超链接（链接）"></a>HTML 超链接（链接）</h3><p>超链接可以是一个字，一个词，或者一组词，也可以是一幅图像，您可以点击这些内容来跳转到新的文档或者当前文档中的某个部分。</p>
+<p>当您把鼠标指针移动到网页中的某个链接上时，箭头会变为一只小手。</p>
+<p>我们通过使用 <a> 标签在 HTML 中创建链接。</p>
+<p>有两种使用 <a> 标签的方式：</p>
+<ol>
+<li>通过使用 href 属性 - 创建指向另一个文档的链接</li>
+<li>通过使用 name 属性 - 创建文档内的书签</li>
+</ol>
+<p>延伸阅读：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_term_hypertext.asp" title="什么是超文本？">什么是超文本？</a></p>
+<hr>
+<h3 id="HTML-链接语法"><a href="#HTML-链接语法" class="headerlink" title="HTML 链接语法"></a>HTML 链接语法</h3><p>链接的 HTML 代码很简单。它类似这样：</p>
+<p><code>&lt;a href=&quot;url&quot;&gt;Link text&lt;/a&gt;</code> </p>
+<p>href 属性规定链接的目标。</p>
+<p>开始标签和结束标签之间的文字被作为超级链接来显示。</p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><p><code>&lt;a href=&quot;http://www.w3school.com.cn/&quot;&gt;Visit W3School&lt;/a&gt;</code> </p>
+<p>上面这行代码显示为：<a target="_blank" rel="noopener" href="http://www.w3school.com.cn/" title="Visit W3School">Visit W3School</a></p>
+<p>点击这个超链接会把用户带到 W3School 的首页。</p>
+<p>提示：”链接文本” 不必一定是文本。图片或其他 HTML 元素都可以成为链接。</p>
+<hr>
+<h3 id="HTML-链接-target-属性"><a href="#HTML-链接-target-属性" class="headerlink" title="HTML 链接 - target 属性"></a>HTML 链接 - target 属性</h3><p>使用 Target 属性，你可以定义被链接的文档在何处显示。</p>
+<p>下面的这行会在新窗口打开文档：</p>
+<p><code>&lt;a href=&quot;http://www.w3school.com.cn/&quot; target=&quot;_blank&quot;&gt;Visit W3School!&lt;/a&gt;</code> </p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_link_target" title="亲自试一试">亲自试一试</a></p>
+<hr>
+<h3 id="HTML-链接-name-属性"><a href="#HTML-链接-name-属性" class="headerlink" title="HTML 链接 - name 属性"></a>HTML 链接 - name 属性</h3><p>name 属性规定锚（anchor）的名称。</p>
+<p>您可以使用 name 属性创建 HTML 页面中的书签。</p>
+<p>书签不会以任何特殊方式显示，它对读者是不可见的。</p>
+<p>当使用命名锚（named anchors）时，我们可以创建直接跳至该命名锚（比如页面中某个小节）的链接，这样使用者就无需不停地滚动页面来寻找他们需要的信息了。</p>
+<h4 id="命名锚的语法："><a href="#命名锚的语法：" class="headerlink" title="命名锚的语法："></a>命名锚的语法：</h4><p><code>&lt;a name=&quot;label&quot;&gt;锚（显示在页面上的文本）&lt;/a&gt;</code> </p>
+<p>提示：锚的名称可以是任何你喜欢的名字。</p>
+<p>提示：您可以使用 id 属性来替代 name 属性，命名锚同样有效。</p>
+<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h4><p>首先，我们在 HTML 文档中对锚进行命名（创建一个书签）：</p>
+<p><code>&lt;a name=&quot;tips&quot;&gt;基本的注意事项 - 有用的提示&lt;/a&gt;</code> </p>
+<p>然后，我们在同一个文档中创建指向该锚的链接：</p>
+<p><code>&lt;a href=&quot;#tips&quot;&gt;有用的提示&lt;/a&gt;</code> </p>
+<p>您也可以在其他页面中创建指向该锚的链接：</p>
+<p><code>&lt;a href=&quot;http://www.w3school.com.cn/html/html_links.asp#tips&quot;&gt;有用的提示&lt;/a&gt;</code> </p>
+<p>在上面的代码中，我们将 # 符号和锚名称添加到 URL 的末端，就可以直接链接到 tips 这个命名锚了。</p>
+<p>具体效果：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/html/html_links.asp#tips" title="有用的提示">有用的提示</a></p>
+<hr>
+<h3 id="基本的注意事项-有用的提示："><a href="#基本的注意事项-有用的提示：" class="headerlink" title="基本的注意事项-有用的提示："></a>基本的注意事项-有用的提示：</h3><p>注释：请始终将正斜杠添加到子文件夹。假如这样书写链接：href&#x3D;”<a target="_blank" rel="noopener" href="http://www.w3school.com.cn/html%22%EF%BC%8C%E5%B0%B1%E4%BC%9A%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A7%E7%94%9F%E4%B8%A4%E6%AC%A1">http://www.w3school.com.cn/html&quot;，就会向服务器产生两次</a> HTTP 请求。这是因为服务器会添加正斜杠到这个地址，然后创建一个新的请求，就像这样：href&#x3D;”<a target="_blank" rel="noopener" href="http://www.w3school.com.cn/html/%22%E3%80%82">http://www.w3school.com.cn/html/&quot;。</a></p>
+<p>提示：命名锚经常用于在大型文档开始位置上创建目录。可以为每个章节赋予一个命名锚，然后把链接到这些锚的链接放到文档的上部。如果您经常访问百度百科，您会发现其中几乎每个词条都采用这样的导航方式。</p>
+<p>提示：假如浏览器找不到已定义的命名锚，那么就会定位到文档的顶端。不会有错误发生。</p>
+<hr>
+<h3 id="更多实例"><a href="#更多实例" class="headerlink" title="更多实例"></a>更多实例</h3><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_link_target" title="在新的浏览器窗口打开链接">在新的浏览器窗口打开链接</a></p>
+<p>本例演示如何在新窗口打开一个页面，这样的话访问者就无需离开你的站点了。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_link_locations" title="链接到同一个页面的不同位置">链接到同一个页面的不同位置</a></p>
+<p>本例演示如何使用链接跳转至文档的另一个部分</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_frame_getfree" title="跳出框架">跳出框架</a></p>
+<p>本例演示如何跳出框架，假如你的页面被固定在框架之内。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_mailto" title="创建电子邮件链接">创建电子邮件链接</a></p>
+<p>本例演示如何链接到一个邮件。（本例在安装邮件客户端程序后才能工作。）</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tiy/t.asp?f=eg_html_mailto2" title="创建电子邮件链接 2">创建电子邮件链接 2</a></p>
+<p>本例演示更加复杂的邮件链接。</p>
+<hr>
+<h3 id="HTML-链接标签"><a href="#HTML-链接标签" class="headerlink" title="HTML 链接标签"></a>HTML 链接标签</h3><table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_a.asp" title="&lt;a&gt;"><a></a></td>
+<td>定义锚。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="一个完整的实例"><a href="#一个完整的实例" class="headerlink" title="一个完整的实例"></a>一个完整的实例</h3><p><code>&lt;!DOCTYPE HTML&gt; &lt;html lang=&quot;zh-CN&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Link&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;p&gt; &lt;a href=&quot;./6_HTML_Style.html&quot;&gt;本文本&lt;/a&gt; 是一个指向本网站中的一个页面的链接。&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;http://www.microsoft.com/&quot;&gt;本文本&lt;/a&gt; 是一个指向万维网上的页面的链接。&lt;/p&gt; &lt;p&gt; 您也可以使用图像来作链接： &lt;a href=&quot;./6_HTML_Style.html&quot;&gt; &lt;img border=&quot;0&quot; src=&quot;./eg_buttonnext.gif&quot; /&gt; &lt;/a&gt; &lt;/p&gt; &lt;a href=&quot;http://www.w3school.com.cn/&quot;&gt;Visit W3School&lt;/a&gt; &lt;p&gt;下面这个链接将会在新窗口打开&lt;/p&gt; &lt;a href=&quot;http://www.w3school.com.cn/&quot; target=&quot;_blank&quot;&gt;Visit W3School!&lt;/a&gt; &lt;p&gt;被锁在框架中了吗？&lt;/p&gt; &lt;a href=&quot;./9_HTML_CSS.html&quot; target=&quot;_top&quot;&gt;请点击这里！&lt;/a&gt; &lt;p&gt; 这是邮件链接： &lt;a href=&quot;mailto:2621104213@qq.com?subject=Hello%20again&quot;&gt;发送邮件&lt;/a&gt; &lt;/p&gt; &lt;p&gt; &lt;b&gt;注意：&lt;/b&gt;应该使用 %20 来替换单词之间的空格，这样浏览器就可以正确地显示文本了。 &lt;/p&gt; &lt;p&gt; &lt;a href=&quot;#C4&quot;&gt;查看 Chapter 4。&lt;/a&gt; &lt;/p&gt; &lt;p&gt; &lt;a href=&quot;#Chap8&quot;&gt;查看 Chapter 8呦。&lt;/a&gt; &lt;/p&gt; &lt;h2&gt;Chapter 1&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 2&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 3&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;&lt;a name=&quot;C4&quot;&gt;Chapter 4&lt;/a&gt;&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 5&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 6&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 7&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;&lt;a name=&quot;Chap8&quot;&gt;Chapter 8&lt;/a&gt;&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 9&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 10&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 11&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 12&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 13&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 14&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 15&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 16&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;h2&gt;Chapter 17&lt;/h2&gt; &lt;p&gt;This chapter explains ba bla bla&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</code> </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2022/12/24/zh-CN/HTML%E9%93%BE%E6%8E%A5/">https://your-domain.com/2022/12/24/zh-CN/HTML%E9%93%BE%E6%8E%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/html5/">html5</a><a class="post-meta__tags" href="/tags/html/">html</a><a class="post-meta__tags" href="/tags/javascript/">javascript</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">前端框架</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E9%A2%9C%E8%89%B2/" title="HTML颜色"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E9%A2%9C%E8%89%B2/80a4a0eea8eb.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">HTML颜色</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML颜色📊 200 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 颜色值 颜色名 Web安全色 216 跨平台色  颜色由红色、绿色、蓝色混合而成。  颜色值颜色由一个十六进制符号来定义，这个符号由红色、绿色和蓝色的值组成（RGB ）。 每种颜色的最小值是 0（十六进制：#00 ）。最大值是 255（十六进制：#FF ）。 这个表格给出了由三种颜色混合而成的具体效果：   颜色名大多数的浏览器都支持颜色名集合。 提示：仅仅有 16 种颜色名被 W3C 的 HTML4.0 标准所支持。它们是：aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow。 如果需要使用其它的颜色，需要使用十六进制的颜色值。   Web安全色数年以前，当大多数计算机仅支持 256 种颜色的时候，一系列 216 种 Web 安全色作为 Web 标准被建议使用。其中的原因是，微软和 Ma...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%AE%B5%E8%90%BD/" title="HTML段落"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">HTML段落</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML段落📊 146 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 段落 实例 不要忘记结束标签 实例 HTML 折行 还是  HTML 输出 - 有用的提示 来自本页的实例 更多实例 HTML 标签参考手册 一个完整的实例  可以把 HTML 文档分割为若干段落。  HTML 段落段落是通过  标签定义的。 实例&lt;p&gt;This is a paragraph&lt;/p&gt; &lt;p&gt;This is another paragraph&lt;/p&gt;  亲自试一试 注释：浏览器会自动地在段落的前后添加空行。（ 是块级元素） 提示：使用空的段落标记  去插入一个空行是个坏习惯。用  标签代替它！（但是不要用  标签去创建列表。不要着急，您将在稍后的篇幅学习到 HTML 列表。）  不要忘记结束标签即使忘了使用结束标签，大多数浏览器也会正确地将 HTML 显示出来： 实例&lt;p&gt;This is a paragraph &lt;p&gt;This is another par...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E5%BC%95%E7%94%A8/" title="HTML引用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML引用</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML引用📊 709 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录  引用（Quotation） HTML 用于短的引用 实例 用于长引用的 HTML 实例 用于缩略词的 HTML  实例 用于定义的 HTML  实例 实例 实例 用于联系信息的 HTML  实例 用于著作标题的 HTML  实例 用于双向重写的 HTML  实例 HTML 引文、引用和定义元素 一个完整的实例   引用（Quotation）这是摘自 WWF 网站的引文：  五十年来，WWF 一直致力于保护自然界的未来。 世界领先的环保组织，WWF 工作于 100 个国家，并得到美国一百二十万会员及全球近五百万会员的支持。    HTML  用于短的引用HTML  &lt; q&gt; 元素定义 短的引用 。 浏览器通常会为  元素包围 引号 。 实例&lt;p&gt;WWF 的目标是：&lt;q&gt;构建人与自然和谐共存的世界。&lt;/q&gt;&lt;/p&gt;  亲自试一试  用于长引用的 HTML HTML  &lt; blockquo...</div></div></div></a><a class="pagination-related" href="/2022/12/26/zh-CN/HTML%E4%B8%8EEmoji/" title="HTML与Emoji"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-27</div><div class="info-item-2">HTML与Emoji</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML与Emoji📊 816 阅读 | 👍 2 点赞 | 💬 1 评论 | ⭐ 3 收藏  目录 什么是 Emoji？ HTML charset 属性 UTF-8 字符 实例 例子解释 Emoji 字符 实例 实例 UTF-8 中的一些 Emoji 符号 一个完整的实例  表情符号（Emoji）是来自 UTF-8 字符集的字符：😄 😍 💗  什么是 Emoji？表情符号（Emoji）类似图像或图标，但它们并不是。 它们是来自 UTF-8 (Unicode) 字符集的字母（字符）。 提示：UTF-8 几乎涵盖世界上所有字符和符号。  HTML charset 属性为了正确显示 HTML 页面，Web 浏览器必须知道页面中使用的字符集。 这是在 &lt;meta&gt; 标签中规定的： &lt;meta charset=&quot;UTF-8&quot;&gt;  提示：如果未规定，UTF-8 则是 HTML 中的默认字符集。  UTF-8 字符很多 UTF-8 字符无法在键盘上键入，但始终可以使用数字（被称为实体编号）来显示它们：  ...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E6%B3%A8%E9%87%8A/" title="HTML注释"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML注释</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML注释📊 126 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 注释标签 实例 实例 实例 条件注释 软件程序标签 一个完整的实例  注释标签  用于在 HTML 插入注释。  HTML 注释标签您能够通过如下语法向 HTML 源代码添加注释： 实例&lt;!-- 在此处写注释 --&gt;  注释：在开始标签中有一个惊叹号，但是结束标签中没有。 浏览器不会显示注释，但是能够帮助记录您的 HTML 文档。 您可以利用注释在 HTML 中放置通知和提醒信息： 实例&lt;!-- 这是一段注释 --&gt; &lt;p&gt;这是一个段落。&lt;/p&gt; &lt;!-- 记得在此处添加信息 --&gt;  亲自试一试 注释对于 HTML 纠错也大有帮助，因为您可以一次注释一行 HTML 代码，以搜索错误： 实例&lt;!-- 此刻不显示图片： &lt;img border=&quot;0&quot; src=&quot;/i/tulip_ballade.jpg&quot; alt=&quot;Tuli...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%86%85%E8%81%94%E6%A1%86%E6%9E%B6/" title="HTML框架与内联框架"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML框架与内联框架</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML框架与内联框架📊 432 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 框架 框架标签（Frame） 基本的注意事项 - 有用的提示： 更多实例 添加 iframe 的语法 Iframe - 设置高度和宽度 实例 Iframe - 删除边框 实例 使用 iframe 作为链接的目标 实例 HTML iframe 标签 一个完整的实例  通过使用框架，你可以在同一个浏览器窗口中显示不止一个页面。  实例垂直框架 本例演示：如何使用三份不同的文档制作一个垂直框架。 水平框架 本例演示：如何使用三份不同的文档制作一个水平框架。  框架通过使用框架，可以在同一个浏览器窗口中显示不止一个页面。每份HTML文档称为一个框架，并且每个框架都独立于其他的框架。 使用框架的坏处：  开发人员必须同时跟踪更多的HTML文档 很难打印整张页面  框架结构标签（）  框架结构标签（）定义如何将窗口分割为框架 每个 frameset 定义了一系列行 或 列 rows&#x2F;columns 的值规定了每行或每列占据屏幕的面积  ...</div></div></div></a><a class="pagination-related" href="/2022/12/24/zh-CN/HTML%E5%B1%9E%E6%80%A7/" title="HTML属性"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-25</div><div class="info-item-2">HTML属性</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML属性📊 200 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 HTML 属性 属性实例 更多 HTML 属性实例 属性例子 1: 属性例子 2: 属性例子 3: HTML 提示：使用小写属性 始终为属性值加引号 HTML 属性参考手册 一个完整的实例  属性为 HTML 元素提供附加信息。  HTML 属性HTML 标签可以拥有 属性 。属性提供了有关 HTML 元素的 更多的信息 。 属性总是以名称&#x2F;值对的形式出现，比如： name&#x3D;”value” 。 属性总是在 HTML 元素的 开始标签 中规定。 属性实例HTML 链接由  标签定义。链接的地址在 href 属性中指定： &lt;a href=&quot;http://www.bing.com.cn&quot;&gt;This is a link&lt;/a&gt;   更多 HTML 属性实例属性例子 1: 定义标题的开始。   拥有关于对齐方式的附加信息。  TIY : 居中排列标题 属性例子 2: 定义 HTML 文档的主体。 ...</div></div></div></a><a class="pagination-related" href="/2022/12/25/zh-CN/HTML%E8%A1%A8%E6%A0%BC/" title="HTML表格"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/HTML%E8%A1%A8%E6%A0%BC/3bcda8d006bd.gif" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="info-item-2">HTML表格</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：HTML表格📊 307 阅读 | 👍 1 点赞 | 💬 1 评论 | ⭐ 2 收藏  目录 实例 表格 表格和边框属性 表格的表头 表格中的空单元格 更多实例 表格标签 一个完整的实例 本例涉及到的资源 eg_background.jpg eg_cute.gif  可以使用 HTML 创建表格。  实例表格 这个例子演示如何在 HTML 文档中创建表格。 表格边框 本例演示各种类型的表格边框。 （可以在本页底端找到更多实例。）  表格表格由  标签来定义。每个表格均有若干行（由  标签定义），每行被分割为若干单元格（由  标签定义）。字母 td 指表格数据（table data），即数据单元格的内容。数据单元格可以包含文本、图片、列表、段落、表单、水平线、表格等等。 &lt;table border=&quot;1&quot;&gt; &lt;tr&gt; &lt;td&gt;row 1, cell 1&lt;/td&gt; &lt;td&gt;row 1, cell 2&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E8%B6%85%E9%93%BE%E6%8E%A5%EF%BC%88%E9%93%BE%E6%8E%A5%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">HTML 超链接（链接）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E9%93%BE%E6%8E%A5%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">HTML 链接语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">3.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E9%93%BE%E6%8E%A5-target-%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">HTML 链接 - target 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E9%93%BE%E6%8E%A5-name-%E5%B1%9E%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">HTML 链接 - name 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E9%94%9A%E7%9A%84%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">命名锚的语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-2"><span class="toc-number">5.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-%E6%9C%89%E7%94%A8%E7%9A%84%E6%8F%90%E7%A4%BA%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">基本的注意事项-有用的提示：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%9E%E4%BE%8B"><span class="toc-number">7.</span> <span class="toc-text">更多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE"><span class="toc-number">8.</span> <span class="toc-text">HTML 链接标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">9.</span> <span class="toc-text">一个完整的实例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UESTC Operating System Review Notes (2): Process and Concurrency Control | Likun Wang | 王立坤</title><meta name="author" content="Likun Wang (王立坤)"><meta name="copyright" content="Likun Wang (王立坤)"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Table of Contents PrefaceProcess ManagementProcess BasicsPrecedence GraphsConcurrent ExecutionProcess Definition and CharacteristicsProcess StatesOperating System KernelProcess Control Block (PCB)Proc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UESTC Operating System Review Notes (2): Process and Concurrency Control">
+<meta property="og:url" content="https://your-domain.com/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/index.html">
+<meta property="og:site_name" content="Likun Wang | 王立坤">
+<meta property="og:description" content="Table of Contents PrefaceProcess ManagementProcess BasicsPrecedence GraphsConcurrent ExecutionProcess Definition and CharacteristicsProcess StatesOperating System KernelProcess Control Block (PCB)Proc">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png">
+<meta property="article:published_time" content="2023-02-13T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-13T15:00:00.000Z">
+<meta property="article:author" content="Likun Wang (王立坤)">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="concurrency-control">
+<meta property="article:tag" content="operating-system">
+<meta property="article:tag" content="process">
+<meta property="article:tag" content="review-notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "UESTC Operating System Review Notes (2): Process and Concurrency Control",
+  "url": "https://your-domain.com/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/",
+  "image": "https://your-domain.com/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png",
+  "datePublished": "2023-02-13T15:00:00.000Z",
+  "dateModified": "2023-02-13T15:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Likun Wang (王立坤)",
+      "url": "https://github.com/veckun"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://your-domain.com/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Likun Wang (王立坤)","link":"Link: ","source":"Source: Likun Wang | 王立坤","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UESTC Operating System Review Notes (2): Process and Concurrency Control',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/csdn-stats.css"><link rel="stylesheet" href="/css/lang-switch.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Likun Wang | 王立坤</span></a><a class="nav-page-title" href="/"><span class="site-name">UESTC Operating System Review Notes (2): Process and Concurrency Control</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/cv/"><i class="fa-fw fas fa-graduation-cap"></i><span> CV</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">UESTC Operating System Review Notes (2): Process and Concurrency Control</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-13T15:00:00.000Z" title="Created 2023-02-14 00:00:00">2023-02-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-13T15:00:00.000Z" title="Updated 2023-02-14 00:00:00">2023-02-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Review-Notes/">Review Notes</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>12mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;This article was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. The content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2023-02-14 00:00:00&quot;}" hidden></div><p><strong>Table of Contents</strong></p>
+<p>Preface<br>Process Management<br>Process Basics<br>Precedence Graphs<br>Concurrent Execution<br>Process Definition and Characteristics<br>Process States<br>Operating System Kernel<br>Process Control Block (PCB)<br>Process Creation<br>Process Control Functions (fork and exec)<br>Process Termination<br>Process Switching<br>Threads<br>Processor Scheduling<br>Single Processor Scheduling (Key Topic)<br>Scheduling Algorithms<br>Real-Time Scheduling<br>Multi-Processor Scheduling<br>Process Concurrency Control: Mutual Exclusion and Synchronization<br>Semaphores<br>Monitors<br>Semaphore Applications (Key Topic)<br>Producer&#x2F;Consumer Problem<br>Reader&#x2F;Writer Problem<br>Dining Philosophers Problem<br>Inter-Process Communication<br>Deadlock<br>Deadlock Prevention<br>Deadlock Avoidance<br>Deadlock Detection<br>Deadlock Recovery</p>
+<hr>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>This review note is based on the UESTC Computer Operating Systems Teaching Syllabus (2022), focusing on CM2: Process Management - process concepts, thread concepts, process lifecycle, scheduling algorithms, synchronization and mutual exclusion, inter-process communication, and deadlocks.</p>
+<hr>
+<h2 id="Process-Management"><a href="#Process-Management" class="headerlink" title="Process Management"></a>Process Management</h2><h3 id="Process-Basics"><a href="#Process-Basics" class="headerlink" title="Process Basics"></a>Process Basics</h3><h4 id="Sequential-Program-Execution"><a href="#Sequential-Program-Execution" class="headerlink" title="Sequential Program Execution"></a>Sequential Program Execution</h4><blockquote>
+<p>Program execution has a fixed sequence<br>Characteristics: Sequential, Closed, Reproducible</p>
+</blockquote>
+<h4 id="Precedence-Graphs"><a href="#Precedence-Graphs" class="headerlink" title="Precedence Graphs"></a>Precedence Graphs</h4><blockquote>
+<ul>
+<li>Directed acyclic graph</li>
+<li>Representation: p1→p2, meaning p1 must complete before p2 starts</li>
+<li>Nodes represent: a statement, a program segment, or a process</li>
+</ul>
+</blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png"></p>
+<h4 id="Concurrent-Program-Execution"><a href="#Concurrent-Program-Execution" class="headerlink" title="Concurrent Program Execution"></a>Concurrent Program Execution</h4><p>Characteristics: Intermittent, Loss of closure (mainly caused by shared resources), Non-reproducibility (concurrent programs may make different modifications to shared resources)</p>
+<h4 id="Process-Definition-and-Characteristics"><a href="#Process-Definition-and-Characteristics" class="headerlink" title="Process Definition and Characteristics"></a>Process Definition and Characteristics</h4><blockquote>
+<p>Definition: A dynamic execution process of a program with independent functionality on a data set.</p>
+<p>Multiple processes can improve hardware resource utilization but increase time&#x2F;space overhead and OS complexity.</p>
+<p>Characteristics: Dynamic, Independent, Concurrent, Asynchronous, Structured</p>
+<p><strong>Process &#x3D; Code Segment + Data Segment + PCB (Process Control Block)</strong></p>
+<p><strong>One program can correspond to multiple processes (Process:Program &#x3D; n:1)</strong></p>
+<p><strong>Process is the basic unit for resource allocation and system scheduling</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Process</th>
+<th>Program</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dynamic</td>
+<td>Static</td>
+</tr>
+<tr>
+<td>Program execution</td>
+<td>Code collection</td>
+</tr>
+<tr>
+<td>Temporary</td>
+<td>Permanent</td>
+</tr>
+<tr>
+<td>State change process</td>
+<td>Can be stored permanently</td>
+</tr>
+<tr>
+<td>Truly describes concurrency</td>
+<td>Cannot truly describe</td>
+</tr>
+<tr>
+<td>Can create other processes</td>
+<td>Cannot create other programs</td>
+</tr>
+</tbody></table>
+<h4 id="Process-States"><a href="#Process-States" class="headerlink" title="Process States"></a>Process States</h4><p>Three basic states: Ready, Running, Waiting&#x2F;Blocked</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/f91db0c12984.png"></p>
+<hr>
+<h3 id="Operating-System-Kernel"><a href="#Operating-System-Kernel" class="headerlink" title="Operating System Kernel"></a>Operating System Kernel</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>Software modules that are closely related to hardware, frequently executed, and commonly used basic operation modules that <strong>reside in memory</strong> to improve OS efficiency.</p>
+<h4 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h4><blockquote>
+<ul>
+<li><strong>Process Management</strong>: Creation, termination, scheduling, control</li>
+<li><strong>Memory Management</strong>: Space allocation&#x2F;deallocation, virtual memory management</li>
+<li><strong>I&#x2F;O Device Management</strong>: Device&#x2F;channel allocation&#x2F;deallocation, device management, virtual device implementation</li>
+<li><strong>Interrupt Handling</strong>: Important OS activities depend on interrupts</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Primitives"><a href="#Primitives" class="headerlink" title="Primitives"></a>Primitives</h3><blockquote>
+<ul>
+<li>Definition: Composed of several machine instructions to complete a specific function, indivisible during execution.</li>
+<li>Atomic Operation: All actions in an operation either all execute or none execute (All-or-None)</li>
+</ul>
+</blockquote>
+<h4 id="Atomic-Operation-Implementation"><a href="#Atomic-Operation-Implementation" class="headerlink" title="Atomic Operation Implementation"></a>Atomic Operation Implementation</h4><blockquote>
+<ul>
+<li>Single-processor systems (<strong>Disable Interrupts</strong>)<ul>
+<li>Single instruction</li>
+<li>Ensure atomicity by disabling interrupts</li>
+</ul>
+</li>
+<li>Multi-core systems (<strong>Memory Barrier</strong>)<ul>
+<li>When one CPU core executes an atomic operation, other cores must not operate on specified memory to avoid <strong>data race</strong> issues</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Process-Control-Block-PCB"><a href="#Process-Control-Block-PCB" class="headerlink" title="Process Control Block (PCB)"></a>Process Control Block (PCB)</h3><blockquote>
+<p>PCB: Process Control Block, a data structure.</p>
+<ul>
+<li><strong>The only identifier of process existence, resides in memory</strong></li>
+</ul>
+</blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/440189917eee.png"></p>
+<p>PCB Organization Methods:</p>
+<ul>
+<li><strong>Linked List</strong>: PCBs with the same state are linked using pointers</li>
+<li><strong>Index</strong>: System builds index tables based on all process states</li>
+</ul>
+<h4 id="Process-Tree"><a href="#Process-Tree" class="headerlink" title="Process Tree"></a>Process Tree</h4><blockquote>
+<p>Describes process family relationships</p>
+<ul>
+<li>Child processes can inherit parent process resources</li>
+<li><strong>Terminating a parent process terminates all child processes</strong></li>
+<li>Root process: init, launched, pid&#x3D;1</li>
+<li><strong>Orphan processes are directly managed by the root process</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Process-Control-Functions-fork-and-exec"><a href="#Process-Control-Functions-fork-and-exec" class="headerlink" title="Process Control Functions (fork and exec)"></a>Process Control Functions (fork and exec)</h3><p><strong>In most programs, fork and exec system calls are used together: the parent process creates a child process, then calls exec to overlay that child process.</strong></p>
+<blockquote>
+<p><strong>fork(): Create new process</strong></p>
+<ul>
+<li>Call format: pid &#x3D; fork()</li>
+<li>After calling fork, both parent and child continue from the next statement</li>
+<li>Return values differ:<ul>
+<li>Failure returns -1</li>
+<li>In child process: pid is 0</li>
+<li>In parent process: pid of created child</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>exec(): Execute a file</strong></p>
+<ul>
+<li>Child process can load new program file through exec()</li>
+<li>Child process can have its own executable code, overlaying the calling process</li>
+<li>Parameters: file + command line arguments. Success: no return; Failure: returns -1</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Threads"><a href="#Threads" class="headerlink" title="Threads"></a>Threads</h3><h4 id="Differences-from-Processes"><a href="#Differences-from-Processes" class="headerlink" title="Differences from Processes"></a>Differences from Processes</h4><p>Process:Thread &#x3D; 1:n</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/739a5ed19208.png"></p>
+<h4 id="Thread-Advantages"><a href="#Thread-Advantages" class="headerlink" title="Thread Advantages"></a>Thread Advantages</h4><blockquote>
+<ul>
+<li>Reduce time&#x2F;space overhead of concurrent execution (process overhead is larger)</li>
+<li>Thread is the basic unit of independent scheduling<ul>
+<li>Requires minimal system resources, shares all resources of its parent process</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>Recall: Process is the basic unit for resource ownership and independent execution; Thread is the basic unit for independent scheduling!</strong></p>
+<h4 id="Thread-Types"><a href="#Thread-Types" class="headerlink" title="Thread Types"></a>Thread Types</h4><blockquote>
+<ul>
+<li>Kernel-level threads: Each thread appears as a process to the kernel</li>
+<li>User-level threads: Kernel unaware, controlled by user</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Processor-Scheduling"><a href="#Processor-Scheduling" class="headerlink" title="Processor Scheduling"></a>Processor Scheduling</h2><h3 id="Single-Processor-Scheduling-Key-Topic"><a href="#Single-Processor-Scheduling-Key-Topic" class="headerlink" title="Single Processor Scheduling (Key Topic)"></a>Single Processor Scheduling (Key Topic)</h3><h4 id="Scheduling-Principles"><a href="#Scheduling-Principles" class="headerlink" title="Scheduling Principles"></a>Scheduling Principles</h4><blockquote>
+<ul>
+<li>User-oriented principles:<ul>
+<li>Turnaround time: Time from job submission to completion</li>
+<li>Average turnaround time: T &#x3D; (1&#x2F;n)Σ Ti</li>
+<li>Weighted average: T &#x3D; (1&#x2F;n)Σ(Ti&#x2F;Ti,s) - closer to 1 is better</li>
+<li>Response time: Time from request submission to first response (interactive jobs)</li>
+<li>Deadline: Start&#x2F;completion deadline</li>
+<li>Priority: Requires preemptive scheduling</li>
+</ul>
+</li>
+<li>System-oriented principles:<ul>
+<li>Throughput: Jobs completed per unit time</li>
+<li>Utilization</li>
+<li>Fairness</li>
+<li>Priority</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Scheduling-Algorithms"><a href="#Scheduling-Algorithms" class="headerlink" title="Scheduling Algorithms"></a>Scheduling Algorithms</h4><p><strong>First Come First Served (FCFS)</strong></p>
+<ul>
+<li>Non-preemptive scheduling</li>
+<li>Favors long processes, unfavorable for short processes</li>
+<li>Suitable for CPU-intensive processes, not for I&#x2F;O-intensive processes</li>
+<li>Cannot be directly used for time-sharing systems</li>
+</ul>
+<p><strong>Shortest Job First (SJF)</strong></p>
+<ul>
+<li>Execute shortest jobs first</li>
+<li>Favors short processes, improves average turnaround time</li>
+<li>Long processes may starve</li>
+<li>Requires knowing or estimating each process’s processing time</li>
+</ul>
+<p><strong>Round Robin (RR)</strong></p>
+<ul>
+<li>Switch to next process after fixed time slice (following FCFS)</li>
+<li>Designed specifically for time-sharing systems</li>
+<li>Time slice too long: degrades to FCFS</li>
+<li>Time slice too short: increased context switching overhead</li>
+</ul>
+<p><strong>Shortest Remaining Time (SRT)</strong></p>
+<ul>
+<li>SJF with preemption: when new process arrives, may have shorter remaining time than current</li>
+<li>Better turnaround time than SJF</li>
+</ul>
+<p><strong>Priority-Based Scheduling</strong></p>
+<ul>
+<li>Execute higher priority processes first</li>
+<li>Static priority: assigned at creation, unchanged during lifetime</li>
+<li>Dynamic priority: can be modified during lifetime</li>
+</ul>
+<p><strong>Highest Response Ratio Next (HRRN)</strong></p>
+<ul>
+<li>Response ratio R &#x3D; Turnaround time&#x2F;Service time &#x3D; (w+s)&#x2F;s</li>
+<li>Combines FCFS and SJF, overcomes both algorithms’ disadvantages</li>
+</ul>
+<p><strong>Multilevel Feedback Queue (MFQ)</strong></p>
+<ul>
+<li>Multiple ready queues with different priorities</li>
+<li>Queue priority decreases while time slice increases</li>
+<li>New processes enter highest priority queue</li>
+<li>Processes move to lower priority queues if not completed within time slice</li>
+</ul>
+<hr>
+<h3 id="Real-Time-Scheduling"><a href="#Real-Time-Scheduling" class="headerlink" title="Real-Time Scheduling"></a>Real-Time Scheduling</h3><h4 id="Basic-Conditions"><a href="#Basic-Conditions" class="headerlink" title="Basic Conditions"></a>Basic Conditions</h4><ul>
+<li>Ready time: Time when process becomes ready</li>
+<li>Start&#x2F;completion deadline</li>
+<li>Processing time</li>
+<li>Resource requirements</li>
+<li>Priority</li>
+</ul>
+<h4 id="Real-Time-Scheduling-Algorithms"><a href="#Real-Time-Scheduling-Algorithms" class="headerlink" title="Real-Time Scheduling Algorithms"></a>Real-Time Scheduling Algorithms</h4><ul>
+<li>Round Robin based scheduling</li>
+<li>Priority-based non-preemptive scheduling</li>
+<li>Preemption point-based preemptive scheduling</li>
+<li>Immediate preemption scheduling</li>
+<li>Earliest Deadline First (EDF)</li>
+<li>Least Laxity First (LLF)</li>
+<li>Rate Monotonic Scheduling</li>
+</ul>
+<hr>
+<h2 id="Process-Concurrency-Control-Mutual-Exclusion-and-Synchronization"><a href="#Process-Concurrency-Control-Mutual-Exclusion-and-Synchronization" class="headerlink" title="Process Concurrency Control: Mutual Exclusion and Synchronization"></a>Process Concurrency Control: Mutual Exclusion and Synchronization</h2><h3 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h3><blockquote>
+<ul>
+<li>Process constraints:<ul>
+<li>Indirect constraint: Resource sharing → Mutual exclusion</li>
+<li>Direct constraint: Process cooperation → Synchronization</li>
+</ul>
+</li>
+<li>Critical Resource: Resource that only one process can access at a time</li>
+<li>Critical Section: Code segment accessing critical resources</li>
+<li>Busy waiting, Starvation, Deadlock</li>
+<li>Livelock: Two or more processes continuously change states in response to each other without doing useful work</li>
+</ul>
+</blockquote>
+<h3 id="Synchronization-Solutions"><a href="#Synchronization-Solutions" class="headerlink" title="Synchronization Solutions"></a>Synchronization Solutions</h3><h4 id="Software-Methods"><a href="#Software-Methods" class="headerlink" title="Software Methods"></a>Software Methods</h4><blockquote>
+<p>Processes implement mutual exclusion and synchronization with other processes by executing corresponding program instructions</p>
+</blockquote>
+<h4 id="Hardware-Methods"><a href="#Hardware-Methods" class="headerlink" title="Hardware Methods"></a>Hardware Methods</h4><blockquote>
+<ul>
+<li>Disable interrupts: Ensures mutual exclusion</li>
+<li>Machine instructions (atomic operations):<ul>
+<li>Test &amp; Set: Test variable value, if 0, set to 1, return current value</li>
+<li>Exchange: Atomically exchange register and memory values</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Semaphores"><a href="#Semaphores" class="headerlink" title="Semaphores"></a>Semaphores</h4><blockquote>
+<ul>
+<li>Principle: Multiple processes coordinate through signal passing, stop execution (block waiting) or proceed (wake up) based on signals</li>
+<li>Signal: Semaphore s<ul>
+<li>Positive: Resource quantity</li>
+<li>Negative: Queue length</li>
+</ul>
+</li>
+<li>Primitives:<ul>
+<li>wait(s): Wait for signal and occupy resource → P operation</li>
+<li>signal(s): Release resource and trigger signal → V operation</li>
+</ul>
+</li>
+<li>Types:<ul>
+<li>Integer semaphore</li>
+<li>Record semaphore</li>
+<li>AND semaphore</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Monitors"><a href="#Monitors" class="headerlink" title="Monitors"></a>Monitors</h4><blockquote>
+<p>Monitor Components:</p>
+<ul>
+<li>Shared data local to the monitor representing resource state</li>
+<li>A set of procedures for the above data</li>
+<li>Initialization of data local to the monitor</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Monitor Characteristics:</p>
+<ul>
+<li>Modularization: Monitor is a basic program unit, can be compiled separately</li>
+<li>Abstraction: Monitor contains both data and operations on data</li>
+<li>Encapsulation: External can call functions defined inside monitor, but implementation is invisible</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Semaphore-Applications-Key-Topic"><a href="#Semaphore-Applications-Key-Topic" class="headerlink" title="Semaphore Applications (Key Topic)"></a>Semaphore Applications (Key Topic)</h2><h3 id="Producer-Consumer-Problem-Key-Topic"><a href="#Producer-Consumer-Problem-Key-Topic" class="headerlink" title="Producer&#x2F;Consumer Problem (Key Topic)"></a>Producer&#x2F;Consumer Problem (Key Topic)</h3><blockquote>
+<p>Producer&#x2F;Consumer Model:</p>
+<ul>
+<li>Producer: Wait if full, fill if empty</li>
+<li>Consumer: Wait if empty, get if available</li>
+<li>No simultaneous buffer access allowed</li>
+</ul>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">semaphore mutex = <span class="number">1</span>;  <span class="comment">// Buffer access mutex</span></span><br><span class="line">semaphore empty = n;  <span class="comment">// Empty slots</span></span><br><span class="line">semaphore full = <span class="number">0</span>;   <span class="comment">// Filled slots</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="built_in">produce_item</span>();</span><br><span class="line">        <span class="built_in">P</span>(empty);</span><br><span class="line">        <span class="built_in">P</span>(mutex);</span><br><span class="line">        <span class="built_in">put_item_in_buffer</span>();</span><br><span class="line">        <span class="built_in">V</span>(mutex);</span><br><span class="line">        <span class="built_in">V</span>(full);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="built_in">P</span>(full);</span><br><span class="line">        <span class="built_in">P</span>(mutex);</span><br><span class="line">        <span class="built_in">get_item_from_buffer</span>();</span><br><span class="line">        <span class="built_in">V</span>(mutex);</span><br><span class="line">        <span class="built_in">V</span>(empty);</span><br><span class="line">        <span class="built_in">consume_item</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reader-Writer-Problem-Key-Topic"><a href="#Reader-Writer-Problem-Key-Topic" class="headerlink" title="Reader&#x2F;Writer Problem (Key Topic)"></a>Reader&#x2F;Writer Problem (Key Topic)</h3><p>Three roles: Shared data area; Reader: only reads; Writer: only writes</p>
+<p>Three conditions: Multiple readers can read simultaneously; Only one writer at a time; No simultaneous reading and writing</p>
+<p><strong>Reader Priority</strong>: Once readers are reading, subsequent readers can enter; writers wait until all readers exit</p>
+<p><strong>Writer Priority</strong>: When at least one writer wants to write, no new readers allowed</p>
+<p><strong>Fair Priority</strong>: Process in order of arrival</p>
+<h3 id="Dining-Philosophers-Problem-Key-Topic"><a href="#Dining-Philosophers-Problem-Key-Topic" class="headerlink" title="Dining Philosophers Problem (Key Topic)"></a>Dining Philosophers Problem (Key Topic)</h3><blockquote>
+<p>Description: 5 philosophers sit around a table; 5 forks placed between them; they think or eat; eating requires both adjacent forks; thinking returns forks to original position.</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> N 5</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LEFT (i-1+N)%N</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RIGHT (i+1)%N</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> THINKING 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HUNGRY 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EATING 2</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> state[N] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">semaphore mutex = <span class="number">1</span>;</span><br><span class="line">semaphore s[N] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">philosopher</span><span class="params">(<span class="type">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (TRUE) &#123;</span><br><span class="line">        <span class="built_in">think</span>();</span><br><span class="line">        <span class="built_in">take_forks</span>(i);</span><br><span class="line">        <span class="built_in">eat</span>();</span><br><span class="line">        <span class="built_in">put_forks</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">take_forks</span><span class="params">(<span class="type">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">P</span>(mutex);</span><br><span class="line">    state[i] = HUNGRY;</span><br><span class="line">    <span class="built_in">test</span>(i);</span><br><span class="line">    <span class="built_in">V</span>(mutex);</span><br><span class="line">    <span class="built_in">P</span>(s[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">put_forks</span><span class="params">(i)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">P</span>(mutex);</span><br><span class="line">    state[i] = THINKING;</span><br><span class="line">    <span class="built_in">test</span>(LEFT);</span><br><span class="line">    <span class="built_in">test</span>(RIGHT);</span><br><span class="line">    <span class="built_in">V</span>(mutex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(<span class="type">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (state[i] == HUNGRY &amp;&amp; </span><br><span class="line">        state[LEFT] != EATING &amp;&amp; </span><br><span class="line">        state[RIGHT] != EATING) &#123;</span><br><span class="line">        state[i] = EATING;</span><br><span class="line">        <span class="built_in">V</span>(s[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Inter-Process-Communication"><a href="#Inter-Process-Communication" class="headerlink" title="Inter-Process Communication"></a>Inter-Process Communication</h2><h3 id="Basic-Concepts-1"><a href="#Basic-Concepts-1" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h3><blockquote>
+<p>Process communication types:</p>
+<ul>
+<li>Low-level communication: Using semaphores, small information exchange</li>
+<li>High-level communication: OS-provided communication commands for efficient large data transfer<ul>
+<li>Shared Memory</li>
+<li>Message Passing&#x2F;Message Queue</li>
+<li>Pipe</li>
+<li>Socket</li>
+<li>File</li>
+<li>Signal</li>
+<li>Memory Mapped File</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="Message-Passing"><a href="#Message-Passing" class="headerlink" title="Message Passing"></a>Message Passing</h3><blockquote>
+<ul>
+<li>Data exchange in formatted messages</li>
+<li>Direct communication: Send messages directly to target process</li>
+<li>Indirect communication: Use mailbox as intermediary</li>
+</ul>
+</blockquote>
+<h3 id="Pipe-Communication"><a href="#Pipe-Communication" class="headerlink" title="Pipe Communication"></a>Pipe Communication</h3><p>Files used to connect a read process and a write process for communication.</p>
+<ul>
+<li>Unnamed pipe: <code>$ ls | grep x</code></li>
+<li>Named pipe: <code>$ mkfifo mypipe</code></li>
+</ul>
+<hr>
+<h2 id="Deadlock"><a href="#Deadlock" class="headerlink" title="Deadlock"></a>Deadlock</h2><blockquote>
+<p>A deadlock situation where multiple processes are waiting for resources held by each other, and none can proceed.</p>
+</blockquote>
+<h3 id="Causes-of-Deadlock"><a href="#Causes-of-Deadlock" class="headerlink" title="Causes of Deadlock"></a>Causes of Deadlock</h3><blockquote>
+<ul>
+<li>Resource competition due to insufficient resources</li>
+<li>Improper order of requesting and releasing resources during concurrent execution</li>
+</ul>
+</blockquote>
+<h3 id="Necessary-Conditions-for-Deadlock"><a href="#Necessary-Conditions-for-Deadlock" class="headerlink" title="Necessary Conditions for Deadlock"></a>Necessary Conditions for Deadlock</h3><blockquote>
+<p><strong>Mutual Exclusion</strong>: Process uses allocated resources exclusively</p>
+<p><strong>Hold and Wait</strong>: Process holds at least one resource while requesting new resources held by others</p>
+<p><strong>No Preemption</strong>: Resources cannot be forcibly taken; only released voluntarily</p>
+<p><strong>Circular Wait</strong>: A closed chain of processes exists where each waits for resources held by the next</p>
+<p>All four conditions must be present.</p>
+</blockquote>
+<h3 id="Deadlock-Handling-Methods"><a href="#Deadlock-Handling-Methods" class="headerlink" title="Deadlock Handling Methods"></a>Deadlock Handling Methods</h3><h4 id="Deadlock-Prevention"><a href="#Deadlock-Prevention" class="headerlink" title="Deadlock Prevention"></a>Deadlock Prevention</h4><blockquote>
+<p>Break one of the four conditions:</p>
+<ul>
+<li><strong>Break “Hold and Wait”</strong>: Request all resources at once before starting</li>
+<li><strong>Break “No Preemption”</strong>: Resource holders release resources when requests are denied</li>
+<li><strong>Break “Circular Wait”</strong>: Linear ordering of resources; request in increasing order only</li>
+</ul>
+</blockquote>
+<h4 id="Deadlock-Avoidance"><a href="#Deadlock-Avoidance" class="headerlink" title="Deadlock Avoidance"></a>Deadlock Avoidance</h4><blockquote>
+<p>Don’t break conditions beforehand; check each resource request during runtime.<br>Prevent system from entering <strong>unsafe state</strong>.</p>
+<p><strong>Safe State</strong>: A state where a safe sequence exists<br><strong>Safe Sequence</strong>: A process sequence {P1,…,Pn} where each Pi’s remaining needs can be satisfied by current available resources plus resources held by all Pj (j &lt; i)</p>
+</blockquote>
+<p><strong>Banker’s Algorithm</strong></p>
+<blockquote>
+<p>When user requests resources, system checks if allocation keeps system in safe state.<br>If yes, allocate; otherwise, block the process.</p>
+</blockquote>
+<h4 id="Deadlock-Detection"><a href="#Deadlock-Detection" class="headerlink" title="Deadlock Detection"></a>Deadlock Detection</h4><blockquote>
+<ul>
+<li>No preventive measures</li>
+<li>Resources granted without checking for unsafe state</li>
+<li>Periodically check for deadlock (execute detection algorithm)</li>
+<li><strong>Deadlock Theorem</strong>: Necessary and sufficient condition for deadlock: Resource allocation graph cannot be completely reduced</li>
+</ul>
+</blockquote>
+<h4 id="Deadlock-Recovery"><a href="#Deadlock-Recovery" class="headerlink" title="Deadlock Recovery"></a>Deadlock Recovery</h4><blockquote>
+<ul>
+<li><strong>Process Termination</strong>: Terminate all deadlocked processes, or terminate one at a time until deadlock cycle is broken</li>
+<li><strong>Resource Preemption</strong>: Gradually preempt resources from processes until deadlock is broken</li>
+<li><strong>Process Rollback</strong>: Restore each deadlocked process to a previous checkpoint and restart</li>
+</ul>
+</blockquote>
+<h4 id="Deadlock-Ignorance"><a href="#Deadlock-Ignorance" class="headerlink" title="Deadlock Ignorance"></a>Deadlock Ignorance</h4><p>The approach typically used in practice… the cost of doing nothing is lowest.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/veckun">Likun Wang (王立坤)</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://your-domain.com/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/">https://your-domain.com/2023/02/13/en/UESTC-OS-Notes-2-Process-and-Concurrency-Control/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/algorithm/">algorithm</a><a class="post-meta__tags" href="/tags/review-notes/">review-notes</a><a class="post-meta__tags" href="/tags/operating-system/">operating-system</a><a class="post-meta__tags" href="/tags/process/">process</a><a class="post-meta__tags" href="/tags/concurrency-control/">concurrency-control</a></div><div class="post-share"><div class="social-share" data-image="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png" data-sites="wechat,weibo,qq,twitter,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/02/13/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" title="电子科技大学操作系统期末复习笔记（二）：进程与并发控制"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/e94870088ab1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（二）：进程与并发控制</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（二）：进程与并发控制📊 2513 阅读 | 👍 18 点赞 | 💬 2 评论 | ⭐ 47 收藏  目录 前言 进程管理 进程基本知识 程序的顺序执行 前趋图 程序的并发执行 并发程序 进程的定义和特征  进程的特征和状态 操作系统内核 定义 功能 原语 原子操作的实现  操作系统控制结构 进程控制块PCB 进程组织（进程树） 进程的创建 进程控制函数（fork与exec为主） 进程的终止 进程切换 线程 与进程的区别和联系 线程的优势 线程的特点 线程的状态 线程的分类 处理机调度 ⭐单处理机调度（重点） 调度原则 调度算法：资源分配问题 先来先服务：FCFS 短作业优先：SPF&#x2F;SJF 时间片轮转调度：TSRR 最短剩余时间调度：SRT 基于优先权&#x2F;优先级的调度算法 高响应比优先算法：HRRN 多级队列调度算法 多级反馈队列调度：MFQ 总结 实时调度  基本条件 系统处理能力下界 实时调度算法 多处理机调度 分类 进程分配方式 单队列多处理机调度 多队列多处理机调度 成组调度 专用...</div></div></div></a><a class="pagination-related" href="/2023/02/11/zh-CN/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="电子科技大学操作系统期末复习笔记（一）：操作系统概述"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">电子科技大学操作系统期末复习笔记（一）：操作系统概述</div></div><div class="info-2"><div class="info-item-1"> 本文迁移自CSDN博客原文链接：电子科技大学操作系统期末复习笔记（一）：操作系统概述📊 2672 阅读 | 👍 23 点赞 | 💬 2 评论 | ⭐ 50 收藏  目录 前言 操作系统概述 操作系统的目标与功能 操作系统的定义 目标 功能 操作系统的历史 单用户系统 简单批处理系统 多道批处理系统 分时系统 个人电脑 → 分布式系统 → 互联网时代 → 移动计算时代 → …… 实时系统 操作系统的基本特征 并发 共享 虚拟 不确定性 操作系统的体系结构 无结构操作系统 模块化系统结构 分层式系统结构 操作系统安全 内存 信息保护和安全  前言本复习笔记基于电子科技大学计算机操作系统-教学大纲（2022）中的课程模块部分，分为五大章节，分别是：   CM1： 操作系统概念。操作系统基本功能、操作系统发展历史及趋势、操作系统主流架构、常见操作系统特点、操作系统安全机制。  CM2： 进程管理。进程概念、线程概念、进程生命周期、进程调度算法、进程同步互斥、进程间通信和死锁。  CM3： 内存管理。内存空间的概念、连续分配、离散分配（分页管理、分段管理、段页式管理）、虚拟存储管理...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/02/15/en/UESTC-OS-Notes-4-Device-Management/" title="UESTC Operating System Review Notes (4): Device Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/aa55f8cf800b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-16</div><div class="info-item-2">UESTC Operating System Review Notes (4): Device Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceDevice ManagementI&#x2F;O SystemDevice ClassificationDevice ControllersI&#x2F;O ChannelsI&#x2F;O Control MethodsBuffer ManagementI&#x2F;O SoftwareDevice AllocationSPOOLingDisk StorageDisk StructureDisk AccessDisk Scheduling AlgorithmsDisk ManagementRAID  PrefaceThis review note focuses on CM4: Device Management - I&#x2F;O system structure, buffer management, disk structure, and disk scheduling algorithms.  Device ManagementI&#x2F;O SystemBasic Concepts From OS perspec...</div></div></div></a><a class="pagination-related" href="/2023/02/18/en/UESTC-OS-Notes-5-File-Management/" title="UESTC Operating System Review Notes (5): File Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/bcac8e17b685.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-19</div><div class="info-item-2">UESTC Operating System Review Notes (5): File Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceFile Management BasicsBasic ConceptsFile StructureLogical StructurePhysical StructureFile Management: DirectoriesFile Control Block (FCB)Directory OrganizationPath NamesLinksFile Management: Disk ManagementFree Space ManagementFile ConsistencyFile ExecutionVirtual File System (VFS)  PrefaceThis is the final section, focusing on CM5: File Management - file system functions, logical structure, physical structure, directories, file sharing, and file system consistency.  ...</div></div></div></a><a class="pagination-related" href="/2023/02/14/en/UESTC-OS-Notes-3-Memory-Management/" title="UESTC Operating System Review Notes (3): Memory Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/0751d072f211.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-15</div><div class="info-item-2">UESTC Operating System Review Notes (3): Memory Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceMemory Management OverviewStorage System StructureProgram Birth ProcessAddress SpacesAddress MappingProgram Linking MethodsProgram Loading MethodsContiguous AllocationSingle Contiguous AllocationPartition ManagementFixed Partition AllocationDynamic Partition AllocationPartition Allocation AlgorithmsOverlay and SwappingDiscrete AllocationPaged Storage ManagementAddress TranslationPage TablesTwo-Level and Multi-Level Page TablesInverted Page TablesSegmented Storage Mana...</div></div></div></a><a class="pagination-related" href="/2023/02/07/en/UESTC-AI-Notes-1-Search-Problems/" title="UESTC Artificial Intelligence Review Notes (1): Search Problems"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98/7efdc9ba252b.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-08</div><div class="info-item-2">UESTC Artificial Intelligence Review Notes (1): Search Problems</div></div><div class="info-2"><div class="info-item-1">Table of Contents IntroductionSearch ProblemsUninformed Search AlgorithmsInformed Search AlgorithmsAdversarial Search  IntroductionThis review note is based on classroom PPT and review outline, for personal exam review and reference.  Search ProblemsWhat is a Search Problem?A search problem consists of:  A state space A successor function (with actions and costs) A start state A goal state  State Space: The set of all possible states the “world” can be in. If the entire state space is a video...</div></div></div></a><a class="pagination-related" href="/2023/02/11/en/UESTC-OS-Notes-1-Operating-System-Overview/" title="UESTC Operating System Review Notes (1): Operating System Overview"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/5e52ba583b39.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-12</div><div class="info-item-2">UESTC Operating System Review Notes (1): Operating System Overview</div></div><div class="info-2"><div class="info-item-1">Table of Contents PrefaceOperating System OverviewGoals and FunctionsDefinitionGoalsFunctionsHistory of Operating SystemsSingle-User SystemsSimple Batch Processing SystemsMultiprogramming Batch SystemsTime-Sharing SystemsPersonal Computers → Distributed Systems → Internet Era → Mobile Computing Era → …Real-Time SystemsBasic CharacteristicsConcurrencySharingVirtualizationNon-determinismSystem ArchitectureUnstructured Operating SystemsModular System StructureLayered System StructureOperating Sy...</div></div></div></a><a class="pagination-related" href="/2023/02/27/en/UESTC-SE-Notes-9-Project-Management/" title="UESTC Software Engineering Review Notes (9): Project Management"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89%EF%BC%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/dec633e79c3a.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-28</div><div class="info-item-2">UESTC Software Engineering Review Notes (9): Project Management</div></div><div class="info-2"><div class="info-item-1">Table of Contents Four Elements of Software Project ManagementTeam Organization StylesVirtual TeamsSoftware ScopeProject PlanningP-CMM Five Levels  Key Points Overview  Four Elements of Software Project Management The “Four Ps”:  People: Personnel Product: The software product Process: Comprehensive plan for software development Project: The project itself    Team Organization Styles Democratic Decentralized (DD): Problems and method decisions are made by group consensus, no permanent leader,...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Likun Wang (王立坤)</div><div class="author-info-description">Algorithm Engineer | AI Engineer
+Waseda University M.E.
+Deep Learning & TPU Development
+</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">302</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">311</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/veckun"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/veckun" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:vector_kun@ruri.waseda.jp" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://linkedin.com/in/veckun" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="javascript:void(0)" target="_blank" title="WeChat vectorkun"><i class="fab fa-weixin" style="color: #07c160;"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_59180666" target="_blank" title="CSDN"><i class="fab fa-blogger" style="color: #fc5531;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my blog! Sharing AI, algorithms & tech insights.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Process-Management"><span class="toc-number">2.</span> <span class="toc-text">Process Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Process-Basics"><span class="toc-number">2.1.</span> <span class="toc-text">Process Basics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Sequential-Program-Execution"><span class="toc-number">2.1.1.</span> <span class="toc-text">Sequential Program Execution</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Precedence-Graphs"><span class="toc-number">2.1.2.</span> <span class="toc-text">Precedence Graphs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Concurrent-Program-Execution"><span class="toc-number">2.1.3.</span> <span class="toc-text">Concurrent Program Execution</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Process-Definition-and-Characteristics"><span class="toc-number">2.1.4.</span> <span class="toc-text">Process Definition and Characteristics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Process-States"><span class="toc-number">2.1.5.</span> <span class="toc-text">Process States</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Operating-System-Kernel"><span class="toc-number">2.2.</span> <span class="toc-text">Operating System Kernel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Definition"><span class="toc-number">2.2.1.</span> <span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Functions"><span class="toc-number">2.2.2.</span> <span class="toc-text">Functions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Primitives"><span class="toc-number">2.3.</span> <span class="toc-text">Primitives</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Atomic-Operation-Implementation"><span class="toc-number">2.3.1.</span> <span class="toc-text">Atomic Operation Implementation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Process-Control-Block-PCB"><span class="toc-number">2.4.</span> <span class="toc-text">Process Control Block (PCB)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Process-Tree"><span class="toc-number">2.4.1.</span> <span class="toc-text">Process Tree</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Process-Control-Functions-fork-and-exec"><span class="toc-number">2.5.</span> <span class="toc-text">Process Control Functions (fork and exec)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Threads"><span class="toc-number">2.6.</span> <span class="toc-text">Threads</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Differences-from-Processes"><span class="toc-number">2.6.1.</span> <span class="toc-text">Differences from Processes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Thread-Advantages"><span class="toc-number">2.6.2.</span> <span class="toc-text">Thread Advantages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Thread-Types"><span class="toc-number">2.6.3.</span> <span class="toc-text">Thread Types</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Processor-Scheduling"><span class="toc-number">3.</span> <span class="toc-text">Processor Scheduling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Single-Processor-Scheduling-Key-Topic"><span class="toc-number">3.1.</span> <span class="toc-text">Single Processor Scheduling (Key Topic)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Scheduling-Principles"><span class="toc-number">3.1.1.</span> <span class="toc-text">Scheduling Principles</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scheduling-Algorithms"><span class="toc-number">3.1.2.</span> <span class="toc-text">Scheduling Algorithms</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Real-Time-Scheduling"><span class="toc-number">3.2.</span> <span class="toc-text">Real-Time Scheduling</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Basic-Conditions"><span class="toc-number">3.2.1.</span> <span class="toc-text">Basic Conditions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Real-Time-Scheduling-Algorithms"><span class="toc-number">3.2.2.</span> <span class="toc-text">Real-Time Scheduling Algorithms</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Process-Concurrency-Control-Mutual-Exclusion-and-Synchronization"><span class="toc-number">4.</span> <span class="toc-text">Process Concurrency Control: Mutual Exclusion and Synchronization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Concepts"><span class="toc-number">4.1.</span> <span class="toc-text">Basic Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronization-Solutions"><span class="toc-number">4.2.</span> <span class="toc-text">Synchronization Solutions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Software-Methods"><span class="toc-number">4.2.1.</span> <span class="toc-text">Software Methods</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hardware-Methods"><span class="toc-number">4.2.2.</span> <span class="toc-text">Hardware Methods</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphores"><span class="toc-number">4.2.3.</span> <span class="toc-text">Semaphores</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Monitors"><span class="toc-number">4.2.4.</span> <span class="toc-text">Monitors</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Semaphore-Applications-Key-Topic"><span class="toc-number">5.</span> <span class="toc-text">Semaphore Applications (Key Topic)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Producer-Consumer-Problem-Key-Topic"><span class="toc-number">5.1.</span> <span class="toc-text">Producer&#x2F;Consumer Problem (Key Topic)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reader-Writer-Problem-Key-Topic"><span class="toc-number">5.2.</span> <span class="toc-text">Reader&#x2F;Writer Problem (Key Topic)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dining-Philosophers-Problem-Key-Topic"><span class="toc-number">5.3.</span> <span class="toc-text">Dining Philosophers Problem (Key Topic)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inter-Process-Communication"><span class="toc-number">6.</span> <span class="toc-text">Inter-Process Communication</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Concepts-1"><span class="toc-number">6.1.</span> <span class="toc-text">Basic Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Message-Passing"><span class="toc-number">6.2.</span> <span class="toc-text">Message Passing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pipe-Communication"><span class="toc-number">6.3.</span> <span class="toc-text">Pipe Communication</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deadlock"><span class="toc-number">7.</span> <span class="toc-text">Deadlock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Causes-of-Deadlock"><span class="toc-number">7.1.</span> <span class="toc-text">Causes of Deadlock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Necessary-Conditions-for-Deadlock"><span class="toc-number">7.2.</span> <span class="toc-text">Necessary Conditions for Deadlock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deadlock-Handling-Methods"><span class="toc-number">7.3.</span> <span class="toc-text">Deadlock Handling Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Deadlock-Prevention"><span class="toc-number">7.3.1.</span> <span class="toc-text">Deadlock Prevention</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deadlock-Avoidance"><span class="toc-number">7.3.2.</span> <span class="toc-text">Deadlock Avoidance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deadlock-Detection"><span class="toc-number">7.3.3.</span> <span class="toc-text">Deadlock Detection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deadlock-Recovery"><span class="toc-number">7.3.4.</span> <span class="toc-text">Deadlock Recovery</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deadlock-Ignorance"><span class="toc-number">7.3.5.</span> <span class="toc-text">Deadlock Ignorance</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability"/></a><div class="content"><a class="title" href="/2026/01/04/en/Kiro-Batch-Registration-Vulnerability-Whistleblower/" title="On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability">On 'I Report Myself': The 'Modern-Day Hero' Behind Kiro's Batch Registration Vulnerability</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/kiro-whistleblower.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;"/></a><div class="content"><a class="title" href="/2026/01/04/zh-CN/%E8%AE%BA%E3%80%8A%E6%88%91-%E4%B8%BE-%E6%8A%A5-%E6%88%91-%E8%87%AA-%E5%B7%B1%E3%80%8B%EF%BC%9AKiro-%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C%E6%BC%8F%E6%B4%9E%E8%83%8C%E5%90%8E%E7%9A%84%E2%80%9C%E5%BD%93%E4%BB%A3%E6%B4%BB%E9%9B%B7%E9%94%8B%E2%80%9D/" title="论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;">论《我 举 报 我 自 己》：Kiro 批量注册漏洞背后的&quot;当代活雷锋&quot;</a><time datetime="2026-01-04T15:00:00.000Z" title="Created 2026-01-05 00:00:00">2026-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Common Archive Formats Explained: Differences and Extraction Methods"/></a><div class="content"><a class="title" href="/2025/10/12/en/Common-Archive-Formats-Explained/" title="Common Archive Formats Explained: Differences and Extraction Methods">Common Archive Formats Explained: Differences and Extraction Methods</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见压缩包格式详解：区别及在不同系统中的解压方式"/></a><div class="content"><a class="title" href="/2025/10/12/zh-CN/%E5%B8%B8%E8%A7%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%A7%A3%E5%8E%8B%E6%96%B9%E5%BC%8F/" title="常见压缩包格式详解：区别及在不同系统中的解压方式">常见压缩包格式详解：区别及在不同系统中的解压方式</a><time datetime="2025-10-12T15:00:00.000Z" title="Created 2025-10-13 00:00:00">2025-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/posts/10%E5%88%86%E9%92%9F%E6%8E%8C%E6%8F%A1Python%E8%B0%83%E8%AF%95%E5%99%A8pdb/0d565b653736.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Master Python Debugger pdb in 10 Minutes"/></a><div class="content"><a class="title" href="/2025/09/18/en/Master-Python-Debugger-pdb-in-10-Minutes/" title="Master Python Debugger pdb in 10 Minutes">Master Python Debugger pdb in 10 Minutes</a><time datetime="2025-09-18T15:00:00.000Z" title="Created 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Likun Wang (王立坤)</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div><div class="footer_custom_text"><p>Likun Wang | Algorithm Engineer</p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://your-twikoo.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/lang-router.js"></script><script src="/js/csdn-stats.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>
