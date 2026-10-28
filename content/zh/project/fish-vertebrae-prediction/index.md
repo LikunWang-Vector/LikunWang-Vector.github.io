@@ -8,18 +8,20 @@ tags:
   - COMSOL
   - 科学计算
 date: '2024-03-01T00:00:00Z'
+featured: true
 
 external_link: ''
 
 image:
+  filename: covers/fish-vertebrae.png
   caption: 鱼椎骨拓扑优化框架
   focal_point: Smart
 
 links:
-  - icon: twitter
-    icon_pack: fab
-    name: Follow
-    url: https://twitter.com/georgecushen
+  - icon: file-alt
+    icon_pack: fas
+    name: 论文
+    url: /zh/publication/wcsmo16-paper/
 url_code: ''
 url_pdf: ''
 url_slides: ''

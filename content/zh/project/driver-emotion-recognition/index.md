@@ -8,18 +8,16 @@ tags:
   - PyQt5
   - 深度学习
 date: '2024-01-01T00:00:00Z'
+featured: true
 
 external_link: ''
 
 image:
+  filename: covers/driver-emotion.png
   caption: 驾驶员情绪识别界面
   focal_point: Smart
 
-links:
-  - icon: github
-    icon_pack: fab
-    name: 代码
-    url: https://github.com/LikunWang-Vector
+links: []
 url_code: ''
 url_pdf: ''
 url_slides: ''

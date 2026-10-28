@@ -1,0 +1,21 @@
+# Hugo build output
+/public/
+/resources/
+/.hugo_build.lock
+/hugo_stats.json
+
+# Node tooling
+/node_modules/
+/tools/**/node_modules/
+tools/resume/resume-en.html
+tools/resume/resume-zh.html
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log

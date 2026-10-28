@@ -11,6 +11,7 @@ tags:
   - PyQt5
   - 项目
 image:
+  filename: covers/yolo-emotion.png
   caption: '情绪识别系统'
 ---
 

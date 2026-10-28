@@ -2,12 +2,12 @@
 title: 基于拓扑优化和深度神经网络的鱼椎骨负载力预测框架
 
 event: WCSMO-16（第16届世界结构与多学科优化大会）
-event_url: https://wcsmo2025.org/
+event_url: ''
 
-location: 克罗地亚杜布罗夫尼克
+location: 日本神户
 address:
-  city: 杜布罗夫尼克
-  country: 克罗地亚
+  city: 神户
+  country: 日本
 
 summary: 关于使用拓扑优化和深度学习预测鱼椎骨负载力的口头报告。
 abstract: '本研究提出了一种结合拓扑优化技术和深度神经网络来预测鱼椎骨结构负载力的新框架。通过CT扫描获取鱼椎骨的高精度三维数据，使用COMSOL Multiphysics进行有限元分析和拓扑优化，探索轻质结构特性。引入深度学习模型预测负载力，与传统方法相比，计算效率和精度提高了20%以上。'
@@ -31,7 +31,8 @@ tags:
 featured: true
 
 image:
-  caption: 'WCSMO-16大会'
+  filename: covers/wcsmo16.png
+  caption: 'WCSMO-16 大会，日本神户'
   focal_point: Right
 
 url_code: ''
@@ -47,7 +48,7 @@ projects:
 
 ## 报告概述
 
-本次在WCSMO-16的口头报告展示了我们结合生物力学、拓扑优化和人工智能的跨学科研究。
+本次 WCSMO-16（日本神户，2025 年 5 月）口头报告展示了我们结合生物力学、拓扑优化和人工智能的跨学科研究。共同作者：Longsen Yang、Misaki Sakashita、Shintaro Yamasaki。
 
 ### 主要贡献
 

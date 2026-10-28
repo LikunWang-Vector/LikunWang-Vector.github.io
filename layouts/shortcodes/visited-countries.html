@@ -1,106 +1,160 @@
-<!-- Interactive 3D Globe showing visited countries -->
-<div id="visited-globe-container" style="width: 100%; height: 500px; position: relative; background: linear-gradient(135deg, #0c0c1e 0%, #1a1a3e 100%); border-radius: 12px; overflow: hidden;">
-  <div id="visitedGlobeViz"></div>
-  <div id="country-info" style="position: absolute; bottom: 20px; left: 20px; color: white; background: rgba(0,0,0,0.7); padding: 15px 20px; border-radius: 10px; display: none; max-width: 350px;">
-    <h3 id="country-name" style="margin: 0 0 10px 0; color: #4ecdc4;"></h3>
-    <p id="country-details" style="margin: 0; font-size: 14px; line-height: 1.6;"></p>
+{{ $lang := .Page.Lang | default "en" }}
+{{ $countries := slice
+  (dict "name" "China" "nameZh" "中国" "color" "#f87171" "cities" (slice
+    (dict "name" "Jiexiu" "nameZh" "介休" "lat" 37.0244 "lng" 111.9127 "note" "Hometown")
+    (dict "name" "Chengdu" "nameZh" "成都" "lat" 30.5728 "lng" 104.0668 "note" "UESTC")
+    (dict "name" "Taiyuan" "nameZh" "太原" "lat" 37.8706 "lng" 112.5489 "note" "")
+    (dict "name" "Dalian" "nameZh" "大连" "lat" 38.9140 "lng" 121.6147 "note" "")
+    (dict "name" "Qingdao" "nameZh" "青岛" "lat" 36.0671 "lng" 120.3826 "note" "")
+    (dict "name" "Shenzhen" "nameZh" "深圳" "lat" 22.5431 "lng" 114.0579 "note" "Current")))
+  (dict "name" "Japan" "nameZh" "日本" "color" "#22d3ee" "cities" (slice
+    (dict "name" "Kitakyushu / Fukuoka" "nameZh" "北九州 / 福冈" "lat" 33.8835 "lng" 130.8755 "note" "Waseda University")
+    (dict "name" "Kobe" "nameZh" "神户" "lat" 34.6901 "lng" 135.1955 "note" "WCSMO-16")))
+  (dict "name" "United Kingdom" "nameZh" "英国" "color" "#a78bfa" "cities" (slice
+    (dict "name" "Cambridge" "nameZh" "剑桥" "lat" 52.2053 "lng" 0.1218 "note" "Winter Programme")))
+}}
+<div class="lgc-globe-block">
+  <div id="visited-globe-container" class="lgc-globe lgc-globe-countries" role="img" aria-label="{{ if eq $lang "zh" }}交互式 3D 地球，展示去过的国家{{ else }}Interactive 3D globe showing countries visited{{ end }}">
+    <div id="visitedGlobeViz" class="lgc-globe-canvas"></div>
+    <div class="lgc-globe-loading" data-globe-status>
+      <span class="lgc-spinner" aria-hidden="true"></span>
+      <span>{{ i18n "globe_loading" }}</span>
+    </div>
+    <div class="lgc-country-count">
+      <strong>{{ len $countries }}</strong>
+      <span>{{ i18n "globe_countries" }}</span>
+    </div>
+    <div id="country-info" class="lgc-country-info" hidden>
+      <h3 id="country-name"></h3>
+      <p id="country-details"></p>
+    </div>
+    <span class="lgc-globe-hint">{{ i18n "globe_hint" }}</span>
   </div>
-  <div style="position: absolute; top: 20px; left: 20px; color: white; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 8px;">
-    <strong>🌍 Countries Visited: <span style="color: #4ecdc4;">3</span></strong>
+  <div class="lgc-country-list">
+    {{ range $countries }}
+    <div class="lgc-country-card" style="--c: {{ .color }}">
+      <strong>{{ if eq $lang "zh" }}{{ .nameZh }}{{ else }}{{ .name }}{{ end }}</strong>
+      <span>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .nameZh }}{{ end }}</span>
+      <p>{{ range $i, $city := .cities }}{{ if $i }} · {{ end }}{{ if eq $lang "zh" }}{{ $city.nameZh }}{{ else }}{{ $city.name }}{{ end }}{{ end }}</p>
+    </div>
+    {{ end }}
   </div>
 </div>
 
-<script src="https://unpkg.com/globe.gl@2.27.0/dist/globe.gl.min.js"></script>
 <script>
-(function() {
-  // Visited countries data with details
-  const visitedCountries = {
-    'China': {
-      color: '#ff6b6b',
-      details: '🏠 Hometown: Jiexiu, Shanxi<br/>🎓 University: UESTC, Chengdu<br/>📍 Cities: Taiyuan, Dalian, Qingdao, Beijing',
-      cities: [
-        { name: 'Jiexiu', lat: 37.0244, lng: 111.9127 },
-        { name: 'Chengdu', lat: 30.5728, lng: 104.0668 },
-        { name: 'Taiyuan', lat: 37.8706, lng: 112.5489 },
-        { name: 'Dalian', lat: 38.9140, lng: 121.6147 },
-        { name: 'Qingdao', lat: 36.0671, lng: 120.3826 }
-      ]
-    },
-    'Japan': {
-      color: '#4ecdc4',
-      details: '🎓 Master\'s: Waseda University, Fukuoka<br/>📅 2023-2025<br/>🏆 MEXT Scholarship Recipient',
-      cities: [
-        { name: 'Fukuoka', lat: 33.5904, lng: 130.4017 }
-      ]
-    },
-    'Croatia': {
-      color: '#ffe66d',
-      details: '🎤 WCSMO-16 Conference<br/>📍 Dubrovnik<br/>📅 May 2025',
-      cities: [
-        { name: 'Dubrovnik', lat: 42.6507, lng: 18.0944 }
-      ]
-    }
-  };
+(function () {
+  var container = document.getElementById('visited-globe-container');
+  if (!container) return;
+  var status = container.querySelector('[data-globe-status]');
+  var infoPanel = document.getElementById('country-info');
+  var countryName = document.getElementById('country-name');
+  var countryDetails = document.getElementById('country-details');
+  var countries = {{ $countries | jsonify | safeJS }};
+  var errorText = {{ i18n "globe_error" | jsonify | safeJS }};
+  var isZh = (document.documentElement.lang || 'en').toLowerCase().indexOf('zh') === 0;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var started = false;
+  var allCities = [];
 
-  // Flatten cities for points
-  const allCities = [];
-  Object.entries(visitedCountries).forEach(([country, data]) => {
-    data.cities.forEach(city => {
+  countries.forEach(function (country) {
+    country.cities.forEach(function (city) {
       allCities.push({
-        ...city,
-        country: country,
-        color: data.color,
-        details: data.details
+        name: city.name, nameZh: city.nameZh, lat: city.lat, lng: city.lng,
+        note: city.note, country: isZh ? country.nameZh : country.name,
+        color: country.color
       });
     });
   });
 
-  const container = document.getElementById('visitedGlobeViz');
-  const infoPanel = document.getElementById('country-info');
-  const countryName = document.getElementById('country-name');
-  const countryDetails = document.getElementById('country-details');
-
-  const globe = Globe()
-    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-    .pointsData(allCities)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointColor('color')
-    .pointAltitude(0.1)
-    .pointRadius(0.6)
-    .pointLabel(d => `<div style="background: rgba(0,0,0,0.85); color: white; padding: 10px 15px; border-radius: 8px;">
-      <strong style="color: ${d.color};">${d.name}</strong><br/>
-      ${d.country}
-    </div>`)
-    .onPointClick(d => {
-      countryName.textContent = `${d.country} - ${d.name}`;
-      countryName.style.color = d.color;
-      countryDetails.innerHTML = d.details;
-      infoPanel.style.display = 'block';
-      globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 1000);
-    })
-    .width(container.clientWidth)
-    .height(500)
-    (container);
-
-  // Auto-rotate
-  globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.3;
-
-  // Initial view
-  globe.pointOfView({ lat: 30, lng: 110, altitude: 2.2 }, 1000);
-
-  // Responsive
-  window.addEventListener('resize', () => {
-    globe.width(container.clientWidth);
+  window.lgcGlobeReady = window.lgcGlobeReady || new Promise(function (resolve, reject) {
+    if (window.Globe) { resolve(); return; }
+    var s = document.createElement('script');
+    s.src = '{{ "js/globe.gl.min.js" | relURL }}';
+    s.async = true;
+    s.onload = resolve;
+    s.onerror = function () { reject(new Error('globe.gl failed to load')); };
+    document.head.appendChild(s);
   });
 
-  // Click outside to hide info
-  container.addEventListener('click', (e) => {
-    if (e.target === container) {
-      infoPanel.style.display = 'none';
-    }
-  });
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function start() {
+    if (started) return;
+    started = true;
+    window.lgcGlobeReady.then(init).catch(function (error) {
+      console.warn(error);
+      if (status) status.innerHTML = '<span>' + escapeHtml(errorText) + '</span>';
+      container.classList.add('is-error');
+    });
+  }
+
+  function init() {
+    var width = container.clientWidth || 800;
+    var height = container.clientHeight || 500;
+    var globe = Globe()(container.querySelector('#visitedGlobeViz'))
+      .width(width)
+      .height(height)
+      .globeImageUrl('{{ "img/earth-night.webp" | relURL }}')
+      .backgroundColor('rgba(0,0,0,0)')
+      .showAtmosphere(true)
+      .atmosphereColor('#2dd4bf')
+      .atmosphereAltitude(0.12)
+      .pointsData(allCities)
+      .pointLat('lat')
+      .pointLng('lng')
+      .pointColor('color')
+      .pointAltitude(0.08)
+      .pointRadius(0.5)
+      .pointLabel(function (d) {
+        return '<div class="lgc-globe-label"><strong>' + escapeHtml(isZh ? d.nameZh : d.name) + '</strong>' +
+          '<span>' + escapeHtml(d.country) + '</span><em>' + escapeHtml(d.note || '') + '</em></div>';
+      })
+      .onPointClick(function (d) {
+        if (countryName) countryName.textContent = (isZh ? d.nameZh : d.name) + ' · ' + d.country;
+        if (countryDetails) countryDetails.textContent = d.note || '';
+        if (infoPanel) infoPanel.hidden = false;
+        globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.45 }, reduceMotion ? 0 : 1000);
+      });
+
+    var controls = globe.controls();
+    controls.autoRotate = !reduceMotion;
+    controls.autoRotateSpeed = 0.28;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.minPolarAngle = Math.PI * 0.15;
+    controls.maxPolarAngle = Math.PI * 0.85;
+
+    globe.pointOfView({ lat: 30, lng: 108, altitude: width < 640 ? 2.6 : 2.1 }, 0);
+    container.classList.add('is-ready');
+    if (status) status.remove();
+
+    container.addEventListener('click', function (event) {
+      if (event.target === container && infoPanel) infoPanel.hidden = true;
+    });
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        globe.width(container.clientWidth);
+        globe.height(container.clientHeight);
+      }, 150);
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { observer.disconnect(); start(); }
+      });
+    }, { rootMargin: '350px 0px' });
+    observer.observe(container);
+  } else {
+    start();
+  }
 })();
 </script>

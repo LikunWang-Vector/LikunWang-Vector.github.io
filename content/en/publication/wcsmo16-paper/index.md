@@ -4,6 +4,11 @@ title: 'A Framework for Predicting Loading Forces Applied on Fish Vertebrae Base
 authors:
   - admin
 
+coauthors:
+  - Longsen Yang
+  - Misaki Sakashita
+  - Shintaro Yamasaki
+
 date: '2025-05-01T00:00:00Z'
 doi: ''
 
@@ -12,7 +17,7 @@ publishDate: '2025-01-01T00:00:00Z'
 publication_types: ['paper-conference']
 
 publication: In *16th World Congress of Structural and Multidisciplinary Optimization (WCSMO-16)*
-publication_short: In *WCSMO-16*
+publication_short: In *WCSMO-16* · Kobe, Japan
 
 abstract: This research presents a novel framework for predicting loading forces applied on fish vertebrae structures by combining topology optimization techniques with deep neural networks. Using CT scans to acquire high-precision 3D data of fish vertebrae, we performed finite element analysis with COMSOL Multiphysics and topology optimization to explore lightweight structural properties. A deep learning model was introduced to predict loading forces, achieving over 20% improvement in calculation efficiency and accuracy compared to traditional methods. This interdisciplinary approach demonstrates the potential of combining bio-inspired structural analysis with modern AI techniques for enhanced predictive capabilities in biomechanical systems.
 
@@ -27,6 +32,16 @@ tags:
 
 featured: true
 
+bibtex: |
+  @inproceedings{wang2025framework,
+    title={A Framework for Predicting Loading Forces Applied on Fish Vertebrae Based on Topology Optimization and Deep Neural Network},
+    author={Wang, Likun and Yang, Longsen and Sakashita, Misaki and Yamasaki, Shintaro},
+    booktitle={16th World Congress of Structural and Multidisciplinary Optimization (WCSMO-16)},
+    address={Kobe, Japan},
+    year={2025},
+    month={May}
+  }
+
 url_pdf: ''
 url_code: ''
 url_dataset: ''
@@ -37,6 +52,7 @@ url_source: ''
 url_video: ''
 
 image:
+  filename: covers/wcsmo16.png
   caption: 'Fish vertebrae topology optimization framework'
   focal_point: ''
   preview_only: false
@@ -46,6 +62,12 @@ projects:
 
 slides: ''
 ---
+
+## Co-authors
+
+Longsen Yang, Misaki Sakashita, and Shintaro Yamasaki (Waseda University).
+
+Presented at the 16th World Congress of Structural and Multidisciplinary Optimization (WCSMO-16), Kobe, Japan, May 2025.
 
 ## Research Highlights
 

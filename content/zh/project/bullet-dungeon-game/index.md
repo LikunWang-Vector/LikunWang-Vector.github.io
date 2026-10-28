@@ -12,6 +12,7 @@ date: '2022-07-01T00:00:00Z'
 external_link: ''
 
 image:
+  filename: covers/bullet-dungeon.png
   caption: 子弹地牢游戏截图
   focal_point: Smart
 

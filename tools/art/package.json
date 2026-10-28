@@ -1,0 +1,14 @@
+{
+  "name": "likunwang-site-art",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "covers": "node generate.mjs",
+    "og": "node generate-og.mjs",
+    "textures": "node fetch-textures.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.0.0",
+    "sharp": "^0.35.0"
+  }
+}

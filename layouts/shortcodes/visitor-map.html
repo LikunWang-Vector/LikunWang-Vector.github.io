@@ -1,32 +1,42 @@
-<!-- Visitor Map Widget using RevolverMaps -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
-  <!-- 3D Globe Visitor Map -->
-  <div style="text-align: center;">
-    <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5fy4z8xv8ew&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+{{ $lang := .Page.Lang | default "en" }}
+<div class="lgc-visitor">
+  <div class="lgc-visitor-copy">
+    <span class="lgc-eyebrow">{{ i18n "visitor_map_title" }}</span>
+    <h3>{{ i18n "visitor_map_title" }}</h3>
+    <p>{{ i18n "visitor_map_text" }}</p>
+    <button type="button" class="lgc-btn lgc-btn-primary" data-visitor-load>{{ i18n "visitor_map_load" }}</button>
+    <p class="lgc-visitor-note">{{ i18n "visitor_map_note" }}</p>
+  </div>
+  <div class="lgc-visitor-frame" data-visitor-frame aria-live="polite">
+    <div class="lgc-visitor-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18"/></svg>
+      <span>{{ i18n "visitor_map_load" }}</span>
+    </div>
   </div>
 </div>
 
-<style>
-.visitor-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
-}
-.stat-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-.stat-number {
-  font-size: 2em;
-  font-weight: bold;
-}
-.stat-label {
-  font-size: 0.9em;
-  opacity: 0.9;
-}
-</style>
+<script>
+(function () {
+  var root = document.querySelector('.lgc-visitor');
+  if (!root) return;
+  var button = root.querySelector('[data-visitor-load]');
+  var frame = root.querySelector('[data-visitor-frame]');
+  var loaded = false;
+
+  function load() {
+    if (loaded) return;
+    loaded = true;
+    if (button) button.disabled = true;
+    var iframe = document.createElement('iframe');
+    iframe.className = 'lgc-visitor-iframe';
+    iframe.src = '{{ "visitor-map.html" | relURL }}';
+    iframe.title = 'Visitor map';
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer';
+    iframe.setAttribute('allowtransparency', 'true');
+    frame.replaceChildren(iframe);
+  }
+
+  if (button) button.addEventListener('click', load);
+})();
+</script>

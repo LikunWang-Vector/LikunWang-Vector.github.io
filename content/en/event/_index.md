@@ -1,13 +1,10 @@
 ---
-title: Recent & Upcoming Talks
+title: Talks & Presentations
+summary: Conference presentations and invited talks.
 cms_exclude: true
-#url: talk
 
 # View
-view: card
-
-# Optional cover image (relative to `assets/media/` folder).
-image:
-  caption: ''
-  filename: ''
+view: talk-card
 ---
+
+Conference presentations and invited talks. I am happy to share slides or discuss the work in more detail — just [get in touch](/#contact).

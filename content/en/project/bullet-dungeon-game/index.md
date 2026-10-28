@@ -12,6 +12,7 @@ date: '2022-07-01T00:00:00Z'
 external_link: ''
 
 image:
+  filename: covers/bullet-dungeon.png
   caption: Bullet Dungeon gameplay screenshot
   focal_point: Smart
 

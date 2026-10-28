@@ -1,13 +1,10 @@
 ---
-title: Recent & Upcoming Talks
+title: 演讲与报告
+summary: 学术会议报告与演讲。
 cms_exclude: true
-#url: talk
 
 # View
-view: card
-
-# Optional cover image (relative to `assets/media/` folder).
-image:
-  caption: ''
-  filename: ''
+view: talk-card
 ---
+
+学术会议报告与演讲。如果你需要幻灯片或想进一步讨论，欢迎[联系我](/#contact)。

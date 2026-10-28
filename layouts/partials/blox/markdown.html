@@ -1,0 +1,29 @@
+{{/* Hugo Blox: Markdown — site override for wider sections and semantic headings */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $wide := $block.design.wide | default false }}
+{{ $prose := $block.design.prose | default true }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+<div class="lgc-section {{ if $wide }}lgc-section-wide{{ else }}lgc-section-narrow{{ end }}">
+  {{ with $title }}
+  <div class="lgc-section-head">
+    <h2 class="lgc-section-title">{{ . }}</h2>
+    {{ with $subtitle }}<p class="lgc-section-subtitle">{{ . }}</p>{{ end }}
+  </div>
+  {{ else }}
+    {{ with $subtitle }}<p class="lgc-section-subtitle">{{ . }}</p>{{ end }}
+  {{ end }}
+
+  {{ with $text }}
+    {{ if $prose }}
+      <div class="lgc-prose">
+        <div class="prose prose-slate lg:prose-lg dark:prose-invert max-w-none">{{ . }}</div>
+      </div>
+    {{ else }}
+      <div class="lgc-prose">{{ . }}</div>
+    {{ end }}
+  {{ end }}
+</div>

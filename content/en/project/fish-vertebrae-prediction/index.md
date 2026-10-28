@@ -8,18 +8,20 @@ tags:
   - COMSOL
   - Scientific Computing
 date: '2024-03-01T00:00:00Z'
+featured: true
 
 external_link: ''
 
 image:
+  filename: covers/fish-vertebrae.png
   caption: Fish vertebrae topology optimization framework
   focal_point: Smart
 
 links:
-  - icon: twitter
-    icon_pack: fab
-    name: Follow
-    url: https://twitter.com/georgecushen
+  - icon: file-alt
+    icon_pack: fas
+    name: Paper
+    url: /publication/wcsmo16-paper/
 url_code: ''
 url_pdf: ''
 url_slides: ''

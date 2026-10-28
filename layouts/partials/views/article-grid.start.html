@@ -1,0 +1,5 @@
+{{ $columns := .config.columns | default 2 }}
+{{ $len := .config.len | default 2 }}
+{{ $single := eq $len 1 }}
+<div class="lgc-wrap">
+  <div class="lgc-grid lgc-cols-{{ $columns }}{{ if $single }} lgc-grid-single{{ end }}">

@@ -269,3 +269,93 @@
 
 - id: published_with
   translation: 由{hugoblox}支持发布——免费{repo_link}开源{/repo_link}网站，为创作者赋能。
+
+# Custom site strings
+
+- id: type_project
+  translation: 项目
+- id: type_post
+  translation: 博客文章
+- id: type_publication
+  translation: 论文
+- id: type_talk
+  translation: 演讲
+
+- id: translate
+  translation: 翻译
+- id: translate_title
+  translation: 翻译此页面
+- id: translate_native
+  translation: 原文版本
+- id: translate_machine
+  translation: 机器翻译
+- id: translate_google
+  translation: Google 翻译
+- id: translate_google_note
+  translation: 在新标签页用 Google 翻译打开；需要能访问 Google，国内读者请直接使用中文版。
+- id: translate_inpage
+  translation: 站内机器翻译（MyMemory，备用）
+- id: translate_provider
+  translation: 微软翻译
+- id: translate_restore
+  translation: 显示原文
+- id: translate_working
+  translation: 正在翻译…
+- id: translate_done
+  translation: 机器翻译完成
+- id: translate_error
+  translation: 翻译暂不可用，请稍后重试。
+- id: translate_quota
+  translation: 免费翻译额度已用完，请稍后再试或切换翻译服务。
+- id: translate_mymemory_note
+  translation: 由免费的 MyMemory 公共接口提供，待翻译文本会发送到 MyMemory。
+- id: translate_disclaimer
+  translation: 机器翻译可能不准确，仅供参考。
+- id: translate_reload
+  translation: 重置页面
+- id: translate_offer
+  translation: 此页面还提供
+- id: translate_open
+  translation: 切换语言
+
+- id: copy
+  translation: 复制
+- id: copied
+  translation: 已复制
+
+- id: globe_origin
+  translation: 起点
+- id: globe_education
+  translation: 求学
+- id: globe_visited
+  translation: 到访
+- id: globe_current
+  translation: 现在
+- id: globe_path
+  translation: 人生轨迹
+- id: globe_pause
+  translation: 暂停
+- id: globe_play
+  translation: 播放
+- id: globe_loading
+  translation: 正在加载地球…
+- id: globe_hint
+  translation: 拖动旋转
+- id: globe_details
+  translation: 地图上的地点
+- id: globe_error
+  translation: 交互式地球加载失败。
+- id: globe_countries
+  translation: 去过的国家
+- id: visitor_map_title
+  translation: 访客地图
+- id: visitor_map_text
+  translation: 查看本站读者来自哪里。地图为第三方嵌入内容，仅在你点击后加载。
+- id: visitor_map_load
+  translation: 加载访客地图
+- id: visitor_map_note
+  translation: 第三方内容来自 RevolverMaps。
+- id: visitor_map_error
+  translation: 访客地图加载失败，你可以直接打开原页面。
+- id: visitor_map_open
+  translation: 在新标签页打开

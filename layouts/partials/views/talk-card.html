@@ -1,0 +1,31 @@
+{{ $item := .item }}
+{{ $resource := partial "functions/get_featured_image.html" $item }}
+{{ $eventURL := $item.Params.event_url }}
+{{ $eventShort := index (split ($item.Params.event | default "") " (") 0 }}
+<div class="lgc-talk">
+  <div class="lgc-talk-date" aria-hidden="true">
+    <span class="lgc-talk-month">{{ $item.Date.Format "Jan" }}</span>
+    <strong class="lgc-talk-day">{{ $item.Date.Format "2" }}</strong>
+    <span class="lgc-talk-year">{{ $item.Date.Format "2006" }}</span>
+  </div>
+  <div class="lgc-talk-body">
+    <div class="lgc-talk-kicker">{{ i18n "type_talk" | default "Talk" }}{{ with $eventShort }}<span class="lgc-dot">·</span>{{ . }}{{ end }}</div>
+    <h3 class="lgc-talk-title"><a href="{{ $item.RelPermalink }}">{{ $item.Title }}</a></h3>
+    {{ with $item.Params.summary }}<p class="lgc-talk-summary">{{ . | plainify | chomp }}</p>{{ end }}
+    <div class="lgc-talk-meta">
+      {{ with $item.Params.location }}<span>📍 {{ . }}</span>{{ end }}
+      {{ with $eventURL }}<a href="{{ . }}" target="_blank" rel="noopener">{{ i18n "event" | default "Event" }} ↗</a>{{ end }}
+      <a href="{{ $item.RelPermalink }}">{{ i18n "read_more" | default "Details" }} →</a>
+    </div>
+  </div>
+  {{ with $resource }}
+    <a class="lgc-talk-media" href="{{ $item.RelPermalink }}" aria-hidden="true" tabindex="-1">
+      {{ if eq .MediaType.SubType "svg" }}
+        <img src="{{ .RelPermalink }}" alt="" width="1200" height="675" loading="lazy" decoding="async">
+      {{ else }}
+        {{ $image := (.Fill "480x300 Center").Process "webp" }}
+        <img src="{{ $image.RelPermalink }}" alt="" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy" decoding="async">
+      {{ end }}
+    </a>
+  {{ end }}
+</div>

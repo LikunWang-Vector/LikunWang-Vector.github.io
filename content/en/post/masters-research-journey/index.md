@@ -10,12 +10,13 @@ tags:
   - Biomechanics
   - Graduate Life
 image:
+  filename: covers/masters-research.png
   caption: 'Research at Waseda University'
 ---
 
 ## Introduction
 
-As I complete my Master's degree at Waseda University's Graduate School of Information, Production and Systems, I want to share my research journey that combined biomechanics, topology optimization, and deep learning.
+As I finished my Master's degree at Waseda University's Graduate School of Information, Production and Systems, I want to share the research journey that combined biomechanics, topology optimization, and deep learning.
 
 ## The Research Question
 
@@ -51,8 +52,8 @@ The key innovation was introducing a deep neural network to predict loading forc
 
 ## What's Next
 
-I'm now applying these skills as an Algorithm Engineer at Shenzhen Suanhai Technology, focusing on TPU operator development and toolchain optimization. The interdisciplinary mindset I developed during my Master's continues to guide my work.
+I now apply these skills as an Algorithm Engineer at Shenzhen Suanhai Technology, focusing on TPU operator development and toolchain optimization. The interdisciplinary mindset I developed during my Master's continues to guide my work.
 
 ## Acknowledgments
 
-I'm grateful to my advisors at Waseda University's Optimization Lab and the support of the MEXT Scholarship program that made this research possible.
+I'm grateful to my advisors at Waseda University's Optimization Lab and the support of the Monbukagakusho Honors Scholarship (JASSO) that made this research possible.

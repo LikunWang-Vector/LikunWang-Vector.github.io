@@ -13,8 +13,8 @@ marketing:
   seo:
     site_type: Person
     local_business_type: ''
-    org_name: 'Wang Likun'
-    description: 'Personal website of Wang Likun, Algorithm Engineer specializing in TPU operator development, deep learning, and biomechanical topology optimization. M.Eng. from Waseda University.'
+    org_name: 'Likun Wang'
+    description: 'Likun Wang (王立坤) — Algorithm Engineer working on TPU operators, deep learning, and bio-inspired topology optimization. M.Eng. from Waseda University. WCSMO-16 oral presenter.'
     twitter: ''
   analytics:
     google_analytics: ''
@@ -34,13 +34,17 @@ header:
     fixed_to_top: true
     show_search: true
     show_theme_chooser: true
+    # The custom translate button replaces the stock language chooser.
+    show_translations: false
     logo:
-      text: "🚀 Wang Likun"
+      text: "Likun Wang"
 
 # Site footer
 footer:
+  show_translations: false
+  text: '[Sitemap](/sitemap.xml) · [GitHub](https://github.com/LikunWang-Vector/LikunWang-Vector.github.io) · [Back to top ↑](#top)'
   copyright:
-    notice: '© {year} Wang Likun | Algorithm Engineer'
+    notice: '© {year} Likun Wang (王立坤) · Algorithm Engineer'
     license:
       enable: false
       allow_derivatives: false
@@ -60,3 +64,24 @@ features:
     enable: false
   comment:
     provider: ''
+  # Page language bar.
+  # Native English/Chinese pages are the primary experience.
+  # Other languages use the Google Translate Element to translate the current
+  # page in place (no redirect). Google is loaded only after a language click.
+  translation:
+    enable: true
+    native: true
+    google:
+      # Google Translate language codes; native EN/ZH links are added automatically.
+      languages:
+        - ja
+        - ko
+        - zh-Hant
+        - fr
+        - de
+        - es
+        - ru
+        - pt
+
+publications:
+  citation_style: apa

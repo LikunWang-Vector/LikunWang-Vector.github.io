@@ -11,6 +11,7 @@ tags:
   - PyQt5
   - Project
 image:
+  filename: covers/yolo-emotion.png
   caption: 'Emotion Recognition System'
 ---
 

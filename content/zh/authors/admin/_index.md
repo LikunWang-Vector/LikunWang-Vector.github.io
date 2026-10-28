@@ -20,7 +20,7 @@ superuser: true
 highlight_name: true
 
 # Role/position/tagline
-role: 算法工程师 | AI工程师
+role: 算法工程师 | AI 系统与硬件加速
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
@@ -35,51 +35,60 @@ organizations:
 profiles:
   - icon: at-symbol
     url: 'mailto:vector_kun@ruri.waseda.jp'
-    label: E-mail Me
+    label: 邮件联系
   - icon: brands/github
     url: https://github.com/LikunWang-Vector
+    label: GitHub
   - icon: brands/linkedin
     url: https://www.linkedin.com/in/veckun/
-  - icon: brands/weixin
-    url: https://www.wechat.com/vectorkun
+    label: 领英
   - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=z0AZmR4AAAAJ&hl=en
+    url: https://scholar.google.com/citations?user=z0AZmR4AAAAJ&hl=zh-CN
+    label: 谷歌学术
+  - icon: rss
+    url: https://blog.csdn.net/m0_59180666
+    label: CSDN 博客
 
 interests:
   - 人工智能与深度学习
-  - TPU算子开发与工具链优化
+  - 深度学习系统与硬件加速
+  - TPU 算子开发与工具链优化
   - 生物力学拓扑优化
-  - 计算机视觉与YOLO网络
+  - 计算机视觉与 YOLO 网络
   - 有限元分析与科学计算
 
 education:
-  - area: 情报生产系统工学硕士
+  - area: 信息生产系统工学 硕士
     institution: 早稻田大学
     date_start: 2023-09-01
     date_end: 2025-07-31
     summary: |
-      排名: 前30% | 最优化实验室学生事务管理员
+      导师：山崎慎太郎 教授 | 排名：前 30%
+      最优化实验室 学生事务管理员
 
-      主要课程:
-      - 计算智能
-      - 有限元分析
-      - 集体智能理论
-      - 优化技术
+      研究方向：结合拓扑优化、有限元分析与深度学习，预测鱼椎骨结构的
+      负载力。
 
-      研究方向: 基于拓扑优化和深度学习的鱼椎骨负载力预测
-  - area: 计算机科学与技术学士
+      主要课程：计算智能、有限元分析、集体智能理论、优化技术。
+  - area: 计算机科学与技术 学士
     institution: 电子科技大学
     date_start: 2020-09-01
     date_end: 2024-06-30
     summary: |
-      排名: 前30% | 班长(2020-2023)、副团支书
+      电子科技大学–早稻田大学 G-Course 联合培养项目 | 排名：前 30%
+      班长（2020–2023）、副团支书
 
-      主要课程:
-      - 数据结构与算法
-      - 人工智能
-      - 计算机体系结构
-      - 软件工程
-      - 数据库原理
+      毕设导师：叶娅兰 教授 — 基于面部表情的驾驶员情绪识别。
+
+      主要课程：数据结构与算法、人工智能、计算机体系结构、软件工程、
+      数据库原理。
+  - area: 计算机科学与技术 冬季项目
+    institution: 剑桥大学
+    date_start: 2023-01-01
+    date_end: 2023-02-28
+    summary: |
+      导师：Pietro Lio 教授
+      综述论文：多智能体强化学习中的信用分配。
 
 work:
   - position: 算法工程师
@@ -89,10 +98,9 @@ work:
     date_start: 2025-09-01
     date_end: ''
     summary: |2-
-      主要职责:
-      - TPU算子开发与优化
-      - 工具链开发与性能提升
-      - 深度学习模型在专用硬件上的部署
+      - 负责 TPU 推理栈算子的开发与优化，关注数值正确性、精度与性能。
+      - 改进深度学习模型在专用硬件上的工具链部署流程。
+      - 分析算子级性能瓶颈，并对照参考实现验证数值行为。
   - position: 产品运营实习生
     company_name: 科大讯飞股份有限公司
     company_url: 'https://www.iflytek.com/'
@@ -100,10 +108,9 @@ work:
     date_start: 2024-08-01
     date_end: 2024-09-01
     summary: |2-
-      主要成就:
-      - 主导输入法助手核心功能测试与优化
-      - 通过竞品分析发现市场机会，推荐界面与功能增强
-      - 优化了快捷短语库扩展与悬浮条功能
+      - 主导输入法助手核心功能的测试与优化。
+      - 通过竞品分析提出界面与功能改进建议。
+      - 优化快捷短语库与悬浮条体验。
   - position: 项目经理实习生
     company_name: 四川华迪信息技术有限公司
     company_url: 'https://www.hwadee.com/'
@@ -111,9 +118,8 @@ work:
     date_start: 2022-06-01
     date_end: 2022-07-31
     summary: |2-
-      主要成就:
-      - 参与民宿预定移动终端的前后端开发（Android/MyBatis）
-      - 负责页面布局、功能开发与调试
+      - 参与民宿预订移动端前后端开发（Android/MyBatis）。
+      - 负责页面布局、功能模块开发、调试与稳定性检查。
   - position: 产品分析实习生
     company_name: 阿里巴巴文化娱乐有限公司
     company_url: 'https://www.alibaba.com/'
@@ -121,10 +127,8 @@ work:
     date_start: 2022-05-01
     date_end: 2022-06-30
     summary: |2-
-      主要成就:
-      - 使用SQL和Python从大数据平台提取并分析用户行为数据
-      - 调研市场趋势与竞品，为产品战略提供数据支持
-      - 利用Tableau制作数据可视化仪表盘
+      - 使用 SQL 与 Python 从大数据平台提取并分析用户行为数据。
+      - 使用 Tableau 制作数据可视化仪表盘，撰写产品策略报告。
 
 # Skills
 skills:
@@ -146,7 +150,7 @@ skills:
         description: ''
         percent: 70
         icon: calculator
-  - name: AI与数据科学
+  - name: AI 与数据科学
     color: '#eeac02'
     color_border: '#f0bf23'
     items:
@@ -172,61 +176,62 @@ languages:
     percent: 60
 
 awards:
-  - title: WCSMO-16口头报告
-    url: https://wcsmo2025.org/
+  - title: WCSMO-16 口头报告
+    url: https://www.issmo.org/
     date: '2025-05-01'
     awarder: 世界结构与多学科优化大会
     icon: academicons/google-scholar
     summary: |
-      发表研究："基于拓扑优化和深度神经网络的鱼椎骨负载力预测框架"
-  - title: 日本文部省MEXT奖学金
-    url: https://www.mext.go.jp/
-    date: '2023-09-01'
-    awarder: 日本文部科学省
+      在日本神户举行的 WCSMO-16 上口头报告《基于拓扑优化和深度神经网络的
+      鱼椎骨负载力预测框架》。
+  - title: 日本文部科学省荣誉奖学金
+    url: https://www.jasso.go.jp/
+    date: '2023-10-01'
+    awarder: 日本学生支援机构（JASSO）
     icon: academicons/google-scholar
     summary: |
-      早稻田大学硕士学位全额奖学金
-  - title: 美国大学生数学建模竞赛H奖
+      面向在日自费留学生的荣誉奖学金（¥288,000），于早稻田大学硕士期间获得。
+  - title: 美国大学生数学建模竞赛 Honorable Mention
     url: https://www.comap.com/contests/mcm-icm
     date: '2023-05-01'
     awarder: COMAP
     icon: academicons/google-scholar
     summary: |
-      问题D：使用格兰杰因果分析和改进RICE模型的可持续发展目标优先级分析
-  - title: 腾讯游戏策划公开课银奖
+      D 题：使用格兰杰因果分析与改进 RICE 模型的可持续发展目标优先级分析。
+  - title: 腾讯游戏策划公开课 银奖
     url: https://gwb.tencent.com/
-    date: '2022-10-01'
+    date: '2022-11-01'
     awarder: 腾讯游戏
     icon: academicons/google-scholar
     summary: |
-      "子弹地牢"Roguelike横版游戏主策划
-  - title: 华为云"青年有为"称号
+      Roguelike 横版游戏《子弹地牢》主策划。
+  - title: 华为云“青年有为”称号
     url: https://www.huaweicloud.com/
     date: '2022-09-01'
     awarder: 华为云
     icon: academicons/google-scholar
     summary: |
-      全国青年人工智能实践活动认可
-  - title: 大学生创新创业训练竞赛优秀奖
+      全国青年人工智能实践活动认可。
+  - title: 大学生创新创业训练竞赛 优秀奖
     url: https://www.uestc.edu.cn/
     date: '2022-12-01'
     awarder: 电子科技大学
     icon: academicons/google-scholar
     summary: |
-      基于权威出版物的新闻分类算法
+      基于权威出版物的新闻分类算法。
   - title: 计算机学院优秀班干部
     url: https://www.uestc.edu.cn/
     date: '2022-09-01'
     awarder: 电子科技大学计算机学院
     icon: academicons/google-scholar
     summary: |
-      班长任期内优秀领导力表彰
+      班长任期内优秀领导力表彰。
 ---
 
-## 关于我
+我是[深圳算海科技](https://www.suanhai.com/)的**算法工程师**，专注于 TPU 算子开发与工具链优化。我刚刚在[早稻田大学](https://www.waseda.jp/inst/ips/en/)信息生产系统工学专业完成硕士学位，在山崎慎太郎教授的最优化实验室从事研究。
 
-王立坤是深圳算海科技有限公司的算法工程师，专注于TPU算子开发和工具链优化。他刚从早稻田大学信息生产系统工学专业硕士毕业，研究方向为生物力学拓扑优化和深度学习应用。
+我的研究结合有限元分析、拓扑优化与深度学习，探索仿生结构如何承载载荷。我构建了一个预测鱼椎骨负载力的框架，结合 CT 重建、COMSOL 仿真与神经网络，并在日本神户举行的 **WCSMO-16** 上作了口头报告。
 
-他的跨学科研究结合了有限元分析、深度学习和仿生设计，用于预测鱼椎骨结构的负载力。凭借在AI/ML开发、计算机视觉（YOLO网络）和科学计算方面的丰富经验，他参与了从智能驾驶员情绪识别系统到可持续发展分析等多个项目。
+我喜欢跨层工作：从专用硬件的数值内核与工具链，到计算机视觉系统和科学计算。我是**日本文部科学省荣誉奖学金（JASSO）**获得者，也是电子科技大学–早稻田大学 G-Course 联合培养项目的校友。
 
-王立坤通过担任班长、实验室管理员以及在科大讯飞、阿里巴巴文娱、四川华迪等知名科技公司的多个实习项目经理职位展现了领导能力。他的工作获得了包括MEXT奖学金、WCSMO-16演讲和多项竞赛荣誉在内的认可。
+如果你对 AI 系统、计算机视觉或计算设计感兴趣，欢迎[与我联系](/#contact)。

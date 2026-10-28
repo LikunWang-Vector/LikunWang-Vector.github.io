@@ -1,101 +1,206 @@
-<!-- 3D Globe with Life Trajectory Animation -->
-<div id="globe-container" style="width: 100%; height: 600px; position: relative; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; overflow: hidden;">
-  <div id="globeViz"></div>
-  <div id="trajectory-info" style="position: absolute; bottom: 20px; left: 20px; color: white; font-size: 14px; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 8px; max-width: 300px;">
-    <div id="current-location">Loading trajectory...</div>
+{{ $lang := .Page.Lang | default "en" }}
+{{ $places := slice
+  (dict "name" "Jiexiu, Shanxi" "nameZh" "山西介休" "lat" 37.0244 "lng" 111.9127 "type" "origin" "year" "Birth" "note" "Hometown")
+  (dict "name" "Chengdu, Sichuan" "nameZh" "四川成都" "lat" 30.5728 "lng" 104.0668 "type" "education" "year" "2020–2024" "note" "B.Eng. at UESTC")
+  (dict "name" "Cambridge, UK" "nameZh" "英国剑桥" "lat" 52.2053 "lng" 0.1218 "type" "education" "year" "Jan–Feb 2023" "note" "Winter Programme")
+  (dict "name" "Kitakyushu, Japan" "nameZh" "日本北九州" "lat" 33.8835 "lng" 130.8755 "type" "education" "year" "2023–2025" "note" "M.Eng. at Waseda University")
+  (dict "name" "Kobe, Japan" "nameZh" "日本神户" "lat" 34.6901 "lng" 135.1955 "type" "visited" "year" "May 2025" "note" "WCSMO-16 oral presentation")
+  (dict "name" "Shenzhen, China" "nameZh" "中国深圳" "lat" 22.5431 "lng" 114.0579 "type" "work" "year" "2025–present" "note" "Algorithm Engineer")
+}}
+{{ $transit := slice
+  (dict "name" "Taiyuan, Shanxi" "nameZh" "山西太原" "lat" 37.8706 "lng" 112.5489 "type" "visited" "year" "Transit" "note" "")
+  (dict "name" "Dalian, Liaoning" "nameZh" "辽宁大连" "lat" 38.9140 "lng" 121.6147 "type" "visited" "year" "Transit" "note" "")
+  (dict "name" "Qingdao, Shandong" "nameZh" "山东青岛" "lat" 36.0671 "lng" 120.3826 "type" "visited" "year" "2024" "note" "Visit")
+}}
+<div class="lgc-globe-block">
+  <div id="globe-container" class="lgc-globe" role="img" aria-label="{{ if eq $lang "zh" }}交互式 3D 地球，展示王立坤的人生轨迹{{ else }}Interactive 3D globe showing Likun Wang's life trajectory{{ end }}">
+    <div id="globeViz" class="lgc-globe-canvas"></div>
+    <div class="lgc-globe-loading" data-globe-status>
+      <span class="lgc-spinner" aria-hidden="true"></span>
+      <span>{{ i18n "globe_loading" }}</span>
+    </div>
+    <div class="lgc-globe-info">
+      <span class="lgc-globe-info-label">{{ i18n "globe_current" }}</span>
+      <div id="current-location"></div>
+    </div>
+    <div class="lgc-globe-legend" aria-hidden="true">
+      <span><i style="--c:#fbbf24"></i>{{ i18n "globe_origin" }}</span>
+      <span><i style="--c:#22d3ee"></i>{{ i18n "globe_education" }}</span>
+      <span><i style="--c:#34d399"></i>{{ i18n "globe_current" }}</span>
+      <span><i class="lgc-legend-arc"></i>{{ i18n "globe_path" }}</span>
+    </div>
+    <button type="button" class="lgc-globe-pause" data-globe-pause
+      data-play="{{ i18n "globe_play" }}" data-pause="{{ i18n "globe_pause" }}">{{ i18n "globe_pause" }}</button>
+    <span class="lgc-globe-hint">{{ i18n "globe_hint" }}</span>
   </div>
-  <div id="legend" style="position: absolute; top: 20px; right: 20px; color: white; font-size: 12px; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 8px;">
-    <div style="margin-bottom: 5px;"><span style="color: #ff6b6b;">●</span> Origin</div>
-    <div style="margin-bottom: 5px;"><span style="color: #4ecdc4;">●</span> Visited</div>
-    <div><span style="color: #ffe66d;">→</span> Journey Path</div>
-  </div>
+  <details class="lgc-globe-details">
+    <summary>{{ i18n "globe_details" }}</summary>
+    <ul>
+      {{ range $places }}
+      <li><strong>{{ if eq $lang "zh" }}{{ .nameZh }}{{ else }}{{ .name }}{{ end }}</strong><span>{{ .year }}</span><em>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .nameZh }}{{ end }}</em></li>
+      {{ end }}
+      {{ range $transit }}
+      <li><strong>{{ if eq $lang "zh" }}{{ .nameZh }}{{ else }}{{ .name }}{{ end }}</strong><span>{{ .year }}</span><em>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .nameZh }}{{ end }}</em></li>
+      {{ end }}
+    </ul>
+  </details>
 </div>
 
-<script src="https://unpkg.com/globe.gl@2.27.0/dist/globe.gl.min.js"></script>
 <script>
-(function() {
-  // Life trajectory data
-  const trajectory = [
-    { name: "Jiexiu, Shanxi", nameCN: "山西介休", lat: 37.0244, lng: 111.9127, type: "origin", year: "Birth" },
-    { name: "Chengdu, Sichuan", nameCN: "四川成都", lat: 30.5728, lng: 104.0668, type: "education", year: "2020-2024" },
-    { name: "Jiexiu, Shanxi", nameCN: "山西介休", lat: 37.0244, lng: 111.9127, type: "home", year: "Vacation" },
-    { name: "Taiyuan, Shanxi", nameCN: "山西太原", lat: 37.8706, lng: 112.5489, type: "visited", year: "Transit" },
-    { name: "Dalian, Liaoning", nameCN: "辽宁大连", lat: 38.9140, lng: 121.6147, type: "visited", year: "Transit" },
-    { name: "Fukuoka, Japan", nameCN: "日本福冈", lat: 33.5904, lng: 130.4017, type: "education", year: "2023-2025" },
-    { name: "Qingdao, Shandong", nameCN: "山东青岛", lat: 36.0671, lng: 120.3826, type: "visited", year: "2024" }
-  ];
+(function () {
+  var container = document.getElementById('globe-container');
+  if (!container) return;
+  var status = container.querySelector('[data-globe-status]');
+  var info = document.getElementById('current-location');
+  var pauseButton = container.querySelector('[data-globe-pause]');
+  var places = {{ $places | jsonify | safeJS }};
+  var transit = {{ $transit | jsonify | safeJS }};
+  var strings = {
+    error: {{ i18n "globe_error" | jsonify | safeJS }}
+  };
+  var colors = { origin: '#fbbf24', education: '#22d3ee', visited: '#2dd4bf', work: '#34d399' };
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var paused = reduceMotion;
+  var started = false;
 
-  // Create arcs for trajectory
-  const arcsData = [];
-  for (let i = 0; i < trajectory.length - 1; i++) {
-    arcsData.push({
-      startLat: trajectory[i].lat,
-      startLng: trajectory[i].lng,
-      endLat: trajectory[i + 1].lat,
-      endLng: trajectory[i + 1].lng,
-      color: ['#ffe66d', '#ff6b6b'],
-      order: i
+  window.lgcGlobeReady = window.lgcGlobeReady || new Promise(function (resolve, reject) {
+    if (window.Globe) { resolve(); return; }
+    var s = document.createElement('script');
+    s.src = '{{ "js/globe.gl.min.js" | relURL }}';
+    s.async = true;
+    s.onload = resolve;
+    s.onerror = function () { reject(new Error('globe.gl failed to load')); };
+    document.head.appendChild(s);
+  });
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function renderInfo(place) {
+    if (!info) return;
+    var lang = document.documentElement.lang || 'en';
+    var isZh = lang.toLowerCase().indexOf('zh') === 0;
+    var primary = isZh ? place.nameZh : place.name;
+    var secondary = isZh ? place.name : place.nameZh;
+    info.innerHTML = '<strong>' + escapeHtml(primary) + '</strong>' +
+      '<span>' + escapeHtml(secondary) + '</span>' +
+      '<em>' + escapeHtml(place.year) + '</em>';
+  }
+
+  function start() {
+    if (started) return;
+    started = true;
+    window.lgcGlobeReady.then(init).catch(function (error) {
+      console.warn(error);
+      if (status) status.innerHTML = '<span>' + escapeHtml(strings.error) + '</span>';
+      container.classList.add('is-error');
     });
   }
 
-  // Initialize globe
-  const container = document.getElementById('globeViz');
-  const globe = Globe()
-    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-    .pointsData(trajectory)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointColor(d => d.type === 'origin' ? '#ff6b6b' : '#4ecdc4')
-    .pointAltitude(0.06)
-    .pointRadius(0.5)
-    .pointLabel(d => `<div style="background: rgba(0,0,0,0.8); color: white; padding: 8px 12px; border-radius: 6px; font-size: 13px;">
-      <strong>${d.name}</strong><br/>
-      ${d.nameCN}<br/>
-      <span style="color: #ffe66d;">${d.year}</span>
-    </div>`)
-    .arcsData(arcsData)
-    .arcColor('color')
-    .arcDashLength(0.4)
-    .arcDashGap(0.2)
-    .arcDashAnimateTime(2000)
-    .arcStroke(0.5)
-    .width(container.clientWidth)
-    .height(600)
-    (container);
+  function init() {
+    var width = container.clientWidth || 800;
+    var height = container.clientHeight || 600;
+    var allPlaces = places.concat(transit);
+    var arcs = [];
+    for (var i = 0; i < places.length - 1; i += 1) {
+      arcs.push({
+        startLat: places[i].lat, startLng: places[i].lng,
+        endLat: places[i + 1].lat, endLng: places[i + 1].lng,
+        color: [colors[places[i].type] || '#22d3ee', colors[places[i + 1].type] || '#34d399']
+      });
+    }
 
-  // Auto-rotate
-  globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.5;
+    var globe = Globe()(container.querySelector('#globeViz'))
+      .width(width)
+      .height(height)
+      .globeImageUrl('{{ "img/earth-blue-marble.webp" | relURL }}')
+      .bumpImageUrl('{{ "img/earth-topology.webp" | relURL }}')
+      .backgroundColor('rgba(0,0,0,0)')
+      .showAtmosphere(true)
+      .atmosphereColor('#22d3ee')
+      .atmosphereAltitude(0.14)
+      .pointsData(allPlaces)
+      .pointLat('lat')
+      .pointLng('lng')
+      .pointColor(function (d) { return colors[d.type] || '#2dd4bf'; })
+      .pointAltitude(function (d) { return d.type === 'origin' ? 0.09 : 0.055; })
+      .pointRadius(function (d) { return d.type === 'origin' ? 0.52 : 0.4; })
+      .pointLabel(function (d) {
+        return '<div class="lgc-globe-label"><strong>' + escapeHtml(d.name) + '</strong>' +
+          '<span>' + escapeHtml(d.nameZh) + '</span><em>' + escapeHtml(d.year) + '</em></div>';
+      })
+      .onPointClick(function (d) {
+        renderInfo(d);
+        globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.6 }, reduceMotion ? 0 : 1100);
+      })
+      .arcsData(arcs)
+      .arcColor('color')
+      .arcDashLength(0.35)
+      .arcDashGap(0.2)
+      .arcDashAnimateTime(reduceMotion ? 0 : 2600)
+      .arcStroke(0.45);
 
-  // Focus on China initially
-  globe.pointOfView({ lat: 35, lng: 110, altitude: 2.5 }, 1000);
+    var controls = globe.controls();
+    controls.autoRotate = !paused;
+    controls.autoRotateSpeed = 0.35;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.minPolarAngle = Math.PI * 0.15;
+    controls.maxPolarAngle = Math.PI * 0.85;
 
-  // Animate through trajectory
-  let currentIndex = 0;
-  const infoDiv = document.getElementById('current-location');
-  
-  function showLocation() {
-    const loc = trajectory[currentIndex];
-    infoDiv.innerHTML = `
-      <strong>${loc.name}</strong><br/>
-      ${loc.nameCN}<br/>
-      <span style="color: #ffe66d;">${loc.year}</span>
-    `;
-    globe.pointOfView({ lat: loc.lat, lng: loc.lng, altitude: 1.8 }, 2000);
-    currentIndex = (currentIndex + 1) % trajectory.length;
+    globe.pointOfView({ lat: 30, lng: 108, altitude: width < 640 ? 2.8 : 2.25 }, 0);
+    renderInfo(places[0]);
+    container.classList.add('is-ready');
+    if (status) status.remove();
+
+    var tourIndex = 0;
+    var tourTimer = null;
+    function stopTour() { if (tourTimer) { window.clearInterval(tourTimer); tourTimer = null; } }
+    function startTour() {
+      stopTour();
+      if (paused) return;
+      tourTimer = window.setInterval(function () {
+        tourIndex = (tourIndex + 1) % places.length;
+        var place = places[tourIndex];
+        renderInfo(place);
+        globe.pointOfView({ lat: place.lat, lng: place.lng, altitude: 1.7 }, 1800);
+      }, 5600);
+    }
+    function syncPaused() {
+      controls.autoRotate = !paused;
+      if (pauseButton) pauseButton.textContent = paused ? pauseButton.getAttribute('data-play') : pauseButton.getAttribute('data-pause');
+      if (paused) stopTour(); else startTour();
+    }
+    if (pauseButton) {
+      pauseButton.addEventListener('click', function () {
+        paused = !paused;
+        syncPaused();
+      });
+    }
+    syncPaused();
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        globe.width(container.clientWidth);
+        globe.height(container.clientHeight);
+      }, 150);
+    });
   }
 
-  // Start animation after initial load
-  setTimeout(() => {
-    showLocation();
-    setInterval(showLocation, 5000);
-  }, 2000);
-
-  // Responsive resize
-  window.addEventListener('resize', () => {
-    globe.width(container.clientWidth);
-  });
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { observer.disconnect(); start(); }
+      });
+    }, { rootMargin: '350px 0px' });
+    observer.observe(container);
+  } else {
+    start();
+  }
 })();
 </script>

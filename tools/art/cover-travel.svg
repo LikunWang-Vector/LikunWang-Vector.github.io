@@ -1,0 +1,39 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0a1e24"/><stop offset="1" stop-color="#123b40"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="0.76" cy="0.38" r="0.62">
+    <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.28"/>
+    <stop offset="0.55" stop-color="#2dd4bf" stop-opacity="0.06"/>
+    <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+    <path d="M44 0H0V44" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+  </pattern>
+  <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity="0.9"/><stop offset="1" stop-color="#fff" stop-opacity="0.15"/>
+  </linearGradient>
+  <mask id="gm"><rect width="1200" height="675" fill="url(#gridFade)"/></mask>
+  <linearGradient id="iconStroke" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<rect width="1200" height="675" fill="url(#glow)"/>
+<rect width="1200" height="675" fill="url(#grid)" mask="url(#gm)"/>
+<path d="M-40 120 C 220 98, 400 142, 640 111.2 S 1040 142, 1260 110" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.16"/><path d="M-40 178 C 220 153, 400 203, 640 168 S 1040 203, 1260 168" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.148"/><path d="M-40 236 C 220 208, 400 264, 640 224.8 S 1040 264, 1260 226" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.136"/><path d="M-40 294 C 220 263, 400 325, 640 281.6 S 1040 325, 1260 284" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.124"/><path d="M-40 352 C 220 318, 400 386, 640 338.4 S 1040 386, 1260 342" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.112"/><path d="M-40 410 C 220 373, 400 447, 640 395.2 S 1040 447, 1260 400" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.1"/><path d="M-40 468 C 220 428, 400 508, 640 452 S 1040 508, 1260 458" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.088"/><path d="M-40 526 C 220 483, 400 569, 640 508.8 S 1040 569, 1260 516" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.076"/><path d="M-40 584 C 220 538, 400 630, 640 565.6 S 1040 630, 1260 574" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.064"/>
+<circle cx="930" cy="320" r="210" fill="none" stroke="#2dd4bf" stroke-opacity="0.10" stroke-width="1"/>
+<circle cx="930" cy="320" r="250" fill="none" stroke="#2dd4bf" stroke-opacity="0.06" stroke-width="1"/>
+<g transform="translate(798 188) scale(11)" fill="none" stroke="url(#iconStroke)" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+  <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+</g>
+<g>
+  <rect x="64" y="56" width="204" height="38" rx="19" fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.14"/>
+  <circle cx="86" cy="75" r="4" fill="#2dd4bf"/>
+  <text x="102" y="80" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="2.2" fill="#ffffff" fill-opacity="0.82">LIFE TRAJECTORY</text>
+</g>
+<rect x="64" y="592" width="54" height="3" rx="1.5" fill="#2dd4bf" opacity="0.8"/>
+<text x="64" y="630" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="500" letter-spacing="3" fill="#ffffff" fill-opacity="0.30">LIKUN WANG</text>
+<text x="1136" y="630" text-anchor="end" font-family="'SFMono-Regular', Consolas, monospace" font-size="12" letter-spacing="2" fill="#ffffff" fill-opacity="0.22">TRAVEL</text>
+</svg>

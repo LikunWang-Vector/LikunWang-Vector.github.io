@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="lgc-list-head">
+  <h1 class="lgc-list-title">{{ .Title }}</h1>
+  {{ with .Content }}<div class="lgc-list-intro">{{ . }}</div>{{ end }}
+</div>
+<div class="lgc-list-body">
+  {{ $view := .Params.view | default "card" }}
+  {{ $block := . }}
+  {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view) }}
+  {{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+  {{ range $index, $item := $paginator.Pages }}
+    {{ partial "functions/render_view" (dict "page" $block "item" $item "view" $view "index" $index) }}
+  {{ end }}
+  {{ partial "functions/render_view" (dict "fragment" "end" "page" $block "item" . "view" $view) }}
+  {{ partial "components/paginator" . }}
+</div>
+{{ end }}

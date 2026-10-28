@@ -1,0 +1,47 @@
+{{ $item := .item }}
+{{ $fill_image := .config.fill_image | default true }}
+{{ $resource := partial "functions/get_featured_image.html" $item }}
+{{ $anchor := $item.Params.image.focal_point | default "Center" }}
+{{ $link := $item.Params.external_link | default $item.RelPermalink }}
+{{ $target := "" }}
+{{ if $item.Params.external_link }}
+  {{ $link = $item.Params.external_link }}
+  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+{{ end }}
+{{ $summary := $item.Params.summary | default $item.Summary | plainify | htmlUnescape | chomp }}
+{{ $typeLabels := dict "project" (i18n "type_project") "post" (i18n "type_post") "publication" (i18n "type_publication") "event" (i18n "type_talk") }}
+{{ $typeLabel := index $typeLabels $item.Type | default (humanize $item.Type) }}
+{{ $tags := first 2 ($item.GetTerms "tags") }}
+
+<article class="lgc-card">
+  <a class="lgc-card-media" href="{{ $link }}" {{ $target | safeHTMLAttr }} aria-hidden="true" tabindex="-1">
+    {{ with $resource }}
+      {{ if eq .MediaType.SubType "svg" }}
+        <img src="{{ .RelPermalink }}" alt="" width="1200" height="675" loading="lazy" decoding="async">
+      {{ else }}
+        {{ $image := "" }}
+        {{ if $fill_image }}{{ $image = .Fill (printf "960x540 %s" $anchor) }}{{ else }}{{ $image = .Fit (printf "960x540 %s" $anchor) }}{{ end }}
+        {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+        <img src="{{ $image.RelPermalink }}" alt="" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy" decoding="async">
+      {{ end }}
+    {{ else }}
+      <span class="lgc-card-media-fallback" aria-hidden="true">{{ substr $item.Title 0 1 }}</span>
+    {{ end }}
+    <span class="lgc-card-media-shade" aria-hidden="true"></span>
+    <span class="lgc-card-type">{{ $typeLabel }}</span>
+  </a>
+  <div class="lgc-card-body">
+    <div class="lgc-card-kicker">
+      <time datetime="{{ $item.Date.Format "2006-01-02" }}">{{ $item.Date | time.Format (site.Params.locale.date_format | default ":date_long") }}</time>
+      {{ with $item.Params.publication_short }}<span class="lgc-dot">·</span><span>{{ . }}</span>{{ end }}
+    </div>
+    <h3 class="lgc-card-title"><a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a></h3>
+    {{ with $summary }}<p class="lgc-card-summary">{{ . }}</p>{{ end }}
+    <div class="lgc-card-foot">
+      <div class="lgc-card-tags">
+        {{ range $tags }}<span class="lgc-tag">{{ .Page.LinkTitle }}</span>{{ end }}
+      </div>
+      <a class="lgc-card-arrow" href="{{ $link }}" {{ $target | safeHTMLAttr }} aria-label="{{ i18n "read_more" }}: {{ $item.Title | plainify }}">→</a>
+    </div>
+  </div>
+</article>

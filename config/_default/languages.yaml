@@ -5,36 +5,50 @@
 # Default language
 en:
   languageCode: en-us
-  # Uncomment for multi-lingual sites, and move English content into `en` sub-folder.
   contentDir: content/en
 
-# Uncomment the lines below to configure your website in a second language.
+# Chinese
 zh:
- languageCode: zh-Hans
- contentDir: content/zh
- title: 王立坤的主页
- params:
-   description: 王立坤的主页
- menu:
-   main:
-    - name: 首页
-      url: /
-      weight: 10
-    - name: 关于
-      url: /#about
-      weight: 15
-    - name: 经历
-      url: experience/
-      weight: 20
-    - name: 项目
-      url: projects/
-      weight: 30
-    - name: 论文
-      url: /#papers
-      weight: 40
-    - name: 旅行
-      url: travel/
-      weight: 50
-    - name: 博客
-      url: /#news
-      weight: 60
+  languageCode: zh-Hans
+  contentDir: content/zh
+  title: 王立坤 · Likun Wang
+  params:
+    description: 王立坤（Likun Wang）— 算法工程师，专注 TPU 算子开发、深度学习与仿生拓扑优化。早稻田大学工学硕士，WCSMO-16 口头报告人。
+    locale:
+      date_format: '2006年1月2日'
+      time_format: '15:04'
+  menu:
+    main:
+      - name: 首页
+        url: /
+        weight: 10
+      - name: 经历
+        url: experience/
+        weight: 20
+      - name: 项目
+        url: projects/
+        weight: 30
+      - name: 论文
+        url: publication/
+        weight: 40
+      - name: 博客
+        url: post/
+        weight: 50
+      - name: 旅行
+        url: travel/
+        weight: 60
+      - name: 更多
+        identifier: more
+        weight: 70
+      - name: 教学
+        url: teaching/
+        parent: more
+        weight: 10
+      - name: 演讲
+        url: event/
+        parent: more
+        weight: 20
+      - name: 联系
+        url: /#contact
+        parent: more
+        weight: 30

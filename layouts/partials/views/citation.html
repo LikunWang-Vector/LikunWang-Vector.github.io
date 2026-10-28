@@ -1,0 +1,32 @@
+{{ $item := .item }}
+{{ $label := i18n "pub_paper_conference" | default "Conference Paper" }}
+{{ with $item.Params.publication_types }}
+  {{ $t := index . 0 }}
+  {{ with (i18n (printf "pub_%s" (replace $t "-" "_"))) }}{{ $label = . }}{{ end }}
+{{ end }}
+{{ $coauthors := $item.Params.coauthors | default (slice) }}
+{{ $slug := path.Base $item.File.Dir }}
+{{ $bib := $item.Params.bibtex | default "" }}
+<div class="lgc-pub">
+  <div class="lgc-pub-head">
+    <span class="lgc-pub-type">{{ $label }}</span>
+    <span class="lgc-pub-date">{{ $item.Date.Format "2006" }}</span>
+  </div>
+  <h3 class="lgc-pub-title"><a href="{{ $item.RelPermalink }}">{{ $item.Title }}</a></h3>
+  <p class="lgc-pub-authors">
+    <strong>{{ (index (where (where site.Pages "Section" "authors") "Params.superuser" true) 0).Title | default "Likun Wang" }}</strong>{{ if $coauthors }}, {{ delimit (first (sub (len $coauthors) 1) $coauthors) ", " }}{{ if gt (len $coauthors) 1 }} &amp; {{ index $coauthors (sub (len $coauthors) 1) }}{{ end }}{{ end }}
+  </p>
+  <p class="lgc-pub-venue">
+    {{ with $item.Params.publication_short }}{{ . | markdownify }}{{ else }}{{ with $item.Params.publication }}{{ . | markdownify }}{{ end }}{{ end }}
+  </p>
+  {{ with ($item.Params.summary | default $item.Summary) }}<p class="lgc-pub-summary">{{ . | plainify | chomp }}</p>{{ end }}
+  <div class="lgc-pub-actions">
+    <a class="lgc-btn lgc-btn-primary" href="{{ $item.RelPermalink }}">{{ i18n "read_more" | default "Read more" }} <span aria-hidden="true">→</span></a>
+    {{ with $item.Params.url_pdf }}<a class="lgc-btn" href="{{ . }}" target="_blank" rel="noopener">PDF</a>{{ end }}
+    {{ if $bib }}
+      <button class="lgc-btn" type="button" data-copy-bibtex="bib-{{ $slug }}">{{ i18n "btn_cite" | default "Cite" }}</button>
+      <script type="text/plain" id="bib-{{ $slug }}">{{ $bib }}</script>
+    {{ end }}
+    {{ with $item.Params.doi }}<a class="lgc-btn" href="https://doi.org/{{ . }}" target="_blank" rel="noopener">DOI</a>{{ end }}
+  </div>
+</div>

@@ -1,0 +1,353 @@
+/* ==========================================================================
+   Experience / skills / awards / languages blocks
+   ========================================================================== */
+
+.blox-resume-experience .max-w-prose,
+.blox-resume-awards .max-w-prose {
+  max-width: 1160px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.blox-resume-experience .max-w-prose > div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: 0;
+}
+
+.blox-resume-experience .max-w-prose > div > div {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.blox-resume-experience h3.text-3xl {
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--lgc-line);
+  color: var(--lgc-ink) !important;
+  font-size: clamp(1.3rem, 1.8vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.blox-resume-experience h3.text-3xl::before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin-bottom: 0.75rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--lgc-accent), var(--lgc-accent-2));
+}
+
+.blox-resume-experience ol {
+  border-color: var(--lgc-line) !important;
+}
+
+.blox-resume-experience li > span {
+  background: var(--lgc-accent-soft) !important;
+  box-shadow: 0 0 0 8px var(--lgc-bg);
+}
+
+.blox-resume-experience li > span svg {
+  color: var(--lgc-accent-ink) !important;
+}
+
+.blox-resume-experience li h3 {
+  color: var(--lgc-ink) !important;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.blox-resume-experience li > span.block {
+  color: var(--lgc-accent-ink) !important;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.blox-resume-experience time {
+  color: var(--lgc-faint) !important;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+
+.blox-resume-experience .prose {
+  color: var(--lgc-muted);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.blox-resume-experience .prose p {
+  margin: 0.2rem 0;
+}
+
+.blox-resume-experience .prose ul {
+  margin: 0.3rem 0;
+  padding-left: 1rem;
+}
+
+.blox-resume-experience .prose li {
+  margin: 0.18rem 0;
+}
+
+/* Skills */
+.blox-resume-skills .max-w-prose {
+  max-width: 1060px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.blox-resume-skills .mb-6.text-3xl,
+.blox-resume-awards .mb-6.text-3xl,
+.blox-resume-languages .mb-6.text-3xl {
+  position: relative;
+  color: var(--lgc-ink) !important;
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+.blox-resume-skills .mb-6.text-3xl::before,
+.blox-resume-awards .mb-6.text-3xl::before,
+.blox-resume-languages .mb-6.text-3xl::before {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 3px;
+  margin: 0 auto 0.85rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--lgc-accent), var(--lgc-accent-2));
+}
+
+.blox-resume-skills .mb-5.text-xl {
+  color: var(--lgc-ink) !important;
+  font-size: 0.95rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+
+.blox-resume-skills .skills-content {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.52rem 0.15rem;
+  border-bottom: 1px solid var(--lgc-line);
+}
+
+.blox-resume-skills .skills-icon {
+  color: var(--lgc-accent-ink);
+}
+
+.blox-resume-skills .skills-name {
+  color: var(--lgc-ink-2);
+  font-size: 0.86rem;
+}
+
+/* Awards */
+.blox-resume-awards .max-w-prose {
+  max-width: 1060px;
+}
+
+.blox-resume-awards .w-full.flex.flex-col.gap-6 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.blox-resume-awards .w-full.p-6 {
+  padding: 1.15rem 1.3rem;
+  border-radius: var(--lgc-radius);
+  border: 1px solid var(--lgc-line);
+  background: var(--lgc-surface);
+  box-shadow: var(--lgc-shadow-sm);
+}
+
+.blox-resume-awards .w-full.p-6 .w-7.h-7 {
+  color: var(--lgc-accent-ink);
+}
+
+.blox-resume-awards .w-full.p-6 h5 {
+  color: var(--lgc-ink) !important;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.blox-resume-awards .w-full.p-6 > div.block {
+  color: var(--lgc-accent-ink) !important;
+  font-size: 0.74rem;
+}
+
+.blox-resume-awards .prose {
+  color: var(--lgc-muted) !important;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.blox-resume-awards .prose p {
+  margin: 0.2rem 0;
+}
+
+/* Languages */
+.blox-resume-languages .max-w-prose {
+  max-width: 720px;
+}
+
+.blox-resume-languages svg circle {
+  stroke: var(--lgc-accent) !important;
+}
+
+.blox-resume-languages svg circle:first-child {
+  stroke: var(--lgc-surface-2) !important;
+}
+
+.blox-resume-languages .text-3xl {
+  color: var(--lgc-ink) !important;
+  font-size: 1.4rem;
+}
+
+.blox-resume-languages .text-1xl {
+  color: var(--lgc-muted);
+  font-size: 0.82rem;
+}
+
+/* Visitor map placeholder */
+.lgc-visitor-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--lgc-faint);
+  font-size: 0.78rem;
+}
+
+.lgc-visitor-placeholder svg {
+  width: 34px;
+  height: 34px;
+  opacity: 0.7;
+}
+
+@media (max-width: 900px) {
+  .blox-resume-experience .max-w-prose > div {
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  .blox-resume-awards .w-full.flex.flex-col.gap-6 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* List pages (blog, publications, talks, tags) */
+.lgc-list-head {
+  max-width: var(--lgc-max);
+  margin: 0 auto;
+  padding: 3.4rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.lgc-list-title {
+  margin: 0;
+  color: var(--lgc-ink);
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.lgc-list-title::before {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 3px;
+  margin: 0 auto 1rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--lgc-accent), var(--lgc-accent-2));
+}
+
+.lgc-list-intro {
+  max-width: 700px;
+  margin: 0.85rem auto 0;
+  color: var(--lgc-muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.lgc-list-intro p {
+  margin: 0.35rem 0;
+}
+
+.lgc-list-intro a {
+  color: var(--lgc-accent-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lgc-list-body {
+  padding-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .lgc-list-head {
+    padding-top: 2.2rem;
+  }
+}
+
+.lgc-card-type {
+  left: auto;
+  right: 0.7rem;
+}
+
+@media (min-width: 1024px) {
+  .nav-dropdown:focus-within .nav-dropdown-list {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.lgc-404 {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 6rem;
+  text-align: center;
+}
+
+.lgc-404 .lgc-404-code {
+  display: block;
+  color: var(--lgc-accent-ink);
+  font-family: var(--lgc-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+}
+
+.lgc-404 h1 {
+  margin: 0.7rem 0 0.6rem;
+  color: var(--lgc-ink);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.lgc-404 p {
+  margin: 0 auto 1.4rem;
+  max-width: 480px;
+  color: var(--lgc-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.lgc-404 .lgc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#about .network-icon li {
+  margin-right: 0 !important;
+}

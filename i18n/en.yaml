@@ -1,0 +1,90 @@
+# Custom English strings for this site.
+# Theme defaults remain available; keys here override or add to them.
+
+- id: type_project
+  translation: Project
+- id: type_post
+  translation: Blog post
+- id: type_publication
+  translation: Publication
+- id: type_talk
+  translation: Talk
+
+- id: translate
+  translation: Translate
+- id: translate_title
+  translation: Translate this page
+- id: translate_native
+  translation: Original pages
+- id: translate_machine
+  translation: Machine translation
+- id: translate_google
+  translation: Google Translate
+- id: translate_google_note
+  translation: Opens Google Translate in a new tab. Google must be reachable; readers in mainland China can use the Chinese page.
+- id: translate_inpage
+  translation: In-page machine translation (MyMemory, fallback)
+- id: translate_provider
+  translation: Microsoft Translator
+- id: translate_restore
+  translation: Show original
+- id: translate_working
+  translation: Translating…
+- id: translate_done
+  translation: Machine translation complete
+- id: translate_error
+  translation: Translation unavailable. Please try again.
+- id: translate_quota
+  translation: The free translation quota is used up. Try again later or choose another provider.
+- id: translate_mymemory_note
+  translation: Powered by the free MyMemory public API. Text is sent to MyMemory.
+- id: translate_disclaimer
+  translation: Machine translation may be inaccurate, for reference only.
+- id: translate_reload
+  translation: Reset page
+- id: translate_offer
+  translation: This page is also available in
+- id: translate_open
+  translation: Change language
+
+- id: copy
+  translation: Copy
+- id: copied
+  translation: Copied
+
+- id: globe_origin
+  translation: Origin
+- id: globe_education
+  translation: Study
+- id: globe_visited
+  translation: Visited
+- id: globe_current
+  translation: Current
+- id: globe_path
+  translation: Journey path
+- id: globe_pause
+  translation: Pause
+- id: globe_play
+  translation: Play
+- id: globe_loading
+  translation: Loading the globe…
+- id: globe_hint
+  translation: Drag to rotate
+- id: globe_details
+  translation: Places on the map
+- id: globe_error
+  translation: The interactive globe could not be loaded.
+- id: globe_countries
+  translation: Countries visited
+- id: visitor_map_title
+  translation: Visitor map
+- id: visitor_map_text
+  translation: See where readers of this site come from. The map is a third-party embed and loads only when you ask.
+- id: visitor_map_load
+  translation: Load visitor map
+- id: visitor_map_note
+  translation: Third-party content from RevolverMaps.
+- id: visitor_map_error
+  translation: The visitor map could not be loaded. You can open it directly instead.
+- id: visitor_map_open
+  translation: Open in a new tab

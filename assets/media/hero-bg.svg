@@ -1,0 +1,33 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#050d14"/><stop offset="0.55" stop-color="#071820"/><stop offset="1" stop-color="#0a2027"/>
+  </linearGradient>
+  <radialGradient id="hg1" cx="0.22" cy="0.18" r="0.5">
+    <stop offset="0" stop-color="#22d3ee" stop-opacity="0.16"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="hg2" cx="0.82" cy="0.72" r="0.55">
+    <stop offset="0" stop-color="#14b8a6" stop-opacity="0.13"/><stop offset="1" stop-color="#14b8a6" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="hdots" width="26" height="26" patternUnits="userSpaceOnUse">
+    <circle cx="1.5" cy="1.5" r="1.2" fill="#ffffff" fill-opacity="0.05"/>
+  </pattern>
+  <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0.2"/></linearGradient>
+  <mask id="hm"><rect width="1600" height="900" fill="url(#fade)"/></mask>
+</defs>
+<rect width="1600" height="900" fill="url(#hbg)"/>
+<rect width="1600" height="900" fill="url(#hg1)"/>
+<rect width="1600" height="900" fill="url(#hg2)"/>
+<rect width="1600" height="900" fill="url(#hdots)" mask="url(#hm)"/>
+<g fill="none" stroke="#22d3ee" stroke-width="1">
+  <path d="M-60 110 C 280 84, 520 136, 820 97 S 1330 136, 1660 90" opacity="0.1"/><path d="M-60 176 C 280 146, 520 206, 820 161 S 1330 206, 1660 156" opacity="0.094"/><path d="M-60 242 C 280 208, 520 276, 820 225 S 1330 276, 1660 222" opacity="0.08800000000000001"/><path d="M-60 308 C 280 270, 520 346, 820 289 S 1330 346, 1660 288" opacity="0.082"/><path d="M-60 374 C 280 332, 520 416, 820 353 S 1330 416, 1660 354" opacity="0.07600000000000001"/><path d="M-60 440 C 280 394, 520 486, 820 417 S 1330 486, 1660 420" opacity="0.07"/><path d="M-60 506 C 280 456, 520 556, 820 481 S 1330 556, 1660 486" opacity="0.064"/><path d="M-60 572 C 280 518, 520 626, 820 545 S 1330 626, 1660 552" opacity="0.058"/><path d="M-60 638 C 280 580, 520 696, 820 609 S 1330 696, 1660 618" opacity="0.052000000000000005"/><path d="M-60 704 C 280 642, 520 766, 820 673 S 1330 766, 1660 684" opacity="0.046000000000000006"/><path d="M-60 770 C 280 704, 520 836, 820 737 S 1330 836, 1660 750" opacity="0.04000000000000001"/>
+</g>
+<g fill="none" stroke="#2dd4bf" stroke-width="1" opacity="0.12">
+  <path d="M1080 0 C 1000 180, 1180 260, 1100 430 S 1010 650, 1110 900"/>
+  <path d="M1130 0 C 1050 180, 1230 260, 1150 430 S 1060 650, 1160 900"/>
+  <path d="M1180 0 C 1100 180, 1280 260, 1200 430 S 1110 650, 1210 900"/>
+</g>
+<g fill="#22d3ee" opacity="0.5">
+  <circle cx="1120" cy="60" r="1.6"/><circle cx="1308.416313985969" cy="107" r="1.6"/><circle cx="1071.447190614902" cy="154" r="1.6"/><circle cx="944.0952103577308" cy="201" r="1.6"/><circle cx="1213.8815367163356" cy="248" r="1.6"/><circle cx="1271.7125513984631" cy="295" r="1.6"/><circle cx="987.0238093572269" cy="342" r="1.6"/><circle cx="1002.5539486749636" cy="389" r="1.6"/><circle cx="1283.240744822734" cy="436" r="1.6"/><circle cx="1195.3807088948165" cy="483" r="1.6"/><circle cx="937.3344765428842" cy="530" r="1.6"/><circle cx="1091.6901850953022" cy="577" r="1.6"/><circle cx="1309.9606510271071" cy="624" r="1.6"/><circle cx="1099.3590468694256" cy="671" r="1.6"/><circle cx="935.3582953086659" cy="718" r="1.6"/><circle cx="1188.221087264212" cy="765" r="1.6"/><circle cx="1287.0618817136376" cy="812" r="1.6"/><circle cx="1008.7289054048834" cy="859" r="1.6"/>
+</g>
+</svg>

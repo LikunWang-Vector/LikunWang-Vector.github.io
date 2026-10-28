@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="lgc-404">
+  <span class="lgc-404-code">404</span>
+  <h1>{{ if eq site.Language.Lang "zh" }}页面走丢了{{ else }}This page wandered off{{ end }}</h1>
+  <p>
+    {{ if eq site.Language.Lang "zh" }}
+      你访问的链接可能已经移动、改名，或者从未存在过。可以回到首页，或从项目与论文继续浏览。
+    {{ else }}
+      The link may have moved, changed, or never existed. Head back home, or continue with projects and publications.
+    {{ end }}
+  </p>
+  <div class="lgc-actions">
+    <a class="lgc-btn lgc-btn-primary" href="{{ site.Home.RelPermalink }}">{{ if eq site.Language.Lang "zh" }}回到首页{{ else }}Back home{{ end }}</a>
+    <a class="lgc-btn" href="{{ "projects/" | relLangURL }}">{{ if eq site.Language.Lang "zh" }}项目{{ else }}Projects{{ end }}</a>
+    <a class="lgc-btn" href="{{ "publication/" | relLangURL }}">{{ if eq site.Language.Lang "zh" }}论文{{ else }}Publications{{ end }}</a>
+  </div>
+</div>
+{{ end }}

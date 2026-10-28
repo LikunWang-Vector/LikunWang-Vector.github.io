@@ -8,18 +8,16 @@ tags:
   - PyQt5
   - Deep Learning
 date: '2024-01-01T00:00:00Z'
+featured: true
 
 external_link: ''
 
 image:
+  filename: covers/driver-emotion.png
   caption: Driver emotion recognition interface
   focal_point: Smart
 
-links:
-  - icon: github
-    icon_pack: fab
-    name: Code
-    url: https://github.com/LikunWang-Vector
+links: []
 url_code: ''
 url_pdf: ''
 url_slides: ''
@@ -30,7 +28,7 @@ slides: ''
 
 ## Project Overview
 
-Developed an intelligent driver emotion recognition system as my graduation design project, focusing on real-time emotion detection to enhance driving safety through advanced computer vision techniques.
+Developed an intelligent driver emotion recognition system as my graduation design project, focusing on real-time emotion detection to enhance driving safety through advanced computer vision techniques. The source code is available on request.
 
 ## Key Features
 
