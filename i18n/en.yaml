@@ -88,3 +88,11 @@
   translation: The visitor map could not be loaded. You can open it directly instead.
 - id: visitor_map_open
   translation: Open in a new tab
+
+# Editorial hero
+- id: hero_affiliations
+  translation: Affiliations
+- id: hero_email
+  translation: Email me
+- id: hero_scholar
+  translation: Google Scholar

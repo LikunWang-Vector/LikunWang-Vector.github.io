@@ -1,17 +1,7 @@
 {{ $lang := .Page.Lang | default "en" }}
-{{ $places := slice
-  (dict "name" "Jiexiu, Shanxi" "nameZh" "山西介休" "lat" 37.0244 "lng" 111.9127 "type" "origin" "year" "Birth" "note" "Hometown")
-  (dict "name" "Chengdu, Sichuan" "nameZh" "四川成都" "lat" 30.5728 "lng" 104.0668 "type" "education" "year" "2020–2024" "note" "B.Eng. at UESTC")
-  (dict "name" "Cambridge, UK" "nameZh" "英国剑桥" "lat" 52.2053 "lng" 0.1218 "type" "education" "year" "Jan–Feb 2023" "note" "Winter Programme")
-  (dict "name" "Kitakyushu, Japan" "nameZh" "日本北九州" "lat" 33.8835 "lng" 130.8755 "type" "education" "year" "2023–2025" "note" "M.Eng. at Waseda University")
-  (dict "name" "Kobe, Japan" "nameZh" "日本神户" "lat" 34.6901 "lng" 135.1955 "type" "visited" "year" "May 2025" "note" "WCSMO-16 oral presentation")
-  (dict "name" "Shenzhen, China" "nameZh" "中国深圳" "lat" 22.5431 "lng" 114.0579 "type" "work" "year" "2025–present" "note" "Algorithm Engineer")
-}}
-{{ $transit := slice
-  (dict "name" "Taiyuan, Shanxi" "nameZh" "山西太原" "lat" 37.8706 "lng" 112.5489 "type" "visited" "year" "Transit" "note" "")
-  (dict "name" "Dalian, Liaoning" "nameZh" "辽宁大连" "lat" 38.9140 "lng" 121.6147 "type" "visited" "year" "Transit" "note" "")
-  (dict "name" "Qingdao, Shandong" "nameZh" "山东青岛" "lat" 36.0671 "lng" 120.3826 "type" "visited" "year" "2024" "note" "Visit")
-}}
+{{ $data := site.Data.travel }}
+{{ $places := where $data.places "group" "main" }}
+{{ $transit := where $data.places "group" "transit" }}
 <div class="lgc-globe-block">
   <div id="globe-container" class="lgc-globe" role="img" aria-label="{{ if eq $lang "zh" }}交互式 3D 地球，展示王立坤的人生轨迹{{ else }}Interactive 3D globe showing Likun Wang's life trajectory{{ end }}">
     <div id="globeViz" class="lgc-globe-canvas"></div>
@@ -37,10 +27,10 @@
     <summary>{{ i18n "globe_details" }}</summary>
     <ul>
       {{ range $places }}
-      <li><strong>{{ if eq $lang "zh" }}{{ .nameZh }}{{ else }}{{ .name }}{{ end }}</strong><span>{{ .year }}</span><em>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .nameZh }}{{ end }}</em></li>
+      <li><strong>{{ if eq $lang "zh" }}{{ .namezh }}{{ else }}{{ .name }}{{ end }}</strong><span>{{ .year }}</span><em>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .namezh }}{{ end }}</em></li>
       {{ end }}
       {{ range $transit }}
-      <li><strong>{{ if eq $lang "zh" }}{{ .nameZh }}{{ else }}{{ .name }}{{ end }}</strong><span>{{ .year }}</span><em>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .nameZh }}{{ end }}</em></li>
+      <li><strong>{{ if eq $lang "zh" }}{{ .namezh }}{{ else }}{{ .name }}{{ end }}</strong><span>{{ .year }}</span><em>{{ if eq $lang "zh" }}{{ .name }}{{ else }}{{ .namezh }}{{ end }}</em></li>
       {{ end }}
     </ul>
   </details>
@@ -83,8 +73,8 @@
     if (!info) return;
     var lang = document.documentElement.lang || 'en';
     var isZh = lang.toLowerCase().indexOf('zh') === 0;
-    var primary = isZh ? place.nameZh : place.name;
-    var secondary = isZh ? place.name : place.nameZh;
+    var primary = isZh ? place.namezh : place.name;
+    var secondary = isZh ? place.name : place.namezh;
     info.innerHTML = '<strong>' + escapeHtml(primary) + '</strong>' +
       '<span>' + escapeHtml(secondary) + '</span>' +
       '<em>' + escapeHtml(place.year) + '</em>';
@@ -130,7 +120,7 @@
       .pointRadius(function (d) { return d.type === 'origin' ? 0.52 : 0.4; })
       .pointLabel(function (d) {
         return '<div class="lgc-globe-label"><strong>' + escapeHtml(d.name) + '</strong>' +
-          '<span>' + escapeHtml(d.nameZh) + '</span><em>' + escapeHtml(d.year) + '</em></div>';
+          '<span>' + escapeHtml(d.namezh) + '</span><em>' + escapeHtml(d.year) + '</em></div>';
       })
       .onPointClick(function (d) {
         renderInfo(d);

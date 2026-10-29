@@ -1,0 +1,12 @@
+{
+  "name": "csdn-migrate",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "migrate": "node migrate.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "sharp": "^0.35.0"
+  }
+}

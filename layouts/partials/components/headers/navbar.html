@@ -78,6 +78,8 @@
               {{- $url = site.Home.RelPermalink -}}
             {{- end -}}
             {{- $url = .URL -}}
+          {{- else if findRE `^https?://` .URL -}}
+            {{- $url = .URL -}}
           {{- else -}}
             {{- $url = .URL | relLangURL -}}
           {{- end -}}
@@ -100,6 +102,8 @@
         {{- if not $.IsHome -}}
           {{- $url = site.Home.RelPermalink -}}
         {{- end -}}
+        {{- $url = .URL -}}
+        {{- else if findRE `^https?://` .URL -}}
         {{- $url = .URL -}}
         {{- else -}}
         {{- $url = .URL | relLangURL -}}
@@ -169,6 +173,17 @@
         </button>
       </div>
       {{ end }}
+
+      {{/* Neon edition entry. `realme.url` lets the dev server point at Vite,
+           because `hugo server` caches mounted static files until restart. */}}
+      <a
+        class="lgc-realme"
+        href="{{ site.Params.realme.url | default "/realme/" }}"
+        title="REALME — the neon edition of this site"
+        aria-label="Open the neon version of this site">
+        <span class="lgc-realme-spark" aria-hidden="true">✦</span>
+        <span class="lgc-realme-text">REALME</span>
+      </a>
 
       <!-- CTA button -->
       {{ if site.Params.header.navbar.button.enable }}

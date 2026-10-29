@@ -10,6 +10,12 @@
 tools/resume/resume-en.html
 tools/resume/resume-zh.html
 
+# REALME sub-app (Vite)
+/realme/node_modules/
+/realme/dist/
+# rendered from ../content by realme/scripts/build-content.mjs
+/realme/public/content/
+
 # Local environment
 .env
 .env.*

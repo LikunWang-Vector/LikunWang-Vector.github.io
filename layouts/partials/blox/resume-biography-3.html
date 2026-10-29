@@ -1,0 +1,113 @@
+{{/* Hugo Blox: Biography 3 — editorial hero override.
+   Keeps the block's data (author page, avatar, profiles, organizations) but
+   moves the name into the wide column so it can carry the page's type scale. */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $author := $block.content.username | default "admin" }}
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in the About block." $person_page_path }}
+{{ end }}
+{{ $person := $person_page.Params }}
+{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+{{ $bio := $block.content.text | emojify | $page.RenderString }}
+{{ if not $bio }}{{ $bio = $person_page.Content }}{{ end }}
+
+{{ $email := "" }}
+{{ $scholar := "" }}
+{{ $scholarLabel := i18n "hero_scholar" | default "Google Scholar" }}
+{{ range $person.profiles }}
+  {{ if eq .icon "at-symbol" }}{{ $email = .url }}{{ end }}
+  {{ if in .icon "google-scholar" }}
+    {{ $scholar = .url }}
+    {{ with .label }}{{ $scholarLabel = . }}{{ end }}
+  {{ end }}
+{{ end }}
+
+<div class="lgc-hero">
+  <aside class="lgc-hero-portrait">
+    <div class="lgc-hero-avatar-wrap">
+      {{ with $avatar }}
+        {{ $avatar_image := .Fill "440x440 Center" }}
+        <img
+          class="lgc-hero-avatar"
+          src="{{ $avatar_image.RelPermalink }}"
+          alt="{{ $person_page.Title }}"
+          width="{{ $avatar_image.Width }}"
+          height="{{ $avatar_image.Height }}"
+          fetchpriority="high"
+          decoding="async" />
+      {{ end }}
+      {{ with $person.status.icon }}
+        <span class="lgc-hero-status" aria-hidden="true">{{ . | emojify }}</span>
+      {{ end }}
+    </div>
+
+    {{ with $person.organizations }}
+      <div class="lgc-hero-orgs">
+        <span class="lgc-hero-orgs-label">{{ i18n "hero_affiliations" | default "Affiliations" }}</span>
+        <div class="lgc-hero-org-links">
+          {{ range first 2 . }}
+            {{ $org := . }}
+            {{ if $org.url }}
+              <a href="{{ $org.url }}" target="_blank" rel="noopener">{{ $org.name }}</a>
+            {{ else }}
+              <span>{{ $org.name }}</span>
+            {{ end }}
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+
+    <ul class="lgc-hero-socials">
+      {{ range $person.profiles }}
+        {{ $link := .url | default .link }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ $target := "" }}
+        {{ if not $scheme }}
+          {{ $link = $link | relLangURL }}
+        {{ else if in (slice "http" "https") $scheme }}
+          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+        <li>
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}
+             aria-label="{{ .label | default .icon }}"
+             {{ with .label }}title="{{ . }}"{{ end }}>
+            {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1.25rem;\"") }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </aside>
+
+  <div class="lgc-hero-body">
+    <p class="lgc-hero-eyebrow">
+      <span class="lgc-hero-eyebrow-line" aria-hidden="true"></span>
+      {{ $person.role | markdownify | emojify }}
+    </p>
+
+    {{ with $person.name_pronunciation }}
+      <span class="lgc-hero-altname" lang="{{ if eq $page.Language.Lang "zh" }}en{{ else }}zh-Hans{{ end }}">{{ . }}</span>
+    {{ end }}
+    <h1 class="lgc-hero-title">{{ $person_page.Title }}</h1>
+
+    <div class="lgc-hero-bio">{{ $bio }}</div>
+
+    <div class="lgc-hero-actions">
+      {{ with $block.content.button }}
+        <a class="lgc-hero-btn lgc-hero-btn-primary" href="{{ .url }}" target="_blank" rel="noopener">
+          {{ .text }}<span aria-hidden="true">↓</span>
+        </a>
+      {{ end }}
+      {{ with $email }}
+        <a class="lgc-hero-btn" href="{{ . }}">{{ i18n "hero_email" | default "Email me" }}</a>
+      {{ end }}
+      {{ with $scholar }}
+        <a class="lgc-hero-link" href="{{ . }}" target="_blank" rel="noopener">
+          {{ $scholarLabel }} <span aria-hidden="true">↗</span>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

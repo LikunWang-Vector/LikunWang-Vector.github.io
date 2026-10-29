@@ -1,18 +1,17 @@
 {{ $lang := .Page.Lang | default "en" }}
-{{ $countries := slice
-  (dict "name" "China" "nameZh" "中国" "color" "#f87171" "cities" (slice
-    (dict "name" "Jiexiu" "nameZh" "介休" "lat" 37.0244 "lng" 111.9127 "note" "Hometown")
-    (dict "name" "Chengdu" "nameZh" "成都" "lat" 30.5728 "lng" 104.0668 "note" "UESTC")
-    (dict "name" "Taiyuan" "nameZh" "太原" "lat" 37.8706 "lng" 112.5489 "note" "")
-    (dict "name" "Dalian" "nameZh" "大连" "lat" 38.9140 "lng" 121.6147 "note" "")
-    (dict "name" "Qingdao" "nameZh" "青岛" "lat" 36.0671 "lng" 120.3826 "note" "")
-    (dict "name" "Shenzhen" "nameZh" "深圳" "lat" 22.5431 "lng" 114.0579 "note" "Current")))
-  (dict "name" "Japan" "nameZh" "日本" "color" "#22d3ee" "cities" (slice
-    (dict "name" "Kitakyushu / Fukuoka" "nameZh" "北九州 / 福冈" "lat" 33.8835 "lng" 130.8755 "note" "Waseda University")
-    (dict "name" "Kobe" "nameZh" "神户" "lat" 34.6901 "lng" 135.1955 "note" "WCSMO-16")))
-  (dict "name" "United Kingdom" "nameZh" "英国" "color" "#a78bfa" "cities" (slice
-    (dict "name" "Cambridge" "nameZh" "剑桥" "lat" 52.2053 "lng" 0.1218 "note" "Winter Programme")))
-}}
+{{ $data := site.Data.travel }}
+{{ $byId := dict }}
+{{ range $data.places }}{{ $byId = merge $byId (dict .id .) }}{{ end }}
+{{ $countries := slice }}
+{{ range $data.countries }}
+  {{ $country := . }}
+  {{ $cities := slice }}
+  {{ range .places }}
+    {{ $place := index $byId . }}
+    {{ $cities = $cities | append (dict "name" $place.short "nameZh" $place.shortzh "lat" $place.lat "lng" $place.lng "note" $place.note) }}
+  {{ end }}
+  {{ $countries = $countries | append (dict "name" $country.name "nameZh" $country.namezh "color" $country.color "cities" $cities) }}
+{{ end }}
 <div class="lgc-globe-block">
   <div id="visited-globe-container" class="lgc-globe lgc-globe-countries" role="img" aria-label="{{ if eq $lang "zh" }}交互式 3D 地球，展示去过的国家{{ else }}Interactive 3D globe showing countries visited{{ end }}">
     <div id="visitedGlobeViz" class="lgc-globe-canvas"></div>

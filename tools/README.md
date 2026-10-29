@@ -42,7 +42,6 @@ node fetch-textures.mjs
 Downloads the public three-globe example textures (NASA imagery), resizes and converts them to WebP in `static/img/`.
 
 ## Bilingual CV PDFs
-
 ```bash
 cd tools/resume
 npm install
@@ -58,3 +57,34 @@ Also writes intermediate HTML files (`resume-en.html`, `resume-zh.html`) which a
 
 Edit the content in `build.mjs` (the `data` object) and the CSS/HTML template below it. The photo is `tools/resume/photo.jpg`; replace it with a square portrait if needed.
 
+## CSDN archive
+
+```bash
+cd tools/csdn-migrate
+npm install
+node migrate.mjs            # regenerate content/{en,zh}/csdn from D:/Projects/hexo-blog
+node repair-code.mjs        # restore code-block line breaks from the live CSDN pages
+node legacy-redirects.mjs   # keep the old Hexo permalinks working
+```
+
+`migrate.mjs` reads `CSDN_SOURCE` (default `D:/Projects/hexo-blog`) and writes:
+
+- `content/en/csdn/<slug>/index.md` and `content/zh/csdn/<slug>/index.md` (151 pairs)
+- `static/images/posts/**` — referenced screenshots, copied byte-for-byte
+- `assets/media/covers/csdn-*.png` — generated category covers
+- `report.json` — pair/image diagnostics
+
+It strips the manual tables of contents, repairs collapsed fenced code blocks, escapes raw
+`<script>`/`<style>` mentions in prose, and adds a placeholder for missing screenshots.
+
+The Hexo export lost the newlines inside many code blocks. `repair-code.mjs` fetches each
+affected article from CSDN once, matches the blocks by whitespace-normalised content, and
+writes the original multi-line code back. It writes `repair-report.json`; re-run it only when
+`migrate.mjs` has regenerated the content.
+
+`legacy-redirects.mjs` reads the old Hexo build in `hexo-blog/public/`, matches each page to
+its new slug through the CSDN article id (falling back to the slug or title), and writes a
+meta-refresh stub under `static/YYYY/MM/DD/<lang>/<name>/`, so the old permalinks keep working.
+
+Images are deliberately not recompressed: the originals are screenshots where text legibility
+matters. Unreferenced images are not copied at all.

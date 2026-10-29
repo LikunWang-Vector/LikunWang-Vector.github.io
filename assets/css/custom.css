@@ -2308,3 +2308,60 @@ a.lgc-lang-active:hover {
 .lgc-lang-active .lgc-lang-check {
   display: inline;
 }
+
+/* ============================================================
+   REALME entry — neon pill in the header, links to /realme/
+   ============================================================ */
+.lgc-realme {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.75rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #04070c;
+  background: linear-gradient(120deg, #4df3ff 0%, #9af7ff 45%, #ff3ea5 100%);
+  box-shadow: 0 0 18px rgba(77, 243, 255, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.lgc-realme:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 26px rgba(255, 62, 165, 0.45);
+  filter: saturate(1.2);
+}
+
+.lgc-realme-spark {
+  font-size: 0.72rem;
+  line-height: 1;
+  animation: lgc-realme-twinkle 2.6s ease-in-out infinite;
+}
+
+@keyframes lgc-realme-twinkle {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+/* Below lg the header collapses to a hamburger; the pill would collide with
+   it, and the same link is available in the mobile menu ("More → 炫酷版 ✦"). */
+@media (max-width: 1023.98px) {
+  .lgc-realme {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lgc-realme-spark {
+    animation: none;
+  }
+}

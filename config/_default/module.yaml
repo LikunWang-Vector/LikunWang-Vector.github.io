@@ -23,3 +23,9 @@ mounts:
     target: layouts
   - source: assets
     target: assets
+
+  # Serve the independently built REALME app at /realme/.
+  # `cd realme && npm run build` produces realme/dist; mounting it as static
+  # means `hugo server` and `hugo` both publish it, with no post-build copy.
+  - source: realme/dist
+    target: static/realme
