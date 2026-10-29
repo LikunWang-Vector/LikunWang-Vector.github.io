@@ -1,0 +1,7 @@
+# Development overrides (`hugo server` uses HUGO_ENVIRONMENT=development).
+#
+# REALME is a separate Vite app. `hugo server` caches mounted static files in
+# memory, so a rebuilt /realme/ would only appear after a restart. In dev the
+# navbar therefore links straight at the Vite server instead.
+realme:
+  url: http://127.0.0.1:5173/realme/

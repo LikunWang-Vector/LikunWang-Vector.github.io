@@ -30,6 +30,14 @@ main:
     url: event/
     parent: more
     weight: 20
+  - name: CSDN Archive
+    url: csdn/
+    parent: more
+    weight: 25
+  - name: Realme ✦
+    url: https://likunwang-vector.github.io/realme/
+    parent: more
+    weight: 27
   - name: Contact
     url: /#contact
     parent: more

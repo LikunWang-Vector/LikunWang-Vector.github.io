@@ -1,0 +1,162 @@
+{
+  "_source": "Shared travel data for the Hugo travel page and REALME's map view.",
+  "places": [
+    {
+      "id": "jiexiu",
+      "name": "Jiexiu, Shanxi",
+      "namezh": "山西介休",
+      "short": "Jiexiu",
+      "shortzh": "介休",
+      "lat": 37.0244,
+      "lng": 111.9127,
+      "type": "origin",
+      "group": "main",
+      "year": "Birth",
+      "note": "Hometown",
+      "notezh": "家乡"
+    },
+    {
+      "id": "chengdu",
+      "name": "Chengdu, Sichuan",
+      "namezh": "四川成都",
+      "short": "Chengdu",
+      "shortzh": "成都",
+      "lat": 30.5728,
+      "lng": 104.0668,
+      "type": "education",
+      "group": "main",
+      "year": "2020–2024",
+      "note": "B.Eng. at UESTC",
+      "notezh": "电子科技大学本科"
+    },
+    {
+      "id": "cambridge",
+      "name": "Cambridge, UK",
+      "namezh": "英国剑桥",
+      "short": "Cambridge",
+      "shortzh": "剑桥",
+      "lat": 52.2053,
+      "lng": 0.1218,
+      "type": "education",
+      "group": "main",
+      "year": "Jan–Feb 2023",
+      "note": "Winter Programme",
+      "notezh": "剑桥冬季项目"
+    },
+    {
+      "id": "kitakyushu",
+      "name": "Kitakyushu, Japan",
+      "namezh": "日本北九州",
+      "short": "Kitakyushu / Fukuoka",
+      "shortzh": "北九州 / 福冈",
+      "lat": 33.8835,
+      "lng": 130.8755,
+      "type": "education",
+      "group": "main",
+      "year": "2023–2025",
+      "note": "M.Eng. at Waseda University",
+      "notezh": "早稻田大学硕士"
+    },
+    {
+      "id": "kobe",
+      "name": "Kobe, Japan",
+      "namezh": "日本神户",
+      "short": "Kobe",
+      "shortzh": "神户",
+      "lat": 34.6901,
+      "lng": 135.1955,
+      "type": "visited",
+      "group": "main",
+      "year": "May 2025",
+      "note": "WCSMO-16 oral presentation",
+      "notezh": "WCSMO-16 口头报告"
+    },
+    {
+      "id": "shenzhen",
+      "name": "Shenzhen, China",
+      "namezh": "中国深圳",
+      "short": "Shenzhen",
+      "shortzh": "深圳",
+      "lat": 22.5431,
+      "lng": 114.0579,
+      "type": "work",
+      "group": "main",
+      "year": "2025–present",
+      "note": "Algorithm Engineer",
+      "notezh": "算法工程师"
+    },
+    {
+      "id": "taiyuan",
+      "name": "Taiyuan, Shanxi",
+      "namezh": "山西太原",
+      "short": "Taiyuan",
+      "shortzh": "太原",
+      "lat": 37.8706,
+      "lng": 112.5489,
+      "type": "visited",
+      "group": "transit",
+      "year": "Transit",
+      "note": "",
+      "notezh": ""
+    },
+    {
+      "id": "dalian",
+      "name": "Dalian, Liaoning",
+      "namezh": "辽宁大连",
+      "short": "Dalian",
+      "shortzh": "大连",
+      "lat": 38.914,
+      "lng": 121.6147,
+      "type": "visited",
+      "group": "transit",
+      "year": "Transit",
+      "note": "",
+      "notezh": ""
+    },
+    {
+      "id": "qingdao",
+      "name": "Qingdao, Shandong",
+      "namezh": "山东青岛",
+      "short": "Qingdao",
+      "shortzh": "青岛",
+      "lat": 36.0671,
+      "lng": 120.3826,
+      "type": "visited",
+      "group": "transit",
+      "year": "2024",
+      "note": "Visit",
+      "notezh": "旅行"
+    }
+  ],
+  "legs": [
+    { "from": "jiexiu", "to": "chengdu", "mode": "train" },
+    { "from": "chengdu", "to": "cambridge", "mode": "plane" },
+    { "from": "cambridge", "to": "kitakyushu", "mode": "plane" },
+    { "from": "kitakyushu", "to": "kobe", "mode": "train" },
+    { "from": "kobe", "to": "shenzhen", "mode": "plane" }
+  ],
+  "countries": [
+    {
+      "name": "China",
+      "namezh": "中国",
+      "color": "#f87171",
+      "places": ["jiexiu", "chengdu", "taiyuan", "dalian", "qingdao", "shenzhen"]
+    },
+    {
+      "name": "Japan",
+      "namezh": "日本",
+      "color": "#22d3ee",
+      "places": ["kitakyushu", "kobe"]
+    },
+    {
+      "name": "United Kingdom",
+      "namezh": "英国",
+      "color": "#a78bfa",
+      "places": ["cambridge"]
+    }
+  ],
+  "disclaimer": {
+    "en": "Transport modes are illustrative defaults — click a leg to change it.",
+    "zh": "交通方式为示意默认值，点击任一段可切换。"
+  }
+}

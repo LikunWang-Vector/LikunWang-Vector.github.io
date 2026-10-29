@@ -45,6 +45,19 @@ jobs:
     - name: Setup Pages
       id: pages
       uses: actions/configure-pages@v5
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: realme/package-lock.json
+    # REALME must be built before Hugo: module.yaml mounts realme/dist as
+    # static/realme, so Hugo copies it into public/ during the build.
+    - name: Build REALME page
+      working-directory: realme
+      run: |
+        npm ci
+        npm run build
     - name: Build with Hugo
       env:
         HUGO_ENVIRONMENT: production

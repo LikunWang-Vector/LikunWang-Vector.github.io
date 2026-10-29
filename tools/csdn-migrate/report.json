@@ -1,0 +1,50 @@
+{
+  "source": "D:/Projects/hexo-blog",
+  "zhPosts": 151,
+  "enPosts": 151,
+  "pairs": 151,
+  "unmatchedZh": [],
+  "unmatchedEn": [],
+  "duplicateTitles": [],
+  "slugCollisions": [],
+  "generated": {
+    "en": 151,
+    "zh": 151
+  },
+  "covers": [
+    "covers/csdn-python-crawler.png",
+    "covers/csdn-html.png",
+    "covers/csdn-css.png",
+    "covers/csdn-frontend.png",
+    "covers/csdn-notes.png",
+    "covers/csdn-systems.png",
+    "covers/csdn-software.png",
+    "covers/csdn-ai.png",
+    "covers/csdn-tools.png",
+    "covers/csdn-archive.png"
+  ],
+  "images": {
+    "references": 1634,
+    "localCopied": 1227,
+    "localBytes": 271851156,
+    "missing": [
+      "images/picture.jpg",
+      "/images/picture.jpg",
+      "/images/posts/电子科技大学软件工程期末复习笔记（八）：软件维护/464d39044858.png"
+    ],
+    "remote": [
+      "https://latex.csdn.net/eq"
+    ],
+    "unreferencedCount": 1,
+    "unreferencedBytes": 113858,
+    "byFormat": {},
+    "referencedBytes": 271851156
+  },
+  "warnings": [],
+  "fences": {
+    "fixed": 851
+  },
+  "scriptsStripped": 1,
+  "placeholders": [],
+  "oddFences": []
+}

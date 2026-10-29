@@ -1,0 +1,718 @@
+/* Travel atlas — MapLibre stage, HUD, leg editor and node index. */
+
+.travel-view {
+  --travel-line: rgba(77, 243, 255, 0.14);
+  --travel-panel: rgba(6, 12, 20, 0.78);
+  padding-bottom: 4rem;
+}
+
+.travel-status {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 1.6rem 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.travel-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  animation: travel-pulse 1.4s ease-in-out infinite;
+}
+
+.travel-status .view-empty {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+@keyframes travel-pulse {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+}
+
+/* ------------------------------------------------------------------ stage */
+
+.travel-stage {
+  position: relative;
+  margin-top: 0.4rem;
+  height: clamp(420px, 62vh, 640px);
+  border: 1px solid var(--travel-line);
+  background: #05090f;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.travel-stage::before,
+.travel-stage::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  border-color: var(--cyan);
+  border-style: solid;
+  opacity: 0.7;
+}
+
+.travel-stage::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.travel-stage::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+.travel-map {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.travel-stage.is-ready .travel-map {
+  opacity: 1;
+}
+
+.travel-stage.is-degraded .travel-map {
+  display: none;
+}
+
+.travel-map .maplibregl-canvas:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+}
+
+.travel-stage .maplibregl-ctrl-group {
+  background: rgba(4, 10, 16, 0.82);
+  border: 1px solid var(--travel-line);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.travel-stage .maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--travel-line);
+}
+
+.travel-stage .maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: invert(0.86) sepia(0.4) saturate(4) hue-rotate(140deg);
+}
+
+.travel-stage .maplibregl-ctrl-attrib {
+  background: rgba(4, 10, 16, 0.7);
+  font-size: 10px;
+}
+
+.travel-stage .maplibregl-ctrl-attrib a {
+  color: var(--ink-dim);
+}
+
+.travel-stage .maplibregl-ctrl-scale {
+  border-color: rgba(77, 243, 255, 0.35);
+  border-top: 0;
+  color: var(--ink-dim);
+  background: rgba(4, 10, 16, 0.6);
+  font-size: 10px;
+}
+
+/* -------------------------------------------------------------------- HUD */
+
+.travel-hud {
+  position: absolute;
+  z-index: 3;
+  top: 0.9rem;
+  left: 0.9rem;
+  min-width: min(260px, calc(100% - 4.5rem));
+  max-width: min(320px, calc(100% - 4.5rem));
+  padding: 0.75rem 0.9rem 0.7rem;
+  background: var(--travel-panel);
+  border: 1px solid var(--travel-line);
+  border-left: 2px solid var(--cyan);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.travel-hud > * {
+  display: block;
+}
+
+.travel-hud-kicker {
+  margin-bottom: 0.2rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+
+.travel-hud-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.travel-hud-zh {
+  color: var(--cyan);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+}
+
+.travel-hud-meta {
+  margin-top: 0.3rem;
+  color: var(--ink-dim);
+  font-size: 0.66rem;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+}
+
+.travel-hint {
+  margin-top: 0.45rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--travel-line);
+  color: rgba(125, 147, 166, 0.72);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.travel-reset {
+  pointer-events: auto;
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid var(--travel-line);
+  color: var(--ink-dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.travel-reset:hover,
+.travel-reset:focus-visible {
+  color: var(--cyan);
+  border-color: rgba(77, 243, 255, 0.5);
+  box-shadow: 0 0 18px rgba(77, 243, 255, 0.18);
+}
+
+/* ----------------------------------------------------------------- legend */
+
+.travel-legend {
+  position: absolute;
+  z-index: 3;
+  left: 0.9rem;
+  bottom: 2.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  max-width: calc(100% - 4rem);
+  padding: 0.4rem 0.6rem;
+  background: rgba(4, 10, 16, 0.66);
+  border: 1px solid var(--travel-line);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+.travel-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ink-dim);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.travel-legend-item i {
+  width: 14px;
+  height: 2px;
+  background: var(--c);
+  box-shadow: 0 0 8px var(--c);
+}
+
+/* ------------------------------------------------------------------- pins */
+
+.travel-pin {
+  --pin: #22d3ee;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform 0.2s var(--ease-out);
+}
+
+.travel-pin[data-type='origin'] {
+  --pin: #ffc857;
+}
+
+.travel-pin[data-type='education'] {
+  --pin: #4df3ff;
+}
+
+.travel-pin[data-type='visited'] {
+  --pin: #2dd4bf;
+}
+
+.travel-pin[data-type='work'] {
+  --pin: #6bffb3;
+}
+
+.travel-pin-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.18rem 0.4rem;
+  background: rgba(4, 9, 15, 0.86);
+  border: 1px solid color-mix(in srgb, var(--pin) 38%, transparent);
+  color: var(--ink);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.travel-pin-tag em {
+  color: var(--ink-dim);
+  font-size: 0.52rem;
+  font-style: normal;
+  letter-spacing: 0.16em;
+}
+
+.travel-pin-dot {
+  width: 9px;
+  height: 9px;
+  border: 1px solid #02060b;
+  border-radius: 50%;
+  background: var(--pin);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--pin) 28%, transparent),
+    0 0 14px var(--pin);
+}
+
+.travel-pin:hover,
+.travel-pin:focus-visible,
+.travel-pin.is-active {
+  transform: scale(1.08);
+  z-index: 4;
+}
+
+.travel-pin:hover .travel-pin-tag,
+.travel-pin:focus-visible .travel-pin-tag,
+.travel-pin.is-active .travel-pin-tag {
+  border-color: var(--pin);
+  color: #fff;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--pin) 30%, transparent);
+}
+
+.travel-pin:focus-visible {
+  outline: 1px solid var(--pin);
+  outline-offset: 3px;
+}
+
+/* Far out, labels overlap and clip at the map edges; dots carry the route. */
+.travel-stage.is-far .travel-pin-tag {
+  display: none;
+}
+
+.travel-stage.is-far .travel-pin:hover .travel-pin-tag,
+.travel-stage.is-far .travel-pin:focus-visible .travel-pin-tag,
+.travel-stage.is-far .travel-pin.is-active .travel-pin-tag {
+  display: flex;
+}
+
+/* -------------------------------------------------------------- meta grid */
+
+.travel-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.travel-panel {
+  padding: 1rem 1.1rem 1.15rem;
+  background: var(--travel-panel);
+  border: 1px solid var(--travel-line);
+  backdrop-filter: blur(8px);
+}
+
+.travel-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--travel-line);
+}
+
+.travel-panel-head .section-index {
+  color: var(--magenta);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+}
+
+.travel-panel-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.travel-total {
+  margin: 0.7rem 0 0.9rem;
+  color: var(--cyan);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------- leg editor */
+
+.travel-legs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.travel-leg {
+  display: grid;
+  grid-template-columns: 1.4rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    'index route modes'
+    '. detail modes';
+  align-items: center;
+  gap: 0.15rem 0.5rem;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid transparent;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.travel-leg:hover {
+  border-color: var(--travel-line);
+  background: rgba(77, 243, 255, 0.03);
+}
+
+.leg-index {
+  grid-area: index;
+  color: var(--magenta);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+}
+
+.leg-route {
+  grid-area: route;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  min-width: 0;
+}
+
+.leg-route strong {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.leg-route span {
+  color: var(--ink-dim);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+}
+
+.leg-route:hover strong {
+  color: var(--cyan);
+}
+
+.leg-detail {
+  grid-area: detail;
+  color: var(--ink-dim);
+  font-size: 0.56rem;
+  letter-spacing: 0.04em;
+}
+
+.leg-modes {
+  grid-area: modes;
+  display: flex;
+  gap: 2px;
+}
+
+.leg-mode {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--travel-line);
+  color: var(--ink-dim);
+  font-size: 0.66rem;
+  line-height: 1;
+  transition:
+    color 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s,
+    background 0.18s;
+}
+
+.leg-mode:hover,
+.leg-mode:focus-visible {
+  color: var(--c);
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.leg-mode.is-active {
+  color: var(--c);
+  border-color: var(--c);
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--c) 28%, transparent);
+}
+
+.leg-mode-icon {
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+
+.leg-mode.is-active .leg-mode-icon {
+  filter: none;
+  opacity: 1;
+}
+
+.travel-disclaimer {
+  margin: 0.9rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--travel-line);
+  color: rgba(125, 147, 166, 0.7);
+  font-size: 0.56rem;
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------------- node list */
+
+.travel-countries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.travel-country {
+  --c: #22d3ee;
+  padding-left: 0.6rem;
+  border-left: 2px solid color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.travel-country-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.travel-country-title strong {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c);
+}
+
+.travel-country-title span {
+  color: var(--ink-dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+}
+
+.travel-country-places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.travel-place {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--travel-line);
+  color: var(--ink-dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  transition:
+    color 0.18s,
+    border-color 0.18s,
+    background 0.18s;
+}
+
+.travel-place em {
+  font-size: 0.54rem;
+  font-style: normal;
+  letter-spacing: 0.12em;
+}
+
+.travel-place:hover,
+.travel-place:focus-visible,
+.travel-place.is-active {
+  color: var(--c);
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+  background: color-mix(in srgb, var(--c) 8%, transparent);
+}
+
+.travel-place.is-active {
+  color: #fff;
+}
+
+/* ----------------------------------------------------------------- credit */
+
+.travel-credit {
+  margin: 1rem 0 0;
+  color: rgba(125, 147, 166, 0.55);
+  font-size: 0.56rem;
+  letter-spacing: 0.04em;
+}
+
+.travel-credit a {
+  color: var(--ink-dim);
+  border-bottom: 1px solid var(--travel-line);
+  transition: color 0.2s;
+}
+
+.travel-credit a:hover {
+  color: var(--cyan);
+}
+
+/* ------------------------------------------------------------- responsive */
+
+/* The mascot is fixed to the viewport, so give the atlas its own column
+   instead of letting the map run underneath it. */
+@media (min-width: 721px) {
+  body.is-travel .view-body {
+    padding-right: clamp(210px, 26vw, 300px);
+  }
+}
+
+@media (max-width: 900px) {
+  .travel-meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  body.is-travel .mascot {
+    width: clamp(120px, 32vw, 150px);
+  }
+
+  body.is-travel .mascot[data-form='maid'] {
+    width: clamp(150px, 40vw, 180px);
+  }
+
+  .travel-stage {
+    height: clamp(340px, 56vh, 480px);
+  }
+
+  .travel-hud {
+    top: 0.6rem;
+    left: 0.6rem;
+    min-width: 0;
+    max-width: calc(100% - 5.4rem);
+    padding: 0.55rem 0.65rem;
+  }
+
+  .travel-hud-name {
+    font-size: 0.78rem;
+  }
+
+  .travel-hud-zh {
+    font-size: 0.62rem;
+  }
+
+  .travel-hint {
+    display: none;
+  }
+
+  /* In flow on small screens — the panel is too narrow for a corner button. */
+  .travel-reset {
+    position: static;
+    margin-top: 0.5rem;
+  }
+
+  .travel-legend {
+    left: 0.6rem;
+    bottom: 2.3rem;
+    gap: 0.3rem 0.6rem;
+    padding: 0.3rem 0.45rem;
+  }
+
+  .travel-legend-item {
+    font-size: 0.5rem;
+  }
+
+  .travel-pin-tag {
+    font-size: 0.5rem;
+  }
+
+  .travel-pin-tag em {
+    display: none;
+  }
+
+  .travel-leg {
+    grid-template-columns: 1rem minmax(0, 1fr) auto;
+    padding: 0.4rem 0.3rem;
+  }
+
+  .travel-panel {
+    padding: 0.8rem 0.8rem 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-map,
+  .travel-pin,
+  .leg-mode,
+  .travel-place {
+    transition: none;
+  }
+
+  .travel-status::before {
+    animation: none;
+  }
+}

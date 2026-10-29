@@ -48,6 +48,14 @@ zh:
         url: event/
         parent: more
         weight: 20
+      - name: CSDN 归档
+        url: csdn/
+        parent: more
+        weight: 25
+      - name: 炫酷版 ✦
+        url: https://likunwang-vector.github.io/realme/
+        parent: more
+        weight: 27
       - name: 联系
         url: /#contact
         parent: more

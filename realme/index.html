@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en" data-theme="neon">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>REALME // Likun Wang</title>
+    <meta
+      name="description"
+      content="An alternative, neon-terminal take on Likun Wang — AI systems, TPU operators and optimization research."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://likunwang-vector.github.io/" />
+    <meta name="theme-color" content="#04070c" />
+    <link rel="icon" href="/realme/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body data-pagefind-ignore>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <div class="overlay overlay-grid" aria-hidden="true"></div>
+    <div class="overlay overlay-scanlines" aria-hidden="true"></div>
+    <div class="overlay overlay-vignette" aria-hidden="true"></div>
+
+    <!-- Boot sequence -->
+    <div class="boot" id="boot" role="status" aria-live="polite">
+      <div class="boot-inner">
+        <pre class="boot-log" id="boot-log"></pre>
+        <p class="boot-hint" data-i18n="bootHint">press any key to skip</p>
+      </div>
+    </div>
+
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#/" aria-label="Back to the REALME home screen">
+        <span class="brand-mark">LW</span><span class="brand-path">://realme</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Sections" data-i18n-aria="sectionsLabel">
+        <a href="#/blog" data-cursor="hover" data-i18n="navBlog">01_blog</a>
+        <a href="#/archive" data-cursor="hover" data-i18n="navArchive">02_archive</a>
+        <a href="#/papers" data-cursor="hover" data-i18n="navPapers">03_papers</a>
+        <a href="#/projects" data-cursor="hover" data-i18n="navProjects">04_projects</a>
+        <a href="#/travel" data-cursor="hover" data-i18n="navTravel">05_travel</a>
+      </nav>
+      <div class="header-tools">
+        <!-- Only fixed-size controls sit to the right of the language pill
+             (the menu toggle, hidden on desktop), so neither its width nor
+             its right edge can move when nearby copy switches language. It is
+             fixed-width by design (see styles.css). -->
+        <a class="exit-link" href="/" data-cursor="hover">
+          <span class="exit-dot" aria-hidden="true"></span
+          ><span data-i18n="returnBlog">return to blog</span>
+        </a>
+        <div class="lang-switch" id="lang-switch" role="group" aria-label="Language">
+          <button
+            class="lang-opt"
+            type="button"
+            data-lang="en"
+            aria-pressed="false"
+            lang="en"
+            aria-label="English"
+          >
+            EN
+          </button>
+          <button
+            class="lang-opt"
+            type="button"
+            data-lang="zh"
+            aria-pressed="false"
+            lang="zh-Hans"
+            aria-label="中文"
+          >
+            中
+          </button>
+        </div>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Open menu"
+        >
+          <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero" id="hero">
+        <div class="hero-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span data-i18n="systemOnline">system online</span>
+          <span class="status-sep">/</span>
+          <span class="status-clock" id="clock">--:--:--</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="hero-title-line" data-glitch="LIKUN">LIKUN</span>
+          <span class="hero-title-line hero-title-accent" data-glitch="WANG">WANG</span>
+        </h1>
+        <p class="hero-name-zh" lang="zh-CN">王 立 坤</p>
+
+        <p class="hero-role" id="role-line" aria-live="off">
+          <span class="prompt" aria-hidden="true">&gt;</span>
+          <span class="role-text" id="role-text"></span><span class="caret" aria-hidden="true"></span>
+        </p>
+
+        <p class="hero-lede" data-i18n="heroLede">
+          Algorithm engineer working at the seam between deep learning and silicon —
+          TPU operators, toolchain optimisation, and the occasional topology-optimised fish.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#work" data-magnetic data-cursor="hover">
+            <span data-i18n="enterGrid">enter the grid</span>
+          </a>
+          <a class="btn btn-ghost" href="/" data-magnetic data-cursor="hover">
+            <span data-i18n="formalSite">formal site ↗</span>
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <span data-i18n="location">Shenzhen · 22.54°N</span>
+          <span
+            ><span data-i18n="latency">latency:</span> <em id="latency">--</em>
+            <span data-i18n="latencyUnit">ms</span></span
+          >
+          <span data-i18n="render">render: webgl</span>
+        </div>
+
+        <a class="scroll-cue" href="#about" aria-label="Scroll to about">
+          <span class="scroll-cue-line" aria-hidden="true"></span>
+          <span data-i18n="scroll">scroll</span>
+        </a>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section" id="about">
+        <div class="section-head">
+          <span class="section-index">01</span>
+          <h2 data-i18n="about">about</h2>
+          <span class="section-rule" aria-hidden="true"></span>
+        </div>
+
+        <div class="about-grid">
+          <div class="terminal" data-reveal>
+            <div class="terminal-bar">
+              <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+              <span class="terminal-title">~/likun/about.txt</span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="t-prompt">$</span> cat about.txt</p>
+              <p class="t-out" data-i18n="aboutP1">
+                I build and tune the low-level pieces that make neural networks fast:
+                TPU operator kernels, compiler passes, and the toolchain around them.
+              </p>
+              <p class="t-out" data-i18n="aboutP2">
+                Before that, a master's at Waseda's Optimization Lab — predicting
+                fish-vertebrae loading with topology optimization, FEA and deep learning —
+                and a computer-science degree at UESTC.
+              </p>
+              <p class="t-out" data-i18n="aboutP3">
+                I write bilingual tutorials on Python, web scraping and CS fundamentals,
+                archived on this same domain.
+              </p>
+              <p><span class="t-prompt">$</span> <span class="t-type" data-type-text="echo $STATUS"></span><span class="caret caret-sm" aria-hidden="true"></span></p>
+            </div>
+          </div>
+
+          <div class="stat-stack" data-reveal>
+            <div class="stat">
+              <span class="stat-value" data-count="151">0</span>
+              <span class="stat-label" data-i18n="statArticles">bilingual articles</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" data-count="4">0</span>
+              <span class="stat-label" data-i18n="statProjects">selected projects</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" data-count="1">0</span>
+              <span class="stat-label" data-i18n="statWcms">WCSMO oral</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">∞</span>
+              <span class="stat-label" data-i18n="statCoffee">coffee units</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STACK -->
+      <section class="section" id="stack">
+        <div class="section-head">
+          <span class="section-index">02</span>
+          <h2 data-i18n="stack">stack</h2>
+          <span class="section-rule" aria-hidden="true"></span>
+        </div>
+
+        <div class="stack-grid">
+          <article class="stack-card" data-reveal data-tilt>
+            <h3 data-i18n="stackAi">AI systems</h3>
+            <ul>
+              <li data-i18n="stackAi1">TPU operator development</li>
+              <li data-i18n="stackAi2">ML compiler &amp; toolchain</li>
+              <li data-i18n="stackAi3">PyTorch · TensorFlow</li>
+              <li data-i18n="stackAi4">CUDA / kernel profiling</li>
+            </ul>
+          </article>
+          <article class="stack-card" data-reveal data-tilt>
+            <h3 data-i18n="stackResearch">Research</h3>
+            <ul>
+              <li data-i18n="stackResearch1">Topology optimization</li>
+              <li data-i18n="stackResearch2">Finite element analysis</li>
+              <li data-i18n="stackResearch3">Computer vision · YOLO</li>
+              <li data-i18n="stackResearch4">Scientific computing</li>
+            </ul>
+          </article>
+          <article class="stack-card" data-reveal data-tilt>
+            <h3 data-i18n="stackEngineering">Engineering</h3>
+            <ul>
+              <li data-i18n="stackEngineering1">C++ · Python · CUDA</li>
+              <li data-i18n="stackEngineering2">Linux · Docker · Git</li>
+              <li data-i18n="stackEngineering3">Selenium · Scrapy · BS4</li>
+              <li data-i18n="stackEngineering4">Hugo · TypeScript · Three.js</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- WORK -->
+      <section class="section" id="work">
+        <div class="section-head">
+          <span class="section-index">03</span>
+          <h2 data-i18n="work">selected work</h2>
+          <span class="section-rule" aria-hidden="true"></span>
+        </div>
+
+        <div class="work-grid">
+          <a class="work-card" href="/project/tpu-operators/" data-reveal data-tilt data-cursor="hover">
+            <span class="work-tag" data-i18n="workSystems">systems</span>
+            <h3 data-i18n="workTpuTitle">TPU Operator Suite</h3>
+            <p data-i18n="workTpuDesc">Custom operators and toolchain fixes for production TPU workloads.</p>
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="work-card" href="/project/fish-vertebrae-prediction/" data-reveal data-tilt data-cursor="hover">
+            <span class="work-tag" data-i18n="workResearch">research</span>
+            <h3 data-i18n="workFishTitle">Fish Vertebrae Prediction</h3>
+            <p data-i18n="workFishDesc">Loading-force prediction combining topology optimization, FEA and deep learning.</p>
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="work-card" href="/project/driver-emotion-recognition/" data-reveal data-tilt data-cursor="hover">
+            <span class="work-tag" data-i18n="workVision">vision</span>
+            <h3 data-i18n="workDriverTitle">Driver Emotion Recognition</h3>
+            <p data-i18n="workDriverDesc">Real-time facial-state detection for in-cabin safety research.</p>
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="work-card" href="/project/bullet-dungeon-game/" data-reveal data-tilt data-cursor="hover">
+            <span class="work-tag" data-i18n="workPlay">play</span>
+            <h3 data-i18n="workBulletTitle">Bullet Dungeon</h3>
+            <p data-i18n="workBulletDesc">A bullet-hell dungeon crawler built as an engine and gameplay experiment.</p>
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="section" id="signal">
+        <div class="section-head">
+          <span class="section-index">04</span>
+          <h2 data-i18n="signal">signal log</h2>
+          <span class="section-rule" aria-hidden="true"></span>
+        </div>
+
+        <ol class="timeline">
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-time" data-i18n="timeNow">2025 — now</span>
+            <div class="timeline-body">
+              <h3 data-i18n="jobTpu">TPU Operator Engineer</h3>
+              <p data-i18n="jobTpuPlace">Suanhai Technology · Shenzhen</p>
+            </div>
+          </li>
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-time" data-i18n="timeWcms">2025.05</span>
+            <div class="timeline-body">
+              <h3 data-i18n="jobWcms">WCSMO-16 · Oral Presentation</h3>
+              <p data-i18n="jobWcmsPlace">Kobe, Japan · structural &amp; multidisciplinary optimization</p>
+            </div>
+          </li>
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-time" data-i18n="timeWaseda">2023 — 2025</span>
+            <div class="timeline-body">
+              <h3 data-i18n="jobWaseda">M.Eng. · Waseda University</h3>
+              <p data-i18n="jobWasedaPlace">Optimization Lab · Professor Shintaro Yamasaki</p>
+            </div>
+          </li>
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-time" data-i18n="timeUestc">2020 — 2024</span>
+            <div class="timeline-body">
+              <h3 data-i18n="jobUestc">B.Eng. · UESTC</h3>
+              <p data-i18n="jobUestcPlace">Computer Science &amp; Technology · UESTC–Waseda G-Course</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section contact" id="contact">
+        <div class="section-head">
+          <span class="section-index">05</span>
+          <h2 data-i18n="contact">open channel</h2>
+          <span class="section-rule" aria-hidden="true"></span>
+        </div>
+
+        <p class="contact-lede" data-reveal data-i18n="contactLede">
+          Research collaborations, systems work, or just a good problem — the channel is open.
+        </p>
+
+        <div class="contact-grid" data-reveal>
+          <a class="contact-link" href="mailto:vector_kun@ruri.waseda.jp" data-cursor="hover">
+            <span class="contact-key" data-i18n="contactMail">mail</span>
+            <span class="contact-value">vector_kun@<wbr />ruri.waseda.jp</span>
+          </a>
+          <a class="contact-link" href="https://github.com/LikunWang-Vector" target="_blank" rel="noopener" data-cursor="hover">
+            <span class="contact-key" data-i18n="contactGithub">github</span>
+            <span class="contact-value">LikunWang-Vector</span>
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/veckun/" target="_blank" rel="noopener" data-cursor="hover">
+            <span class="contact-key" data-i18n="contactLinkedin">linkedin</span>
+            <span class="contact-value">in/veckun</span>
+          </a>
+          <a class="contact-link" href="https://scholar.google.com/citations?user=z0AZmR4AAAAJ&hl=en" target="_blank" rel="noopener" data-cursor="hover">
+            <span class="contact-key" data-i18n="contactScholar">scholar</span>
+            <span class="contact-value">Google Scholar</span>
+          </a>
+          <a class="contact-link" href="https://blog.csdn.net/m0_59180666" target="_blank" rel="noopener" data-cursor="hover">
+            <span class="contact-key" data-i18n="contactCsdn">csdn</span>
+            <span class="contact-value">m0_59180666</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Content browser: lists and article reader, routed by #/blog, #/archive, #/papers, #/projects, #/travel -->
+    <section class="view" id="view" hidden aria-labelledby="view-crumb">
+      <div class="view-bar">
+        <a class="view-back" href="#/" data-cursor="hover"
+          ><span data-i18n="backToGrid">← back to the grid</span></a
+        >
+        <span class="view-crumb" id="view-crumb">blog</span>
+      </div>
+      <div class="view-body" id="view-body" tabindex="-1"></div>
+    </section>
+
+    <footer class="site-footer">
+      <span>© <span id="year">2026</span> Likun Wang</span>
+      <span class="footer-sep">//</span>
+      <a href="/" data-cursor="hover" data-i18n="footerFormal">formal site</a>
+      <button class="mascot-toggle" id="mascot-toggle" type="button" aria-pressed="true">
+        mascot: on
+      </button>
+    </footer>
+
+    <div class="mascot" id="mascot" hidden data-form="chibi" data-colour="blue">
+      <button
+        class="mascot-stage"
+        id="mascot-stage"
+        type="button"
+        aria-label="Say hello to the DeepSeek whale girl"
+      >
+        <span class="mascot-holo" aria-hidden="true">
+          <span class="mascot-holo-grid"></span>
+          <span class="mascot-holo-ring"></span>
+          <span class="mascot-holo-ring mascot-holo-ring--alt"></span>
+        </span>
+        <span class="mascot-rig" id="mascot-rig">
+          <img
+            class="mascot-art"
+            id="mascot-art"
+            src="/realme/mascot/chibi-blue.webp"
+            alt=""
+            decoding="async"
+          />
+          <span class="mascot-actor" id="mascot-actor" aria-hidden="true"></span>
+        </span>
+      </button>
+      <span class="mascot-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="mascot-bubble" id="mascot-bubble" role="status" aria-live="polite"></div>
+      <button
+        class="mascot-wardrobe-toggle"
+        id="mascot-wardrobe-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mascot-wardrobe"
+        aria-label="Open the wardrobe"
+      >
+        衣
+      </button>
+      <div class="mascot-wardrobe" id="mascot-wardrobe" hidden>
+        <div class="wardrobe-head">
+          <span class="wardrobe-title">衣柜 // wardrobe</span>
+          <button
+            class="wardrobe-close"
+            id="mascot-wardrobe-close"
+            type="button"
+            aria-label="Close the wardrobe"
+          >
+            ×
+          </button>
+        </div>
+        <div class="wardrobe-section">
+          <span class="wardrobe-label">形象</span>
+          <div
+            class="wardrobe-forms"
+            id="mascot-wardrobe-forms"
+            role="group"
+            aria-label="选择形象"
+          ></div>
+        </div>
+        <div class="wardrobe-section">
+          <span class="wardrobe-label">颜色</span>
+          <div
+            class="wardrobe-colours"
+            id="mascot-wardrobe-colours"
+            role="group"
+            aria-label="选择配色"
+          ></div>
+        </div>
+        <p class="wardrobe-status" id="mascot-wardrobe-status" role="status" aria-live="polite"></p>
+        <p class="wardrobe-credit">
+          鲸鱼娘原型 上善无形 · 女仆设计 zipzippipe · 标准 Mao绒绒家园 · 成年 玹乐喵 · Q版 氵六青 ·
+          大肥鱼 狐宫静 · 大肥鱼原型 这个刀子真甜 · 精灵图 oujnit · 网页播放器 本站 ·
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank" rel="noopener"
+            >CC BY-NC-SA 4.0 · 非商业</a
+          >
+        </p>
+      </div>
+      <button class="mascot-close" id="mascot-close" type="button" aria-label="Hide mascot">×</button>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
