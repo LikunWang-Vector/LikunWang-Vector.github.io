@@ -13,6 +13,7 @@ tools/resume/resume-zh.html
 # REALME sub-app (Vite)
 /realme/node_modules/
 /realme/dist/
+/realme/.vite/
 # rendered from ../content by realme/scripts/build-content.mjs
 /realme/public/content/
 
